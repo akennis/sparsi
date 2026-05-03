@@ -50,6 +50,7 @@
           github.com/akennis/clawdag-go
         </a>
         <a href="#example" class="btn btn-secondary">See the Example ↓</a>
+        <a href="#skills" class="btn btn-secondary">Skills ↓</a>
       </div>
     </div>
   </div>
@@ -176,11 +177,20 @@ result, _ := engine.Run(ctx, g)</code></pre>
     <!-- Installation -->
     <h3 style="margin-bottom:1rem;">Installation</h3>
     <p style="margin-bottom:1.25rem; font-size:0.9375rem;">
-      Skills work with <strong>Claude Code</strong> — CLI, desktop app, and VS Code / JetBrains extensions.
-      Download the bundle matching your library version from the
-      <a href="https://github.com/akennis/clawdag-go/releases" target="_blank" rel="noopener" style="color:var(--orange-light);">GitHub releases page</a>,
-      then copy to your skills directory:
+      Skills work with <strong>Claude Code</strong> and <strong>Gemini CLI</strong>.
+      Download the bundles below, then copy to your skills directory:
     </p>
+
+    <div style="display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+      <a href="clawdag-design.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        clawdag-design.zip
+      </a>
+      <a href="clawdag-codegen.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        clawdag-codegen.zip
+      </a>
+    </div>
 
     <div class="grid-2" style="margin-bottom:1.25rem;">
       <div>
@@ -190,8 +200,13 @@ result, _ := engine.Run(ctx, g)</code></pre>
             <div class="code-dots"><span></span><span></span><span></span></div>
             <span class="code-filename">terminal</span>
           </div>
-          <pre><code>cp -r clawdag-design  ~/.claude/skills/
-cp -r clawdag-codegen ~/.claude/skills/</code></pre>
+          <pre><code><span class="cm"># Claude Code</span>
+cp -r clawdag-design  ~/.claude/skills/
+cp -r clawdag-codegen ~/.claude/skills/
+
+<span class="cm"># Gemini CLI</span>
+cp -r clawdag-design  ~/.gemini/skills/
+cp -r clawdag-codegen ~/.gemini/skills/</code></pre>
         </div>
       </div>
       <div>
@@ -201,8 +216,13 @@ cp -r clawdag-codegen ~/.claude/skills/</code></pre>
             <div class="code-dots"><span></span><span></span><span></span></div>
             <span class="code-filename">PowerShell</span>
           </div>
-          <pre><code>Copy-Item -Recurse clawdag-design  "$env:USERPROFILE\.claude\skills\"
-Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.claude\skills\"</code></pre>
+          <pre><code><span class="cm"># Claude Code</span>
+Copy-Item -Recurse clawdag-design  "$env:USERPROFILE\.claude\skills\"
+Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.claude\skills\"
+
+<span class="cm"># Gemini CLI</span>
+Copy-Item -Recurse clawdag-design  "$env:USERPROFILE\.gemini\skills\"
+Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.gemini\skills\"</code></pre>
         </div>
       </div>
     </div>
@@ -214,8 +234,13 @@ Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.claude\skills\"</code></pr
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-filename">terminal</span>
         </div>
-        <pre><code>cp -r clawdag-design  .claude/skills/
-cp -r clawdag-codegen .claude/skills/</code></pre>
+        <pre><code><span class="cm"># Claude Code</span>
+cp -r clawdag-design  .claude/skills/
+cp -r clawdag-codegen .claude/skills/
+
+<span class="cm"># Gemini CLI</span>
+cp -r clawdag-design  .gemini/skills/
+cp -r clawdag-codegen .gemini/skills/</code></pre>
       </div>
     </div>
 

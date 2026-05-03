@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 02: Recipe Analyzer — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example that runs parallel AI extractors over recipe instructions and feeds the results into a deterministic difficulty score.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">02 — Recipe Difficulty Analyzer</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 02</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Recipe Difficulty Analyzer</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Fetches a recipe from TheMealDB (or an offline fixture), runs three AI extractors concurrently over the instructions text, then pipes their outputs through a fully deterministic scoring formula to classify difficulty and generate a skill-level-appropriate cooking tip.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li>Running <strong>multiple AI extractors in parallel</strong> — the DAG engine schedules the three extractors concurrently because they share the same input wire and have no mutual dependency</li>
+          <li>Using <strong>SliceLenOp</strong> to count items in AI-extracted lists, turning the AI result into a deterministic integer</li>
+          <li><strong>Arithmetic op chaining</strong>: MulOp + AddOp string together to compute <code>score = ingredients + steps×1.5 + minutes×0.1</code> without any AI involvement</li>
+          <li>Gating lanes on a <strong>continuous score</strong> (not just a category string) using numeric comparison predicates</li>
+          <li>The <strong>live vs. fixture</strong> pattern for deterministic offline testing of workflows that would otherwise need a real API</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/02-recipe-analyzer" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>AI extracts signals from unstructured text; deterministic ops turn those signals into a score; the score gates one of three advice lanes.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:700px; justify-content:center;">
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">HTTPGetOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">fetch / fixture</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">JSONExtractOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">instructions</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.35rem;">
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--purple-light); font-family:monospace;">AIExtract (ingredients)</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--purple-light); font-family:monospace;">AIExtract (steps)</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--purple-light); font-family:monospace;">AIParseNumber (minutes)</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">MulOp / AddOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">score formula</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.35rem;">
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace;">easy advice</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace;">medium advice</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace;">hard advice</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">CoalesceN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">ContextValOp / HTTPGetOp</p>
+            <p style="font-size:0.875rem; margin:0;">Live mode: fetches the TheMealDB API via <code>HTTPGetOp</code>. Fixture mode: reads a pre-captured JSON string from context via <code>ContextValFactory[string]</code>. Same downstream graph either way.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">JSONExtractOp (×2)</p>
+            <p style="font-size:0.875rem; margin:0;">Pulls <code>meals.0.strInstructions</code> and <code>meals.0.strMeal</code> from the API JSON using a dot-path selector. Zero AI tokens.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">SliceLenOp (×2)</p>
+            <p style="font-size:0.875rem; margin:0;">Counts the ingredients and steps lists that AI returned. Converts a non-deterministic list into a deterministic integer for the scoring formula.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">IntToFloatOp (×2) + MulOp (×2) + AddOp (×2)</p>
+            <p style="font-size:0.875rem; margin:0;">Implements <code>score = ingredient_count + step_count×1.5 + cook_minutes×0.1</code>. Each op is a single typed struct wired together — no scripting or eval.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">Predicate gates (×3) + CoalesceNStringOp</p>
+            <p style="font-size:0.875rem; margin:0;"><code>score_is_easy</code>, <code>score_is_medium</code>, <code>score_is_hard</code> compare the computed float against thresholds (15 and 30). Exactly one advice vertex fires.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIExtractStringSliceOp — ingredients</p>
+            <p style="font-size:0.875rem; margin:0;">Lists every distinct ingredient from the instructions text, one per item, stripped of quantities and units. Returns <code>[]string</code>.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIExtractStringSliceOp — steps</p>
+            <p style="font-size:0.875rem; margin:0;">Lists every discrete cooking step as a flat list. Runs concurrently with the ingredients extractor — same input wire, no dependency between them.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIParseNumberOp — cook_minutes</p>
+            <p style="font-size:0.875rem; margin:0;">Estimates total active + passive cook time in minutes. Also runs concurrently. Handles vague phrasings like "bake for about 30–40 minutes" reliably.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIComputeStringToStringOp — one advice lane</p>
+            <p style="font-size:0.875rem; margin:0;">Whichever difficulty band the score falls in, its lane generates a single targeted cooking tip. Only one of the three lanes fires per run.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. Three parallel AI extractors over the same input</h3>
+      <p style="margin-bottom:1.25rem;">All three extractors read from the same <code>instructions_text</code> wire. Because they have no dependencies on each other, the dagor engine schedules all three concurrently. The three AI calls complete in roughly the time of one.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 3 (three parallel extractors)</span>
+        </div>
+        <pre><code><span class="cm">// All three share the same "instructions_text" input wire.</span>
+<span class="cm">// No mutual dependency → the engine runs them concurrently.</span>
+<span class="fn">Vertex</span>(<span class="st">"ingredients"</span>).<span class="fn">Op</span>(<span class="st">"AIExtractStringSliceOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"extract every distinct ingredient ..."</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"instructions_text"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ingredients"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"steps"</span>).<span class="fn">Op</span>(<span class="st">"AIExtractStringSliceOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"extract every discrete cooking step ..."</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"instructions_text"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"steps"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"cook_minutes"</span>).<span class="fn">Op</span>(<span class="st">"AIParseNumberOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"estimate total cooking time in minutes"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"instructions_text"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"cook_minutes"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Deterministic scoring formula</h3>
+      <p style="margin-bottom:1.25rem;">Once the AI extractions complete, the rest of the scoring is pure arithmetic. <code>SliceLenOp</code> counts the list items, <code>IntToFloatOp</code> widens to float64, and <code>MulOp</code>/<code>AddOp</code> implement the formula. None of these steps ever calls an LLM.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 4 (deterministic scoring)</span>
+        </div>
+        <pre><code><span class="fn">Vertex</span>(<span class="st">"ingredient_count_int"</span>).<span class="fn">Op</span>(<span class="st">"SliceLenOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"ingredients"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ingredient_count_int"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"ingredient_count"</span>).<span class="fn">Op</span>(<span class="st">"IntToFloatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Value"</span>, <span class="st">"ingredient_count_int"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ingredient_count_f"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"step_weight"</span>).<span class="fn">Op</span>(<span class="st">"ConstFloat64Op"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"1.5"</span>}).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"step_weight"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"step_term"</span>).<span class="fn">Op</span>(<span class="st">"MulOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"step_count_f"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"step_weight"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"step_term"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"difficulty_score"</span>).<span class="fn">Op</span>(<span class="st">"AddOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"partial_score"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"cook_term"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"difficulty_score"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Numeric predicate gates on the score</h3>
+      <p style="margin-bottom:1.25rem;">Predicates for continuous scores compare the float wire against thresholds. Here the advice op itself carries the condition rather than a separate gate op — the predicate is evaluated before the vertex runs, and if false, the vertex is skipped along with its output wire.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — predicates + lane vertices</span>
+        </div>
+        <pre><code><span class="cm">// Thresholds: easy &lt; 15, medium 15–30, hard ≥ 30.</span>
+predicate.<span class="fn">Register</span>(<span class="st">"score_is_easy"</span>, <span class="kw">func</span>(in map[<span class="ty">string</span>]<span class="ty">any</span>) <span class="ty">bool</span> {
+    s, ok := in[<span class="st">"difficulty_score"</span>].(*<span class="ty">float64</span>)
+    <span class="kw">return</span> ok &amp;&amp; s != <span class="kw">nil</span> &amp;&amp; *s &lt; <span class="nu">15.0</span>
+})
+
+<span class="cm">// The condition goes on the advice vertex itself — no separate gate.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"easy_advice"</span>).<span class="fn">Op</span>(<span class="st">"AIComputeStringToStringOp"</span>).
+    <span class="fn">Condition</span>(<span class="st">"score_is_easy"</span>).
+    <span class="fn">ConditionInput</span>(<span class="st">"difficulty_score"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"write a one-sentence tip for a beginner cook ..."</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"meal_name"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"easy_advice"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">Test with three fixtures spanning all three difficulty bands: Pancakes (easy/medium boundary), Chicken Curry (medium), Beef Wellington (hard).</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
+
+<span class="cm"># Live API</span>
+go run ./examples/02-recipe-analyzer --meal <span class="st">"Pancakes"</span>
+go run ./examples/02-recipe-analyzer --meal <span class="st">"Chicken Curry"</span>
+go run ./examples/02-recipe-analyzer --meal <span class="st">"Beef Wellington"</span>
+
+<span class="cm"># Offline fixtures</span>
+go run ./examples/02-recipe-analyzer --fixture examples/02-recipe-analyzer/testdata/recipes/pancakes.json</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Measured on <code>testdata/recipes/pancakes.json</code>. All four <code>AIComputeOp</code> calls are the three parallel extractors plus the matched difficulty lane's description writer.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+            <th>Total tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AIComputeOp</td>
+            <td>4</td>
+            <td>800</td>
+            <td>177</td>
+            <td>977</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>4</td>
+            <td>800</td>
+            <td>177</td>
+            <td>977</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-01-ticket-triager.html" class="btn btn-secondary">← Example 01</a>
+    <a href="example-03-readme-quality.html" class="btn btn-secondary">Next: README Quality →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

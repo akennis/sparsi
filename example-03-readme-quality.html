@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 03: README Quality Report — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example that audits a GitHub README with five parallel AI probes and generates tailored improvement feedback.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">03 — GitHub README Quality Report</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 03</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">GitHub README Quality Report</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Fetches a repository's README from <code>raw.githubusercontent.com</code>, trying the <code>main</code> and <code>master</code> branches in parallel and selecting whichever returns HTTP&nbsp;200. Runs five AI quality probes concurrently, averages two scores deterministically, routes through a quality lane, and appends a test-coverage warning when the AI detects no mention of tests.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li><strong>Parallel HTTP fetches</strong> with deterministic branch selection — fetch main and master simultaneously, pick the 200 response with <code>SelectStringOp</code>, no try/catch</li>
+          <li>A <strong>probe fan-out</strong>: five AI ops all reading the same input wire, each asking a different question, all running in parallel</li>
+          <li><strong>Score averaging</strong> with <code>AddOp</code> + <code>DivOp</code> — once the AI returns two floats, all maths is deterministic</li>
+          <li>The <strong>optional suffix pattern</strong>: <code>SelectStringOp</code> selects between an empty string and a warning message; <code>StringConcatOp</code> appends it — no conditional code in the driver</li>
+          <li>A <strong>custom preprocessing op</strong> (<code>StringTruncateOp</code>) that caps input to 8 KB to stay within AI context limits</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/03-readme-quality" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>Parallel fetches feed a preprocessing op; five probes fan out; deterministic averaging feeds quality lanes; an orthogonal bool gate injects a warning suffix.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:750px; justify-content:center;">
+        <div style="display:flex; flex-direction:column; gap:0.35rem;">
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace;">HTTPGetOp (main)</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace;">HTTPGetOp (master)</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">SelectStringOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">pick 200</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">TruncateOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">8 KB cap</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">purpose (str)</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">doc_score</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">clarity_score</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">has_tests (bool)</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">has_install (bool)</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">Add + Div</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">avg score</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">lane + concat</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">± warning</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">HTTPGetOp (×2) + IfIntEqOp + SelectStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Both branch fetches run in parallel. <code>IfIntEqOp</code> checks whether the main-branch status equals 200. <code>SelectStringOp</code> picks the corresponding body — pure boolean logic, no AI.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">StringTruncateOp</p>
+            <p style="font-size:0.875rem; margin:0;">A custom op that caps the README to 8,192 bytes, preventing very large READMEs from blowing AI context budgets. Configured via a <code>max_bytes</code> parameter in <code>Setup()</code>.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">AddOp + ConstFloat64Op + DivOp</p>
+            <p style="font-size:0.875rem; margin:0;">Computes <code>avg_score = (doc_score + clarity_score) / 2</code>. The denominator is a constant wire (<code>2.0</code>) — no hardcoded values in Go driver code.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">SelectStringOp + StringConcatOp</p>
+            <p style="font-size:0.875rem; margin:0;">If <code>has_tests</code> is false, <code>SelectStringOp</code> routes a warning string; otherwise an empty string. <code>StringConcatOp</code> appends it. No conditional code in the driver.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIComputeStringToStringOp — purpose</p>
+            <p style="font-size:0.875rem; margin:0;">Summarises the project's purpose in one sentence. Runs in parallel with the four score probes.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIScoreOp (×2) — doc_score, clarity_score</p>
+            <p style="font-size:0.875rem; margin:0;">Scores documentation completeness and clarity for new contributors on 0–1. Two independent calls that run concurrently.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIBoolOp (×2) — has_tests, has_install</p>
+            <p style="font-size:0.875rem; margin:0;">Answers yes/no: "does the README mention tests/CI?" and "does it contain installation instructions?". Both run concurrently alongside the score ops.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIComputeStringToStringOp — quality lane (1 of 3)</p>
+            <p style="font-size:0.875rem; margin:0;">Generates an endorsement (excellent ≥ 0.75), a constructive critique (ok ≥ 0.40), or an improvement plan (poor &lt; 0.40), depending on the averaged score.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. Parallel branch fetches with deterministic selection</h3>
+      <p style="margin-bottom:1.25rem;">Both <code>fetch_main</code> and <code>fetch_master</code> run without any condition — they always execute in parallel. <code>IfIntEqOp</code> converts the HTTP status to a boolean, and <code>SelectStringOp</code> acts as a pure data multiplexer: no imperative branching required.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 1 (parallel fetches)</span>
+        </div>
+        <pre><code><span class="cm">// Both fetches run in parallel — no Condition on either vertex.</span>
+<span class="fn">Vertex</span>(<span class="st">"fetch_main"</span>).<span class="fn">Op</span>(<span class="st">"HTTPGetOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"URL"</span>, <span class="st">"main_url"</span>).
+    <span class="fn">Output</span>(<span class="st">"Body"</span>, <span class="st">"main_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"StatusCode"</span>, <span class="st">"main_status"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"fetch_master"</span>).<span class="fn">Op</span>(<span class="st">"HTTPGetOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"URL"</span>, <span class="st">"master_url"</span>).
+    <span class="fn">Output</span>(<span class="st">"Body"</span>, <span class="st">"master_body"</span>).
+
+<span class="cm">// Was the main-branch fetch a 200?</span>
+<span class="fn">Vertex</span>(<span class="st">"check_main"</span>).<span class="fn">Op</span>(<span class="st">"IfIntEqOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"main_status"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"int_200"</span>).
+    <span class="fn">Output</span>(<span class="st">"Match"</span>, <span class="st">"main_ok"</span>).
+
+<span class="cm">// Pick the body whose branch actually exists.</span>
+<span class="fn">Vertex</span>(<span class="st">"pick_readme"</span>).<span class="fn">Op</span>(<span class="st">"SelectStringOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Cond"</span>, <span class="st">"main_ok"</span>).
+    <span class="fn">Input</span>(<span class="st">"IfTrue"</span>, <span class="st">"main_body"</span>).
+    <span class="fn">Input</span>(<span class="st">"IfFalse"</span>, <span class="st">"master_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"readme_raw"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Five concurrent AI probes</h3>
+      <p style="margin-bottom:1.25rem;">After truncation, all five probes read from the same <code>readme</code> wire. With no mutual dependencies, the dagor engine schedules all five concurrently — five AI questions answered in roughly the time of one.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 3 (five parallel probes)</span>
+        </div>
+        <pre><code><span class="fn">Vertex</span>(<span class="st">"purpose_op"</span>).<span class="fn">Op</span>(<span class="st">"AIComputeStringToStringOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"summarize the purpose in one sentence"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"readme"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"purpose_str"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"doc_score_op"</span>).<span class="fn">Op</span>(<span class="st">"AIScoreOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"criterion"</span>: <span class="st">"documentation completeness"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"readme"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"doc_score"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"has_tests_op"</span>).<span class="fn">Op</span>(<span class="st">"AIBoolOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"predicate"</span>: <span class="st">"does this README mention tests or CI?"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"readme"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"has_tests"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Deterministic score averaging</h3>
+      <p style="margin-bottom:1.25rem;">The average is computed with two op vertices — <code>AddOp</code> sums the two score wires, and <code>DivOp</code> divides by a constant wire. Both are typed library ops; no math lives in driver code.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 4 (average score)</span>
+        </div>
+        <pre><code><span class="fn">Vertex</span>(<span class="st">"sum_scores"</span>).<span class="fn">Op</span>(<span class="st">"AddOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"doc_score"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"clarity_score"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"sum_scores_val"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"const_2"</span>).<span class="fn">Op</span>(<span class="st">"ConstFloat64Op"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"2.0"</span>}).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"two_f"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"avg_score_op"</span>).<span class="fn">Op</span>(<span class="st">"DivOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"sum_scores_val"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"two_f"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"avg_score"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">4. Optional warning suffix with SelectStringOp</h3>
+      <p style="margin-bottom:1.25rem;"><code>SelectStringOp</code> acts as an in-graph ternary: when <code>has_tests</code> is true it routes an empty string; when false it routes the warning text. <code>StringConcatOp</code> appends whichever was selected. No <code>if</code> statements in the driver.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 6 (warning injection)</span>
+        </div>
+        <pre><code><span class="cm">// Registered: operator.RegisterOpFactory("warning_const", builtin.ContextValFactory[string](warningKey{}))</span>
+<span class="cm">// Injected:   ctx = context.WithValue(ctx, warningKey{}, "\n\nWARNING: tests not mentioned")</span>
+<span class="fn">Vertex</span>(<span class="st">"warning_const"</span>).<span class="fn">Op</span>(<span class="st">"warning_const"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"warning_text"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"test_warning"</span>).<span class="fn">Op</span>(<span class="st">"SelectStringOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Cond"</span>, <span class="st">"has_tests"</span>).
+    <span class="fn">Input</span>(<span class="st">"IfTrue"</span>, <span class="st">"empty_text"</span>).   <span class="cm">// tests mentioned: no warning</span>
+    <span class="fn">Input</span>(<span class="st">"IfFalse"</span>, <span class="st">"warning_text"</span>). <span class="cm">// no tests: warning appended</span>
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"test_warning_str"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"final_narrative"</span>).<span class="fn">Op</span>(<span class="st">"StringConcatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"narrative"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"test_warning_str"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_narrative"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
+
+<span class="cm"># Live slug — main branch</span>
+go run ./examples/03-readme-quality/ --slug wwz16/dagor
+
+<span class="cm"># Live slug — master branch fallback</span>
+go run ./examples/03-readme-quality/ --slug tj/n
+
+<span class="cm"># Offline fixture</span>
+go run ./examples/03-readme-quality/ --fixture examples/03-readme-quality/testdata/dagor.md</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Measured on <code>testdata/dagor.md</code>. Input costs are high because the full README (~2,100 tokens) is re-passed as context to each of the six probes independently.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+            <th>Total tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AIBoolOp</td>
+            <td>2</td>
+            <td>4,275</td>
+            <td>8</td>
+            <td>4,283</td>
+          </tr>
+          <tr>
+            <td>AIScoreOp</td>
+            <td>2</td>
+            <td>4,303</td>
+            <td>14</td>
+            <td>4,317</td>
+          </tr>
+          <tr>
+            <td>AIComputeOp</td>
+            <td>2</td>
+            <td>4,300</td>
+            <td>311</td>
+            <td>4,611</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>6</td>
+            <td>12,878</td>
+            <td>333</td>
+            <td>13,211</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-02-recipe-analyzer.html" class="btn btn-secondary">← Example 02</a>
+    <a href="example-04-weather-advisor.html" class="btn btn-secondary">Next: Weather Advisor →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

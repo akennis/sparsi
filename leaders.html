@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Engineering Leaders — clawdag-go</title>
+  <meta name="description" content="Why CTOs and CIOs choose clawdag-go: control, cost, compliance, and team readiness for AI workflows.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .risk-row { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem; }
+    @media(max-width:600px){ .risk-row { grid-template-columns:1fr; } }
+    .risk-card { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem; }
+    .risk-card h4 { margin-bottom:0.5rem; font-size:0.9375rem; }
+    .risk-card p  { font-size:0.875rem; line-height:1.7; }
+    .risk-card.risk-bad  { border-left:3px solid var(--red);    }
+    .risk-card.risk-good { border-left:3px solid var(--green);  }
+    .risk-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.375rem; }
+    .risk-label.bad  { color:var(--red);   }
+    .risk-label.good { color:var(--green); }
+    .faq-item { border-top:1px solid var(--border); padding:1.5rem 0; }
+    .faq-item:last-child { border-bottom:1px solid var(--border); }
+    .faq-q { font-weight:700; color:var(--text-0); margin-bottom:0.5rem; font-size:1rem; }
+    .faq-a { color:var(--text-2); font-size:0.9375rem; line-height:1.75; }
+    .stat-row { display:flex; gap:3rem; justify-content:center; flex-wrap:wrap; margin-top:2rem; }
+    .stat { text-align:center; }
+    .stat-n { font-size:2.75rem; font-weight:800; color:var(--orange); display:block; line-height:1; }
+    .stat-l { font-size:0.8125rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.06em; margin-top:0.375rem; display:block; }
+    .phase-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    @media(max-width:768px){ .phase-grid { grid-template-columns:1fr; } }
+    .phase-card { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; }
+    .phase-num { font-size:0.75rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem; }
+    .phase-card h3 { margin-bottom:0.75rem; font-size:1.0625rem; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns3" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na3" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na3)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng3)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns3)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="leaders.html" class="active">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="releases.html">Releases</a></li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section class="hero" style="padding:4.5rem 0 3.5rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <span class="badge badge-purple" style="margin-bottom:1rem; display:inline-flex;">For CTOs &amp; Engineering Leaders</span>
+      <h1 style="margin-bottom:1.25rem;">
+        AI That Your <span class="hi-o">Auditors</span><br>Can Inspect
+      </h1>
+      <p style="font-size:1.0625rem; margin-bottom:2rem; line-height:1.8; max-width:700px;">
+        AI workflows built on prompt chains are opaque by construction.
+        clawdag-go inverts that: logic is in code, AI is a controlled component,
+        and every decision is traceable back to the vertex that made it.
+      </p>
+      <div class="hero-actions">
+        <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
+        <a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats strip ──────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2.5rem 0;">
+  <div class="container">
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-n">0</span>
+        <span class="stat-l">tokens burned on deterministic steps</span>
+      </div>
+      <div class="stat">
+        <span class="stat-n">100%</span>
+        <span class="stat-l">of deterministic ops are unit-testable</span>
+      </div>
+      <div class="stat">
+        <span class="stat-n">Every</span>
+        <span class="stat-l">AI call logged with input, output &amp; reasoning</span>
+      </div>
+      <div class="stat">
+        <span class="stat-n">BSD 3-Clause</span>
+        <span class="stat-l">licence — no vendor lock-in</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Three pillars ────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">The Business Case</span>
+      <h2>Three things that change when you<br>adopt clawdag-go</h2>
+    </div>
+
+    <!-- Pillar 1: Control -->
+    <div class="split" style="margin-bottom:4rem;">
+      <div>
+        <div style="margin-bottom:1rem;">
+          <span class="badge badge-orange">01 — Control</span>
+        </div>
+        <h2 style="margin-bottom:1rem;">Your logic stays in your code</h2>
+        <p style="margin-bottom:1.25rem; font-size:1rem; line-height:1.8;">
+          In a pure LLM chain, business logic migrates into prompt text — brittle, hard to
+          version, sensitive to model updates. In clawdag-go, <strong>logic is Go code</strong>.
+          Deterministic ops are plain structs with a <code>Run</code> method. Reviewable,
+          diffable, deployable like any other software.
+        </p>
+        <p style="font-size:1rem; line-height:1.8; margin-bottom:1.5rem;">
+          AI is a narrow, explicitly-bounded component. You decide which vertices call the
+          model. You decide what prompt they use. You decide which output wire carries
+          the result. The model cannot exceed the scope its vertex defines.
+        </p>
+        <ul class="check-list">
+          <li>Workflow structure is static and code-reviewable</li>
+          <li>Changing a prompt is a commit, not tribal knowledge</li>
+          <li>Conditional branches are Go predicates, not meta-prompts</li>
+          <li>AI surface area is explicit and bounded</li>
+        </ul>
+      </div>
+      <div>
+        <!-- Control diagram: code vs prompt chain -->
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <p style="font-size:0.8rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.25rem; font-weight:600;">Where does the logic live?</p>
+          <div style="margin-bottom:1.5rem;">
+            <p style="font-size:0.8125rem; color:var(--red); font-weight:700; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.04em;">Pure LLM chain</p>
+            <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:8px; padding:1rem; font-size:0.8125rem; font-family:monospace; color:var(--text-3); line-height:1.8;">
+              "You are a support agent. First classify the ticket.<br>
+              Then, if billing, extract the following fields…<br>
+              If a bug, list reproduction steps and score severity…<br>
+              <span style="color:var(--red);">Remember to also check for regressions. Return JSON.</span><br>
+              <span style="color:var(--text-3); opacity:0.5;">// business logic buried in prompt text</span>"
+            </div>
+          </div>
+          <div>
+            <p style="font-size:0.8125rem; color:var(--green); font-weight:700; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.04em;">clawdag-go</p>
+            <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:8px; padding:1rem; font-size:0.8125rem; font-family:monospace; color:#8be9fd; line-height:1.8;">
+              <span style="color:#6272a4;">// classify — one AI call, typed output</span><br>
+              Op(<span style="color:#f1fa8c;">"ModeSelectOp"</span>).<span style="color:#50fa7b;">Condition</span>(…)<br>
+              <span style="color:#6272a4;">// route — pure Go predicate</span><br>
+              Vertex(<span style="color:#f1fa8c;">"gate_bug"</span>).<span style="color:#50fa7b;">Condition</span>(<span style="color:#f1fa8c;">"lane_is_bug"</span>)<br>
+              <span style="color:#6272a4;">// extract — scoped AI op</span><br>
+              Op(<span style="color:#f1fa8c;">"AIExtractStringSliceOp"</span>)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 2: Cost -->
+    <div class="split" style="margin-bottom:4rem;">
+      <div style="order:2;">
+        <div style="margin-bottom:1rem;">
+          <span class="badge badge-blue">02 — Cost</span>
+        </div>
+        <h2 style="margin-bottom:1rem;">AI costs are bounded<br>by structure</h2>
+        <p style="margin-bottom:1.25rem; font-size:1rem; line-height:1.8;">
+          In a prompt chain, costs scale with the length of the conversation and the
+          complexity of the prompt. One long "do everything" prompt is expensive every single call.
+        </p>
+        <p style="font-size:1rem; line-height:1.8; margin-bottom:1.5rem;">
+          In clawdag-go, each AI op is <strong>narrow and typed</strong>.
+          A classification call is one sentence in, one category out.
+          An extraction call sends exactly the relevant body, not the entire conversation context.
+          Conditional gates ensure AI ops in unused branches are never called at all.
+        </p>
+        <ul class="check-list">
+          <li>AI call count is bounded by the workflow graph</li>
+          <li>Unused conditional branches burn zero tokens</li>
+          <li>SkipIf wires add a free deterministic cache layer</li>
+          <li>As the op library grows, AI calls naturally shrink</li>
+          <li>No per-run "surprise" costs from prompt bleed</li>
+        </ul>
+      </div>
+      <div>
+        <!-- Cost comparison visual -->
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <p style="font-size:0.8rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.25rem; font-weight:600;">Token consumption per run (ticket triager example)</p>
+          <!-- Pure chain bar -->
+          <div style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.375rem;">
+              <span style="font-size:0.8125rem; color:var(--text-2);">Pure LLM chain</span>
+              <span style="font-size:0.8125rem; color:var(--red); font-weight:600;">~2,400 tokens / call</span>
+            </div>
+            <div style="background:var(--bg-0); border-radius:6px; height:28px; overflow:hidden;">
+              <div style="background:rgba(239,68,68,0.4); border:1px solid rgba(239,68,68,0.6); height:100%; width:95%; border-radius:6px; display:flex; align-items:center; padding-left:0.75rem;">
+                <span style="font-size:0.75rem; color:rgba(255,255,255,0.7);">Full context every step + routing meta-prompt</span>
+              </div>
+            </div>
+          </div>
+          <!-- clawdag bar -->
+          <div style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.375rem;">
+              <span style="font-size:0.8125rem; color:var(--text-2);">clawdag-go (billing ticket)</span>
+              <span style="font-size:0.8125rem; color:var(--green); font-weight:600;">~380 tokens / call</span>
+            </div>
+            <div style="background:var(--bg-0); border-radius:6px; height:28px; overflow:hidden;">
+              <div style="background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); height:100%; width:16%; border-radius:6px; display:flex; align-items:center; padding-left:0.75rem; min-width:180px;">
+                <span style="font-size:0.75rem; color:rgba(255,255,255,0.7);">classify + 2 billing AI ops only</span>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.8125rem; color:var(--text-3); font-style:italic;">
+            Unused lanes (bug / feature / other) are pruned by the engine — those AI ops are never invoked.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 3: Compliance -->
+    <div class="split">
+      <div>
+        <div style="margin-bottom:1rem;">
+          <span class="badge badge-purple">03 — Compliance &amp; Auditability</span>
+        </div>
+        <h2 style="margin-bottom:1rem;">Every decision is traceable</h2>
+        <p style="margin-bottom:1.25rem; font-size:1rem; line-height:1.8;">
+          Regulators and auditors want to know: given this input, how did the system
+          reach this output? In a prompt chain, the answer is "the model decided" — an answer
+          that satisfies almost no one.
+        </p>
+        <p style="font-size:1rem; line-height:1.8; margin-bottom:1.5rem;">
+          In clawdag-go, every run produces a trace. Deterministic ops have known, reproducible
+          behaviour. AI ops log their exact prompt, model response, and reasoning string.
+          The DAG topology itself is a static artefact you can commit, review, and version.
+        </p>
+        <ul class="check-list">
+          <li>Deterministic steps satisfy data-flow audit requirements</li>
+          <li>AI ops log input + output + reasoning on every call</li>
+          <li>Workflow structure is code — version-controlled and reviewable</li>
+          <li>Run-level <code>ai_nodes</code> field records exactly which AI ops fired</li>
+          <li>Model name and version are explicit in op configuration</li>
+        </ul>
+      </div>
+      <div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <p style="font-size:0.8rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.25rem; font-weight:600;">Run output includes full provenance</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span></span><span></span><span></span></div>
+              <span class="code-filename">run output (JSON)</span>
+            </div>
+            <pre style="font-size:0.775rem;"><code>{
+  <span class="st">"category"</span>: <span class="st">"billing"</span>,
+  <span class="st">"details"</span>: { <span class="cm">/* extracted fields */</span> },
+  <span class="st">"ai_nodes"</span>: [
+    <span class="st">"ModeSelectOp"</span>,           <span class="cm">// classified</span>
+    <span class="st">"AIExtractMapOp(billing)"</span>, <span class="cm">// extracted</span>
+    <span class="st">"AIParseNumberOp(refund)"</span>  <span class="cm">// parsed</span>
+  ]
+  <span class="cm">// + per-op: input, output, reasoning</span>
+}</code></pre>
+          </div>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin-top:1rem; font-style:italic;">
+            Every AI call is attributed to a named vertex with a typed signature.
+            No reasoning happens outside the declared graph.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Risk comparison ──────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Risk Analysis</span>
+      <h2>How clawdag-go changes your risk profile</h2>
+      <p>Every risk category that matters to engineering leaders, compared directly.</p>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Unpredictable outputs</h4>
+        <p>The same input produces different outputs on re-run. Any downstream system depending on the response must tolerate undefined variability.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Deterministic where it matters</h4>
+        <p>Pure-function ops produce identical outputs on identical inputs. Only AI ops introduce variance — and their scope is explicitly bounded.</p>
+      </div>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Model version sensitivity</h4>
+        <p>When the provider updates the model, prompt behaviour changes silently. You discover this in production, not in code review.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Model changes are contained</h4>
+        <p>Deterministic logic is immune to model changes. Only AI ops are affected — and they're explicitly declared, so the blast radius is known before the update lands.</p>
+      </div>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Runaway token costs</h4>
+        <p>Each step passes accumulated context. A complex workflow with ten steps multiplies token usage linearly. Cost spikes are hard to attribute to a specific step.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Bounded, attributable costs</h4>
+        <p>Each AI op sends only the data its vertex declares. Cost per run is the sum of declared AI ops that actually fire — zero surprises, easy chargebacks.</p>
+      </div>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Silent reasoning failures</h4>
+        <p>When the chain produces a wrong answer, debugging requires replaying multi-step conversations and guessing which link failed.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Vertex-level failure isolation</h4>
+        <p>Errors surface at the exact vertex that failed. The engine attributes the failure before any downstream steps run. MTTR drops dramatically.</p>
+      </div>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Vendor lock-in via prompt engineering</h4>
+        <p>Complex, model-specific prompt engineering accumulates over time. Migrating to a different provider means rewriting invisible business logic.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Logic lives in code, not prompts</h4>
+        <p>Business rules are Go code — portable and provider-agnostic. AI ops accept <code>provider</code> and <code>model</code> parameters: redirect any op to a different provider in one line, or mix Claude and Gemini within a single workflow. BSD 3-Clause licensed.</p>
+      </div>
+    </div>
+
+    <div class="risk-row">
+      <div class="risk-card risk-bad">
+        <div class="risk-label bad">Pure LLM chain</div>
+        <h4>Confirmation bias compounds across steps</h4>
+        <p>A model asked to verify its own output shares the same priors and blindspots that produced it. Hallucinations go unchallenged — the verifier sees what it expects to see.</p>
+      </div>
+      <div class="risk-card risk-good">
+        <div class="risk-label good">clawdag-go</div>
+        <h4>Independent model as quality gate</h4>
+        <p>Route verification to a different provider. A Gemini check on Claude-generated content — or vice versa — surfaces unsupported claims that either model alone would rationalise away. Model selection is a per-vertex parameter, not a global setting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Team readiness ────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Team Readiness</span>
+      <h2>How to prepare your team</h2>
+      <p>clawdag-go introduces one new pattern. Your team likely knows everything else already.</p>
+    </div>
+
+    <div class="phase-grid" style="margin-bottom:3rem;">
+      <div class="phase-card">
+        <div class="phase-num">Phase 1 — Day 1–5</div>
+        <h3>Learn the Op Pattern</h3>
+        <ul class="check-list">
+          <li>An op is a Go struct with <code>dag:"input"</code> / <code>dag:"output"</code> tags and a <code>Run(ctx)</code> method</li>
+          <li>Think of each op as a pure function: inputs → outputs, no side-effects</li>
+          <li>The <code>daggen</code> tool generates boilerplate from struct tags</li>
+          <li>Run the existing examples with a <code>CLAUDE_API_KEY</code></li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 2 — Week 1–2</div>
+        <h3>Design DAGs Before Writing Code</h3>
+        <ul class="check-list">
+          <li>Draw the workflow as a graph before touching keyboard</li>
+          <li>For each node: is this deterministic or does it need AI judgment?</li>
+          <li>Identify where conditional routing is needed (predicate gates)</li>
+          <li>Name wires explicitly — they document the data flow</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 3 — Week 2+</div>
+        <h3>Build and Grow the Library</h3>
+        <ul class="check-list">
+          <li>Every reusable deterministic op added to the library reduces future AI calls</li>
+          <li>Start AI ops broad; narrow them as you learn what can be made deterministic</li>
+          <li>Add <code>SkipIf</code> wires where you can cache or lookup first</li>
+          <li>Monitor <code>ai_nodes</code> output to track AI call counts per workflow</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Roles grid -->
+    <h3 style="margin-bottom:1.5rem; text-align:center; font-size:1.375rem;">What each role needs to know</h3>
+    <div class="grid-2" style="gap:1.25rem;">
+      <div class="card">
+        <div class="card-icon icon-blue" style="font-size:1rem; font-weight:800;">IC</div>
+        <h3>Engineers</h3>
+        <ul class="feat-list">
+          <li>The op interface: <code>Setup</code>, <code>Reset</code>, <code>Run</code></li>
+          <li>Struct tag annotations and <code>daggen</code> codegen</li>
+          <li>Builder API: <code>Vertex</code>, <code>Input</code>, <code>Output</code>, <code>Condition</code></li>
+          <li>When to embed <code>AIComputeOp[In, Out]</code> vs write a det op</li>
+          <li>Testing: unit-test det ops, integration-test AI ops</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-orange" style="font-size:1rem; font-weight:800;">TL</div>
+        <h3>Tech Leads &amp; Architects</h3>
+        <ul class="feat-list">
+          <li>DAG design as a first-class planning activity</li>
+          <li>Define the deterministic/AI boundary before implementation</li>
+          <li>Library ownership: which team owns which ops</li>
+          <li>Wire naming conventions (these become your data contracts)</li>
+          <li>Monitoring: track AI op call counts and costs per workflow</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple" style="font-size:1rem; font-weight:800;">PM</div>
+        <h3>Product &amp; Programme Managers</h3>
+        <ul class="feat-list">
+          <li>Understand that "AI-enhanced" does not mean "non-deterministic"</li>
+          <li>Feature changes are code changes — estimable and reviewable</li>
+          <li>AI scope changes have a bounded blast radius</li>
+          <li>Workflow topology is a deliverable that can be reviewed</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green" style="font-size:1rem; font-weight:800;">GRC</div>
+        <h3>Compliance &amp; Legal</h3>
+        <ul class="feat-list">
+          <li>Every AI call is logged with input, output, and reasoning</li>
+          <li>Deterministic steps are reproducible on demand</li>
+          <li>Workflow topology is version-controlled source artefact</li>
+          <li>AI models are explicit and auditable per vertex</li>
+          <li>BSD 3-Clause licence — no proprietary workflow runtime</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ──────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header">
+      <span class="badge badge-blue">FAQ</span>
+      <h2>Common questions from leadership</h2>
+    </div>
+    <div>
+      <div class="faq-item">
+        <div class="faq-q">Does adopting clawdag-go require a full rewrite?</div>
+        <div class="faq-a">No. clawdag-go is a Go library. You can introduce it incrementally — start with one new workflow, prove the pattern, then expand. Existing services don't need to change.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which AI providers are supported?</div>
+        <div class="faq-a">The built-in library ops support Claude (Anthropic) and Gemini (Google) today, with OpenAI on the roadmap. Every AI op accepts <code>provider</code> and <code>model</code> parameters — switch any op to a different provider in one line, mix models within a single workflow, and use an independent second model as a verification gate. The deterministic ops have no provider dependency whatsoever.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How does this compare to LangChain or other orchestration frameworks?</div>
+        <div class="faq-a">LangChain and similar frameworks make it easy to chain prompts. clawdag-go makes it possible to <em>not</em> chain prompts — using deterministic Go code for everything that doesn't need AI, and explicit typed ops for everything that does. The result is leaner, cheaper, and debuggable.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if our use case genuinely needs AI at every step?</div>
+        <div class="faq-a">clawdag-go supports that too — every vertex can be an AI op. But in practice, most workflows have at least some steps that are pure transformation: parsing, routing, scoring, filtering. Even replacing 30% of AI calls with deterministic ops has meaningful cost and reliability impact.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do we handle the generated MCPB packages?</div>
+        <div class="faq-a">When the codegen driver compiles a workflow successfully, it packages the binary and a <code>manifest.json</code> into a <code>.mcpb</code> archive (a ZIP). This can be deployed to any server or MCP-compatible client. No runtime beyond the binary itself is required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the migration path if we later want to remove an AI op?</div>
+        <div class="faq-a">Replace the AI op vertex with a deterministic op of the same input/output types. Wire names stay the same. The rest of the graph is untouched. This is the natural evolution path as your op library matures — AI ops are intended to shrink over time, not grow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Ready to give your team a better foundation?</h2>
+      <p>Start with a working example, run it against your own use case, and see how many
+         AI calls the deterministic ops already eliminate.</p>
+      <div class="cta-actions">
+        <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
+        <a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="btn btn-secondary">Browse Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs3" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs3)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

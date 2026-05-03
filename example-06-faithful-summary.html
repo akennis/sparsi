@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 06: Faithful Summary — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example using Claude to summarise and Gemini to independently verify faithfulness — the canonical cross-model verification pattern.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">06 — Faithful Summary</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 06</span>
+        <span class="badge badge-purple" style="margin-left:0.5rem;">Multi-Model</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Faithful Summary</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Claude produces a 3–5 sentence summary of a source document. A deterministic formatting op
+        assembles the source and summary into a single verification prompt. Gemini then checks
+        whether every factual claim in the summary is grounded in the source text, returning
+        a boolean verdict.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--purple-light); margin-bottom:0.75rem;">The key insight behind this pattern</p>
+        <p style="font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">
+          A model that generated a summary has already <strong>committed to its framing</strong>. When you ask
+          the same model to verify its own output, it tends to rationalise what it wrote rather than
+          challenge it — it sees what it expects to see.
+        </p>
+        <p style="font-size:0.9375rem; line-height:1.75; margin:0;">
+          A second, independent model has no such commitment. It reads the source and the summary with
+          fresh eyes and is far more likely to notice when a claim has no basis in the text.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li>The <strong>cross-model verification pattern</strong>: using one model to generate and a different, independent model to audit the output</li>
+          <li>How to set <code>provider</code> and <code>model</code> parameters <strong>per vertex</strong> — each op selects its own model, independent of the rest of the graph</li>
+          <li>Wiring a <strong>custom deterministic op</strong> (<code>FormatFaithfulnessCheckOp</code>) to prepare the verification prompt without burning any tokens</li>
+          <li>Using <code>AIBoolOp</code> as a typed binary verdict: the tightest possible AI call, with an output budget of ~2 tokens</li>
+          <li>How two AI calls from different providers compose cleanly in a single DAG — no special framework support needed beyond the param fields</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/06-faithful-summary" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>Four vertices. One model generates; one deterministic op formats; a second model verifies. The boundary between providers is explicit in the graph topology.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.75rem; min-width:680px; justify-content:center;">
+
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.7rem 1rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">source_const</div>
+          <div style="color:var(--text-3); margin-top:0.25rem;">string → source</div>
+        </div>
+
+        <div style="color:var(--text-3); font-size:1.25rem;">→</div>
+
+        <div style="background:var(--purple-dim); border:2px solid rgba(139,92,246,0.5); border-radius:var(--radius-md); padding:0.7rem 1rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">summarize</div>
+          <div style="color:var(--text-3); margin-top:0.25rem;">AIComputeStringToStringOp</div>
+          <div style="margin-top:0.4rem; background:rgba(139,92,246,0.15); border-radius:4px; padding:0.2rem 0.4rem; font-size:0.68rem; color:var(--purple-light);">provider: claude</div>
+        </div>
+
+        <div style="color:var(--text-3); font-size:1.25rem;">→</div>
+
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.7rem 1rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">format_check</div>
+          <div style="color:var(--text-3); margin-top:0.25rem;">FormatFaithfulnessCheckOp</div>
+          <div style="margin-top:0.4rem; background:rgba(59,130,246,0.12); border-radius:4px; padding:0.2rem 0.4rem; font-size:0.68rem; color:var(--blue-light);">det — 0 tokens</div>
+        </div>
+
+        <div style="color:var(--text-3); font-size:1.25rem;">→</div>
+
+        <div style="background:var(--purple-dim); border:2px solid rgba(16,185,129,0.5); border-radius:var(--radius-md); padding:0.7rem 1rem; text-align:center; font-size:0.72rem;">
+          <div style="color:#34d399; font-weight:700; font-family:monospace;">verify</div>
+          <div style="color:var(--text-3); margin-top:0.25rem;">AIBoolOp</div>
+          <div style="margin-top:0.4rem; background:rgba(16,185,129,0.12); border-radius:4px; padding:0.2rem 0.4rem; font-size:0.68rem; color:#34d399;">provider: gemini</div>
+        </div>
+
+      </div>
+      <p style="font-size:0.75rem; color:var(--text-3); text-align:center; margin-top:1.25rem; font-style:italic;">
+        The source wire feeds both the summarize op and the format_check op — DAG parallelism is free, wiring is explicit.
+      </p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic step</h3>
+        </div>
+        <div style="padding:1.25rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">FormatFaithfulnessCheckOp</p>
+            <p style="font-size:0.875rem; margin:0 0 0.875rem;">Custom op that takes two string wires — <code>source</code> and <code>summary</code> — and concatenates them into a single verification prompt string. No AI, no API call: just Go string formatting. This keeps the prompt assembly logic testable and the AI boundary clean.</p>
+            <p style="font-size:0.875rem; margin:0;">Because this is a deterministic op, the formatted prompt is always identical given the same inputs — which makes the Gemini call fully reproducible in tests.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">summarize — AIComputeStringToStringOp (Claude)</p>
+            <p style="font-size:0.875rem; margin:0;">Reads the source text and produces a 3–5 sentence summary. Instructed to include only information explicitly stated in the text — no inferences, no added context. Uses <code>provider: "claude"</code>, <code>model: "claude-sonnet-4-6"</code>.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">verify — AIBoolOp (Gemini)</p>
+            <p style="font-size:0.875rem; margin:0;">Receives the combined source + summary prompt and answers: "does every factual claim in the summary appear in or follow directly from the source?" Returns a typed <code>bool</code>. Uses <code>provider: "gemini"</code>, <code>model: "gemini-3-flash-preview"</code>. Output budget: ~2 tokens.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. Assigning models per vertex</h3>
+      <p style="margin-bottom:1.25rem;">The <code>provider</code> and <code>model</code> params are passed via the standard <code>Params</code> map on any AI op. There is no global model setting — each vertex is fully independent. The summarize and verify vertices use completely different providers without any special wiring.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph()</span>
+        </div>
+        <pre><code><span class="kw">func</span> <span class="fn">buildGraph</span>() (*graph.<span class="ty">Graph</span>, <span class="ty">error</span>) {
+    <span class="kw">return</span> graph.<span class="fn">NewBuilder</span>(<span class="st">"faithful_summary"</span>).
+        <span class="cm">// Stage 1: inject the source document</span>
+        <span class="fn">Vertex</span>(<span class="st">"source_const"</span>).Op(<span class="st">"source_const"</span>).
+            Output(<span class="st">"Result"</span>, <span class="st">"source"</span>).
+
+        <span class="cm">// Stage 2: Claude summarises the source</span>
+        <span class="fn">Vertex</span>(<span class="st">"summarize"</span>).Op(<span class="st">"AIComputeStringToStringOp"</span>).
+            Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
+                <span class="st">"operation"</span>: <span class="st">"summarize this article in 3–5 concise sentences; "</span> +
+                              <span class="st">"include only information explicitly stated in the text, "</span> +
+                              <span class="st">"do not add context or draw inferences"</span>,
+                <span class="st">"provider"</span>:  <span class="st">"claude"</span>,
+                <span class="st">"model"</span>:     <span class="st">"claude-sonnet-4-6"</span>,
+            }).
+            Input(<span class="st">"Input"</span>, <span class="st">"source"</span>).
+            Output(<span class="st">"Result"</span>, <span class="st">"summary"</span>).
+
+        <span class="cm">// Stage 3: assemble the verification prompt (deterministic, 0 tokens)</span>
+        <span class="fn">Vertex</span>(<span class="st">"format_check"</span>).Op(<span class="st">"FormatFaithfulnessCheckOp"</span>).
+            Input(<span class="st">"Source"</span>, <span class="st">"source"</span>).
+            Input(<span class="st">"Summary"</span>, <span class="st">"summary"</span>).
+            Output(<span class="st">"Query"</span>, <span class="st">"query"</span>).
+
+        <span class="cm">// Stage 4: Gemini independently checks faithfulness</span>
+        <span class="fn">Vertex</span>(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
+            Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
+                <span class="st">"predicate"</span>: <span class="st">"does every factual claim in the summary appear in or "</span> +
+                              <span class="st">"follow directly from the source document, with no information added or invented?"</span>,
+                <span class="st">"provider"</span>: <span class="st">"gemini"</span>,
+                <span class="st">"model"</span>:    <span class="st">"gemini-3-flash-preview"</span>,
+            }).
+            Input(<span class="st">"Input"</span>, <span class="st">"query"</span>).
+            Output(<span class="st">"Result"</span>, <span class="st">"faithful"</span>).
+        Build()
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. The deterministic formatting op</h3>
+      <p style="margin-bottom:1.25rem;"><code>FormatFaithfulnessCheckOp</code> is a custom op that implements the standard dagor operator interface. Its entire <code>Run</code> method is a single <code>fmt.Sprintf</code>. By making prompt assembly explicit and deterministic, the verification step becomes reproducible: given the same source and summary, the Gemini prompt is always byte-for-byte identical.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — FormatFaithfulnessCheckOp.Run()</span>
+        </div>
+        <pre><code><span class="kw">func</span> (op *<span class="ty">FormatFaithfulnessCheckOp</span>) <span class="fn">Run</span>(_ context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    op.Query = fmt.<span class="fn">Sprintf</span>(
+        <span class="st">"Source document:\n%s\n\nSummary to verify:\n%s"</span>,
+        *op.Source,
+        *op.Summary,
+    )
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Reading the results</h3>
+      <p style="margin-bottom:1.25rem;">Both the summary string and the faithfulness boolean are output wires that can be read after <code>eng.Run(ctx)</code>. The typed output makes downstream handling straightforward — no parsing, no schema coercion.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — reading outputs</span>
+        </div>
+        <pre><code>out := result{SourceLength: <span class="fn">len</span>(source)}
+
+<span class="kw">if</span> raw, ok := eng.<span class="fn">GetOutput</span>(<span class="st">"summary"</span>); ok {
+    <span class="kw">if</span> p, ok := raw.(*<span class="ty">string</span>); ok &amp;&amp; p != <span class="kw">nil</span> {
+        out.Summary = *p
+    }
+}
+<span class="kw">if</span> raw, ok := eng.<span class="fn">GetOutput</span>(<span class="st">"faithful"</span>); ok {
+    <span class="kw">if</span> p, ok := raw.(*<span class="ty">bool</span>); ok &amp;&amp; p != <span class="kw">nil</span> {
+        out.Faithful = *p    <span class="cm">// true = every claim is grounded in the source</span>
+    }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">Supply either a path to a text file or an inline string. Both <code>CLAUDE_API_KEY</code> and <code>GEMINI_API_KEY</code> must be set.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your Anthropic key&gt;
+<span class="kw">export</span> GEMINI_API_KEY=&lt;your Google key&gt;
+
+<span class="cm"># Summarise a file</span>
+go run . --file /path/to/article.txt
+
+<span class="cm"># Summarise inline text</span>
+go run . --text <span class="st">"The quick brown fox…"</span></code></pre>
+      </div>
+      <div style="margin-top:1.25rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem;">
+        <p style="font-size:0.8125rem; font-weight:700; color:var(--orange-light); margin-bottom:0.5rem;">Example output</p>
+        <pre style="font-size:0.8125rem; margin:0; background:transparent; padding:0;"><code>{
+  "source_length": 3847,
+  "summary": "The European Union's AI Act establishes a risk-based regulatory framework…",
+  "faithful": true
+}</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Why cross-model ───────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Pattern Depth</span>
+      <h2>When to use the cross-model verification pattern</h2>
+    </div>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <div class="card">
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Faithfulness checks</h3>
+        <p style="font-size:0.875rem;">Any summarisation, paraphrase, or extraction task where hallucinated claims are costly. The generator focuses on quality prose; the verifier focuses on factual grounding.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Code review pipeline</h3>
+        <p style="font-size:0.875rem;">One model generates code; a second model audits it for security issues, correctness, or spec compliance. Different training distributions catch different bugs.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Classification confidence</h3>
+        <p style="font-size:0.875rem;">When the cost of a misclassification is high, run a second independent classification on the same input and flag cases where the models disagree for human review.</p>
+      </div>
+    </div>
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The broader principle:</strong> any time model A produces output that model A would be biased to approve,
+        route the approval step to model B. The cross-model separation is a one-line param change in the DAG.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Two AI calls: one to generate (~500 tokens in/out depending on document length), one to verify (~2 tokens out). The verification call is the cheapest possible AI op — a single boolean answer.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Provider</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AIComputeStringToStringOp</td>
+            <td style="color:var(--purple-light);">Claude</td>
+            <td>1</td>
+            <td>~250 + source length</td>
+            <td>~100–200</td>
+          </tr>
+          <tr>
+            <td>FormatFaithfulnessCheckOp</td>
+            <td style="color:var(--blue-light);">det</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>AIBoolOp</td>
+            <td style="color:#34d399;">Gemini</td>
+            <td>1</td>
+            <td>~150 + source + summary</td>
+            <td>~2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-05-hn-topic-brief.html" class="btn btn-secondary">← Example 05</a>
+    <a href="examples.html" class="btn btn-secondary">All Examples →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

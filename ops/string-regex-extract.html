@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegexExtractOp — clawdag-go Library</title>
+  <meta name="description" content="Extracts the first match or capture group from a string.">
+  <link rel="icon" type="image/svg+xml" href="../mascot.svg">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns2" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na2" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na2)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng2)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns2)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+      <li><a href="../leaders.html">For Leaders</a></li>
+      <li><a href="../operations.html">DevOps</a></li>
+      <li><a href="../library.html" class="active">Library</a></li>
+      <li><a href="../examples.html">Examples</a></li>
+      <li><a href="../releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+<section class="hero" style="padding:3rem 0 2.5rem;">
+  <div class="container">
+    <div style="max-width:760px;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.875rem;flex-wrap:wrap;">
+        <a href="../library.html" style="color:var(--text-3);font-size:0.875rem;text-decoration:none;">&larr; Library</a>
+        <span class="badge badge-blue">String</span>
+        <span class="tag tag-det">Deterministic</span>
+      </div>
+      <h1 style="font-family:'JetBrains Mono','Fira Code',monospace;font-size:1.875rem;margin-bottom:0.75rem;">RegexExtractOp</h1>
+      <p style="font-size:1.0625rem;line-height:1.75;">Extracts the first match of a Go regex from a string. If a capturing group is present, returns group 1. Returns empty string on no match.</p>
+    </div>
+  </div>
+</section>
+<section class="section section--alt" style="padding:3rem 0;">
+  <div class="container">
+    <div class="split" style="gap:2.5rem;">
+      <div><h3 style="margin-bottom:0.875rem;">Inputs</h3>
+        <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:1.5rem;">
+          <table style="width:100%;border-collapse:collapse;background:var(--bg-3);">
+            <thead><tr>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Field</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Type</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Description</th>
+            </tr></thead>
+            <tbody><tr><td style="padding:0.6rem 1rem;"><code>Input</code></td><td style="padding:0.6rem 1rem;"><code>*string</code></td><td style="padding:0.6rem 1rem;color:var(--text-2);">String to search</td></tr></tbody>
+          </table>
+        </div><h3 style="margin-bottom:0.875rem;">Outputs</h3>
+        <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:1.5rem;">
+          <table style="width:100%;border-collapse:collapse;background:var(--bg-3);">
+            <thead><tr>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Field</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Type</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Description</th>
+            </tr></thead>
+            <tbody><tr><td style="padding:0.6rem 1rem;"><code>Result</code></td><td style="padding:0.6rem 1rem;"><code>string</code></td><td style="padding:0.6rem 1rem;color:var(--text-2);">First match (or group 1 if capturing group present); empty on no match</td></tr></tbody>
+          </table>
+        </div><h3 style="margin-bottom:0.875rem;">Params</h3>
+        <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border);">
+          <table style="width:100%;border-collapse:collapse;background:var(--bg-3);">
+            <thead><tr>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Key</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Type</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Default</th>
+              <th style="padding:0.6rem 1rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Description</th>
+            </tr></thead>
+            <tbody><tr><td style="padding:0.6rem 1rem;"><code>pattern</code></td><td style="padding:0.6rem 1rem;"><code>string</code></td><td style="padding:0.6rem 1rem;color:var(--text-3);">required</td><td style="padding:0.6rem 1rem;color:var(--text-2);">Go regular expression, compiled at setup</td></tr></tbody>
+          </table>
+        </div></div>
+      <div><h3 style="margin-bottom:0.875rem;">Typical Use Cases</h3><ul class="feat-list" style="margin-bottom:1.5rem;"><li>Extracting email addresses from prose</li><li>Pulling URLs or codes from text</li><li>Extracting structured fragments with a capture group</li></ul></div>
+    </div>
+    <h3 style="margin-top:2.5rem;margin-bottom:1rem;">Complete Runnable Example</h3>
+    <p style="color:var(--text-2);margin-bottom:1rem;">Extracts the numeric order ID from a customer notification string using a capturing group.</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><span class="code-filename">main.go</span></div>
+      <pre><code>package main
+
+import (
+	"context"
+	"encoding/json"
+	"log"
+	"os"
+	"time"
+
+	"github.com/akennis/clawdag-go/library"
+	_ "github.com/wwz16/dagor/operator/builtin"
+
+	"github.com/panjf2000/ants/v2"
+	"github.com/wwz16/dagor"
+	"github.com/wwz16/dagor/graph"
+)
+
+func main() {
+	text := "Your order ORD-48291 has been shipped."
+	library.RegisterConst("text_val", text)
+
+	g, err := graph.NewBuilder("regexextract_demo").
+		Vertex("src").Op("text_val").Output("Result", "wire_in").
+		Vertex("ex").Op("RegexExtractOp").
+		Params(map[string]string{"pattern": "ORD-([0-9]+)"}).
+		Input("Input", "wire_in").
+		Output("Result", "order_id").
+		Build()
+	if err != nil {
+		log.Fatalf("build: %v", err)
+	}
+
+	pool, err := ants.NewPool(4)
+	if err != nil {
+		log.Fatalf("pool: %v", err)
+	}
+	defer pool.Release()
+
+	eng, err := dagor.NewEngine(g, pool)
+	if err != nil {
+		log.Fatalf("engine: %v", err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+
+	if err := eng.Run(ctx); err != nil {
+		log.Fatalf("run: %v", err)
+	}
+
+	out := map[string]any{"text": text}
+	if raw, ok := eng.GetOutput("order_id"); ok {
+		out["order_id"] = *raw.(*string)
+	}
+	enc := json.NewEncoder(os.Stdout)
+	enc.SetIndent("", "  ")
+	enc.Encode(out)
+}</code></pre>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs2" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs2)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+      <li><a href="../library.html">Library</a></li>
+      <li><a href="../releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+</body>
+</html>

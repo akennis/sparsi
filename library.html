@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Library — clawdag-go</title>
+  <meta name="description" content="Complete reference for all clawdag-go operators — AI, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html" class="active">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="padding:3.5rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:720px;">
+      <div style="margin-bottom:1rem;">
+        <span class="badge badge-blue">89 Operators</span>
+      </div>
+      <h1 style="margin-bottom:1rem;">Operator Library</h1>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:600px;">Every operator available in clawdag-go, organized by category. Deterministic ops run as pure Go functions. AI-Powered ops call Claude and support structured retries.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI Operators ─────────────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="ai">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">AI Operators</h2>
+      <span class="badge badge-purple">12 ops</span>
+      <span class="tag tag-ai">AI-Powered</span>
+    </div>
+    <p style="max-width:640px;margin-bottom:2rem;">These operators call Claude and return structured outputs with retries. Each accepts a natural-language <code>operation</code> or <code>predicate</code> param and produces a typed <code>Result</code>. Model reasoning is captured via <code>WithReasoningLog</code> when needed.</p>
+    <div class="grid-3">
+
+      <a href="ops/ai-classify-multilabel.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIClassifyMultiLabelOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Classifies text into zero or more categories from a fixed label set.</p>
+      </a>
+
+      <a href="ops/ai-score.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIScoreOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Scores text against a criterion on a 0–1 scale.</p>
+      </a>
+
+      <a href="ops/ai-bool.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIBoolOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Answers a yes/no question about text. Returns true or false.</p>
+      </a>
+
+      <a href="ops/ai-best-match.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIBestMatchOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Selects the single best-matching candidate for a query.</p>
+      </a>
+
+      <a href="ops/ai-rerank.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIRerankOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Reranks a list of candidates by relevance. Returns a permutation of indices.</p>
+      </a>
+
+      <a href="ops/ai-extract-string-slice.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIExtractStringSliceOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Extracts a list of items from unstructured text as a string slice.</p>
+      </a>
+
+      <a href="ops/ai-extract-map.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIExtractMapOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Extracts structured key-value pairs from unstructured text.</p>
+      </a>
+
+      <a href="ops/ai-parse-number.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIParseNumberOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Converts natural-language or informal number text to a float64.</p>
+      </a>
+
+      <a href="ops/ai-summarize.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AISummarizeOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Summarizes a list of strings into a single output string.</p>
+      </a>
+
+      <a href="ops/ai-compute-string.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIComputeStringToStringOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">General-purpose string→string AI transformation.</p>
+      </a>
+
+      <a href="ops/ai-compute-math.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">AIComputeMathOperandsToFloat64Op</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">AI-powered fallback for binary float64 math operations.</p>
+      </a>
+
+      <a href="ops/mode-select.html" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-purple" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">ModeSelectOp</code>
+          <span class="tag tag-ai" style="font-size:0.7rem;">AI</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0;">Single-label classifier — always returns exactly one category.</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Math Operators ──────────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="math">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Math Operators</h2>
+      <span class="badge badge-blue">24 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Float Arithmetic</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/math-addfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">AddFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A + B (float64)</p></a>
+      <a href="ops/math-subfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SubFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A − B (float64)</p></a>
+      <a href="ops/math-mulfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MulFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A × B (float64)</p></a>
+      <a href="ops/math-divfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">DivFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ÷ B (float64, errors on zero)</p></a>
+      <a href="ops/math-powfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">PowFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ^ B (float64)</p></a>
+      <a href="ops/math-modfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ModFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Floating-point remainder of A / B</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Int Arithmetic</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/math-addint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">AddIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A + B (int)</p></a>
+      <a href="ops/math-subint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SubIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A − B (int)</p></a>
+      <a href="ops/math-mulint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MulIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A × B (int)</p></a>
+      <a href="ops/math-divint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">DivIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ÷ B (int, truncates, errors on zero)</p></a>
+      <a href="ops/math-powint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">PowIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ^ B (int, errors on negative exponent)</p></a>
+      <a href="ops/math-modint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ModIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Integer remainder of A / B</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Aggregate, Clamp &amp; Utility</h3>
+    <div class="grid-3">
+      <a href="ops/math-clampfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ClampFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Clamp float64 to [Min, Max]</p></a>
+      <a href="ops/math-clampint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ClampIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Clamp int to [Min, Max]</p></a>
+      <a href="ops/math-sumfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SumFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Sum all elements of a float64 slice</p></a>
+      <a href="ops/math-sumint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SumIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Sum all elements of an int slice</p></a>
+      <a href="ops/math-minfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MinFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Minimum value in a float64 slice</p></a>
+      <a href="ops/math-minint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MinIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Minimum value in an int slice</p></a>
+      <a href="ops/math-maxfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MaxFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Maximum value in a float64 slice</p></a>
+      <a href="ops/math-maxint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">MaxIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Maximum value in an int slice</p></a>
+      <a href="ops/math-round.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RoundOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Round float64 to nearest integer</p></a>
+      <a href="ops/math-inttofloat64.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IntToFloat64Op</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Widen int wire to float64</p></a>
+      <a href="ops/math-float64toint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">Float64ToIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Truncate float64 wire to int</p></a>
+      <a href="ops/math-pack.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">PackMathOperandsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Pack two float64 inputs into a MathOperands struct</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── String Operators ────────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="string">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">String Operators</h2>
+      <span class="badge badge-blue">10 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">String Operations</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/string-concat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringConcatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Concatenate two strings — A + B</p></a>
+      <a href="ops/string-tolower.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringToLowerOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Convert string to lower case</p></a>
+      <a href="ops/string-split.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringSplitOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Split string by separator into a slice</p></a>
+      <a href="ops/string-lookup.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringLookupOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Static key→value string lookup table</p></a>
+      <a href="ops/string-regex-match.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Test if string matches a Go regex pattern</p></a>
+      <a href="ops/string-regex-extract.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RegexExtractOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Extract first match or capture group</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Type→String Conversion</h3>
+    <div class="grid-3">
+      <a href="ops/string-float64tostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">Float64ToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format float64 as string using %v</p></a>
+      <a href="ops/string-inttostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IntToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format int as string using %v</p></a>
+      <a href="ops/string-booltostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BoolToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format bool as "true" or "false"</p></a>
+      <a href="ops/string-tostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format any pointer value as string — escape hatch for custom struct wires</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Predicate Operators ─────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="predicate">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Predicate Operators</h2>
+      <span class="badge badge-blue">19 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Float Predicates</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/pred-iffloatgt.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfFloatGtOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &gt; B</p></a>
+      <a href="ops/pred-iffloatlt.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfFloatLtOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &lt; B</p></a>
+      <a href="ops/pred-iffloateq.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfFloatEqOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A == B</p></a>
+      <a href="ops/pred-iffloatge.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfFloatGeOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &ge; B</p></a>
+      <a href="ops/pred-iffloatle.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfFloatLeOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &le; B</p></a>
+      <a href="ops/pred-betweenfloat.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BetweenFloatOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Min &le; Value &le; Max (inclusive range)</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Integer Predicates</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/pred-ifintgt.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfIntGtOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &gt; B</p></a>
+      <a href="ops/pred-ifintlt.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfIntLtOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &lt; B</p></a>
+      <a href="ops/pred-ifinteq.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfIntEqOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A == B</p></a>
+      <a href="ops/pred-ifintge.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfIntGeOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &ge; B</p></a>
+      <a href="ops/pred-ifintle.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfIntLeOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A &le; B</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">String Predicates</h3>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="ops/pred-ifstringeq.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringEqOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A == B (exact match)</p></a>
+      <a href="ops/pred-ifstringcontains.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringContainsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A contains B as substring</p></a>
+      <a href="ops/pred-ifstringhasprefix.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringHasPrefixOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A starts with B</p></a>
+      <a href="ops/pred-ifstringhassuffix.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringHasSuffixOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ends with B</p></a>
+      <a href="ops/pred-ifstringregexmatch.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringRegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Input matches a Go regex pattern</p></a>
+    </div>
+
+    <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Empty Predicates</h3>
+    <div class="grid-3">
+      <a href="ops/pred-ifemptystring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfEmptyStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">True if string is nil or empty</p></a>
+      <a href="ops/pred-ifemptyslicestring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfEmptySliceStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">True if string slice is nil or empty</p></a>
+      <a href="ops/pred-ifemptyslicefloat64.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfEmptySliceFloat64Op</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">True if float64 slice is nil or empty</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Select Operators ────────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="select">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Select Operators</h2>
+      <span class="badge badge-blue">8 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <div class="grid-3">
+      <a href="ops/select-string.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SelectStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Ternary select: Cond ? IfTrue : IfFalse (string)</p></a>
+      <a href="ops/select-float64.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SelectFloat64Op</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Ternary select: Cond ? IfTrue : IfFalse (float64)</p></a>
+      <a href="ops/select-int.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SelectIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Ternary select: Cond ? IfTrue : IfFalse (int)</p></a>
+      <a href="ops/select-bool.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SelectBoolOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Ternary select: Cond ? IfTrue : IfFalse (bool)</p></a>
+      <a href="ops/select-switch.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SwitchStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Map a key to a value using a case table</p></a>
+      <a href="ops/select-defaultstring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">DefaultStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Value if non-empty, otherwise Default</p></a>
+      <a href="ops/select-defaultfloat64.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">DefaultFloat64Op</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Value if non-nil, otherwise Default (float64)</p></a>
+      <a href="ops/select-defaultint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">DefaultIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Value if non-nil, otherwise Default (int)</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Slice Operators ─────────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="slice">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Slice Operators</h2>
+      <span class="badge badge-blue">8 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <div class="grid-3">
+      <a href="ops/slice-len.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceLenOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Number of elements in a string slice</p></a>
+      <a href="ops/slice-at.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceAtOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Element at a fixed index</p></a>
+      <a href="ops/slice-first.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceFirstOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">First element (errors if empty)</p></a>
+      <a href="ops/slice-last.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceLastOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Last element (errors if empty)</p></a>
+      <a href="ops/slice-contains.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceContainsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Test if slice contains a value</p></a>
+      <a href="ops/slice-join.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceJoinOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Join slice elements with a separator</p></a>
+      <a href="ops/slice-filtereq.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceFilterEqOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Keep only elements equal to a value</p></a>
+      <a href="ops/slice-topk.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">SliceTopKOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Indices of top-K scores, descending</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Boolean Operators ───────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="boolean">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Boolean Operators</h2>
+      <span class="badge badge-blue">3 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <div class="grid-3">
+      <a href="ops/bool-not.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BoolNotOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">NOT — invert a boolean</p></a>
+      <a href="ops/bool-and.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BoolAndOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">AND — both A and B are true</p></a>
+      <a href="ops/bool-or.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BoolOrOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">OR — either A or B is true</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── I/O Operators ───────────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="io">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">I/O Operators</h2>
+      <span class="badge badge-orange">3 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <div class="grid-3">
+      <a href="ops/io-fileread.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">FileReadOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Read the full contents of a file</p></a>
+      <a href="ops/io-env.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">EnvOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Read an environment variable</p></a>
+      <a href="ops/io-httpget.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">HTTPGetOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Perform an HTTP GET request</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ContextValFactory ────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="context-val">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Input Injection</h2>
+      <span class="badge badge-blue">ContextValFactory</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <p style="max-width:640px;margin-bottom:2rem;"><code>builtin.ContextValFactory[T](key)</code> creates a typed operator factory that reads a value of type <code>T</code> from <code>context.Context</code> at graph execution time. This is the standard pattern for injecting per-run inputs — ticket text, API responses, weights — into a DAG without baking values into the graph at build time.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div style="margin-bottom:0.75rem;">
+          <code style="font-size:0.875rem;color:var(--text-0);">builtin.ContextValFactory[T](key)</code>
+        </div>
+        <p style="font-size:0.875rem;margin-bottom:1rem;">Generic factory. Register once under a name in <code>init()</code>; inject the value via <code>context.WithValue</code> before each run. Supports any type: <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, <code>[]string</code>.</p>
+        <div class="code-block" style="font-size:0.8rem;">
+          <div class="code-header">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-filename">registration + wiring</span>
+          </div>
+          <pre><code><span class="kw">type</span> <span class="ty">ticketBodyKey</span> <span class="kw">struct</span>{}
+
+<span class="cm">// Register in init()</span>
+operator.RegisterOpFactory(<span class="st">"body_const"</span>,
+    builtin.ContextValFactory[<span class="ty">string</span>](ticketBodyKey{}))
+
+<span class="cm">// Wire into graph — no Params needed</span>
+Vertex(<span class="st">"body_const"</span>).Op(<span class="st">"body_const"</span>).
+    Output(<span class="st">"Result"</span>, <span class="st">"ticket_body"</span>)
+
+<span class="cm">// Inject value at run time</span>
+ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:0.75rem;font-size:1rem;">When to use it</h3>
+        <ul class="feat-list">
+          <li><strong>Per-run inputs</strong> — ticket text, recipe JSON, city name, query string</li>
+          <li><strong>Configuration constants</strong> — scoring weights, thresholds, JSONPath selectors</li>
+          <li><strong>Conditional paths</strong> — combine with <code>.Condition()</code> to gate a ContextVal vertex so only the matching branch emits its value</li>
+          <li><strong>Any type</strong> — <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, <code>[]string</code></li>
+        </ul>
+        <div style="margin-top:1rem;padding:0.75rem;background:var(--bg-0);border-radius:var(--radius-md);border:1px solid var(--border);">
+          <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">The graph stays immutable and reusable across calls. Different inputs are injected each run via context — the compiled graph is never rebuilt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── JSON + Time Operators ──────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="json-time">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">JSON &amp; Time Operators</h2>
+      <span class="badge badge-blue">2 ops</span>
+      <span class="tag tag-det">Deterministic</span>
+    </div>
+    <div class="grid-3">
+      <a href="ops/json-extract.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">JSONExtractOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Extract a value from JSON using a dot-path</p></a>
+      <a href="ops/time-city.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">CityTimeOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Current local time for a city in RFC3339</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding:3rem 0;">
+  <div class="container">
+    <div class="cta-banner" style="text-align:center;padding:3rem 2rem;">
+      <h2 style="margin-bottom:1rem;">Ready to build?</h2>
+      <p style="margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;">Combine these operators using the Go fluent builder API. The runtime handles wiring, skip logic, and retry — you just describe what to compute.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="developers.html" class="btn btn-primary">Get Started</a>
+        <a href="examples.html" class="btn btn-secondary">View Examples</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

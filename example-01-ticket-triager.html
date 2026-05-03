@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 01: Ticket Triager — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example that classifies support tickets with AI and routes them to category-specific extraction lanes.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">01 — Customer Support Ticket Triager</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 01</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Customer Support Ticket Triager</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Reads a free-text support ticket, uses AI to classify it as billing / bug / feature / or other,
+        then routes it through a category-specific extraction lane. Each lane runs AI ops tailored to
+        its category and serializes the results into a structured JSON brief.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li>The <strong>fan-out / predicate-gate / coalesce</strong> pattern — one classifier splits into N parallel lanes; exactly one fires per run</li>
+          <li>How <strong>predicate-gated vertices</strong> prune entire lane subtrees when their condition is false (skip-propagation)</li>
+          <li><strong>CoalesceNStringOp</strong> for N-to-1 merging: returns the single non-nil wire result across all lanes</li>
+          <li>Writing <strong>custom ops</strong> by implementing the <code>Operator</code> interface for lane-specific JSON serialization</li>
+          <li>How the AI call count scales with routing: billing tickets spend 3 AI calls; bug tickets spend 4; not the sum of all lanes</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/01-ticket-triager" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>One AI classification step at the top splits into four parallel lanes. Only the lane whose predicate matches the category actually executes — the others are pruned by skip-propagation.</p>
+    </div>
+
+    <!-- Pipeline flow diagram -->
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:600px; justify-content:center; flex-wrap:nowrap;">
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">ContextValOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">ticket body</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">ModeSelectOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">AI · classify</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem;">
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">billing lane</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">bug lane</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">feature lane</div>
+          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">other lane</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">CoalesceN</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">merge 4→1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+
+      <!-- Deterministic steps -->
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">ContextValOp (body_const)</p>
+            <p style="font-size:0.875rem; margin:0;">Reads the raw ticket text from <code>context.Context</code> and emits it as a wire. Registered via <code>builtin.ContextValFactory[string]</code>; the value is injected with <code>context.WithValue</code> before the graph runs.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">LaneGateOp (×4)</p>
+            <p style="font-size:0.875rem; margin:0;">A pass-through op with a <code>Condition</code> predicate. When the predicate is false, this vertex is skipped and skip-propagation prunes every downstream vertex in that lane — zero AI calls are made for the pruned lanes.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">EncodeBillingOp / EncodeBugOp / EncodeFeatureOp / EncodeOtherOp</p>
+            <p style="font-size:0.875rem; margin:0;">Custom ops that serialize lane-specific outputs into a JSON envelope. Pure Go — no AI calls.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">CoalesceNStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Scans four input wires and returns the first non-nil one. Since exactly one lane ran, exactly one wire is non-nil.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI steps -->
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">ModeSelectOp — classify</p>
+            <p style="font-size:0.875rem; margin:0;">One AI call. Reads the ticket and returns exactly one of <code>billing</code>, <code>bug</code>, <code>feature</code>, or <code>other</code>. This value gates all four lane predicates.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">Billing lane: AIExtractMapOp + AIParseNumberOp</p>
+            <p style="font-size:0.875rem; margin:0;">Extracts structured fields (name, email, account_id, amounts) from freehand prose, then parses the refund amount to a float. Both run in parallel within the lane.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">Bug lane: AIExtractStringSliceOp + AIScoreOp + AIBoolOp</p>
+            <p style="font-size:0.875rem; margin:0;">Extracts reproduction steps, scores severity 0–1, and checks whether the report describes a regression. All three run in parallel.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">Feature lane: AIComputeStringToStringOp + AIScoreOp</p>
+            <p style="font-size:0.875rem; margin:0;">Summarises the requested feature in one sentence and scores its business impact. Both run in parallel.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">Other lane: AIComputeStringToStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Generates a polite one-paragraph acknowledgement for anything that doesn't fit the other categories.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+      <p>Four key patterns to study in <code>main.go</code>.</p>
+    </div>
+
+    <!-- Step 1: Predicate registration -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. Registering predicates that gate the lanes</h3>
+      <p style="margin-bottom:1.25rem;">Before building the graph, four predicates are registered — one per lane. Each checks the <code>ticket_category</code> wire for its expected value. When the AI classifier sets that wire to <code>"billing"</code>, only <code>lane_is_billing</code> returns true.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — registerPredicates()</span>
+        </div>
+        <pre><code><span class="kw">func</span> <span class="fn">registerPredicates</span>() {
+    <span class="kw">for</span> _, lane := <span class="kw">range</span> []<span class="ty">string</span>{<span class="st">"billing"</span>, <span class="st">"bug"</span>, <span class="st">"feature"</span>, <span class="st">"other"</span>} {
+        want := lane
+        name := <span class="st">"lane_is_"</span> + lane
+        predicate.<span class="fn">Register</span>(name, <span class="kw">func</span>(inputs map[<span class="ty">string</span>]<span class="ty">any</span>) <span class="ty">bool</span> {
+            v, ok := inputs[<span class="st">"ticket_category"</span>].(*<span class="ty">string</span>)
+            <span class="kw">return</span> ok &amp;&amp; v != <span class="kw">nil</span> &amp;&amp; *v == want
+        })
+    }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2: Classifier + LaneGate pattern -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Classifier → lane gate → AI extraction</h3>
+      <p style="margin-bottom:1.25rem;">The graph is built with a fluent builder. <code>ModeSelectOp</code> classifies the ticket. Each lane starts with a <code>LaneGateOp</code> that carries a <code>.Condition()</code> — when the predicate is false, the vertex is skipped and the engine propagates that skip to every downstream vertex in the lane automatically.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph() (excerpt)</span>
+        </div>
+        <pre><code><span class="cm">// One AI call classifies the ticket.</span>
+<span class="fn">Vertex</span>(<span class="st">"classify"</span>).<span class="fn">Op</span>(<span class="st">"ModeSelectOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"categories"</span>: <span class="st">"billing,bug,feature,other"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"ticket_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ticket_category"</span>).
+
+<span class="cm">// Gate: only runs when ticket_category == "billing".</span>
+<span class="fn">Vertex</span>(<span class="st">"gate_billing"</span>).<span class="fn">Op</span>(<span class="st">"LaneGateOp"</span>).
+    <span class="fn">Condition</span>(<span class="st">"lane_is_billing"</span>).
+    <span class="fn">ConditionInput</span>(<span class="st">"ticket_category"</span>).
+    <span class="fn">Input</span>(<span class="st">"Body"</span>, <span class="st">"ticket_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"BodyOut"</span>, <span class="st">"billing_body"</span>).
+
+<span class="cm">// Two parallel AI extractors in the billing lane.</span>
+<span class="fn">Vertex</span>(<span class="st">"billing_extract"</span>).<span class="fn">Op</span>(<span class="st">"AIExtractMapOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"extract name, email, account_id ..."</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"billing_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"billing_map"</span>).
+
+<span class="fn">Vertex</span>(<span class="st">"billing_refund"</span>).<span class="fn">Op</span>(<span class="st">"AIParseNumberOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"refund amount in US dollars"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"billing_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"billing_refund_amount"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3: CoalesceN -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Merging four lanes into one result</h3>
+      <p style="margin-bottom:1.25rem;"><code>CoalesceNStringOp</code> takes N input wires and returns the first non-nil one. Because exactly one lane ran, exactly one encode op produced a non-nil wire. The <code>Merge(config.MergeCoalesce)</code> call tells the engine to wait for all inputs before evaluating, even though most will be nil (skipped).</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph() (coalesce)</span>
+        </div>
+        <pre><code><span class="fn">Vertex</span>(<span class="st">"final"</span>).<span class="fn">Op</span>(<span class="st">"CoalesceNStringOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">int</span>{<span class="st">"n"</span>: <span class="nu">4</span>}).
+    <span class="fn">Merge</span>(config.MergeCoalesce).
+    <span class="fn">Input</span>(<span class="st">"Input0"</span>, <span class="st">"billing_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input1"</span>, <span class="st">"bug_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input2"</span>, <span class="st">"feature_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input3"</span>, <span class="st">"other_json"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_brief"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 4: Custom op interface -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">4. Writing a custom deterministic op</h3>
+      <p style="margin-bottom:1.25rem;">Each lane needs a different JSON shape. Rather than a generic serializer, each lane gets its own typed op. Implementing the <code>Operator</code> interface requires <code>Setup</code>, <code>Reset</code>, <code>Run</code>, <code>InputFields</code>, <code>OutputFields</code>, <code>SetInputField</code>, and <code>ResetFields</code>. The <code>Run</code> method is pure Go and never makes an API call.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — EncodeBillingOp</span>
+        </div>
+        <pre><code><span class="kw">type</span> <span class="ty">EncodeBillingOp</span> <span class="kw">struct</span> {
+    Details      *map[<span class="ty">string</span>]<span class="ty">string</span>
+    RefundAmount *<span class="ty">float64</span>
+    Result       <span class="ty">string</span>
+}
+
+<span class="kw">func</span> (op *<span class="ty">EncodeBillingOp</span>) <span class="fn">Run</span>(_ context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    out := map[<span class="ty">string</span>]<span class="ty">any</span>{
+        <span class="st">"category"</span>: <span class="st">"billing"</span>,
+        <span class="st">"details"</span>:  *op.Details,
+    }
+    <span class="kw">if</span> op.RefundAmount != <span class="kw">nil</span> {
+        out[<span class="st">"refund_amount_usd"</span>] = *op.RefundAmount
+    }
+    b, err := json.<span class="fn">Marshal</span>(out)
+    op.Result = <span class="ty">string</span>(b)
+    <span class="kw">return</span> err
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">Four test tickets are included — one per category. The <code>ai_nodes</code> field in the output shows exactly which AI ops fired for that ticket type.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="cm"># Set your API key</span>
+<span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
+
+go run ./examples/01-ticket-triager --ticket examples/01-ticket-triager/testdata/tickets/billing.txt
+go run ./examples/01-ticket-triager --ticket examples/01-ticket-triager/testdata/tickets/bug.txt
+go run ./examples/01-ticket-triager --ticket examples/01-ticket-triager/testdata/tickets/feature.txt
+go run ./examples/01-ticket-triager --ticket examples/01-ticket-triager/testdata/tickets/other.txt</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Measured on <code>testdata/tickets/billing.txt</code>. The billing lane fired; the other three lanes were pruned by skip-propagation — zero additional AI calls.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+            <th>Total tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ModeSelectOp</td>
+            <td>1</td>
+            <td>154</td>
+            <td>4</td>
+            <td>158</td>
+          </tr>
+          <tr>
+            <td>AIComputeOp</td>
+            <td>2</td>
+            <td>351</td>
+            <td>47</td>
+            <td>398</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>3</td>
+            <td>505</td>
+            <td>51</td>
+            <td>556</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="examples.html" class="btn btn-secondary">← All Examples</a>
+    <a href="example-02-recipe-analyzer.html" class="btn btn-secondary">Next: Recipe Analyzer →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

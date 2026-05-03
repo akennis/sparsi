@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 04: Weather Advisor — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example showing how to parse weather signals, compute deterministic flags, and generate outfit recommendations with an orthogonal extreme-weather probe.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">04 — Weather-Aware Outfit Advisor</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 04</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Weather-Aware Outfit Advisor</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Fetches live weather from wttr.in (or an offline fixture), uses AI to parse raw number strings, classify conditions into multiple labels, then computes a deterministic temperature band and boolean wet/windy flags. All signals are packed into a single description and passed to an AI for an outfit recommendation. An orthogonal probe appends an extreme-weather warning when conditions are unusual.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li><strong>AIParseNumberOp</strong> for extracting floats from raw string fields — handles "10", "10°C", "10.0" and any formatted variant without special-casing</li>
+          <li><strong>AIClassifyMultiLabelOp</strong> for tagging a description with zero or more labels (rain, snow, fog, sun, cloud, storm) — one call, multiple outputs</li>
+          <li><strong>Deterministic threshold flags</strong>: <code>IfFloatGtOp</code> compares the parsed float against a constant wire, producing a boolean without AI</li>
+          <li>A <strong>temperature band pattern</strong> using three predicate-gated <code>ContextValOp</code> vertices merged by <code>CoalesceNStringOp</code> — exactly one string fires</li>
+          <li>A <strong>custom packing op</strong> (<code>PackOutfitInputsOp</code>) that assembles five input wires into a formatted summary string, decoupling data extraction from prompt construction</li>
+          <li>The <strong>orthogonal probe pattern</strong>: an independent <code>AIBoolOp</code> check that appends a warning suffix without blocking the main advice path</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/04-weather-advisor" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>AI handles the parts the API returns as opaque strings; deterministic ops compute the flags and bands; a custom packing op bundles everything before the final AI call.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:800px; justify-content:center;">
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">HTTPGetOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">wttr.in JSON</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">JSONExtractOp ×4</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">string fields</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">AIParseNumber ×3</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.3rem 0.6rem; font-size:0.68rem; color:var(--purple-light); font-family:monospace;">AIClassifyMultiLabel</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">band + flags</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">det thresholds</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">PackOutfitOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">assemble prompt</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">AIComputeOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">+ probe → concat</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">HTTPGetOp + JSONExtractOp (×4)</p>
+            <p style="font-size:0.875rem; margin:0;">Fetches the wttr.in <code>j1</code> format and pulls the four relevant string fields with dot-path selectors. All four extractions run in parallel once the HTTP body arrives.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">ContextValOp (cold/mild/hot) + predicate gates + CoalesceNStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Three <code>ContextValOp</code> vertices each read a band label from context and carry a numeric predicate. Exactly one fires; <code>CoalesceNStringOp</code> collapses the three wires into one <code>band</code> wire. No AI — just threshold comparisons on the parsed temp.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">IfFloatGtOp (×2) — wet, windy</p>
+            <p style="font-size:0.875rem; margin:0;">Compares <code>precip_mm &gt; 0.1</code> and <code>wind_kph &gt; 25</code> against constant wires. Returns a <code>bool</code> wire. No AI — the thresholds are your policy, expressed as data.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">PackOutfitInputsOp</p>
+            <p style="font-size:0.875rem; margin:0;">Custom op that accepts five input wires (band, wet, windy, temp_c, conditions) and formats them into: <em>"Temperature: 10.0°C (mild), precipitation: dry, wind: calm, conditions: cloud"</em>. Keeps prompt construction out of the AI op config.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">SelectStringOp + StringConcatOp</p>
+            <p style="font-size:0.875rem; margin:0;">If the unusual-weather probe is true, selects a warning suffix; otherwise selects an empty string. Appends to the outfit advice. Same optional-suffix pattern as example 03.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIParseNumberOp (×3) — temp, precip, wind</p>
+            <p style="font-size:0.875rem; margin:0;">The wttr.in API returns numbers as strings in the JSON (e.g. <code>"10"</code>). <code>AIParseNumberOp</code> converts each to a float64, handling any unit suffix or format variation. All three run concurrently.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIClassifyMultiLabelOp — conditions</p>
+            <p style="font-size:0.875rem; margin:0;">Classifies the weather description string into zero or more of: rain, snow, fog, sun, cloud, storm. Returns <code>[]string</code>. One AI call; multiple labels can be present simultaneously.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIComputeStringToStringOp — outfit advice</p>
+            <p style="font-size:0.875rem; margin:0;">Reads the packed description string and writes exactly two sentences recommending specific clothing items. Runs after all deterministic signals are assembled.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIBoolOp — unusual_flag (orthogonal probe)</p>
+            <p style="font-size:0.875rem; margin:0;">Independently asks "is this weather unusual or extreme?" of the raw description string. Runs in parallel with the outfit advice op — neither blocks the other. Its output feeds the warning selection, not the main advice path.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. JSON extraction + parallel number parsing</h3>
+      <p style="margin-bottom:1.25rem;">The wttr.in response stores numeric fields as JSON strings. <code>JSONExtractOp</code> pulls them out as Go strings; <code>AIParseNumberOp</code> converts each to a float64. The four extractions share the <code>body</code> wire and run concurrently, as do the three number parsers.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stages 2 &amp; 3</span>
+        </div>
+        <pre><code><span class="cm">// Stage 2: extract four string fields in parallel.</span>
+<span class="kw">for</span> _, f := <span class="kw">range</span> []<span class="kw">struct</span>{ path, wire <span class="ty">string</span> }{
+    {<span class="st">"current_condition.0.temp_C"</span>,        <span class="st">"temp_str"</span>},
+    {<span class="st">"current_condition.0.precipMM"</span>,      <span class="st">"precip_str"</span>},
+    {<span class="st">"current_condition.0.windspeedKmph"</span>, <span class="st">"wind_str"</span>},
+    {<span class="st">"current_condition.0.weatherDesc.0.value"</span>, <span class="st">"desc_str"</span>},
+} {
+    b.<span class="fn">Vertex</span>(<span class="st">"extract_"</span>+f.wire).<span class="fn">Op</span>(<span class="st">"JSONExtractOp"</span>).
+        <span class="fn">Input</span>(<span class="st">"JSON"</span>, <span class="st">"body"</span>).
+        <span class="fn">Input</span>(<span class="st">"Path"</span>, f.wire+<span class="st">"_path"</span>).
+        <span class="fn">Output</span>(<span class="st">"Value"</span>, f.wire)
+}
+
+<span class="cm">// Stage 3: three AIParseNumberOps run concurrently.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"parse_temp"</span>).<span class="fn">Op</span>(<span class="st">"AIParseNumberOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"extract temperature as plain number"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"temp_str"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"temp_c"</span>).</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Deterministic temperature band with gated constants</h3>
+      <p style="margin-bottom:1.25rem;">Three <code>ContextValOp</code> vertices each read a band label from context and carry a numeric predicate. The predicates compare <code>temp_c</code> against thresholds. Exactly one fires per execution; <code>CoalesceNStringOp</code> merges the three wires into a single <code>band</code> string. Zero AI tokens for this categorisation.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 4 (temperature band)</span>
+        </div>
+        <pre><code><span class="kw">for</span> _, band := <span class="kw">range</span> []<span class="kw">struct</span>{ name, cond <span class="ty">string</span> }{
+    {<span class="st">"cold"</span>, <span class="st">"temp_is_cold"</span>},  <span class="cm">// temp &lt; 10°C</span>
+    {<span class="st">"mild"</span>, <span class="st">"temp_is_mild"</span>},  <span class="cm">// 10 ≤ temp &lt; 22°C</span>
+    {<span class="st">"hot"</span>,  <span class="st">"temp_is_hot"</span>},   <span class="cm">// temp ≥ 22°C</span>
+} {
+    <span class="cm">// Registered: builtin.ContextValFactory[string](coldBandKey{} / mildBandKey{} / hotBandKey{})</span>
+    <span class="cm">// Injected:   ctx = context.WithValue(ctx, coldBandKey{}, "cold") etc.</span>
+    b.<span class="fn">Vertex</span>(band.name+<span class="st">"_const"</span>).<span class="fn">Op</span>(band.name+<span class="st">"_const"</span>).
+        <span class="fn">Condition</span>(band.cond).
+        <span class="fn">ConditionInput</span>(<span class="st">"temp_c"</span>).
+        <span class="fn">Output</span>(<span class="st">"Result"</span>, band.name+<span class="st">"_band"</span>)
+}
+b.<span class="fn">Vertex</span>(<span class="st">"band_merge"</span>).<span class="fn">Op</span>(<span class="st">"CoalesceNStringOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">int</span>{<span class="st">"n"</span>: <span class="nu">3</span>}).
+    <span class="fn">Merge</span>(config.MergeCoalesce).
+    <span class="fn">Input</span>(<span class="st">"Input0"</span>, <span class="st">"cold_band"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input1"</span>, <span class="st">"mild_band"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input2"</span>, <span class="st">"hot_band"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"band"</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Threshold-based boolean flags</h3>
+      <p style="margin-bottom:1.25rem;"><code>IfFloatGtOp</code> compares two float64 wires and emits a boolean. The thresholds (0.1 mm precip, 25 km/h wind) are constant wires — they can be changed by editing the graph, not the library code.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 5 (wet / windy flags)</span>
+        </div>
+        <pre><code>b.<span class="fn">Vertex</span>(<span class="st">"precip_thresh"</span>).<span class="fn">Op</span>(<span class="st">"ConstFloat64Op"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"0.1"</span>}).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"precip_thresh"</span>)
+b.<span class="fn">Vertex</span>(<span class="st">"wet_check"</span>).<span class="fn">Op</span>(<span class="st">"IfFloatGtOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"precip_mm"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"precip_thresh"</span>).
+    <span class="fn">Output</span>(<span class="st">"Match"</span>, <span class="st">"wet"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"wind_thresh"</span>).<span class="fn">Op</span>(<span class="st">"ConstFloat64Op"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"25.0"</span>}).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"wind_thresh"</span>)
+b.<span class="fn">Vertex</span>(<span class="st">"windy_check"</span>).<span class="fn">Op</span>(<span class="st">"IfFloatGtOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"wind_kph"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"wind_thresh"</span>).
+    <span class="fn">Output</span>(<span class="st">"Match"</span>, <span class="st">"windy"</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">4. The orthogonal probe and warning suffix</h3>
+      <p style="margin-bottom:1.25rem;">The unusual-weather probe reads from <code>desc_str</code> — the same raw description string used earlier — without depending on any of the downstream signal wires. This means it can run in parallel with the number parsers. Its boolean output feeds a <code>SelectStringOp</code> that chooses between a warning string and an empty string; <code>StringConcatOp</code> appends the result to the outfit advice.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 9 (orthogonal probe)</span>
+        </div>
+        <pre><code><span class="cm">// Runs in parallel with parse_temp/parse_precip/parse_wind and classify.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"unusual_check"</span>).<span class="fn">Op</span>(<span class="st">"AIBoolOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"predicate"</span>: <span class="st">"Is the described weather unusual or extreme?"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"desc_str"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"unusual_flag"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"warning_select"</span>).<span class="fn">Op</span>(<span class="st">"SelectStringOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Cond"</span>, <span class="st">"unusual_flag"</span>).
+    <span class="fn">Input</span>(<span class="st">"IfTrue"</span>, <span class="st">"warning_str"</span>).  <span class="cm">// "  ⚠ unusual weather"</span>
+    <span class="fn">Input</span>(<span class="st">"IfFalse"</span>, <span class="st">"empty_str"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"warning_suffix"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"final_concat"</span>).<span class="fn">Op</span>(<span class="st">"StringConcatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"outfit_advice"</span>).
+    <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"warning_suffix"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_advice"</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">Three fixtures cover all three temperature bands — London (mild), Reykjavik (cold, likely unusual), Singapore (hot).</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
+
+<span class="cm"># Live API</span>
+go run ./examples/04-weather-advisor --city London
+go run ./examples/04-weather-advisor --city Reykjavik
+go run ./examples/04-weather-advisor --city Singapore
+
+<span class="cm"># Offline fixtures</span>
+go run ./examples/04-weather-advisor --fixture examples/04-weather-advisor/testdata/weather/london.json
+go run ./examples/04-weather-advisor --fixture examples/04-weather-advisor/testdata/weather/reykjavik.json</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Measured on <code>testdata/weather/london.json</code>. The weather payload is tiny, making this the lowest-cost example. Four <code>AIComputeOp</code> calls cover the three number parsers and the final outfit writer.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+            <th>Total tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AIBoolOp</td>
+            <td>1</td>
+            <td>61</td>
+            <td>4</td>
+            <td>65</td>
+          </tr>
+          <tr>
+            <td>AIClassifyMultiLabelOp</td>
+            <td>1</td>
+            <td>84</td>
+            <td>4</td>
+            <td>88</td>
+          </tr>
+          <tr>
+            <td>AIComputeOp</td>
+            <td>4</td>
+            <td>303</td>
+            <td>77</td>
+            <td>380</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>6</td>
+            <td>448</td>
+            <td>85</td>
+            <td>533</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-03-readme-quality.html" class="btn btn-secondary">← Example 03</a>
+    <a href="example-05-hn-topic-brief.html" class="btn btn-secondary">Next: HN Topic Brief →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

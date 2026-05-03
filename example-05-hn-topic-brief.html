@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example 05: HN Topic Brief — clawdag-go</title>
+  <meta name="description" content="A clawdag-go example using MapOver for per-story AI checks, dominant-category detection, and style-routed summarisation.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Breadcrumb ───────────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">05 — HackerNews Topic Brief</span>
+  </div>
+</div>
+
+<!-- ── Hero / Summary ──────────────────────────────────────── -->
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:800px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Example 05</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">HackerNews Topic Brief</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Fetches up to 10 HackerNews stories for a search query, fans out two AI checks per story using <code>MapOver</code> nodes, filters and flattens results with deterministic custom ops, computes the dominant category, picks a brief style with <code>ModeSelectOp</code>, and summarises the kept stories in one of three formats: technical engineering newsletter, executive business brief, or policy memo.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li>The <strong>MapOver pattern</strong>: a single graph vertex that fans out an AI op once per element of an input slice, executing all instances in parallel, and collects results back into a <code>[]any</code> wire</li>
+          <li>Writing <strong>multi-output custom ops</strong> (<code>FilterAndFlattenOp</code>) that produce two output wires from a single <code>Run()</code> call</li>
+          <li>A <strong>pure-Go aggregation op</strong> (<code>DominantCategoryOp</code>) that counts label frequencies and returns the mode — deterministic over variable-length AI output</li>
+          <li><strong>ModeSelectOp as a meta-classifier</strong>: it reads the dominant category string (not raw text) and routes to a brief style — a second AI classification that depends on first-pass AI output</li>
+          <li>How to <strong>mix custom ops and library ops</strong> in the same graph without modifying the framework</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/05-hn-topic-brief" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>MapOver fans AI ops across every story in parallel. A chain of deterministic ops reduces the results to a single dominant category. One AI classifier picks the brief style; one summariser writes it.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:800px; justify-content:center;">
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">ExtractTitlesOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">JSON → []string</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="display:flex; flex-direction:column; gap:0.35rem;">
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--purple-light); font-family:monospace;">MapOver: AIBoolOp ×N</div>
+          <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:0.35rem 0.7rem; font-size:0.72rem; color:var(--purple-light); font-family:monospace;">MapOver: AIClassifyML ×N</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">FilterAndFlatten</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">filter + reduce</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">DominantCategory</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">count → mode</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">ModeSelectOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">pick style</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">1 of 3 lanes</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">+ coalesce</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">ExtractTitlesOp</p>
+            <p style="font-size:0.875rem; margin:0;">Custom op that parses the HN Algolia API JSON response and returns a <code>[]string</code> of story titles. Pure Go JSON unmarshaling — no AI.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">FilterAndFlattenOp</p>
+            <p style="font-size:0.875rem; margin:0;">Custom op with two output wires. Zips the relevance flags and label lists against the original titles, discards non-relevant titles, and flattens all label lists into a single <code>[]string</code>. No AI — pure Go slice operations.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">DominantCategoryOp</p>
+            <p style="font-size:0.875rem; margin:0;">Counts label frequencies in the flattened list, returns the most common label. Alphabetical tie-breaking for determinism; falls back to <code>"technical"</code> on empty input. Pure Go.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">Predicate gates (×3) + CoalesceNStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Three string-equality predicates on the <code>brief_style</code> wire. Exactly one <code>AISummarizeOp</code> lane fires; the coalesce returns its result.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">MapOver: AIBoolOp (×N, relevance)</p>
+            <p style="font-size:0.875rem; margin:0;">For each story title, asks "Is this HN title actually about the query topic?" The MapOver node fans out N concurrent <code>AIBoolOp</code> calls and collects the results into a <code>[]any</code> wire called <code>relevant_flags</code>.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">MapOver: AIClassifyMultiLabelOp (×N, classify)</p>
+            <p style="font-size:0.875rem; margin:0;">For each story title, classifies it into zero or more of: technical, business, policy, human_interest, other. Runs concurrently with the relevance MapOver. Results collected into <code>label_lists</code> (<code>[]any</code> of <code>[]string</code>).</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">ModeSelectOp — brief_style</p>
+            <p style="font-size:0.875rem; margin:0;">Reads the dominant category string and classifies it into one of three brief styles: <code>technical_brief</code>, <code>business_brief</code>, or <code>policy_brief</code>. AI classifying AI output — a second-order call.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AISummarizeOp — one style lane</p>
+            <p style="font-size:0.875rem; margin:0;">Summarises <code>kept_titles</code> (<code>[]string</code>) into a styled brief. The prompt varies by lane: engineering newsletter, executive brief, or policy memo. Only one of the three lanes fires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Implementation walkthrough ──────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. MapOver: per-item AI fan-out</h3>
+      <p style="margin-bottom:1.25rem;">A <code>MapOver</code> vertex reads a <code>[]string</code> wire, creates a sub-graph for each element, runs the sub-graph concurrently for each element, and collects results into a <code>[]any</code> wire. The two MapOver nodes below operate on the same <code>titles</code> wire and run in parallel with each other — N×2 AI calls in roughly the time of one.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 2a &amp; 2b (MapOver)</span>
+        </div>
+        <pre><code><span class="cm">// Stage 2a: per-story relevance check.</span>
+<span class="cm">// MapOver fans AIBoolOp once per title; results → relevant_flags []any.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"map_relevance"</span>).
+    <span class="fn">Input</span>(<span class="st">"Items"</span>, <span class="st">"titles"</span>).
+    <span class="fn">MapOver</span>(<span class="st">"title"</span>).
+    <span class="fn">SubVertex</span>(<span class="st">"relevant"</span>).
+    <span class="fn">Op</span>(<span class="st">"AIBoolOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{
+        <span class="st">"predicate"</span>: fmt.<span class="fn">Sprintf</span>(<span class="st">"Is this title about %q?"</span>, query),
+    }).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"title"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"is_relevant"</span>).
+    <span class="fn">CollectInto</span>(<span class="st">"is_relevant"</span>, <span class="st">"relevant_flags"</span>)
+
+<span class="cm">// Stage 2b: per-story label classification.</span>
+<span class="cm">// Runs in parallel with map_relevance — same titles wire, no dependency.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"map_classify"</span>).
+    <span class="fn">Input</span>(<span class="st">"Items"</span>, <span class="st">"titles"</span>).
+    <span class="fn">MapOver</span>(<span class="st">"title"</span>).
+    <span class="fn">SubVertex</span>(<span class="st">"classify"</span>).
+    <span class="fn">Op</span>(<span class="st">"AIClassifyMultiLabelOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{
+        <span class="st">"categories"</span>: <span class="st">"technical,business,policy,human_interest,other"</span>,
+    }).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"title"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"labels"</span>).
+    <span class="fn">CollectInto</span>(<span class="st">"labels"</span>, <span class="st">"label_lists"</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Deterministic filter + flatten</h3>
+      <p style="margin-bottom:1.25rem;"><code>FilterAndFlattenOp</code> is a custom op with two output wires. It zips three parallel slices (titles, flags, label lists) in a single <code>Run()</code> call: titles where the flag is false are discarded; labels from kept titles are concatenated into a flat list. Pure Go — no AI.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — FilterAndFlattenOp.Run()</span>
+        </div>
+        <pre><code><span class="kw">func</span> (op *<span class="ty">FilterAndFlattenOp</span>) <span class="fn">Run</span>(ctx context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    titles, flags, lists := *op.Titles, *op.RelevantFlags, *op.LabelLists
+    n := <span class="fn">min</span>(<span class="fn">len</span>(titles), <span class="fn">len</span>(flags), <span class="fn">len</span>(lists))
+
+    <span class="kw">for</span> i := <span class="nu">0</span>; i &lt; n; i++ {
+        flag, ok := flags[i].(<span class="ty">bool</span>)
+        <span class="kw">if</span> !ok || !flag {
+            <span class="kw">continue</span>                          <span class="cm">// skip non-relevant stories</span>
+        }
+        op.KeptTitles = <span class="fn">append</span>(op.KeptTitles, titles[i])
+        <span class="kw">if</span> labels, ok := lists[i].([]<span class="ty">string</span>); ok {
+            op.AllLabels = <span class="fn">append</span>(op.AllLabels, labels...) <span class="cm">// flatten labels</span>
+        }
+    }
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Dominant category → brief style</h3>
+      <p style="margin-bottom:1.25rem;"><code>DominantCategoryOp</code> tallies the flattened label list and returns the mode. Then <code>ModeSelectOp</code> — an AI op — reads the single dominant-category string and picks a brief style. This two-step pattern (count deterministically, classify AI-to-AI) keeps the aggregation logic in testable Go code while letting AI handle the semantic "what does this category mean for a brief?" question.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stages 4 &amp; 5</span>
+        </div>
+        <pre><code><span class="cm">// Stage 4: deterministic frequency count → dominant label.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"dominant_cat"</span>).<span class="fn">Op</span>(<span class="st">"DominantCategoryOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"AllLabels"</span>, <span class="st">"all_labels"</span>).
+    <span class="fn">Output</span>(<span class="st">"Dominant"</span>, <span class="st">"dominant"</span>).
+
+<span class="cm">// Stage 5: one AI call maps dominant label → brief style.</span>
+<span class="cm">// "technical" → "technical_brief", "policy" → "policy_brief", etc.</span>
+b.<span class="fn">Vertex</span>(<span class="st">"mode_select"</span>).<span class="fn">Op</span>(<span class="st">"ModeSelectOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"categories"</span>: <span class="st">"technical_brief,business_brief,policy_brief"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"dominant"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"brief_style"</span>)</code></pre>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">4. Style-specific summarisation lanes</h3>
+      <p style="margin-bottom:1.25rem;">Each of three <code>AISummarizeOp</code> lanes carries a predicate on <code>brief_style</code>. Only one fires. The <code>operation</code> parameter defines the style: the technical lane groups stories by sub-topic; the business lane adds an impact list; the policy lane adds legislative framing.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — Stage 6 (style lanes)</span>
+        </div>
+        <pre><code>lanes := []<span class="kw">struct</span>{ name, condition, operation <span class="ty">string</span> }{
+    {
+        name:      <span class="st">"technical"</span>,
+        condition: <span class="st">"style_is_technical_brief"</span>,
+        operation: <span class="st">"summarize as a technical engineering newsletter: "</span> +
+                   <span class="st">"one bullet per story, grouped by sub-topic"</span>,
+    },
+    {
+        name:      <span class="st">"business"</span>,
+        condition: <span class="st">"style_is_business_brief"</span>,
+        operation: <span class="st">"summarize as an executive business brief: "</span> +
+                   <span class="st">"3-sentence overview then a bulleted impact list"</span>,
+    },
+    {
+        name:      <span class="st">"policy"</span>,
+        condition: <span class="st">"style_is_policy_brief"</span>,
+        operation: <span class="st">"summarize as a policy memo: "</span> +
+                   <span class="st">"list legislative items, affected parties, and timeline"</span>,
+    },
+}
+<span class="kw">for</span> _, lane := <span class="kw">range</span> lanes {
+    b.<span class="fn">Vertex</span>(lane.name+<span class="st">"_lane"</span>).<span class="fn">Op</span>(<span class="st">"AISummarizeOp"</span>).
+        <span class="fn">Condition</span>(lane.condition).
+        <span class="fn">ConditionInput</span>(<span class="st">"brief_style"</span>).
+        <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: lane.operation}).
+        <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"kept_titles"</span>).
+        <span class="fn">Output</span>(<span class="st">"Result"</span>, lane.name+<span class="st">"_text"</span>)
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Run It -->
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">Two test fixtures are included. <code>golang</code> produces a technical brief; <code>eu-ai-act</code> produces a policy brief.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
+
+<span class="cm"># Cached fixtures (offline)</span>
+go run . --query golang     --cache
+go run . --query <span class="st">"EU AI Act"</span> --cache
+
+<span class="cm"># Live API</span>
+go run . --query golang
+go run . --query kubernetes
+
+<span class="cm"># Explicit fixture file</span>
+go run . --query golang --fixture testdata/hn/golang.json</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Token usage ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h2>Token usage</h2>
+      <p>Measured on <code>testdata/hn/golang.json</code> (10 stories). MapOver fans out one <code>AIBoolOp</code> and one <code>AIClassifyMultiLabelOp</code> per story — all 20 calls run in parallel. Token cost scales linearly with story count.</p>
+    </div>
+    <div class="token-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Op</th>
+            <th>Calls</th>
+            <th>Input tokens</th>
+            <th>Output tokens</th>
+            <th>Total tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AIBoolOp</td>
+            <td>10</td>
+            <td>781</td>
+            <td>40</td>
+            <td>821</td>
+          </tr>
+          <tr>
+            <td>AIClassifyMultiLabelOp</td>
+            <td>10</td>
+            <td>911</td>
+            <td>52</td>
+            <td>963</td>
+          </tr>
+          <tr>
+            <td>ModeSelectOp</td>
+            <td>1</td>
+            <td>67</td>
+            <td>6</td>
+            <td>73</td>
+          </tr>
+          <tr>
+            <td>AIComputeOp</td>
+            <td>1</td>
+            <td>224</td>
+            <td>248</td>
+            <td>472</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>22</td>
+            <td>1,983</td>
+            <td>346</td>
+            <td>2,329</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nav between examples ─────────────────────────────────── -->
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-04-weather-advisor.html" class="btn btn-secondary">← Example 04</a>
+    <a href="examples.html" class="btn btn-secondary">All Examples</a>
+    <a href="example-06-faithful-summary.html" class="btn btn-secondary">Example 06 →</a>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

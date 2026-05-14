@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Docs — clawdag-go</title>
-  <meta name="description" content="Build deterministic AI workflows with clawdag-go. Quick start, core concepts, and a complete annotated example.">
+  <title>Developer Docs — sparsi-go</title>
+  <meta name="description" content="Build deterministic AI workflows with sparsi-go. Quick start, core concepts, and a complete annotated example.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +15,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns2" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na2" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na2)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng2)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns2)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/></svg>
-      <span><span class="brand">clawdag</span>-go</span>
+      <span><span class="brand">sparsi</span>-go</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -26,7 +26,7 @@
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="nav-gh">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         <span class="hide-sm">GitHub</span>
       </a></li>
@@ -41,14 +41,14 @@
       <span class="badge badge-blue" style="margin-bottom:1rem; display:inline-flex;">Developer Docs</span>
       <h1 style="margin-bottom:1rem;">Build AI Workflows<br>You Can Actually <span class="hi-o">Debug</span></h1>
       <p style="font-size:1.0625rem; margin-bottom:2rem;">
-        clawdag-go is a Go library for DAG-based workflows. Ops are plain Go structs.
+        sparsi-go is a Go library for DAG-based workflows. Ops are plain Go structs.
         Wires are typed values. The engine handles dependency resolution, parallelism,
         and skip-propagation. You write the logic.
       </p>
       <div class="hero-actions">
-        <a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="btn btn-primary">
+        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          github.com/akennis/clawdag-go
+          github.com/akennis/sparsi-go
         </a>
         <a href="#example" class="btn btn-secondary">See the Example ↓</a>
         <a href="#skills" class="btn btn-secondary">Skills ↓</a>
@@ -71,7 +71,7 @@
             <div class="code-dots"><span></span><span></span><span></span></div>
             <span class="code-filename">terminal</span>
           </div>
-          <pre><code>go get github.com/akennis/clawdag-go</code></pre>
+          <pre><code>go get github.com/akennis/sparsi-go</code></pre>
         </div>
         <p style="margin-top:1.25rem; margin-bottom:1rem; font-size:0.9375rem;">Run the codegen driver (designs + generates a workflow from a prompt):</p>
         <div class="code-block">
@@ -80,7 +80,7 @@
             <span class="code-filename">terminal</span>
           </div>
           <pre><code>export CLAUDE_API_KEY=&lt;your key&gt;
-go run github.com/akennis/clawdag-go</code></pre>
+go run github.com/akennis/sparsi-go</code></pre>
         </div>
       </div>
       <div>
@@ -91,7 +91,7 @@ go run github.com/akennis/clawdag-go</code></pre>
             <span class="code-filename">main.go</span>
           </div>
           <pre><code><span class="kw">import</span> (
-    _ <span class="st">"github.com/akennis/clawdag-go/library"</span>
+    _ <span class="st">"github.com/akennis/sparsi-go/library"</span>
     <span class="st">"github.com/wwz16/dagor/graph"</span>
     <span class="st">"github.com/wwz16/dagor/operator"</span>
     <span class="st">"github.com/wwz16/dagor/operator/builtin"</span>
@@ -128,7 +128,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
       <span class="badge badge-purple">Claude Code Skills</span>
       <h2>Design &amp; Generate Workflows with AI</h2>
       <p>Two Claude Code slash commands that turn a plain-English task description into a
-         compilable clawdag-go program — without writing any boilerplate by hand.</p>
+         compilable sparsi-go program — without writing any boilerplate by hand.</p>
     </div>
 
     <!-- Two-step flow -->
@@ -136,7 +136,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
       <div class="card" style="border-color:rgba(139,92,246,0.3);">
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
           <span style="font-size:1.75rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7; line-height:1;">1</span>
-          <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/clawdag-design</code></h3>
+          <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/sparsi-design</code></h3>
         </div>
         <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Describe your task in plain English. The skill reads the full operator library and design rules, picks the most structurally similar example, then produces a structured DAG design — ASCII diagram, vertex list, predicates, and rationale.</p>
         <ul class="feat-list">
@@ -148,7 +148,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
       <div class="card" style="border-color:rgba(139,92,246,0.3);">
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
           <span style="font-size:1.75rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7; line-height:1;">2</span>
-          <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/clawdag-codegen</code></h3>
+          <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/sparsi-codegen</code></h3>
         </div>
         <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Pass the approved design and an output directory. The skill generates <code>main.go</code> + <code>go.mod</code>, runs <code>go mod tidy</code>, then <code>go build</code> — fixing any compile errors automatically until the binary is clean.</p>
         <ul class="feat-list">
@@ -166,13 +166,13 @@ result, _ := engine.Run(ctx, g)</code></pre>
         <span class="code-filename">Claude Code — typical session</span>
       </div>
       <pre><code><span class="cm"># Step 1 — describe your task; iterate on the design until you approve it</span>
-/clawdag-design Classify customer support tickets, route each category
+/sparsi-design Classify customer support tickets, route each category
   to a specialist AI extraction lane, and emit a structured JSON brief.
 
 <span class="cm"># (refine with follow-up messages until the design looks right)</span>
 
 <span class="cm"># Step 2 — generate, compile, and fix any build errors automatically</span>
-/clawdag-codegen &lt;paste the approved design above&gt; ./my-triager</code></pre>
+/sparsi-codegen &lt;paste the approved design above&gt; ./my-triager</code></pre>
     </div>
 
     <!-- Installation -->
@@ -183,13 +183,13 @@ result, _ := engine.Run(ctx, g)</code></pre>
     </p>
 
     <div style="display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap;">
-      <a href="clawdag-design.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
+      <a href="sparsi-design.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        clawdag-design.zip
+        sparsi-design.zip
       </a>
-      <a href="clawdag-codegen.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
+      <a href="sparsi-codegen.zip" download style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.4); color:var(--purple-light); text-decoration:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.9375rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        clawdag-codegen.zip
+        sparsi-codegen.zip
       </a>
     </div>
 
@@ -202,12 +202,12 @@ result, _ := engine.Run(ctx, g)</code></pre>
             <span class="code-filename">terminal</span>
           </div>
           <pre><code><span class="cm"># Claude Code</span>
-cp -r clawdag-design  ~/.claude/skills/
-cp -r clawdag-codegen ~/.claude/skills/
+cp -r sparsi-design  ~/.claude/skills/
+cp -r sparsi-codegen ~/.claude/skills/
 
 <span class="cm"># Gemini CLI</span>
-cp -r clawdag-design  ~/.gemini/skills/
-cp -r clawdag-codegen ~/.gemini/skills/</code></pre>
+cp -r sparsi-design  ~/.gemini/skills/
+cp -r sparsi-codegen ~/.gemini/skills/</code></pre>
         </div>
       </div>
       <div>
@@ -218,12 +218,12 @@ cp -r clawdag-codegen ~/.gemini/skills/</code></pre>
             <span class="code-filename">PowerShell</span>
           </div>
           <pre><code><span class="cm"># Claude Code</span>
-Copy-Item -Recurse clawdag-design  "$env:USERPROFILE\.claude\skills\"
-Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.claude\skills\"
+Copy-Item -Recurse sparsi-design  "$env:USERPROFILE\.claude\skills\"
+Copy-Item -Recurse sparsi-codegen "$env:USERPROFILE\.claude\skills\"
 
 <span class="cm"># Gemini CLI</span>
-Copy-Item -Recurse clawdag-design  "$env:USERPROFILE\.gemini\skills\"
-Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.gemini\skills\"</code></pre>
+Copy-Item -Recurse sparsi-design  "$env:USERPROFILE\.gemini\skills\"
+Copy-Item -Recurse sparsi-codegen "$env:USERPROFILE\.gemini\skills\"</code></pre>
         </div>
       </div>
     </div>
@@ -236,19 +236,19 @@ Copy-Item -Recurse clawdag-codegen "$env:USERPROFILE\.gemini\skills\"</code></pr
           <span class="code-filename">terminal</span>
         </div>
         <pre><code><span class="cm"># Claude Code</span>
-cp -r clawdag-design  .claude/skills/
-cp -r clawdag-codegen .claude/skills/
+cp -r sparsi-design  .claude/skills/
+cp -r sparsi-codegen .claude/skills/
 
 <span class="cm"># Gemini CLI</span>
-cp -r clawdag-design  .gemini/skills/
-cp -r clawdag-codegen .gemini/skills/</code></pre>
+cp -r sparsi-design  .gemini/skills/
+cp -r sparsi-codegen .gemini/skills/</code></pre>
       </div>
     </div>
 
     <div class="quote-block">
-      <p>Bundle versions track the library — replace both skill directories when you upgrade clawdag-go.
+      <p>Bundle versions track the library — replace both skill directories when you upgrade sparsi-go.
          Browse the skill source on
-         <a href="https://github.com/akennis/clawdag-go/tree/main/skills" target="_blank" rel="noopener" style="color:var(--orange-light);">GitHub →</a>
+         <a href="https://github.com/akennis/sparsi-go/tree/main/skills" target="_blank" rel="noopener" style="color:var(--orange-light);">GitHub →</a>
       </p>
     </div>
   </div>
@@ -988,7 +988,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
       <h2>Start building your first DAG workflow</h2>
       <p>All examples are runnable with a single <code>CLAUDE_API_KEY</code> env var.</p>
       <div class="cta-actions">
-        <a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="btn btn-primary">Browse the Repo →</a>
+        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">Browse the Repo →</a>
         <a href="leaders.html" class="btn btn-secondary">Pitch to leadership</a>
       </div>
     </div>
@@ -1000,7 +1000,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
   <div class="footer-inner">
     <div class="footer-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs2" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs2)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
-      <span>clawdag-go</span>
+      <span>sparsi-go</span>
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
@@ -1010,7 +1010,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
     <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
   </div>

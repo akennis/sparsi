@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Operator Library — clawdag-go</title>
-  <meta name="description" content="Complete reference for all clawdag-go operators — AI, MCP, Retrieval, Repair, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops, plus the AIClientFactory and EmbeddingClientFactory abstractions.">
+  <title>Operator Library — sparsi-go</title>
+  <meta name="description" content="Complete reference for all sparsi-go operators — AI, MCP, Retrieval, Repair, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops, plus the AIClientFactory and EmbeddingClientFactory abstractions.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/></svg>
-      <span><span class="brand">clawdag</span>-go</span>
+      <span><span class="brand">sparsi</span>-go</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -25,7 +25,7 @@
       <li><a href="library.html" class="active">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="nav-gh">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         <span class="hide-sm">GitHub</span>
       </a></li>
@@ -41,7 +41,7 @@
         <span class="badge badge-blue">100+ Operators · Retrieval · Repair · Factories</span>
       </div>
       <h1 style="margin-bottom:1rem;">Operator Library</h1>
-      <p style="font-size:1.0625rem;line-height:1.75;max-width:640px;">Every operator available in clawdag-go, organized by category. Deterministic ops run as pure Go functions. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:640px;">Every operator available in sparsi-go, organized by category. Deterministic ops run as pure Go functions. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
     </div>
   </div>
 </section>
@@ -397,11 +397,11 @@
       <span class="badge badge-orange">2 ops</span>
       <span class="tag tag-det">Integration</span>
     </div>
-    <p style="max-width:720px;margin-bottom:1rem;">These operators turn <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a> servers into first-class DAG steps. They speak the standard MCP wire protocol over either <code>stdio</code> (a local subprocess like <code>npx @playwright/mcp</code> or <code>uvx</code>-launched servers) or streamable <code>http</code> (a remote endpoint such as <code>https://docs.mcp.cloudflare.com/mcp</code>) — so any MCP-compliant server, local or remote, public or private, drops into a clawdag graph without custom glue code.</p>
-    <p style="max-width:720px;margin-bottom:1rem;">Because these ops use the protocol's own <code>tools/list</code> and <code>tools/call</code> verbs, <strong>any reference material that documents an existing MCP server and its tools is directly usable when wiring clawdag</strong>. Hand the server's tool catalog (names, JSON-Schema arg shapes, return types) to your editor or to Claude alongside the clawdag graph and it has everything needed to bind a tool call to a vertex — no SDK adapter to write, no per-server client to vendor.</p>
+    <p style="max-width:720px;margin-bottom:1rem;">These operators turn <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a> servers into first-class DAG steps. They speak the standard MCP wire protocol over either <code>stdio</code> (a local subprocess like <code>npx @playwright/mcp</code> or <code>uvx</code>-launched servers) or streamable <code>http</code> (a remote endpoint such as <code>https://docs.mcp.cloudflare.com/mcp</code>) — so any MCP-compliant server, local or remote, public or private, drops into a sparsi graph without custom glue code.</p>
+    <p style="max-width:720px;margin-bottom:1rem;">Because these ops use the protocol's own <code>tools/list</code> and <code>tools/call</code> verbs, <strong>any reference material that documents an existing MCP server and its tools is directly usable when wiring sparsi</strong>. Hand the server's tool catalog (names, JSON-Schema arg shapes, return types) to your editor or to Claude alongside the sparsi graph and it has everything needed to bind a tool call to a vertex — no SDK adapter to write, no per-server client to vendor.</p>
     <p style="max-width:720px;margin-bottom:2rem;">A built-in warm-replenish session pool (<code>pool_size</code>, stdio only in v1) keeps cold-start off the critical path when many vertices share the same server spec. Pair with <code>library.ShutdownMCPPool</code> from <code>main()</code> so pre-started subprocesses drain at exit.</p>
     <div class="grid-2">
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/mcp_call_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/mcp_call_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div class="card-icon icon-orange" style="margin-bottom:0.75rem;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
         </div>
@@ -412,7 +412,7 @@
         <p style="font-size:0.875rem;margin:0 0 0.5rem;">Invoke a single MCP tool as one DAG step. Each <code>Run</code> opens a fresh session, completes the handshake, calls one tool, and tears the session down. Default dispatch decodes <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, slice and map shapes, and any JSON-decodable struct (structured content preferred when the server emits it). Implement <code>MCPArgsFormatter</code> / <code>MCPResponseParser</code> for full control.</p>
         <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Params: <code>transport</code>, <code>command</code>/<code>args</code>/<code>env</code> (stdio) or <code>url</code>/<code>headers</code> (http), <code>tool_name</code>, <code>init_timeout_ms</code>, <code>call_timeout_ms</code>, <code>max_retries</code>, <code>pool_size</code>, <code>pool_prewarm</code>.</p>
       </a>
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/mcp_script_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/mcp_script_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div class="card-icon icon-orange" style="margin-bottom:0.75rem;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
@@ -438,7 +438,7 @@
     <p style="max-width:720px;margin-bottom:1rem;">Two operators wire a registered <code>library.Retriever</code> into a graph; one filters LLM-emitted citations against an allow-list. The <code>Retriever</code> interface itself is backend-agnostic — implement it once over BM25, a vector store, or a hosted search service, then any of these ops works. Vertices that embed (vector-store retrievers) call <code>library.ResolveEmbeddingClient</code> instead of reading env vars directly, so a registered <code>EmbeddingClientFactory</code> controls where the credential actually comes from.</p>
     <p style="max-width:720px;margin-bottom:2rem;">See <a href="rag.html">the retrieval concept guide</a> for the full data flow, security guidance, and citation-validation pattern.</p>
     <div class="grid-3">
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/retrieve_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/retrieve_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">RetrieveOp</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Retrieval</span>
@@ -446,7 +446,7 @@
         <p style="font-size:0.875rem;margin:0 0 0.5rem;">Top-<code>k</code> retrieval from a registered <code>Retriever</code>. Emits <code>Documents []Document</code> and <code>Texts []string</code> in parallel.</p>
         <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Params: <code>k</code>, <code>retriever_id</code>, <code>credential_ref</code>, <code>client_factory_id</code>, <code>api_factory_timeout_ms</code>, <code>embed_timeout_ms</code>.</p>
       </a>
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/retrieve_with_filters_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/retrieve_with_filters_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">RetrieveWithFiltersOp</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Retrieval</span>
@@ -454,7 +454,7 @@
         <p style="font-size:0.875rem;margin:0 0 0.5rem;">Same as <code>RetrieveOp</code> plus a <code>Filters *map[string]string</code> input wire and a <code>static_filters</code> param. Runtime wins on key collision. Filters install on ctx via <code>library.WithRetrievalFilters</code>.</p>
         <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Use when tenant id / locale / category come from upstream auth, classifier, or planner ops.</p>
       </a>
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/validate_citations_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/validate_citations_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">ValidateCitationsOp</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Security</span>
@@ -477,7 +477,7 @@
     <p style="max-width:720px;margin-bottom:1rem;"><code>library.WithRepair</code> turns a deterministic op into an LLM-assisted-recovery op. When the inner op returns <code>*library.ErrRepairable</code> carrying a self-contained prompt, the wrapper forwards the prompt to an LLM, parses the response back into the named input field's element type via <code>UnmarshalRepair</code>, writes it back, and re-runs the inner op. Bounded by <code>max_attempts</code>; non-repairable errors propagate unchanged.</p>
     <p style="max-width:720px;margin-bottom:2rem;">See <a href="repair.html">the repair concept guide</a> for the inner-op contract, when (and when not) to use it, and the canonical wiring pattern.</p>
     <div class="grid-2">
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/with_repair.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/with_repair.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">library.RegisterWithRepair[Inner]</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Registration</span>
@@ -508,7 +508,7 @@
     <p style="max-width:720px;margin-bottom:1rem;">Every AI op resolves its provider SDK client through an <code>AIClientFactory</code>; every vector-store retriever resolves its embedding client through an <code>EmbeddingClientFactory</code>. Both interfaces let you source credentials from Vault, AWS Secrets Manager, workload identity, an egress proxy, or per-tenant vaults without changing graph code.</p>
     <p style="max-width:720px;margin-bottom:2rem;">See <a href="ai-routing.html">the credential-routing guide</a> for wiring patterns (process default vs registered-by-id vs per-vertex ref) and security guidance.</p>
     <div class="grid-2">
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/ai_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/ai_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">library.AIClientFactory</code>
           <span class="tag tag-det" style="font-size:0.7rem;">AI clients</span>
@@ -516,7 +516,7 @@
         <p style="font-size:0.875rem;margin:0 0 0.5rem;">Two methods: <code>Anthropic(ctx, ref) (*anthropic.Client, error)</code> and <code>Gemini(ctx, ref) (*genai.Client, error)</code>. The bundled <code>EnvAIClientFactory</code> reads <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code> from the environment.</p>
         <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Wire via <code>SetDefaultAIClientFactory</code>, <code>RegisterAIClientFactory(id, f)</code>, and the per-vertex <code>client_factory_id</code> + <code>credential_ref</code> params.</p>
       </a>
-      <a href="https://github.com/akennis/clawdag-go/blob/main/library/embedding_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+      <a href="https://github.com/akennis/sparsi-go/blob/main/library/embedding_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
           <code style="font-size:0.875rem;color:var(--text-0);">library.EmbeddingClientFactory</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Embeddings</span>
@@ -611,7 +611,7 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
   <div class="footer-inner">
     <div class="footer-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
-      <span>clawdag-go</span>
+      <span>sparsi-go</span>
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
@@ -619,7 +619,7 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
     <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
   </div>

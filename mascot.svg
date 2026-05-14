@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="clawdag mascot - a crayfish pinching an AI DAG node">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="sparsi mascot - a crayfish pinching an AI DAG node">
   <defs>
     <filter id="m-glow" x="-60%" y="-60%" width="220%" height="220%">
       <feGaussianBlur stdDeviation="2.5" result="b"/>

@@ -1,7 +1,7 @@
 # Ops Documentation: Complete Runnable Examples
 
-You are updating the clawdag.ai website. Each HTML file in
-`/mnt/c/Users/albert.kennis/projects/clawdag.ai/ops/` has a "Graph Config Example"
+You are updating the sparsi.ai website. Each HTML file in
+`/mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/` has a "Graph Config Example"
 section showing a partial DAG builder snippet. Your job is to replace every such section
 with a "Complete Runnable Example" — a full, standalone Go program that compiles and runs.
 
@@ -13,7 +13,7 @@ with a "Complete Runnable Example" — a full, standalone Go program that compil
 
 Run:
 ```
-ls /mnt/c/Users/albert.kennis/projects/clawdag.ai/ops/*.html
+ls /mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/*.html
 ```
 
 That produces the full list. Skip `ai-bool.html`. The other 68 files each need one sub-agent.
@@ -29,15 +29,15 @@ for each batch to complete and confirm success before starting the next.
 ## Sub-agent prompt template
 
 ```
-You are updating one ops documentation page for the clawdag.ai website.
+You are updating one ops documentation page for the sparsi.ai website.
 
 **Your file:** <FILE>
 
 **Key paths:**
-- Website ops dir:  /mnt/c/Users/albert.kennis/projects/clawdag.ai/ops/
-- Library source:   /mnt/c/Users/albert.kennis/projects/clawdag-go/library/
-- Example programs: /mnt/c/Users/albert.kennis/projects/clawdag-go/examples/
-- Reference (done): /mnt/c/Users/albert.kennis/projects/clawdag.ai/ops/ai-bool.html
+- Website ops dir:  /mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/
+- Library source:   /mnt/c/Users/albert.kennis/projects/sparsi-go/library/
+- Example programs: /mnt/c/Users/albert.kennis/projects/sparsi-go/examples/
+- Reference (done): /mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/ai-bool.html
 - dagor engine:     /mnt/c/Users/albert.kennis/projects/dagor/
 
 ---
@@ -64,7 +64,7 @@ minified (single line). You will need to match it precisely when replacing.
 
 ### Step 2 — Find the library source
 
-Search in `/mnt/c/Users/albert.kennis/projects/clawdag-go/library/` for the Go file that
+Search in `/mnt/c/Users/albert.kennis/projects/sparsi-go/library/` for the Go file that
 defines this op. The file names map roughly to the op category:
 - `ai_ops.go` or `ai_compute_op.go` — AI ops
 - `math_ops.go` — math ops
@@ -90,7 +90,7 @@ Read the op struct to confirm:
 Write the program to `/tmp/<op-slug>-demo/main.go` where `<op-slug>` is derived from the
 HTML filename (e.g. `math-add.html` → `/tmp/math-add-demo/`).
 
-**Patterns to follow** (study `/mnt/c/Users/albert.kennis/projects/clawdag.ai/ops/ai-bool.html`
+**Patterns to follow** (study `/mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/ai-bool.html`
 for the complete reference):
 
 #### Injecting inputs
@@ -121,7 +121,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/akennis/clawdag-go/library"
+	"github.com/akennis/sparsi-go/library"
 	_ "github.com/wwz16/dagor/operator/builtin"
 
 	"github.com/panjf2000/ants/v2"
@@ -236,9 +236,9 @@ module <op-slug>-demo
 
 go 1.25.5
 
-require github.com/akennis/clawdag-go v0.0.0
+require github.com/akennis/sparsi-go v0.0.0
 
-replace github.com/akennis/clawdag-go => /mnt/c/Users/albert.kennis/projects/clawdag-go
+replace github.com/akennis/sparsi-go => /mnt/c/Users/albert.kennis/projects/sparsi-go
 replace github.com/wwz16/dagor => /mnt/c/Users/albert.kennis/projects/dagor
 ```
 

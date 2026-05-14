@@ -8,9 +8,9 @@
       "Bash(/tmp/ai-bool-demo/ai-bool-demo)",
       "Bash(go mod *)",
       "Bash(./demo)",
-      "Bash(sed -i 's|<span class=\"stat-n\">MIT</span>|<span class=\"stat-n\">BSD 3-Clause</span>|g' /mnt/c/Users/albert.kennis/projects/clawdag.ai/leaders.html)",
-      "Bash(sed -i 's/MIT licensed\\\\./BSD 3-Clause licensed./g' /mnt/c/Users/albert.kennis/projects/clawdag.ai/leaders.html)",
-      "Bash(sed -i 's/MIT licence — no proprietary workflow runtime/BSD 3-Clause licence — no proprietary workflow runtime/g' /mnt/c/Users/albert.kennis/projects/clawdag.ai/leaders.html)",
+      "Bash(sed -i 's|<span class=\"stat-n\">MIT</span>|<span class=\"stat-n\">BSD 3-Clause</span>|g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
+      "Bash(sed -i 's/MIT licensed\\\\./BSD 3-Clause licensed./g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
+      "Bash(sed -i 's/MIT licence — no proprietary workflow runtime/BSD 3-Clause licence — no proprietary workflow runtime/g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
       "Bash(git mv *)"
     ]
   }

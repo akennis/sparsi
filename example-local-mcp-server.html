@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example: Local MCP — Playwright fan-out — clawdag-go</title>
+  <meta name="description" content="One MCPScriptOp scrapes Google for a query; MapOver spawns N parallel MCP sessions to screenshot each URL. Warm-replenish pool of size 8.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">Local MCP server — Playwright fan-out</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-purple">MCP example</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Local MCP — Playwright fan-out</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        Two <code>MCPScriptOp</code> variants composed via dagor's <code>MapOver</code>. One
+        playwright-mcp session searches Google and extracts the first three off-Google result URLs.
+        A downstream <code>MapOver</code> spawns one playwright-mcp subprocess per URL in parallel,
+        each opening the page and saving a screenshot. Warm-replenish pool sized at 8 keeps
+        cold-start off the critical path.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--purple-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li>Two <code>MCPScriptOp</code> variants in one workflow — one needs session continuity, the other parallelises per-URL</li>
+          <li>Embedding <code>library.MCPScriptOp[In, Out]</code> in a named struct to add per-vertex params via custom <code>Setup</code></li>
+          <li>The <code>MapOver</code> + <code>CollectInto</code> fan-out pattern for per-item parallel work</li>
+          <li>Best-effort sub-vertex failure handling — one URL's screenshot can fail without aborting the DAG</li>
+          <li>Warm-replenish pool (<code>pool_size</code>, <code>pool_prewarm</code>) and <code>library.ShutdownMCPPool</code> shutdown</li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/local-mcp-server" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG ──────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Pipeline structure</h2>
+      <p>One stateful MCP session produces a list of URLs; <code>MapOver</code> turns that list
+        into N parallel per-URL screenshot sub-vertices, each on its own playwright-mcp
+        subprocess.</p>
+    </div>
+
+    <div style="background:var(--bg-0); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:2rem; overflow-x:auto;">
+      <div style="display:flex; align-items:center; gap:0.5rem; min-width:600px; justify-content:center; flex-wrap:nowrap;">
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">ContextValOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">SearchInput</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">MCPScriptOp</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">search + extract URLs</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--purple-dim); border:1px solid rgba(139,92,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--purple-light); font-weight:700; font-family:monospace;">MapOver</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">3× MCPScriptOp · screenshot</div>
+        </div>
+        <div style="color:var(--text-3);">→</div>
+        <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">CollectInto</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">[]ShotResult</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2);">
+      The search subprocess maintains a live browser session — navigate, click consent, type the
+      query, wait for results, extract URLs. All five tool calls run against the same
+      playwright-mcp instance. The per-URL screenshot vertices get fresh subprocesses from the
+      pool; each Run owns its session and tears it down when done.
+    </p>
+  </div>
+</section>
+
+<!-- ── Walkthrough ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+      <p>Three patterns to study in <code>main.go</code>.</p>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. A multi-tool script over one session</h3>
+      <p style="margin-bottom:1.25rem;">The search op embeds <code>library.MCPScriptOp[SearchInput, []string]</code>
+        and assigns its <code>Script</code> in the factory closure. Inside the script, every
+        <code>sess.CallTool</code> invocation reuses the same playwright session — the browser
+        page persists across <code>browser_navigate</code>, <code>browser_evaluate</code>, and
+        <code>browser_type</code> calls.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — MCPGoogleSearchURLsOp</span>
+        </div>
+        <pre><code><span class="kw">type</span> <span class="ty">MCPGoogleSearchURLsOp</span> <span class="kw">struct</span> {
+    library.<span class="ty">MCPScriptOp</span>[<span class="ty">SearchInput</span>, []<span class="ty">string</span>]
+}
+
+<span class="kw">func</span> <span class="fn">newMCPGoogleSearchURLsOp</span>() operator.<span class="ty">IOperator</span> {
+    op := &amp;<span class="ty">MCPGoogleSearchURLsOp</span>{}
+    op.Script = <span class="kw">func</span>(ctx context.<span class="ty">Context</span>, sess library.<span class="ty">MCPSession</span>,
+                                   in *<span class="ty">SearchInput</span>, out *[]<span class="ty">string</span>) <span class="ty">error</span> {
+        <span class="cm">// Navigate, dismiss consent, type query, wait, extract URLs.</span>
+        <span class="kw">if</span> _, _, err := sess.<span class="fn">CallTool</span>(ctx, <span class="st">"browser_navigate"</span>,
+            map[<span class="ty">string</span>]<span class="ty">any</span>{<span class="st">"url"</span>: <span class="st">"https://www.google.com/?hl=en"</span>}); err != <span class="kw">nil</span> {
+            <span class="kw">return</span> <span class="fn">fmt.Errorf</span>(<span class="st">"browser_navigate: %w"</span>, err)
+        }
+        <span class="cm">// ... browser_evaluate (consent), browser_type (query), browser_evaluate (extract URLs)</span>
+        *out = urls
+        <span class="kw">return</span> <span class="kw">nil</span>
+    }
+    <span class="kw">return</span> op
+}</code></pre>
+      </div>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Extending <code>MCPScriptOp</code> with a custom param</h3>
+      <p style="margin-bottom:1.25rem;">The per-URL screenshot op needs an <code>out_dir</code>
+        param that the base <code>MCPScriptOp.Setup</code> doesn't know about. Override
+        <code>Setup</code>, call the embedded base first, then read your own params.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — MCPScreenshotURLOp</span>
+        </div>
+        <pre><code><span class="kw">type</span> <span class="ty">MCPScreenshotURLOp</span> <span class="kw">struct</span> {
+    library.<span class="ty">MCPScriptOp</span>[<span class="ty">string</span>, <span class="ty">ShotResult</span>]
+    outDir <span class="ty">string</span>
+}
+
+<span class="kw">func</span> (op *<span class="ty">MCPScreenshotURLOp</span>) <span class="fn">Setup</span>(p *config.<span class="ty">Params</span>) <span class="ty">error</span> {
+    <span class="kw">if</span> err := op.<span class="ty">MCPScriptOp</span>.<span class="fn">Setup</span>(p); err != <span class="kw">nil</span> {
+        <span class="kw">return</span> err
+    }
+    op.outDir = p.<span class="fn">GetString</span>(<span class="st">"out_dir"</span>, <span class="st">""</span>)
+    <span class="kw">if</span> op.outDir == <span class="st">""</span> || !filepath.<span class="fn">IsAbs</span>(op.outDir) {
+        <span class="kw">return</span> <span class="fn">fmt.Errorf</span>(<span class="st">"out_dir must be absolute"</span>)
+    }
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. MapOver + pool_size</h3>
+      <p style="margin-bottom:1.25rem;">The fan-out vertex declares its sub-graph with
+        <code>SubVertex</code>, binds each item to the <code>url</code> wire, and collects
+        per-URL results into a typed slice. The pool keeps 8 playwright-mcp subprocesses warm so
+        a 3-way fan-out runs with zero cold-start in steady state.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph()</span>
+        </div>
+        <pre><code>shootParams[<span class="st">"out_dir"</span>] = outDir
+shootParams[<span class="st">"pool_size"</span>] = <span class="st">"8"</span>
+
+graph.<span class="fn">NewBuilder</span>(<span class="st">"mcp_google_search_screenshot"</span>).
+    <span class="fn">Vertex</span>(<span class="st">"search_input"</span>).<span class="fn">Op</span>(<span class="st">"search_input_const"</span>).<span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"search_input"</span>).
+    <span class="fn">Vertex</span>(<span class="st">"find_results"</span>).<span class="fn">Op</span>(<span class="st">"MCPGoogleSearchURLsOp"</span>).
+        <span class="fn">Params</span>(playwrightParams).
+        <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"search_input"</span>).
+        <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"result_urls"</span>).
+    <span class="fn">Vertex</span>(<span class="st">"shoot_each"</span>).
+        <span class="fn">Input</span>(<span class="st">"Items"</span>, <span class="st">"result_urls"</span>).
+        <span class="fn">MapOver</span>(<span class="st">"url"</span>).
+        <span class="fn">SubVertex</span>(<span class="st">"shoot"</span>).
+            <span class="fn">Op</span>(<span class="st">"MCPScreenshotURLOp"</span>).
+            <span class="fn">Params</span>(shootParams).
+            <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"url"</span>).
+            <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"shot_result"</span>).
+        <span class="fn">CollectInto</span>(<span class="st">"shot_result"</span>, <span class="st">"screenshot_results"</span>).
+    <span class="fn">Build</span>()</code></pre>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <p style="margin-bottom:1.25rem;">First run downloads <code>@playwright/mcp@latest</code> plus
+        a browser binary; subsequent runs reuse the cache. No <code>CLAUDE_API_KEY</code> needed.
+        Don't forget the pool shutdown defer.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="cm"># default: query "Shizuoka", screenshots under ./.playwright-mcp/</span>
+go run ./examples/local-mcp-server
+
+<span class="cm"># custom query, custom out dir</span>
+go run ./examples/local-mcp-server --query <span class="st">"Kyoto autumn"</span> --out-dir /tmp/shots</code></pre>
+      </div>
+      <p style="font-size:0.875rem; color:var(--text-3); margin-top:1rem;">
+        In <code>main()</code>: <code>defer library.ShutdownMCPPool(context.Background())</code>
+        so warm subprocesses drain at exit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="examples.html" class="btn btn-secondary">← All Examples</a>
+    <a href="example-remote-mcp-server.html" class="btn btn-secondary">Next: Remote MCP →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

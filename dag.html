@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The DAG engine — clawdag-go</title>
+  <meta name="description" content="How clawdag-go workflows are wired: vertices, typed wires, dag field tags, dagor scheduling, predicate gates, skip-propagation, MapOver, Merge.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html" class="active">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="concepts.html" style="color:var(--text-3);">Concepts</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">DAG engine</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-blue">Concept</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">The DAG engine</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
+        A clawdag-go workflow is a directed acyclic graph. Vertices are typed operators; edges
+        are typed wires; the <a href="https://github.com/wwz16/dagor" target="_blank" rel="noopener"><code>dagor</code></a>
+        engine resolves dependencies, schedules independent branches concurrently, and routes typed
+        values between fields. Everything else in clawdag-go — the operator library, AI integration,
+        MCP, retrieval, repair — composes on top of this one substrate.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Operators ──────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Operators</span>
+      <h2>An operator is a Go struct with tagged fields</h2>
+      <p>Each operator declares its inputs and outputs as struct fields annotated with
+        <code>dag:"input"</code> and <code>dag:"output"</code>. The <code>daggen</code> tool reads
+        those tags and generates the field-routing methods (<code>InputFields</code>,
+        <code>OutputFields</code>, <code>SetInputField</code>, <code>ResetFields</code>) so you
+        only write <code>Setup</code>, <code>Reset</code>, and <code>Run</code>.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">a custom operator</span>
+      </div>
+      <pre><code><span class="kw">type</span> <span class="ty">DominantCategoryOp</span> <span class="kw">struct</span> {
+    <span class="cm">// dag:"input"  — pointer fields the engine writes to before Run</span>
+    Labels *[]<span class="ty">string</span> <span class="ty">`dag:"input"`</span>
+
+    <span class="cm">// dag:"output" — value fields the engine reads after Run</span>
+    Result <span class="ty">string</span>      <span class="ty">`dag:"output"`</span>
+}
+
+<span class="kw">func</span> (op *<span class="ty">DominantCategoryOp</span>) <span class="fn">Setup</span>(_ *config.<span class="ty">Params</span>) <span class="ty">error</span> { <span class="kw">return</span> <span class="kw">nil</span> }
+<span class="kw">func</span> (op *<span class="ty">DominantCategoryOp</span>) <span class="fn">Reset</span>() <span class="ty">error</span>                  { <span class="kw">return</span> <span class="kw">nil</span> }
+
+<span class="kw">func</span> (op *<span class="ty">DominantCategoryOp</span>) <span class="fn">Run</span>(_ context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    op.Result = <span class="fn">mostFrequent</span>(*op.Labels)
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      Inputs are pointers so the engine can leave them <code>nil</code> when an upstream vertex
+      was skipped (see <em>predicate gates</em> below). Outputs are values; the engine takes their
+      address after <code>Run</code> returns so downstream vertices can read them.
+    </p>
+  </div>
+</section>
+
+<!-- ── Builder ────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Builder</span>
+      <h2>Wiring a graph</h2>
+      <p>The fluent builder names vertices, picks the operator type by registered name, supplies
+         vertex-scoped params, and connects field names to wire names. Wires are typed: a vertex
+         output's static type must match the consumer's input type, or the graph fails to build.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">building a small graph</span>
+      </div>
+      <pre><code>g, err := graph.<span class="fn">NewBuilder</span>(<span class="st">"hello"</span>).
+    <span class="fn">Vertex</span>(<span class="st">"greet"</span>).<span class="fn">Op</span>(<span class="st">"StringConcatOp"</span>).
+        <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"a"</span>: <span class="st">"Hello, "</span>, <span class="st">"b"</span>: <span class="st">"world"</span>}).
+        <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"out"</span>).
+    <span class="fn">Build</span>()
+
+eng, _ := dagor.<span class="fn">NewEngine</span>(g, pool)
+_ = eng.<span class="fn">Run</span>(context.<span class="fn">Background</span>())
+out, _ := eng.<span class="fn">GetOutput</span>(<span class="st">"out"</span>)
+fmt.<span class="fn">Println</span>(*(out.(*<span class="ty">string</span>)))</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── Scheduling ─────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Scheduling</span>
+      <h2>Parallelism comes from the DAG, not your code</h2>
+      <p>The engine performs a topological sort and schedules vertices to a goroutine pool the
+         moment all their inputs are ready. Two independent subtrees execute concurrently for free
+         — there is no <code>go func()</code> plumbing in your driver. The pool's worker count
+         caps total concurrency (typically 2–4× CPU cores for compute, higher for I/O-bound graphs).</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">🪡</div>
+        <h3>Goroutine pool</h3>
+        <p>Use <code>github.com/panjf2000/ants/v2</code> to create a worker pool and hand it to
+          <code>dagor.NewEngine</code>. The pool bounds concurrency and shields you from
+          unbounded goroutine fan-out on wide graphs.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">⚙️</div>
+        <h3>Context propagation</h3>
+        <p><code>engine.Run(ctx)</code> threads the same <code>context.Context</code> through every
+          operator's <code>Run</code>. Cancel the context and every in-flight vertex sees
+          <code>ctx.Done()</code>. Use <code>context.WithTimeout</code> for graph-wide deadlines.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">📜</div>
+        <h3>Reporters &amp; logs</h3>
+        <p>Pass <code>dagor.WithReporter(reporter.New(slog.Default()))</code> to log per-vertex
+          start/end events and durations. Pair with <a href="operations.html">structured slog</a>
+          to capture timings, AI token counts, and failures in one stream.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Predicate gates ────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Predicate gates</span>
+      <h2>Conditional execution without branching code</h2>
+      <p>A vertex can carry a <code>.Condition()</code> predicate that reads upstream wire values.
+         If the predicate returns <code>false</code>, the vertex is skipped — and the engine
+         propagates that skip to every downstream vertex in the lane automatically.
+         No AI tokens spent, no I/O performed, no error raised.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">predicate + skip-propagation</span>
+      </div>
+      <pre><code>predicate.<span class="fn">Register</span>(<span class="st">"lane_is_billing"</span>, <span class="kw">func</span>(inputs map[<span class="ty">string</span>]<span class="ty">any</span>) <span class="ty">bool</span> {
+    v, ok := inputs[<span class="st">"ticket_category"</span>].(*<span class="ty">string</span>)
+    <span class="kw">return</span> ok &amp;&amp; v != <span class="kw">nil</span> &amp;&amp; *v == <span class="st">"billing"</span>
+})
+
+<span class="fn">Vertex</span>(<span class="st">"gate_billing"</span>).<span class="fn">Op</span>(<span class="st">"LaneGateOp"</span>).
+    <span class="fn">Condition</span>(<span class="st">"lane_is_billing"</span>).
+    <span class="fn">ConditionInput</span>(<span class="st">"ticket_category"</span>).
+    <span class="fn">Input</span>(<span class="st">"Body"</span>, <span class="st">"ticket_body"</span>).
+    <span class="fn">Output</span>(<span class="st">"BodyOut"</span>, <span class="st">"billing_body"</span>).</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      Pair gates with <code>CoalesceNStringOp</code> downstream to merge several mutually-exclusive
+      lanes into a single output wire. The <a href="example-ticket-triager.html">ticket triager
+      example</a> walks through the full fan-out/coalesce pattern.
+    </p>
+  </div>
+</section>
+
+<!-- ── MapOver ────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">MapOver</span>
+      <h2>Per-item fan-out with one sub-graph</h2>
+      <p>When you have <code>N</code> items and want to run the same sub-graph on each in parallel,
+         use <code>MapOver</code>. Declare a <code>SubVertex</code> bound to the items wire and a
+         <code>CollectInto</code> sink — the engine spawns one sub-vertex per item and gathers
+         results into a typed slice.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">MapOver fan-out</span>
+      </div>
+      <pre><code><span class="fn">Vertex</span>(<span class="st">"shoot_each"</span>).
+    <span class="fn">Input</span>(<span class="st">"Items"</span>, <span class="st">"result_urls"</span>).
+    <span class="fn">MapOver</span>(<span class="st">"url"</span>).
+    <span class="fn">SubVertex</span>(<span class="st">"shoot"</span>).
+        <span class="fn">Op</span>(<span class="st">"MCPScreenshotURLOp"</span>).
+        <span class="fn">Params</span>(shootParams).
+        <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"url"</span>).
+        <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"shot_result"</span>).
+    <span class="fn">CollectInto</span>(<span class="st">"shot_result"</span>, <span class="st">"screenshot_results"</span>).</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      The collected output is a <code>*[]any</code>. <a href="example-local-mcp-server.html">The
+      local-MCP example</a> shows how a typed read-helper turns it back into a concrete slice.
+    </p>
+  </div>
+</section>
+
+<!-- ── Merge ─────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Merge</span>
+      <h2>Joining branches when some inputs may be absent</h2>
+      <p>When several inputs feed one vertex and you expect some of them to be skipped (typical of
+         predicate-gated lanes converging on a coalesce vertex), set
+         <code>.Merge(config.MergeCoalesce)</code> so the vertex waits for <em>all</em> inputs to
+         settle before evaluating — even when most settle as "skipped".</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">N-to-1 coalesce</span>
+      </div>
+      <pre><code><span class="fn">Vertex</span>(<span class="st">"final"</span>).<span class="fn">Op</span>(<span class="st">"CoalesceNStringOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">int</span>{<span class="st">"n"</span>: <span class="nu">4</span>}).
+    <span class="fn">Merge</span>(config.MergeCoalesce).
+    <span class="fn">Input</span>(<span class="st">"Input0"</span>, <span class="st">"billing_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input1"</span>, <span class="st">"bug_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input2"</span>, <span class="st">"feature_json"</span>).
+    <span class="fn">Input</span>(<span class="st">"Input3"</span>, <span class="st">"other_json"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_brief"</span>).</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── Related ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Where to go next</h2>
+    </div>
+    <div class="grid-3">
+      <a href="library.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>The operator library</h3>
+          <p>Every pre-built op you can drop into a vertex — math, strings, predicates, slice,
+            time, JSON, HTTP, MCP, retrieval, repair.</p>
+        </div>
+      </a>
+      <a href="developers.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>Developer guide</h3>
+          <p>Setup, first workflow, the fluent builder API, testing strategies, the bundled
+            Claude Code skills.</p>
+        </div>
+      </a>
+      <a href="example-ticket-triager.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>Worked example</h3>
+          <p>The ticket-triager walkthrough applies every concept on this page: predicate gates,
+            skip-propagation, coalesce.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

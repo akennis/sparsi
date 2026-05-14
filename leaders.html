@@ -45,6 +45,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="developers.html">Developers</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="leaders.html" class="active">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
@@ -475,6 +476,18 @@
         <div class="faq-a">The built-in library ops support Claude (Anthropic) and Gemini (Google) today, with OpenAI on the roadmap. Every AI op accepts <code>provider</code> and <code>model</code> parameters — switch any op to a different provider in one line, mix models within a single workflow, and use an independent second model as a verification gate. The deterministic ops have no provider dependency whatsoever.</div>
       </div>
       <div class="faq-item">
+        <div class="faq-q">How are API keys managed in production?</div>
+        <div class="faq-a">clawdag-go exposes an <code>AIClientFactory</code> interface (analogously for embeddings, <code>EmbeddingClientFactory</code>) — implement it once to source credentials from HashiCorp Vault, AWS Secrets Manager, workload identity, an egress proxy, or per-tenant credential stores. The bundled env-var factory is for laptops and CI; production deployments register their own. Graph code is unchanged. See the <a href="ai-routing.html">credential-routing guide</a>.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can workflows call external tools — browsers, search APIs, internal services?</div>
+        <div class="faq-a">Yes, via Model Context Protocol. <code>MCPCallOp</code> handles one-shot tool calls against either a local subprocess (over stdio) or a remote server (streamable HTTP). <code>MCPScriptOp</code> orchestrates multi-call sessions that share server state — a single browser instance navigating, typing, and snapshotting in one DAG step. A warm-replenish pool keeps cold-start off the critical path on fan-out. See the <a href="mcp.html">MCP guide</a>.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How does retrieval-augmented generation work, and how do you prevent hallucinated citations?</div>
+        <div class="faq-a">Implement <code>library.Retriever</code> for any backend (BM25, vector store, hosted search) and wire <code>RetrieveOp</code> into the graph. The library also ships a deterministic <code>ValidateCitationsOp</code> that filters LLM-emitted source names against the allow-list of identifiers actually retrieved on that request — hallucinated citations are partitioned out and surfaced via slog at WARN. Built-in audit boundary. See the <a href="rag.html">retrieval guide</a>.</div>
+      </div>
+      <div class="faq-item">
         <div class="faq-q">How does this compare to LangChain or other orchestration frameworks?</div>
         <div class="faq-a">LangChain and similar frameworks make it easy to chain prompts. clawdag-go makes it possible to <em>not</em> chain prompts — using deterministic Go code for everything that doesn't need AI, and explicit typed ops for everything that does. The result is leaner, cheaper, and debuggable.</div>
       </div>
@@ -521,6 +534,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

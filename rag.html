@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrieval &amp; citations — clawdag-go</title>
+  <meta name="description" content="Retrieval-augmented generation in clawdag-go: the Retriever interface, RetrieveOp/RetrieveWithFiltersOp, citation allow-list filtering via ValidateCitationsOp, and pluggable embedding providers.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html" class="active">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="concepts.html" style="color:var(--text-3);">Concepts</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">Retrieval &amp; citations</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Concept</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Retrieval &amp; citations</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
+        clawdag-go ships a small, opinionated retrieval layer: a single <code>Retriever</code>
+        interface, two retrieval operators that thread query and filters through the DAG, an
+        <code>EmbeddingClientFactory</code> abstraction for vector-store backends, and a
+        deterministic citation-validation op that filters LLM-emitted citations against an
+        allow-list. Pick a backend (BM25, vector store, hosted search), implement
+        <code>Retriever</code>, register it, and the rest of the graph stays the same.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Retriever interface ─────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Interface</span>
+      <h2>One method, any backend</h2>
+      <p>You implement <code>Retriever</code>; clawdag-go calls it. The library never sees inside
+        — your retriever is free to use BM25, embeddings + a vector store, a hosted search API,
+        or anything else.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">library/retriever.go</span>
+      </div>
+      <pre><code><span class="kw">type</span> <span class="ty">Retriever</span> <span class="kw">interface</span> {
+    <span class="fn">Retrieve</span>(ctx context.<span class="ty">Context</span>, query <span class="ty">string</span>, k <span class="ty">int</span>) ([]<span class="ty">Document</span>, <span class="ty">error</span>)
+}
+
+<span class="kw">type</span> <span class="ty">Document</span> <span class="kw">struct</span> {
+    ID       <span class="ty">string</span>
+    Content  <span class="ty">string</span>
+    Score    <span class="ty">float64</span>
+    Metadata map[<span class="ty">string</span>]<span class="ty">any</span>
+}
+
+<span class="cm">// framework-documented metadata keys (use these instead of bare strings)</span>
+<span class="kw">const</span> (
+    MetadataSource     = <span class="st">"source"</span>      <span class="cm">// filename or document title</span>
+    MetadataSourceURL  = <span class="st">"source_url"</span>  <span class="cm">// canonical URL</span>
+    MetadataHighlights = <span class="st">"highlights"</span>  <span class="cm">// []string of matched snippets</span>
+    MetadataUpdatedAt  = <span class="st">"updated_at"</span>  <span class="cm">// time.Time (UTC recommended)</span>
+)</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      Register your <code>Retriever</code> before <code>engine.Run</code>:
+      <code>library.SetDefaultRetriever(r)</code> for a process-wide default, or
+      <code>library.RegisterRetriever("acme", r)</code> for an id you select from a vertex
+      param. Implementations must be safe for concurrent <code>Retrieve</code> calls; graph
+      execution invokes a single retriever from multiple parallel vertices.
+    </p>
+  </div>
+</section>
+
+<!-- ── Retrieve ops ───────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Operators</span>
+      <h2>Two operators, parallel outputs</h2>
+      <p>Both ops emit two output wires: <code>Documents</code> (full records) and
+        <code>Texts</code> (the parallel <code>[]string</code> of <code>Document.Content</code>).
+        Wire <code>Texts</code> straight into AI ops that take <code>*[]string</code>; wire
+        <code>Documents</code> into downstream ops that need metadata.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+
+      <div style="background:var(--bg-3); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(249,115,22,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(249,115,22,0.2);">
+          <h3 style="margin:0; font-size:1.0625rem;">
+            <code style="color:var(--orange-light);">RetrieveOp</code>
+          </h3>
+        </div>
+        <div style="padding:1.25rem;">
+          <p style="font-size:0.9375rem;">Top-<code>k</code> retrieval. Params: <code>k</code>
+            (default <code>5</code>), <code>retriever_id</code>, embedding credential routing
+            (<code>credential_ref</code>, <code>client_factory_id</code>,
+            <code>api_factory_timeout_ms</code>, <code>embed_timeout_ms</code>).</p>
+          <p style="font-size:0.875rem; color:var(--text-3); margin:0;">Inputs: <code>Query *string</code>. Outputs: <code>Documents []Document</code>, <code>Texts []string</code>.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(249,115,22,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(249,115,22,0.2);">
+          <h3 style="margin:0; font-size:1.0625rem;">
+            <code style="color:var(--orange-light);">RetrieveWithFiltersOp</code>
+          </h3>
+        </div>
+        <div style="padding:1.25rem;">
+          <p style="font-size:0.9375rem;">Same as above plus a <code>Filters *map[string]string</code>
+            input wire and a <code>static_filters</code> param (CSV
+            <code>"tenant=acme,locale=en"</code>). Runtime filters win on key collision; both are
+            installed into <code>ctx</code> via <code>library.WithRetrievalFilters</code> for
+            the retriever to read.</p>
+          <p style="font-size:0.875rem; color:var(--text-3); margin:0;">Use when filters come from upstream ops (auth, classifier, planner).</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem;">
+      <p style="font-size:0.875rem; margin:0; color:var(--text-2);">
+        <strong>Security note:</strong> queries and filter values are untrusted — they routinely
+        come from upstream AI ops. Retriever implementations must pass them through their backend's
+        parameterized-query / placeholder / typed-filter API. Never string-concatenate them into
+        SQL, search DSLs, or shell commands.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Citation validation ─────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Citation integrity</span>
+      <h2><code>ValidateCitationsOp</code> — the security boundary</h2>
+      <p>LLMs hallucinate citations. Without enforcement, "Sources: file1.txt, file2.txt" at the
+        bottom of a response might include filenames the model invented or imported from training
+        data. <code>ValidateCitationsOp</code> filters raw citations against an allow-list of
+        identifiers and partitions them into <code>Accepted</code> / <code>Rejected</code>.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">canonical RAG wiring</span>
+      </div>
+      <pre><code><span class="cm">// 1. Retrieve.</span>
+<span class="fn">Vertex</span>(<span class="st">"retrieve"</span>).<span class="fn">Op</span>(<span class="st">"RetrieveOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"k"</span>: <span class="st">"3"</span>}).
+    <span class="fn">Input</span>(<span class="st">"Query"</span>, <span class="st">"question"</span>).
+    <span class="fn">Output</span>(<span class="st">"Documents"</span>, <span class="st">"documents"</span>).
+
+<span class="cm">// 2. Derive the allow-list from retrieved docs (NOT the full corpus).</span>
+<span class="fn">Vertex</span>(<span class="st">"retrieved_sources"</span>).<span class="fn">Op</span>(<span class="st">"RetrievedSourcesOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Documents"</span>, <span class="st">"documents"</span>).
+    <span class="fn">Output</span>(<span class="st">"Sources"</span>, <span class="st">"retrieved_sources"</span>).
+
+<span class="cm">// 3. AI generates the answer with a "Sources: ..." trailer.</span>
+<span class="fn">Vertex</span>(<span class="st">"answer"</span>).<span class="fn">Op</span>(<span class="st">"AIComputeStringToStringOp"</span>).<span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"prompt"</span>).
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"raw_answer"</span>).
+
+<span class="cm">// 4. Parse the citations out of the response.</span>
+<span class="fn">Vertex</span>(<span class="st">"parse_citations"</span>).<span class="fn">Op</span>(<span class="st">"ParseCitationsOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Raw"</span>, <span class="st">"raw_answer"</span>).
+    <span class="fn">Output</span>(<span class="st">"Sources"</span>, <span class="st">"sources"</span>).
+
+<span class="cm">// 5. Filter against the allow-list. Hallucinations land in Rejected.</span>
+<span class="fn">Vertex</span>(<span class="st">"validate_citations"</span>).<span class="fn">Op</span>(<span class="st">"ValidateCitationsOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"Raw"</span>,     <span class="st">"sources"</span>).
+    <span class="fn">Input</span>(<span class="st">"Allowed"</span>, <span class="st">"retrieved_sources"</span>).
+    <span class="fn">Output</span>(<span class="st">"Accepted"</span>, <span class="st">"accepted_sources"</span>).
+    <span class="fn">Output</span>(<span class="st">"Rejected"</span>, <span class="st">"rejected_sources"</span>).</code></pre>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-3); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem;">
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>Build the allow-list from documents actually retrieved, not from the full corpus.</strong>
+        Otherwise a model that hallucinates the filename of a real-but-unretrieved KB document
+        slips past the check. Surface <code>Rejected</code> via <code>slog</code> at WARN — it's
+        signal about model behavior, not a graph failure.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Embeddings ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Embeddings</span>
+      <h2>Vector-store backends plug in through a factory</h2>
+      <p>Retrievers that embed text — query embedding for cosine similarity, batch embedding for
+        index build — call <code>library.ResolveEmbeddingClient(ctx, provider, model)</code> instead
+        of reading env vars directly. The framework installs credentials on <code>ctx</code> from
+        the vertex's params, then a registered <code>EmbeddingClientFactory</code> materialises a
+        client.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">library/embedding_factory.go</span>
+      </div>
+      <pre style="font-size:0.8125rem;"><code><span class="kw">type</span> <span class="ty">EmbeddingClient</span> <span class="kw">interface</span> {
+    <span class="fn">Embed</span>(ctx context.<span class="ty">Context</span>, texts []<span class="ty">string</span>) ([][]<span class="ty">float32</span>, <span class="ty">error</span>)
+}
+
+<span class="kw">type</span> <span class="ty">EmbeddingClientFactory</span> <span class="kw">interface</span> {
+    <span class="fn">Embedder</span>(ctx context.<span class="ty">Context</span>, provider, model, ref <span class="ty">string</span>) (<span class="ty">EmbeddingClient</span>, <span class="ty">error</span>)
+}
+
+<span class="cm">// the bundled default is gemini-only — register a custom factory for</span>
+<span class="cm">// any other provider (Voyage, OpenAI, Cohere, Vertex, in-house, ...)</span>
+library.<span class="fn">SetDefaultEmbeddingClientFactory</span>(myFactory)
+library.<span class="fn">RegisterEmbeddingClientFactory</span>(<span class="st">"voyage-prod"</span>, voyageFactory)</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      The bundled <code>EnvEmbeddingClientFactory</code> only supports <code>provider="gemini"</code>
+      via <code>GEMINI_API_KEY</code>. This is intentionally asymmetric with AI ops (whose bundled
+      factory handles both Claude and Gemini) — embedding vendors are fragmented and clawdag-go
+      stays out of opinions about SDKs.
+    </p>
+  </div>
+</section>
+
+<!-- ── Examples ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>See it in practice</h2>
+    </div>
+    <div class="grid-2">
+      <a href="example-rag-bm25.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>rag-bm25</h3>
+          <p>RAG over a local <code>.txt</code> knowledge base with an in-memory BM25 retriever,
+            citation parsing, and <code>ValidateCitationsOp</code> as the integrity boundary.</p>
+        </div>
+      </a>
+      <a href="example-rag-gemini-embed.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>rag-gemini-embed</h3>
+          <p>The same graph shape with Gemini embeddings + cosine similarity. Demonstrates
+            <code>EmbeddingClientFactory</code> + <code>ResolveEmbeddingClient</code> wiring.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

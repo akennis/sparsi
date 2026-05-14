@@ -22,6 +22,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html" class="active">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -73,7 +74,7 @@
             <span class="code-filename">terminal</span>
           </div>
           <pre><code><span class="cm"># Build — produces a single binary, nothing else</span>
-go build -o ticket-triager ./examples/01-ticket-triager
+go build -o ticket-triager ./examples/ticket-triager
 
 <span class="cm"># Run — feed JSON on stdin, result on stdout</span>
 echo '{"body":"My payment failed twice"}' \
@@ -695,8 +696,119 @@ not strongly dissatisfied. Score reflects lukewarm sentiment."
   </div>
 </section>
 
-<!-- ── CTA ───────────────────────────────────────────────────── -->
+<!-- ── AI credential routing ──────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">AI credential routing</span>
+      <h2>Where API keys actually come from</h2>
+      <p>Every AI op resolves its provider SDK client through an <code>AIClientFactory</code>. The
+         bundled factory reads <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code> from the
+         environment — fine for laptops and CI. In production, register your own factory to source
+         credentials from Vault, AWS Secrets Manager, workload identity, an egress proxy, or
+         per-tenant vaults — without touching graph code.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">①</div>
+        <h3>Process-wide default</h3>
+        <p>Replace once at <code>main()</code> startup. Every AI op picks it up.</p>
+        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>library.<span class="fn">SetDefaultAIClientFactory</span>(vaultFactory)</code></pre>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">②</div>
+        <h3>Registered by id</h3>
+        <p>Register multiple factories. Each vertex selects one via <code>client_factory_id</code>.</p>
+        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"prod"</span>, prod)
+library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"sandbox"</span>, sandbox)</code></pre>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">③</div>
+        <h3>Per-vertex ref</h3>
+        <p><code>credential_ref</code> routes inside the chosen factory — tenant id, environment, Vault path.</p>
+        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
+    <span class="st">"client_factory_id"</span>: <span class="st">"prod"</span>,
+    <span class="st">"credential_ref"</span>:    <span class="st">"tenant-acme"</span>,
+})</code></pre>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:1.5rem;">
+      <p><strong>Security:</strong> the bundled factory's per-<code>ref</code> cache has no
+        eviction. Never derive <code>ref</code> from per-request input (tenant id from a request
+        header, user-supplied query parameter) — that produces an unbounded cache and a DoS vector.
+        Use <code>ref</code> only for the small, named credential sets the application controls.
+        See <a href="ai-routing.html">the credential-routing guide</a> for the worked Vault example.</p>
+    </div>
+
+    <p style="font-size:0.875rem; color:var(--text-3); margin-top:1rem;">
+      The <code>EmbeddingClientFactory</code> abstraction follows the same shape for retrievers
+      that embed text — see <a href="rag.html">the retrieval guide</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ── MCP pool sizing ────────────────────────────────────────── -->
 <section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">MCP pool sizing</span>
+      <h2>Warm-replenish pools for fan-out</h2>
+      <p>Stdio MCP servers carry a meaningful cold-start (Node.js boot, browser binary download,
+         protocol handshake). A graph that fans <code>MCPCallOp</code> / <code>MCPScriptOp</code>
+         across N items would otherwise pay that cost N times. Set <code>pool_size</code> on the
+         vertex and the library maintains a target number of pre-started subprocesses; vertices
+         sharing the same canonical session spec share warm slots.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3><code>pool_size</code></h3>
+        <p>Target pool capacity per spec. <code>0</code> (default) disables pooling — every <code>Run</code> opens and closes its own session.</p>
+      </div>
+      <div class="card">
+        <h3><code>pool_prewarm</code></h3>
+        <p><code>true</code> (default) fills the pool during <code>Setup</code> so the first
+          <code>Run</code> already has warm sessions. Set <code>false</code> for lazy fill.</p>
+      </div>
+      <div class="card">
+        <h3>Shutdown contract</h3>
+        <p>Call <code>library.ShutdownMCPPool(ctx)</code> from <code>main()</code> — typically
+          via <code>defer</code> — so pre-started subprocesses drain cleanly at exit. Without it,
+          the runtime kills them on signal.</p>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top:1.5rem;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">main.go — pooled fan-out</span>
+      </div>
+      <pre style="font-size:0.8125rem;"><code>shootParams := map[<span class="ty">string</span>]<span class="ty">string</span>{
+    <span class="st">"command"</span>:   <span class="st">"npx"</span>,
+    <span class="st">"args"</span>:      <span class="st">"-y,@playwright/mcp@latest"</span>,
+    <span class="st">"out_dir"</span>:   outDir,
+    <span class="st">"pool_size"</span>: <span class="st">"8"</span>, <span class="cm">// 8 warm playwright-mcp subprocesses</span>
+}
+
+<span class="kw">func</span> <span class="fn">main</span>() {
+    <span class="cm">// ...</span>
+    <span class="kw">defer</span> library.<span class="fn">ShutdownMCPPool</span>(context.<span class="fn">Background</span>())
+    <span class="cm">// engine.Run(ctx) ...</span>
+}</code></pre>
+    </div>
+
+    <p style="font-size:0.875rem; color:var(--text-3); margin-top:1rem;">
+      Each borrow is a fresh session — the pool never reuses a session for a second logical call.
+      Pooling is supported only for <code>transport="stdio"</code> in v1. See
+      <a href="mcp.html">the MCP integration guide</a> for the full operator surface.
+    </p>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────── -->
+<section class="section">
   <div class="container">
     <div class="cta-banner">
       <h2>Ready to ship your first workflow?</h2>
@@ -721,6 +833,7 @@ not strongly dissatisfied. Score reflects lukewarm sentiment."
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

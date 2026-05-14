@@ -22,6 +22,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html" class="active">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -59,13 +60,13 @@
         <ul class="feat-list">
           <li>Running <strong>multiple AI extractors in parallel</strong> — the DAG engine schedules the three extractors concurrently because they share the same input wire and have no mutual dependency</li>
           <li>Using <strong>SliceLenOp</strong> to count items in AI-extracted lists, turning the AI result into a deterministic integer</li>
-          <li><strong>Arithmetic op chaining</strong>: MulOp + AddOp string together to compute <code>score = ingredients + steps×1.5 + minutes×0.1</code> without any AI involvement</li>
+          <li><strong>Arithmetic op chaining</strong>: MulFloatOp + AddFloatOp string together to compute <code>score = ingredients + steps×1.5 + minutes×0.1</code> without any AI involvement</li>
           <li>Gating lanes on a <strong>continuous score</strong> (not just a category string) using numeric comparison predicates</li>
           <li>The <strong>live vs. fixture</strong> pattern for deterministic offline testing of workflows that would otherwise need a real API</li>
         </ul>
       </div>
 
-      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/02-recipe-analyzer" target="_blank" rel="noopener" class="btn btn-secondary">
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/recipe-analyzer" target="_blank" rel="noopener" class="btn btn-secondary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View source on GitHub
       </a>
@@ -101,7 +102,7 @@
         </div>
         <div style="color:var(--text-3);">→</div>
         <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.72rem;">
-          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">MulOp / AddOp</div>
+          <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">MulFloatOp / AddFloatOp</div>
           <div style="color:var(--text-3); margin-top:0.2rem;">score formula</div>
         </div>
         <div style="color:var(--text-3);">→</div>
@@ -137,7 +138,7 @@
             <p style="font-size:0.875rem; margin:0;">Counts the ingredients and steps lists that AI returned. Converts a non-deterministic list into a deterministic integer for the scoring formula.</p>
           </div>
           <div>
-            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">IntToFloatOp (×2) + MulOp (×2) + AddOp (×2)</p>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">IntToFloat64Op (×2) + MulFloatOp (×2) + AddFloatOp (×2)</p>
             <p style="font-size:0.875rem; margin:0;">Implements <code>score = ingredient_count + step_count×1.5 + cook_minutes×0.1</code>. Each op is a single typed struct wired together — no scripting or eval.</p>
           </div>
           <div>
@@ -214,7 +215,7 @@
     <!-- Step 2 -->
     <div style="margin-bottom:3rem;">
       <h3 style="margin-bottom:0.5rem;">2. Deterministic scoring formula</h3>
-      <p style="margin-bottom:1.25rem;">Once the AI extractions complete, the rest of the scoring is pure arithmetic. <code>SliceLenOp</code> counts the list items, <code>IntToFloatOp</code> widens to float64, and <code>MulOp</code>/<code>AddOp</code> implement the formula. None of these steps ever calls an LLM.</p>
+      <p style="margin-bottom:1.25rem;">Once the AI extractions complete, the rest of the scoring is pure arithmetic. <code>SliceLenOp</code> counts the list items, <code>IntToFloat64Op</code> widens to float64, and <code>MulFloatOp</code>/<code>AddFloatOp</code> implement the formula. None of these steps ever calls an LLM.</p>
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
@@ -224,7 +225,7 @@
     <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"ingredients"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ingredient_count_int"</span>).
 
-<span class="fn">Vertex</span>(<span class="st">"ingredient_count"</span>).<span class="fn">Op</span>(<span class="st">"IntToFloatOp"</span>).
+<span class="fn">Vertex</span>(<span class="st">"ingredient_count"</span>).<span class="fn">Op</span>(<span class="st">"IntToFloat64Op"</span>).
     <span class="fn">Input</span>(<span class="st">"Value"</span>, <span class="st">"ingredient_count_int"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"ingredient_count_f"</span>).
 
@@ -232,12 +233,12 @@
     <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"1.5"</span>}).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"step_weight"</span>).
 
-<span class="fn">Vertex</span>(<span class="st">"step_term"</span>).<span class="fn">Op</span>(<span class="st">"MulOp"</span>).
+<span class="fn">Vertex</span>(<span class="st">"step_term"</span>).<span class="fn">Op</span>(<span class="st">"MulFloatOp"</span>).
     <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"step_count_f"</span>).
     <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"step_weight"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"step_term"</span>).
 
-<span class="fn">Vertex</span>(<span class="st">"difficulty_score"</span>).<span class="fn">Op</span>(<span class="st">"AddOp"</span>).
+<span class="fn">Vertex</span>(<span class="st">"difficulty_score"</span>).<span class="fn">Op</span>(<span class="st">"AddFloatOp"</span>).
     <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"partial_score"</span>).
     <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"cook_term"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"difficulty_score"</span>).</code></pre>
@@ -281,12 +282,12 @@ b.<span class="fn">Vertex</span>(<span class="st">"easy_advice"</span>).<span cl
         <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
 
 <span class="cm"># Live API</span>
-go run ./examples/02-recipe-analyzer --meal <span class="st">"Pancakes"</span>
-go run ./examples/02-recipe-analyzer --meal <span class="st">"Chicken Curry"</span>
-go run ./examples/02-recipe-analyzer --meal <span class="st">"Beef Wellington"</span>
+go run ./examples/recipe-analyzer --meal <span class="st">"Pancakes"</span>
+go run ./examples/recipe-analyzer --meal <span class="st">"Chicken Curry"</span>
+go run ./examples/recipe-analyzer --meal <span class="st">"Beef Wellington"</span>
 
 <span class="cm"># Offline fixtures</span>
-go run ./examples/02-recipe-analyzer --fixture examples/02-recipe-analyzer/testdata/recipes/pancakes.json</code></pre>
+go run ./examples/recipe-analyzer --fixture examples/recipe-analyzer/testdata/recipes/pancakes.json</code></pre>
       </div>
     </div>
 
@@ -335,8 +336,8 @@ go run ./examples/02-recipe-analyzer --fixture examples/02-recipe-analyzer/testd
 <!-- ── Nav between examples ─────────────────────────────────── -->
 <section class="section section--alt" style="padding:2rem 0;">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-    <a href="example-01-ticket-triager.html" class="btn btn-secondary">← Example 01</a>
-    <a href="example-03-readme-quality.html" class="btn btn-secondary">Next: README Quality →</a>
+    <a href="example-ticket-triager.html" class="btn btn-secondary">← Example 01</a>
+    <a href="example-readme-quality.html" class="btn btn-secondary">Next: README Quality →</a>
   </div>
 </section>
 
@@ -352,6 +353,7 @@ go run ./examples/02-recipe-analyzer --fixture examples/02-recipe-analyzer/testd
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

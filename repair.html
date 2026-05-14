@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-driven repair — clawdag-go</title>
+  <meta name="description" content="WithRepair wraps a deterministic operator so that a typed *ErrRepairable escalates to an LLM that mutates the input until it parses or satisfies your business rules. Bounded by max_attempts.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html" class="active">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="concepts.html" style="color:var(--text-3);">Concepts</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">AI-driven repair</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-green">Concept</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">AI-driven repair</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
+        Some deterministic ops have a fixable failure mode — a JSON blob that's almost right, a
+        ticket that's almost valid, a schema violation a language model could plausibly correct.
+        Rather than hand-coding a retry path, wrap the op with <code>library.WithRepair</code>
+        and have the op return a typed <code>*ErrRepairable</code> carrying a self-contained prompt.
+        The wrapper sends that prompt to an LLM, parses the response back into the op's input type,
+        and re-runs.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Mechanism ──────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-green">Mechanism</span>
+      <h2>One bounded loop, one typed error</h2>
+      <p>Per <code>Run</code>, the wrapper executes up to <code>max_attempts</code> repair cycles
+        (default <code>3</code>). Non-repairable errors propagate unchanged — the LLM is only
+        invoked when your inner op deliberately escalates.</p>
+    </div>
+
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:2rem;">
+      <ol style="margin:0; padding-left:1.5rem; font-size:0.9375rem; line-height:1.85;">
+        <li>Inner op's <code>Run</code> is called normally.</li>
+        <li>If it returns <code>nil</code>, the wrapper returns <code>nil</code>. Done.</li>
+        <li>If it returns <code>*library.ErrRepairable</code>, the wrapper forwards <code>Prompt</code> (sandwiched by configured <code>PromptPrefix</code> / <code>PromptSuffix</code>) to the LLM.</li>
+        <li>The wrapper allocates a fresh value of the named input field's element type and calls <code>UnmarshalRepair</code> on the LLM's response.</li>
+        <li>If unmarshal fails, the wrapper appends the parse error to the prompt and counts an attempt.</li>
+        <li>If unmarshal succeeds, the wrapper writes the value back via <code>SetInputField</code> and re-runs the inner op.</li>
+        <li>If the budget is exhausted, the original error is wrapped and returned.</li>
+      </ol>
+    </div>
+
+    <p style="font-size:0.875rem; color:var(--text-3);">
+      Repair retries re-execute <code>Run</code>, so your inner op must be idempotent or pure.
+      Repair traces are captured by <code>library.WithReasoningLog</code> when enabled.
+    </p>
+  </div>
+</section>
+
+<!-- ── Inner contract ─────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Inner-op contract</span>
+      <h2>Return <code>*ErrRepairable</code>; implement <code>UnmarshalRepair</code></h2>
+      <p>Two interfaces, both on pointer receivers. The inner op decides what's repairable; the
+        input type decides how to deserialise the LLM's response.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">a repairable op</span>
+      </div>
+      <pre><code><span class="kw">type</span> <span class="ty">TicketRaw</span> <span class="kw">struct</span>{ Text <span class="ty">string</span> }
+
+<span class="cm">// RepairableInput — invoked with the LLM's raw response. Convert it into</span>
+<span class="cm">// the op's input value. JSON/XML/regex/strconv — your call.</span>
+<span class="kw">func</span> (t *<span class="ty">TicketRaw</span>) <span class="fn">UnmarshalRepair</span>(response <span class="ty">string</span>) <span class="ty">error</span> {
+    t.Text = <span class="fn">stripCodeFences</span>(response)
+    <span class="kw">return</span> <span class="kw">nil</span>
+}
+
+<span class="kw">type</span> <span class="ty">ParseTicketOp</span> <span class="kw">struct</span> {
+    Raw    *<span class="ty">TicketRaw</span>  <span class="ty">`dag:"input"`</span>
+    Result <span class="ty">TicketInput</span> <span class="ty">`dag:"output"`</span>
+}
+
+<span class="kw">func</span> (op *<span class="ty">ParseTicketOp</span>) <span class="fn">Run</span>(_ context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    <span class="kw">var</span> parsed <span class="ty">TicketInput</span>
+    <span class="kw">if</span> err := json.<span class="fn">Unmarshal</span>([]<span class="ty">byte</span>(op.Raw.Text), &amp;parsed); err != <span class="kw">nil</span> {
+        <span class="kw">return</span> &amp;library.<span class="ty">ErrRepairable</span>{
+            Prompt: <span class="st">"Correct this JSON to match the schema below:\n…"</span>,
+            Cause:  err,
+        }
+    }
+    op.Result = parsed
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── Registration ───────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Registration</span>
+      <h2>Wrap once at <code>init()</code>; wire identically</h2>
+      <p>From the graph builder's perspective, a repair-wrapped vertex looks exactly like the
+        inner op — same input / output field names. The repair config is set at registration time
+        and can be overridden per-vertex via params.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">main.go — init()</span>
+      </div>
+      <pre><code>library.<span class="fn">RegisterWithRepair</span>(
+    <span class="st">"ParseTicketRepair"</span>,
+    <span class="kw">func</span>() *<span class="ty">ParseTicketOp</span> { <span class="kw">return</span> &amp;<span class="ty">ParseTicketOp</span>{} },
+    library.<span class="ty">RepairConfig</span>{
+        InputField:   <span class="st">"Raw"</span>,
+        MaxAttempts:  <span class="nu">3</span>,
+        PromptPrefix: <span class="st">"You are a strict JSON corrector. Output corrected JSON only.\n\n"</span>,
+    },
+)</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      <strong>Vertex params:</strong> <code>max_attempts</code>, <code>provider</code> (default
+      <code>claude</code>), <code>model</code> (default <code>claude-sonnet-4-6</code>),
+      <code>max_tokens</code> (default <code>2048</code>), and the same credential routing
+      params (<code>credential_ref</code>, <code>client_factory_id</code>) as ordinary AI ops.
+    </p>
+  </div>
+</section>
+
+<!-- ── When to use ────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-green">When to reach for it</span>
+      <h2>The boundary, again</h2>
+      <p>WithRepair is not a replacement for input validation — it's a recovery path for the cases
+        you've decided are <em>worth</em> a small LLM round-trip to fix.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+
+      <div style="background:var(--bg-3); border:1px solid rgba(34,197,94,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(34,197,94,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(34,197,94,0.2);">
+          <h3 style="margin:0; font-size:1rem;">Good fits</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <p style="font-size:0.875rem; margin:0;"><strong>Malformed JSON or XML</strong> from upstream LLM output or third-party APIs that's "almost right".</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Schema-violating payloads</strong> where the fix is mechanical (missing required field, wrong enum value, value out of range).</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Business-rule violations</strong> a model can correct with context — e.g. urgent ticket without an escalation contact.</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Lightweight summary truncation</strong> — "rewrite this to be under 280 characters while keeping the technical detail".</p>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(239,68,68,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(239,68,68,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(239,68,68,0.2);">
+          <h3 style="margin:0; font-size:1rem;">Bad fits</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <p style="font-size:0.875rem; margin:0;"><strong>Inputs that are simply wrong</strong> — repair turns "bad request" into "expensive bad request".</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Non-idempotent inner ops</strong> — every repair attempt re-runs <code>Run</code>. If your op writes to a database, it writes again.</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Free-form generation</strong> — use <code>AIComputeStringToStringOp</code> directly; repair is for typed-input recovery.</p>
+          <p style="font-size:0.875rem; margin:0;"><strong>Cost-sensitive hot paths</strong> — every repair attempt is an LLM call. Set <code>max_attempts</code> conservatively.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Example ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>See it in practice</h2>
+    </div>
+    <div class="grid-2">
+      <a href="example-with-repair.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>with-repair example</h3>
+          <p>A two-stage repair workflow: a JSON parser fixes malformed input; a routing validator
+            corrects business-rule violations by round-tripping through XML. Both wire-format
+            paths exercised in one graph.</p>
+        </div>
+      </a>
+      <a href="operations.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>Reasoning logs</h3>
+          <p>Enable <code>WithReasoningLog(ctx)</code> in your driver to capture every repair
+            decision — attempt number, prompt, model response, success/failure — alongside the
+            normal slog timing and token output.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -22,6 +22,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -139,7 +140,7 @@
           <text x="495" y="200" text-anchor="middle" font-size="12"  fill="#4ade80">✓</text>
 
           <!-- Node type labels -->
-          <text x="340" y="148" text-anchor="middle" font-size="8.5" fill="#4b5563">AddOp</text>
+          <text x="340" y="148" text-anchor="middle" font-size="8.5" fill="#4b5563">AddFloatOp</text>
           <text x="340" y="310" text-anchor="middle" font-size="8.5" fill="#4b5563">StringLookupOp</text>
           <text x="410" y="233" text-anchor="middle" font-size="8.5" fill="#6d28d9">AIComputeOp</text>
 
@@ -554,14 +555,14 @@
           <li>Custom providers — any Go struct that calls your endpoint</li>
         </ul>
         <div style="margin-top:1.5rem;">
-          <a href="example-06-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
+          <a href="example-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
         </div>
       </div>
       <div>
         <div class="code-block">
           <div class="code-header">
             <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">06-faithful-summary / main.go</span>
+            <span class="code-filename">faithful-summary / main.go</span>
           </div>
           <pre style="font-size:0.8125rem;"><code><span class="cm">// Claude generates the summary</span>
 Vertex(<span class="st">"summarize"</span>).Op(<span class="st">"AIComputeStringToStringOp"</span>).
@@ -703,19 +704,17 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
     <div class="section-header">
       <span class="badge badge-orange">Examples</span>
       <h2>See the patterns in practice</h2>
-      <p>Six self-contained programs that each demonstrate a distinct DAG pattern —
-         from simple fan-out/coalesce to per-item MapOver fan-out, to cross-model verification
-         where Claude and Gemini collaborate in a single workflow.</p>
+      <p>Twelve self-contained programs, each demonstrating a distinct DAG pattern — from
+         fan-out/coalesce to per-item MapOver, cross-model verification where Claude and Gemini
+         collaborate in a single workflow, MCP tool calls (local stdio + remote HTTP),
+         retrieval-augmented generation with citation validation, and AI-driven repair.</p>
     </div>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; margin-bottom:2rem;">
 
-      <a href="example-01-ticket-triager.html" style="text-decoration:none;">
+      <a href="example-ticket-triager.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">01</span>
-            <h3 style="margin:0; font-size:1rem;">Ticket Triager</h3>
-          </div>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Ticket Triager</h3>
           <p style="font-size:0.875rem; margin-bottom:0.875rem;">Classify → predicate-gate → parallel AI lanes → coalesce. The canonical fan-out pattern.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
             <span class="tag tag-ai">ModeSelectOp</span>
@@ -724,54 +723,20 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
         </div>
       </a>
 
-      <a href="example-02-recipe-analyzer.html" style="text-decoration:none;">
+      <a href="example-faithful-summary.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">02</span>
-            <h3 style="margin:0; font-size:1rem;">Recipe Analyzer</h3>
-          </div>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">3 parallel AI extractors feed a deterministic formula. Score gates one of three difficulty lanes.</p>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Faithful Summary</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Claude summarises; Gemini independently checks every claim is grounded in the source. The canonical cross-model verification pattern.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">parallel extractors</span>
-            <span class="tag tag-det">arithmetic score</span>
+            <span class="tag tag-ai">Claude + Gemini</span>
+            <span class="tag tag-det">verification gate</span>
           </div>
         </div>
       </a>
 
-      <a href="example-03-readme-quality.html" style="text-decoration:none;">
+      <a href="example-hn-topic-brief.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">03</span>
-            <h3 style="margin:0; font-size:1rem;">README Quality</h3>
-          </div>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Parallel HTTP fetches, 5 concurrent AI probes, average scoring, optional warning suffix.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">SelectStringOp</span>
-            <span class="tag tag-ai">5 probes</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-04-weather-advisor.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">04</span>
-            <h3 style="margin:0; font-size:1rem;">Weather Advisor</h3>
-          </div>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Parse numbers from strings, classify multi-labels, compute threshold flags, orthogonal probe warning.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">AIParseNumberOp</span>
-            <span class="tag tag-det">IfFloatGtOp</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-05-hn-topic-brief.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">05</span>
-            <h3 style="margin:0; font-size:1rem;">HN Topic Brief</h3>
-          </div>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">HN Topic Brief</h3>
           <p style="font-size:0.875rem; margin-bottom:0.875rem;">MapOver fan-out runs AI on every story in parallel. Dominant-category detection routes the summary style.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
             <span class="tag tag-ai">MapOver</span>
@@ -780,18 +745,35 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
         </div>
       </a>
 
-    </div>
-
-      <a href="example-06-faithful-summary.html" style="text-decoration:none;">
+      <a href="example-local-mcp-server.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.875rem;">
-            <span style="font-size:1.25rem; font-weight:800; color:var(--orange); opacity:0.5; font-family:monospace; line-height:1;">06</span>
-            <h3 style="margin:0; font-size:1rem;">Faithful Summary</h3>
-          </div>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Claude summarises; Gemini independently checks that every claim is grounded in the source. The canonical cross-model verification pattern.</p>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Local MCP — Playwright fan-out</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">One stateful playwright-mcp session searches Google; MapOver spawns N parallel sessions to screenshot each URL. Warm-replenish pool size 8.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">Claude + Gemini</span>
-            <span class="tag tag-det">verification gate</span>
+            <span class="tag tag-det">MCPScriptOp</span>
+            <span class="tag tag-ai">MapOver fan-out</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="example-rag-bm25.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">RAG (BM25) with citations</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Retrieval over a local <code>.txt</code> knowledge base. XML-wrapped prompt; LLM-cited sources filtered through <code>ValidateCitationsOp</code>.</p>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <span class="tag tag-det">RetrieveOp</span>
+            <span class="tag tag-det">ValidateCitationsOp</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="example-with-repair.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">WithRepair — AI-assisted recovery</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">A two-stage pipeline: JSON parser fixes malformed input; routing validator round-trips through XML to fix business-rule violations.</p>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <span class="tag tag-det">ErrRepairable</span>
+            <span class="tag tag-ai">JSON + XML repair</span>
           </div>
         </div>
       </a>
@@ -799,7 +781,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
     </div>
 
     <div style="text-align:center;">
-      <a href="examples.html" class="btn btn-secondary">Browse all examples →</a>
+      <a href="examples.html" class="btn btn-secondary">Browse all 12 examples →</a>
     </div>
   </div>
 </section>
@@ -831,6 +813,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>

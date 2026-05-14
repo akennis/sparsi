@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP integration — clawdag-go</title>
+  <meta name="description" content="Calling Model Context Protocol tools from a clawdag-go workflow: MCPCallOp for single calls, MCPScriptOp for multi-call sessions, warm-replenish pooling, custom args formatters and response parsers.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html" class="active">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="concepts.html" style="color:var(--text-3);">Concepts</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">MCP integration</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-purple">Concept</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">MCP integration</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
+        clawdag-go speaks the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a>
+        natively. Tools live inside the DAG just like any other operator — typed inputs, typed
+        outputs, predicate gates, parallel scheduling. Two operators cover the spectrum:
+        <code>MCPCallOp</code> for one-shot calls, <code>MCPScriptOp</code> for sessions that span
+        multiple calls. Both support stdio subprocesses and remote HTTP transports.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Two op shapes ──────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Two operator shapes</span>
+      <h2>Single call versus stateful session</h2>
+      <p>Pick by how much server-side state your workflow needs across calls.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2);">
+          <h3 style="margin:0; font-size:1.0625rem;">
+            <code style="color:var(--purple-light);">MCPCallOp[In, Out]</code>
+          </h3>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin:0.25rem 0 0;">Single tool call per <code>Run</code>.</p>
+        </div>
+        <div style="padding:1.25rem;">
+          <p style="font-size:0.9375rem; margin-bottom:1rem;">
+            Each <code>Run</code> opens a session, completes the MCP handshake, calls one tool,
+            tears the session down. <code>tool_name</code>, transport params, and timeouts are
+            all set on the vertex. Define a named concrete type that embeds
+            <code>library.MCPCallOp[In, Out]</code> and register it with
+            <code>operator.RegisterOp</code>.
+          </p>
+          <ul class="check-list" style="font-size:0.875rem;">
+            <li>Default dispatch parses <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, slices and maps thereof, and any struct decodable via <code>json.Unmarshal</code>.</li>
+            <li>Implement <code>library.MCPArgsFormatter</code> on <code>*In</code> to control argument marshaling.</li>
+            <li>Implement <code>library.MCPResponseParser</code> on <code>*Out</code> for full control of the response.</li>
+            <li>Transient errors retried up to <code>max_retries</code> times (default 3).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2);">
+          <h3 style="margin:0; font-size:1.0625rem;">
+            <code style="color:var(--purple-light);">MCPScriptOp[In, Out]</code>
+          </h3>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin:0.25rem 0 0;">Multiple tool calls share one live session.</p>
+        </div>
+        <div style="padding:1.25rem;">
+          <p style="font-size:0.9375rem; margin-bottom:1rem;">
+            One session opens, your user-supplied <code>Script</code> callback runs once, and it
+            can call any number of tools in any order against the same subprocess. Use when calls
+            depend on server state — browser pages, file cursors, open connections.
+          </p>
+          <ul class="check-list" style="font-size:0.875rem;">
+            <li>Script receives a <code>library.MCPSession</code>; <code>CallTool(ctx, name, args)</code> reuses the session.</li>
+            <li>Tool-level errors surface as <code>*library.MCPToolError</code>; use <code>errors.As</code> to recover.</li>
+            <li>Only session-start failures are retried; the script runs at most once per <code>Run</code>.</li>
+            <li>Register via <code>operator.RegisterOpFactory</code> so each vertex gets a fresh, script-bound instance.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Transports ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Transports</span>
+      <h2>stdio subprocesses or streamable HTTP</h2>
+      <p>Set <code>transport</code> on the vertex to <code>"stdio"</code> (default) for local
+        subprocesses or <code>"http"</code> for a remote MCP server. The other params follow.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">stdio — local subprocess</span>
+        </div>
+        <pre style="font-size:0.8125rem;"><code>params := map[<span class="ty">string</span>]<span class="ty">string</span>{
+    <span class="st">"transport"</span>:       <span class="st">"stdio"</span>,
+    <span class="st">"command"</span>:         <span class="st">"npx"</span>,
+    <span class="st">"args"</span>:            <span class="st">"-y,@playwright/mcp@latest"</span>,
+    <span class="st">"tool_name"</span>:       <span class="st">"browser_navigate"</span>,
+    <span class="st">"init_timeout_ms"</span>: <span class="st">"120000"</span>,
+    <span class="st">"call_timeout_ms"</span>: <span class="st">"90000"</span>,
+}</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">http — remote MCP server</span>
+        </div>
+        <pre style="font-size:0.8125rem;"><code>params := map[<span class="ty">string</span>]<span class="ty">string</span>{
+    <span class="st">"transport"</span>:       <span class="st">"http"</span>,
+    <span class="st">"url"</span>:             <span class="st">"https://docs.mcp.cloudflare.com/mcp"</span>,
+    <span class="st">"tool_name"</span>:       <span class="st">"search_cloudflare_documentation"</span>,
+    <span class="st">"init_timeout_ms"</span>: <span class="st">"30000"</span>,
+    <span class="st">"call_timeout_ms"</span>: <span class="st">"60000"</span>,
+    <span class="cm">// optional auth header(s):</span>
+    <span class="cm">// "headers": "Authorization=Bearer ${TOKEN}",</span>
+}</code></pre>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Pool ───────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Warm-replenish pool</span>
+      <h2>Keep cold-start off the critical path</h2>
+      <p>Set <code>pool_size</code> on stdio vertices to maintain a target number of pre-started
+        MCP subprocesses. Vertices that share the same canonical session spec (command, args, env,
+        init_timeout) share warm slots — fan-out runs see no cold-start in steady state.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">🔥</div>
+        <h3><code>pool_size</code></h3>
+        <p>Target capacity per spec. <code>0</code> (default) disables pooling — each
+          <code>Run</code> opens and closes its own session.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">⏱️</div>
+        <h3><code>pool_prewarm</code></h3>
+        <p><code>true</code> (default) fills the pool during <code>Setup</code> so the first
+          <code>Run</code> already has warm sessions. Set <code>false</code> for lazy fill on
+          first use.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🛑</div>
+        <h3><code>ShutdownMCPPool</code></h3>
+        <p>Call <code>library.ShutdownMCPPool(ctx)</code> from <code>main()</code> (typically
+          via <code>defer</code>) so pre-started subprocesses drain cleanly at exit.</p>
+      </div>
+    </div>
+
+    <p style="font-size:0.8125rem; color:var(--text-3); margin-top:1.5rem; text-align:center;">
+      Each borrow is a fresh session — the pool never reuses a session for a second logical call.
+      Pooling is supported only for <code>transport="stdio"</code> in v1.
+    </p>
+  </div>
+</section>
+
+<!-- ── Custom marshaling ──────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Custom marshaling</span>
+      <h2>When the tool's wire shape isn't your wire shape</h2>
+      <p>Two interfaces let you decouple your operator's <code>In</code> and <code>Out</code>
+        types from the tool's exact JSON. Implement on the pointer receiver.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">MCPArgsFormatter / MCPResponseParser</span>
+      </div>
+      <pre><code><span class="cm">// Rewrite the args object before it goes on the wire.</span>
+<span class="kw">func</span> (in *<span class="ty">MyInput</span>) <span class="fn">FormatMCPArgs</span>() (<span class="ty">any</span>, <span class="ty">error</span>) {
+    <span class="kw">return</span> map[<span class="ty">string</span>]<span class="ty">any</span>{
+        <span class="st">"q"</span>:   in.Query,
+        <span class="st">"top"</span>: in.Limit,
+    }, <span class="kw">nil</span>
+}
+
+<span class="cm">// Parse the tool's text + structured payload yourself.</span>
+<span class="kw">func</span> (out *<span class="ty">MyOutput</span>) <span class="fn">ParseMCPResponse</span>(text <span class="ty">string</span>, structured json.<span class="ty">RawMessage</span>) <span class="ty">error</span> {
+    <span class="kw">if</span> <span class="fn">len</span>(structured) &gt; <span class="nu">0</span> {
+        <span class="kw">return</span> json.<span class="fn">Unmarshal</span>(structured, out)
+    }
+    out.Text = text
+    <span class="kw">return</span> <span class="kw">nil</span>
+}</code></pre>
+    </div>
+
+    <p style="font-size:0.9375rem; color:var(--text-2); margin-top:1.25rem;">
+      Tool-level errors (servers that return <code>IsError=true</code>) surface as
+      <code>*library.MCPToolError</code> with the tool name and the server's text. Use
+      <code>errors.As</code> from inside an <code>MCPScriptOp</code> Script to recover from
+      anticipated failures (element-not-found, page-not-loaded, etc.) without aborting the run.
+    </p>
+  </div>
+</section>
+
+<!-- ── Examples ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>See it in practice</h2>
+    </div>
+    <div class="grid-2">
+      <a href="example-local-mcp-server.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>Local MCP — Playwright fan-out</h3>
+          <p><code>MCPScriptOp</code> drives one playwright session to scrape Google, then
+            <code>MapOver</code> spawns N parallel sessions to screenshot each URL. Pool size 8;
+            warm-replenish.</p>
+        </div>
+      </a>
+      <a href="example-remote-mcp-server.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <h3>Remote MCP — Cloudflare docs</h3>
+          <p><code>MCPCallOp</code> against the public Cloudflare docs MCP server over streamable
+            HTTP. No subprocess, no API keys.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

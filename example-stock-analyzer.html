@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example: Stock Analyzer — clawdag-go</title>
+  <meta name="description" content="A zero-custom-ops workflow: parallel HTTPGet from Yahoo Finance, JSON extraction, AI-parsed numerics, deterministic math, and an AI-driven Buy/Hold/Sell recommendation.">
+  <link rel="icon" type="image/svg+xml" href="mascot.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ng" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="ns" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="65%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient><radialGradient id="na" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/><line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/><line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/><polygon points="93,43 99,47 99,53 93,57 87,53 87,47" fill="url(#na)" stroke="#a855f7" stroke-width="1.8" filter="url(#ng)"/><path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/><circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#ns)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#e05c1c"/><ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/></svg>
+      <span><span class="brand">clawdag</span>-go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="hide-sm">GitHub</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background:var(--bg-2); border-bottom:1px solid var(--border); padding:0.75rem 0;">
+  <div class="container" style="font-size:0.8125rem; color:var(--text-3);">
+    <a href="examples.html" style="color:var(--text-3);">Examples</a>
+    <span style="margin:0 0.5rem;">›</span>
+    <span style="color:var(--text-1);">Stock Analyzer — zero custom ops</span>
+  </div>
+</div>
+
+<section class="hero" style="padding:4rem 0 3rem;">
+  <div class="container">
+    <div style="max-width:820px;">
+      <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
+        <span class="badge badge-orange">Library only</span>
+      </div>
+      <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Stock Analyzer</h1>
+      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
+        A live-data workflow built without a single custom operator. Two parallel
+        <code>HTTPGetOp</code> calls hit Yahoo Finance for a quote and a news headline.
+        <code>JSONExtractOp</code> pulls fields out of the responses. <code>AIParseNumberOp</code>
+        coerces stringly-typed numerics to <code>float64</code>. <code>SubFloatOp</code> computes
+        the price change. <code>AIScoreOp</code> turns the headline into a sentiment score. A
+        chain of <code>StringConcatOp</code> assembles the final analysis prompt, and
+        <code>AIComputeStringToStringOp</code> emits the Buy/Hold/Sell recommendation.
+      </p>
+
+      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
+        <ul class="feat-list">
+          <li><strong>Zero custom operators</strong> — the whole workflow is library ops only</li>
+          <li>Dynamic URL building via <code>RegisterConst</code> + <code>StringConcatOp</code> chains</li>
+          <li>Parallel <code>HTTPGetOp</code> + <code>JSONExtractOp</code> for two independent fetches</li>
+          <li><code>AIParseNumberOp</code> as a fallback when the source returns stringly-typed numerics</li>
+          <li>Mixing deterministic math (<code>SubFloatOp</code>) with AI scoring (<code>AIScoreOp</code>) in one graph</li>
+          <li>Per-vertex provider selection — every AI op pins <code>provider: "gemini"</code></li>
+        </ul>
+      </div>
+
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/stock-analyzer" target="_blank" rel="noopener" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The DAG</span>
+      <h2>Two parallel branches, one synthesis</h2>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(59,130,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-det">det op</span>
+          <h3 style="margin:0; font-size:1rem;">Deterministic steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">RegisterConst (×11)</p>
+            <p style="font-size:0.875rem; margin:0;">URL prefixes/suffixes, JSON paths, and prompt fragments registered as constant ops.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">StringConcatOp chains</p>
+            <p style="font-size:0.875rem; margin:0;">Assemble the quote URL, news URL, and the final analysis prompt by chaining concats.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">HTTPGetOp (×2 parallel)</p>
+            <p style="font-size:0.875rem; margin:0;">Independent fetches for quote and news. Scheduled concurrently by the engine.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">JSONExtractOp (×3)</p>
+            <p style="font-size:0.875rem; margin:0;">Dot-path extraction of <code>regularMarketPrice</code>, <code>chartPreviousClose</code>, and the latest news <code>title</code>.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">SubFloatOp + Float64ToStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Compute and stringify the price change since previous close — pure arithmetic, zero tokens.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
+        <div style="background:rgba(139,92,246,0.08); padding:1rem 1.25rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
+          <span class="tag tag-ai">AI op</span>
+          <h3 style="margin:0; font-size:1rem;">AI steps</h3>
+        </div>
+        <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.875rem;">
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIParseNumberOp (×2)</p>
+            <p style="font-size:0.875rem; margin:0;">Coerce the price strings to <code>float64</code> — fallback for cases where the JSON value isn't a clean number.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIScoreOp</p>
+            <p style="font-size:0.875rem; margin:0;">Score the headline 0–1 against the criterion "indicates a positive/bullish outlook".</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">AIComputeStringToStringOp</p>
+            <p style="font-size:0.875rem; margin:0;">Synthesises the Buy/Hold/Sell recommendation from the assembled prompt with all numeric inputs filled in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Implementation</span>
+      <h2>Walkthrough</h2>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">1. Building URLs with <code>RegisterConst</code> + <code>StringConcatOp</code></h3>
+      <p style="margin-bottom:1.25rem;"><code>RegisterConst</code> turns a fixed Go value into a
+        registered op. Combine with the ticker context-val and two <code>StringConcatOp</code>
+        vertices to build a per-run URL without any custom code.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — init() + buildGraph()</span>
+        </div>
+        <pre><code>library.<span class="fn">RegisterConst</span>(<span class="st">"quote_prefix"</span>, <span class="st">"https://query2.finance.yahoo.com/v8/finance/chart/"</span>)
+library.<span class="fn">RegisterConst</span>(<span class="st">"quote_suffix"</span>, <span class="st">"?interval=1d&amp;range=1d"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"q_join_1"</span>).<span class="fn">Op</span>(<span class="st">"StringConcatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"q_pre"</span>).<span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"ticker"</span>).<span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"q_mid"</span>)
+b.<span class="fn">Vertex</span>(<span class="st">"quote_url"</span>).<span class="fn">Op</span>(<span class="st">"StringConcatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"q_mid"</span>).<span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"q_suf"</span>).<span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"quote_url"</span>)</code></pre>
+      </div>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">2. Parallel fetch + JSON extraction</h3>
+      <p style="margin-bottom:1.25rem;">Two independent <code>HTTPGetOp</code> vertices. The
+        engine sees they share no upstream dependency and runs them concurrently. Three
+        <code>JSONExtractOp</code> vertices then pull the three numeric/string fields the
+        downstream stages need.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph()</span>
+        </div>
+        <pre><code>b.<span class="fn">Vertex</span>(<span class="st">"fetch_quote"</span>).<span class="fn">Op</span>(<span class="st">"HTTPGetOp"</span>).<span class="fn">Input</span>(<span class="st">"URL"</span>, <span class="st">"quote_url"</span>).<span class="fn">Output</span>(<span class="st">"Body"</span>, <span class="st">"quote_json"</span>)
+b.<span class="fn">Vertex</span>(<span class="st">"fetch_news"</span>).<span class="fn">Op</span>(<span class="st">"HTTPGetOp"</span>).<span class="fn">Input</span>(<span class="st">"URL"</span>, <span class="st">"news_url"</span>).<span class="fn">Output</span>(<span class="st">"Body"</span>, <span class="st">"news_json"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"extract_price"</span>).<span class="fn">Op</span>(<span class="st">"JSONExtractOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"JSON"</span>, <span class="st">"quote_json"</span>).<span class="fn">Input</span>(<span class="st">"Path"</span>, <span class="st">"p_path"</span>).
+    <span class="fn">Output</span>(<span class="st">"Value"</span>, <span class="st">"price_raw"</span>)</code></pre>
+      </div>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">3. Mixing deterministic math and AI scoring</h3>
+      <p style="margin-bottom:1.25rem;">Once the price floats are parsed, the change is one
+        <code>SubFloatOp</code>. The headline's sentiment is one <code>AIScoreOp</code>. Two ops,
+        one a pure function and one a typed AI call, both produce <code>float64</code> wires the
+        downstream prompt-assembly stage stringifies and concatenates.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — buildGraph()</span>
+        </div>
+        <pre><code>b.<span class="fn">Vertex</span>(<span class="st">"calc_change"</span>).<span class="fn">Op</span>(<span class="st">"SubFloatOp"</span>).
+    <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"price"</span>).<span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"prev_close"</span>).<span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"change"</span>)
+
+b.<span class="fn">Vertex</span>(<span class="st">"sentiment"</span>).<span class="fn">Op</span>(<span class="st">"AIScoreOp"</span>).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{
+        <span class="st">"provider"</span>:  <span class="st">"gemini"</span>,
+        <span class="st">"model"</span>:     <span class="st">"gemini-3-flash-preview"</span>,
+        <span class="st">"criterion"</span>: <span class="st">"The headline indicates a positive/bullish outlook"</span>,
+    }).
+    <span class="fn">Input</span>(<span class="st">"Input"</span>, <span class="st">"headline"</span>).<span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"sentiment_score"</span>)</code></pre>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:0.5rem;">Run it</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="kw">export</span> GEMINI_API_KEY=&lt;your key&gt;
+
+<span class="cm"># default ticker is AAPL</span>
+go run ./examples/stock-analyzer
+
+<span class="cm"># or specify your own</span>
+go run ./examples/stock-analyzer --ticker MSFT</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" style="padding:2rem 0;">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="example-remote-mcp-server.html" class="btn btn-secondary">← Remote MCP</a>
+    <a href="example-rag-bm25.html" class="btn btn-secondary">Next: RAG (BM25) →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><defs><radialGradient id="fs" cx="58%" cy="35%" r="65%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs><ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#fs)"/><polygon points="65,50 71,47 71,53" fill="#fb923c"/><path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/><ellipse cx="10" cy="50" rx="9" ry="8" fill="#c2410c"/></svg>
+      <span>clawdag-go</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="releases.html">Releases</a></li>
+      <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+  </div>
+</footer>
+
+</body>
+</html>

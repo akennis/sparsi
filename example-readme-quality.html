@@ -22,6 +22,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html" class="active">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -59,13 +60,13 @@
         <ul class="feat-list">
           <li><strong>Parallel HTTP fetches</strong> with deterministic branch selection — fetch main and master simultaneously, pick the 200 response with <code>SelectStringOp</code>, no try/catch</li>
           <li>A <strong>probe fan-out</strong>: five AI ops all reading the same input wire, each asking a different question, all running in parallel</li>
-          <li><strong>Score averaging</strong> with <code>AddOp</code> + <code>DivOp</code> — once the AI returns two floats, all maths is deterministic</li>
+          <li><strong>Score averaging</strong> with <code>AddFloatOp</code> + <code>DivFloatOp</code> — once the AI returns two floats, all maths is deterministic</li>
           <li>The <strong>optional suffix pattern</strong>: <code>SelectStringOp</code> selects between an empty string and a warning message; <code>StringConcatOp</code> appends it — no conditional code in the driver</li>
           <li>A <strong>custom preprocessing op</strong> (<code>StringTruncateOp</code>) that caps input to 8 KB to stay within AI context limits</li>
         </ul>
       </div>
 
-      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/03-readme-quality" target="_blank" rel="noopener" class="btn btn-secondary">
+      <a href="https://github.com/akennis/clawdag-go/tree/main/examples/readme-quality" target="_blank" rel="noopener" class="btn btn-secondary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View source on GitHub
       </a>
@@ -135,7 +136,7 @@
             <p style="font-size:0.875rem; margin:0;">A custom op that caps the README to 8,192 bytes, preventing very large READMEs from blowing AI context budgets. Configured via a <code>max_bytes</code> parameter in <code>Setup()</code>.</p>
           </div>
           <div>
-            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">AddOp + ConstFloat64Op + DivOp</p>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">AddFloatOp + ConstFloat64Op + DivFloatOp</p>
             <p style="font-size:0.875rem; margin:0;">Computes <code>avg_score = (doc_score + clarity_score) / 2</code>. The denominator is a constant wire (<code>2.0</code>) — no hardcoded values in Go driver code.</p>
           </div>
           <div>
@@ -244,13 +245,13 @@
     <!-- Step 3 -->
     <div style="margin-bottom:3rem;">
       <h3 style="margin-bottom:0.5rem;">3. Deterministic score averaging</h3>
-      <p style="margin-bottom:1.25rem;">The average is computed with two op vertices — <code>AddOp</code> sums the two score wires, and <code>DivOp</code> divides by a constant wire. Both are typed library ops; no math lives in driver code.</p>
+      <p style="margin-bottom:1.25rem;">The average is computed with two op vertices — <code>AddFloatOp</code> sums the two score wires, and <code>DivFloatOp</code> divides by a constant wire. Both are typed library ops; no math lives in driver code.</p>
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-filename">main.go — Stage 4 (average score)</span>
         </div>
-        <pre><code><span class="fn">Vertex</span>(<span class="st">"sum_scores"</span>).<span class="fn">Op</span>(<span class="st">"AddOp"</span>).
+        <pre><code><span class="fn">Vertex</span>(<span class="st">"sum_scores"</span>).<span class="fn">Op</span>(<span class="st">"AddFloatOp"</span>).
     <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"doc_score"</span>).
     <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"clarity_score"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"sum_scores_val"</span>).
@@ -259,7 +260,7 @@
     <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"Value"</span>: <span class="st">"2.0"</span>}).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"two_f"</span>).
 
-<span class="fn">Vertex</span>(<span class="st">"avg_score_op"</span>).<span class="fn">Op</span>(<span class="st">"DivOp"</span>).
+<span class="fn">Vertex</span>(<span class="st">"avg_score_op"</span>).<span class="fn">Op</span>(<span class="st">"DivFloatOp"</span>).
     <span class="fn">Input</span>(<span class="st">"A"</span>, <span class="st">"sum_scores_val"</span>).
     <span class="fn">Input</span>(<span class="st">"B"</span>, <span class="st">"two_f"</span>).
     <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"avg_score"</span>).</code></pre>
@@ -304,13 +305,13 @@
         <pre><code><span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
 
 <span class="cm"># Live slug — main branch</span>
-go run ./examples/03-readme-quality/ --slug wwz16/dagor
+go run ./examples/readme-quality/ --slug wwz16/dagor
 
 <span class="cm"># Live slug — master branch fallback</span>
-go run ./examples/03-readme-quality/ --slug tj/n
+go run ./examples/readme-quality/ --slug tj/n
 
 <span class="cm"># Offline fixture</span>
-go run ./examples/03-readme-quality/ --fixture examples/03-readme-quality/testdata/dagor.md</code></pre>
+go run ./examples/readme-quality/ --fixture examples/readme-quality/testdata/dagor.md</code></pre>
       </div>
     </div>
 
@@ -373,8 +374,8 @@ go run ./examples/03-readme-quality/ --fixture examples/03-readme-quality/testda
 <!-- ── Nav between examples ─────────────────────────────────── -->
 <section class="section section--alt" style="padding:2rem 0;">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-    <a href="example-02-recipe-analyzer.html" class="btn btn-secondary">← Example 02</a>
-    <a href="example-04-weather-advisor.html" class="btn btn-secondary">Next: Weather Advisor →</a>
+    <a href="example-recipe-analyzer.html" class="btn btn-secondary">← Example 02</a>
+    <a href="example-weather-advisor.html" class="btn btn-secondary">Next: Weather Advisor →</a>
   </div>
 </section>
 
@@ -390,6 +391,7 @@ go run ./examples/03-readme-quality/ --fixture examples/03-readme-quality/testda
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

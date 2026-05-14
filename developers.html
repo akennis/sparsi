@@ -22,6 +22,7 @@
       <li><a href="developers.html" class="active">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -450,12 +451,12 @@ cp -r clawdag-codegen .gemini/skills/</code></pre>
 
     <!-- Annotated code -->
     <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:1rem;">
-      Simplified from <code>examples/01-ticket-triager/main.go</code> — annotations inline:
+      Simplified from <code>examples/ticket-triager/main.go</code> — annotations inline:
     </p>
     <div class="code-block" style="margin-bottom:2rem;">
       <div class="code-header">
         <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">examples/01-ticket-triager/main.go — buildGraph()</span>
+        <span class="code-filename">examples/ticket-triager/main.go — buildGraph()</span>
       </div>
       <pre><code><span class="cm">// Registered in init():</span>
 <span class="cm">// operator.RegisterOpFactory("body_const", builtin.ContextValFactory[string](ticketBodyKey{}))</span>
@@ -928,6 +929,58 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
   </div>
 </section>
 
+<!-- ── Beyond the basics ──────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Beyond the basics</span>
+      <h2>Capabilities that compose with the DAG you just built</h2>
+      <p>The same operator pattern extends to four advanced surfaces. Each has its own concept
+        guide and at least one worked example.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem;">
+
+      <a href="mcp.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <div class="card-icon icon-purple">🛰️</div>
+          <h3>MCP integration</h3>
+          <p style="font-size:0.9375rem;">Call any <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> tool — local stdio subprocess or remote streamable HTTP — as a regular DAG vertex. <code>MCPCallOp</code> for one-shot calls; <code>MCPScriptOp</code> for stateful multi-call sessions. Warm-replenish pooling keeps cold-start off the critical path.</p>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem;">Worked examples: <a href="example-local-mcp-server.html">Playwright fan-out</a>, <a href="example-remote-mcp-server.html">Cloudflare docs search</a>.</p>
+        </div>
+      </a>
+
+      <a href="rag.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <div class="card-icon icon-orange">📚</div>
+          <h3>Retrieval &amp; citations</h3>
+          <p style="font-size:0.9375rem;">Implement <code>library.Retriever</code> for any backend (BM25, vector store, hosted search) and wire <code>RetrieveOp</code> into the graph. <code>ValidateCitationsOp</code> filters LLM-emitted source names against the retrieved allow-list — hallucinated citations land in <code>Rejected</code>, not in your UI.</p>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem;">Worked examples: <a href="example-rag-bm25.html">BM25 + citations</a>, <a href="example-rag-gemini-embed.html">Gemini embeddings</a>.</p>
+        </div>
+      </a>
+
+      <a href="repair.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <div class="card-icon icon-green">🔧</div>
+          <h3>AI-driven repair</h3>
+          <p style="font-size:0.9375rem;">Wrap a deterministic op with <code>library.WithRepair</code> so a typed <code>*ErrRepairable</code> escalates to an LLM that mutates the input until it parses or satisfies your business rules. Bounded by <code>max_attempts</code>; non-repairable errors propagate unchanged.</p>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem;">Worked example: <a href="example-with-repair.html">two-stage ticket repair</a> (JSON + XML).</p>
+        </div>
+      </a>
+
+      <a href="ai-routing.html" style="text-decoration:none;">
+        <div class="card" style="height:100%;">
+          <div class="card-icon icon-purple">🔐</div>
+          <h3>Credential routing</h3>
+          <p style="font-size:0.9375rem;">Implement <code>AIClientFactory</code> (and optionally <code>EmbeddingClientFactory</code>) to source Anthropic, Gemini, and embedding-provider clients from Vault, AWS Secrets Manager, workload identity, or per-tenant credential stores — without env vars and without graph changes.</p>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem;">See also: <a href="operations.html">DevOps</a> for deployment posture.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── CTA ───────────────────────────────────────────────────── -->
 <section class="section">
   <div class="container">
@@ -954,6 +1007,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

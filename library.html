@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Operator Library — clawdag-go</title>
-  <meta name="description" content="Complete reference for all clawdag-go operators — AI, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops.">
+  <meta name="description" content="Complete reference for all clawdag-go operators — AI, MCP, Retrieval, Repair, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops, plus the AIClientFactory and EmbeddingClientFactory abstractions.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,6 +21,7 @@
       <li><a href="developers.html">Developers</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="operations.html">DevOps</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html" class="active">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
@@ -37,10 +38,10 @@
   <div class="container">
     <div style="max-width:720px;">
       <div style="margin-bottom:1rem;">
-        <span class="badge badge-blue">89 Operators</span>
+        <span class="badge badge-blue">100+ Operators · Retrieval · Repair · Factories</span>
       </div>
       <h1 style="margin-bottom:1rem;">Operator Library</h1>
-      <p style="font-size:1.0625rem;line-height:1.75;max-width:600px;">Every operator available in clawdag-go, organized by category. Deterministic ops run as pure Go functions. AI-Powered ops call Claude and support structured retries.</p>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:640px;">Every operator available in clawdag-go, organized by category. Deterministic ops run as pure Go functions. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
     </div>
   </div>
 </section>
@@ -388,6 +389,145 @@
   </div>
 </section>
 
+<!-- ── MCP Operators ───────────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="mcp">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">MCP Operators</h2>
+      <span class="badge badge-orange">2 ops</span>
+      <span class="tag tag-det">Integration</span>
+    </div>
+    <p style="max-width:720px;margin-bottom:1rem;">These operators turn <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a> servers into first-class DAG steps. They speak the standard MCP wire protocol over either <code>stdio</code> (a local subprocess like <code>npx @playwright/mcp</code> or <code>uvx</code>-launched servers) or streamable <code>http</code> (a remote endpoint such as <code>https://docs.mcp.cloudflare.com/mcp</code>) — so any MCP-compliant server, local or remote, public or private, drops into a clawdag graph without custom glue code.</p>
+    <p style="max-width:720px;margin-bottom:1rem;">Because these ops use the protocol's own <code>tools/list</code> and <code>tools/call</code> verbs, <strong>any reference material that documents an existing MCP server and its tools is directly usable when wiring clawdag</strong>. Hand the server's tool catalog (names, JSON-Schema arg shapes, return types) to your editor or to Claude alongside the clawdag graph and it has everything needed to bind a tool call to a vertex — no SDK adapter to write, no per-server client to vendor.</p>
+    <p style="max-width:720px;margin-bottom:2rem;">A built-in warm-replenish session pool (<code>pool_size</code>, stdio only in v1) keeps cold-start off the critical path when many vertices share the same server spec. Pair with <code>library.ShutdownMCPPool</code> from <code>main()</code> so pre-started subprocesses drain at exit.</p>
+    <div class="grid-2">
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/mcp_call_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-orange" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">MCPCallOp[In, Out]</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Integration</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Invoke a single MCP tool as one DAG step. Each <code>Run</code> opens a fresh session, completes the handshake, calls one tool, and tears the session down. Default dispatch decodes <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, slice and map shapes, and any JSON-decodable struct (structured content preferred when the server emits it). Implement <code>MCPArgsFormatter</code> / <code>MCPResponseParser</code> for full control.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Params: <code>transport</code>, <code>command</code>/<code>args</code>/<code>env</code> (stdio) or <code>url</code>/<code>headers</code> (http), <code>tool_name</code>, <code>init_timeout_ms</code>, <code>call_timeout_ms</code>, <code>max_retries</code>, <code>pool_size</code>, <code>pool_prewarm</code>.</p>
+      </a>
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/mcp_script_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div class="card-icon icon-orange" style="margin-bottom:0.75rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">MCPScriptOp[In, Out]</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Integration</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Orchestrate a sequence of MCP tool calls against a single, long-lived session. Use this when one DAG step needs multiple calls that share server-side state — a browser session navigating then typing then snapshotting, a database cursor, an open file handle. The user-supplied <code>Script</code> closure runs exactly once per <code>Run</code>, receives a live <code>MCPSession</code>, and is free to <code>CallTool</code> any number of times in any order.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Same params as <code>MCPCallOp</code>, minus <code>tool_name</code> (the script chooses tools at call time). Only session-start failures are retried; <code>Script</code> runs at most once per <code>Run</code>.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Retrieval Operators ─────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="retrieval">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Retrieval &amp; Citations</h2>
+      <span class="badge badge-orange">3 ops</span>
+      <span class="tag tag-det">RAG layer</span>
+    </div>
+    <p style="max-width:720px;margin-bottom:1rem;">Two operators wire a registered <code>library.Retriever</code> into a graph; one filters LLM-emitted citations against an allow-list. The <code>Retriever</code> interface itself is backend-agnostic — implement it once over BM25, a vector store, or a hosted search service, then any of these ops works. Vertices that embed (vector-store retrievers) call <code>library.ResolveEmbeddingClient</code> instead of reading env vars directly, so a registered <code>EmbeddingClientFactory</code> controls where the credential actually comes from.</p>
+    <p style="max-width:720px;margin-bottom:2rem;">See <a href="rag.html">the retrieval concept guide</a> for the full data flow, security guidance, and citation-validation pattern.</p>
+    <div class="grid-3">
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/retrieve_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">RetrieveOp</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Retrieval</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Top-<code>k</code> retrieval from a registered <code>Retriever</code>. Emits <code>Documents []Document</code> and <code>Texts []string</code> in parallel.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Params: <code>k</code>, <code>retriever_id</code>, <code>credential_ref</code>, <code>client_factory_id</code>, <code>api_factory_timeout_ms</code>, <code>embed_timeout_ms</code>.</p>
+      </a>
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/retrieve_with_filters_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">RetrieveWithFiltersOp</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Retrieval</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Same as <code>RetrieveOp</code> plus a <code>Filters *map[string]string</code> input wire and a <code>static_filters</code> param. Runtime wins on key collision. Filters install on ctx via <code>library.WithRetrievalFilters</code>.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Use when tenant id / locale / category come from upstream auth, classifier, or planner ops.</p>
+      </a>
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/validate_citations_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">ValidateCitationsOp</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Security</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Filters LLM-emitted citations against an allow-list. Partitions into <code>Accepted</code> (membership-tested, deduped) and <code>Rejected</code> (likely hallucinations).</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Build the allow-list from <em>retrieved</em> documents, not the full loaded corpus — otherwise a model that hallucinates the name of a real-but-unretrieved file slips past.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Repair Wrapper ──────────────────────────────────────────────────── -->
+<section class="section section--alt" style="padding:3rem 0 2.5rem;" id="repair">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Repair Wrapper</h2>
+      <span class="badge badge-green">1 wrapper</span>
+      <span class="tag tag-det">Hybrid</span>
+    </div>
+    <p style="max-width:720px;margin-bottom:1rem;"><code>library.WithRepair</code> turns a deterministic op into an LLM-assisted-recovery op. When the inner op returns <code>*library.ErrRepairable</code> carrying a self-contained prompt, the wrapper forwards the prompt to an LLM, parses the response back into the named input field's element type via <code>UnmarshalRepair</code>, writes it back, and re-runs the inner op. Bounded by <code>max_attempts</code>; non-repairable errors propagate unchanged.</p>
+    <p style="max-width:720px;margin-bottom:2rem;">See <a href="repair.html">the repair concept guide</a> for the inner-op contract, when (and when not) to use it, and the canonical wiring pattern.</p>
+    <div class="grid-2">
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/with_repair.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">library.RegisterWithRepair[Inner]</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Registration</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Generic constructor. Pass the registered name, a factory that returns a fresh inner op, and a <code>RepairConfig</code> (<code>InputField</code>, <code>MaxAttempts</code>, <code>PromptPrefix</code>, <code>PromptSuffix</code>, <code>Provider</code>, <code>Model</code>, <code>MaxTokens</code>).</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Vertex-level params override: <code>max_attempts</code>, <code>provider</code>, <code>model</code>, <code>max_tokens</code>, <code>credential_ref</code>, <code>client_factory_id</code>.</p>
+      </a>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">*library.ErrRepairable</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Inner contract</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Typed error inner ops return to opt in to repair. Carries a <code>Prompt string</code> (the self-contained instruction for the LLM) and an underlying <code>Cause error</code> for logging and <code>errors.Unwrap</code>.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">The input type implements <code>library.RepairableInput</code>: <code>UnmarshalRepair(string) error</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Factories ───────────────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0 2.5rem;" id="factories">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <h2 style="margin:0;">Client Factories</h2>
+      <span class="badge badge-purple">2 interfaces</span>
+      <span class="tag tag-det">Credential routing</span>
+    </div>
+    <p style="max-width:720px;margin-bottom:1rem;">Every AI op resolves its provider SDK client through an <code>AIClientFactory</code>; every vector-store retriever resolves its embedding client through an <code>EmbeddingClientFactory</code>. Both interfaces let you source credentials from Vault, AWS Secrets Manager, workload identity, an egress proxy, or per-tenant vaults without changing graph code.</p>
+    <p style="max-width:720px;margin-bottom:2rem;">See <a href="ai-routing.html">the credential-routing guide</a> for wiring patterns (process default vs registered-by-id vs per-vertex ref) and security guidance.</p>
+    <div class="grid-2">
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/ai_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">library.AIClientFactory</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">AI clients</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Two methods: <code>Anthropic(ctx, ref) (*anthropic.Client, error)</code> and <code>Gemini(ctx, ref) (*genai.Client, error)</code>. The bundled <code>EnvAIClientFactory</code> reads <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code> from the environment.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Wire via <code>SetDefaultAIClientFactory</code>, <code>RegisterAIClientFactory(id, f)</code>, and the per-vertex <code>client_factory_id</code> + <code>credential_ref</code> params.</p>
+      </a>
+      <a href="https://github.com/akennis/clawdag-go/blob/main/library/embedding_factory.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap;">
+          <code style="font-size:0.875rem;color:var(--text-0);">library.EmbeddingClientFactory</code>
+          <span class="tag tag-det" style="font-size:0.7rem;">Embeddings</span>
+        </div>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">One method: <code>Embedder(ctx, provider, model, ref) (EmbeddingClient, error)</code>. The bundled <code>EnvEmbeddingClientFactory</code> only supports <code>provider="gemini"</code> — register a custom factory for Voyage, OpenAI, Cohere, Vertex, or in-house embedders.</p>
+        <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Retrievers call <code>library.ResolveEmbeddingClient(ctx, provider, model)</code>; the framework hands them the right client based on ctx + the registry.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ── ContextValFactory ────────────────────────────────────────────────── -->
 <section class="section" style="padding:3rem 0 2.5rem;" id="context-val">
   <div class="container">
@@ -476,6 +616,7 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="developers.html">Developers</a></li>
+      <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/clawdag-go" target="_blank" rel="noopener">GitHub</a></li>

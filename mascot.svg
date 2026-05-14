@@ -1,84 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="sparsi mascot - a crayfish pinching an AI DAG node">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across the left and middle layers, 5 deterministic nodes elsewhere">
   <defs>
-    <filter id="m-glow" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="2.5" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <radialGradient id="m-shell" cx="58%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fb923c"/>
-      <stop offset="65%" stop-color="#ea580c"/>
-      <stop offset="100%" stop-color="#9a3412"/>
+    <radialGradient id="dl-d" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
     </radialGradient>
-    <radialGradient id="m-ai" cx="38%" cy="35%" r="60%">
+    <radialGradient id="dl-ai" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="#c084fc"/>
       <stop offset="100%" stop-color="#5b21b6"/>
     </radialGradient>
+    <filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
-  <!-- DAG context: deterministic nodes feeding AI node -->
-  <circle cx="73" cy="24" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="73" y="27" text-anchor="middle" font-size="5" fill="#60a5fa" font-family="monospace">det</text>
-  <circle cx="73" cy="76" r="8" fill="#0f1e3a" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="73" y="79" text-anchor="middle" font-size="5" fill="#60a5fa" font-family="monospace">det</text>
+  <!-- Directed edges (left to right) -->
+  <g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round">
+    <line x1="21" y1="30" x2="31" y2="26"/>
+    <line x1="21" y1="38" x2="31" y2="46"/>
+    <line x1="21" y1="62" x2="31" y2="54"/>
+    <line x1="21" y1="70" x2="31" y2="74"/>
+    <line x1="45" y1="26" x2="55" y2="30"/>
+    <line x1="45" y1="46" x2="55" y2="38"/>
+    <line x1="45" y1="54" x2="55" y2="62"/>
+    <line x1="45" y1="74" x2="55" y2="70"/>
+    <line x1="69" y1="38" x2="79" y2="46"/>
+    <line x1="69" y1="62" x2="79" y2="54"/>
+  </g>
 
-  <!-- Edges to AI node -->
-  <line x1="80" y1="28" x2="88" y2="43" stroke="#374151" stroke-width="1.2"/>
-  <line x1="80" y1="72" x2="88" y2="57" stroke="#374151" stroke-width="1.2"/>
+  <!-- 5 deterministic nodes (blue): L2 top/bottom, L3 both, L4 -->
+  <g>
+    <circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/>
+    <circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/>
+    <circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/>
+    <circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/>
+    <circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/>
+  </g>
 
-  <!-- AI node being pinched (hexagon) -->
-  <polygon points="93,43 99,47 99,53 93,57 87,53 87,47"
-    fill="url(#m-ai)" stroke="#a855f7" stroke-width="1.8" filter="url(#m-glow)"/>
-  <text x="93" y="52" text-anchor="middle" font-size="5.5" fill="#f3e8ff"
-    font-family="monospace" font-weight="bold">AI</text>
-
-  <!-- ── Crayfish (top-down, facing right) ── -->
-
-  <!-- Antennae -->
-  <path d="M 52 31 Q 42 22 34 14" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <path d="M 55 30 Q 48 19 44 10" fill="none" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-
-  <!-- Eyes on stalks -->
-  <line x1="60" y1="34" x2="63" y2="29" stroke="#b91c1c" stroke-width="2"/>
-  <circle cx="64" cy="27" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/>
-  <circle cx="63" cy="26" r="1.5" fill="white" opacity="0.75"/>
-
-  <line x1="60" y1="66" x2="63" y2="71" stroke="#b91c1c" stroke-width="2"/>
-  <circle cx="64" cy="73" r="4" fill="#111" stroke="#f97316" stroke-width="1.5"/>
-  <circle cx="63" cy="72" r="1.5" fill="white" opacity="0.75"/>
-
-  <!-- Carapace -->
-  <ellipse cx="42" cy="50" rx="23" ry="20" fill="url(#m-shell)"/>
-
-  <!-- Rostrum -->
-  <polygon points="65,50 71,47 71,53" fill="#fb923c"/>
-
-  <!-- RIGHT CLAW (large, reaching to AI node) -->
-  <path d="M 63 45 L 74 41 L 83 44" fill="none" stroke="#b91c1c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Upper pincer -->
-  <path d="M 83 44 Q 87 40 87 47" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- Lower pincer -->
-  <path d="M 83 44 Q 87 48 87 53" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/>
-
-  <!-- LEFT CLAW (smaller, open) -->
-  <path d="M 63 55 L 70 62 L 76 68" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 76 68 Q 81 64 81 69" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M 76 68 Q 80 72 78 76" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- Walking legs -->
-  <line x1="52" y1="32" x2="42" y2="22" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="40" y1="31" x2="30" y2="22" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="28" y1="38" x2="19" y2="30" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="52" y1="68" x2="42" y2="78" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="40" y1="69" x2="30" y2="78" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="28" y1="62" x2="19" y2="70" stroke="#c2410c" stroke-width="1.4" stroke-linecap="round"/>
-
-  <!-- Abdomen segments -->
-  <ellipse cx="22" cy="50" rx="14" ry="11" fill="#ea580c"/>
-  <ellipse cx="10" cy="50" rx="9"  ry="8"  fill="#e05c1c"/>
-  <ellipse cx="3"  cy="50" rx="5"  ry="5.5" fill="#c2410c"/>
-
-  <!-- Tail fan -->
-  <ellipse cx="-1" cy="43" rx="7" ry="3.5" fill="#b91c1c" transform="rotate(-28,-1,43)"/>
-  <ellipse cx="-2" cy="50" rx="8" ry="3.5" fill="#c2410c"/>
-  <ellipse cx="-1" cy="57" rx="7" ry="3.5" fill="#b91c1c" transform="rotate(28,-1,57)"/>
+  <!-- 3 AI nodes (purple, glowing): L1 top, L1 bottom, L2 middle -->
+  <g>
+    <circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/>
+    <circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/>
+    <circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/>
+  </g>
 </svg>

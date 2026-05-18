@@ -40,10 +40,15 @@
     <div style="max-width:740px;">
       <span class="badge badge-blue" style="margin-bottom:1rem; display:inline-flex;">Developer Docs</span>
       <h1 style="margin-bottom:1rem;">Build AI Workflows<br>You Can Actually <span class="hi-o">Debug</span></h1>
-      <p style="font-size:1.0625rem; margin-bottom:2rem;">
-        sparsi-go is a Go library for DAG-based workflows. Ops are plain Go structs.
-        Wires are typed values. The engine handles dependency resolution, parallelism,
-        and skip-propagation. You write the logic.
+      <p style="font-size:1.0625rem; margin-bottom:1rem;">
+        sparsi-go is the reliability layer between your AI agent and the work it does:
+        each business process becomes a single deterministic, fully auditable tool — with
+        AI used only where genuine judgment is required.
+      </p>
+      <p style="font-size:1.0625rem; margin-bottom:2rem; color:var(--text-2);">
+        Concretely, that's a DAG: ops are plain Go structs, wires are typed values, and
+        the engine handles dependency resolution, parallelism, and skip-propagation. You
+        write the logic — this page is the how.
       </p>
       <div class="hero-actions">
         <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">
@@ -56,6 +61,34 @@
     </div>
   </div>
 </section>
+
+<!-- ── Positioning band ─────────────────────────────────────── -->
+<div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 0;">
+  <div class="container" style="max-width:880px;">
+    <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8; text-align:center; margin-bottom:1.75rem;">
+      "Hand an agent fifty low-level tools and every problem means reinventing a long,
+      brittle tool chain. sparsi-go inverts this: <strong>package each business process
+      as its own deterministic tool</strong> — with AI sealed inside it — so the calling
+      agent reasons at the level of an executive or a support lead, not a plumber wiring
+      primitives."
+    </p>
+    <div class="grid-2" style="gap:1.25rem; align-items:stretch;">
+      <div class="card" style="border-color:rgba(249,115,22,0.35);">
+        <h3 style="font-size:1rem;">🧠 The orchestrating agent <span style="font-weight:400; color:var(--text-3); font-size:0.8125rem;">— outside the workflow</span></h3>
+        <p style="font-size:0.9375rem; margin:0;">Decides <em>which</em> tool to invoke and what to do with the result. It sees one reliable call, never the ops inside. It never appears in your graph code.</p>
+      </div>
+      <div class="card" style="border-color:rgba(139,92,246,0.35);">
+        <h3 style="font-size:1rem;">⚙️ AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.8125rem;">— inside the workflow</span></h3>
+        <p style="font-size:0.9375rem; margin:0;">DAG vertices that interpret, transform, or route where no deterministic rule exists. Model-pinned, typed, logged. The graph invokes these — the agent never does.</p>
+      </div>
+    </div>
+    <p style="font-size:0.875rem; color:var(--text-3); text-align:center; margin:1.5rem 0 0;">
+      No agent? The same compiled workflow runs unchanged as a standalone CLI binary or a
+      batch job — the determinism, audit trail, and bounded cost are properties of the
+      graph, not of being agent-driven.
+    </p>
+  </div>
+</div>
 
 <!-- ── Quick install ────────────────────────────────────────── -->
 <section class="section section--alt" style="padding:3rem 0;">
@@ -1009,6 +1042,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DevOps — sparsi-go</title>
-  <meta name="description" content="Deploy sparsi-go workflows: standalone binaries, context timeouts, web service integration, logging with slog, and AI token metrics.">
+  <meta name="description" content="Running sparsi-go in production: deterministic reliability, every step logged, failure isolated to its source, reproducible runs, and cost that is bounded by construction.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -35,775 +35,250 @@
 </nav>
 
 <!-- ── Hero ────────────────────────────────────────────────── -->
-<section class="hero" style="padding:4rem 0 3rem;">
+<section class="hero" style="padding:4.5rem 0 3.5rem;">
   <div class="container">
-    <div style="max-width:740px;">
+    <div style="max-width:800px;">
       <span class="badge badge-blue" style="margin-bottom:1rem; display:inline-flex;">DevOps</span>
-      <h1 style="margin-bottom:1rem;">Deploy Anywhere.<br>One Binary. <span class="hi-o">No Dependencies.</span></h1>
-      <p style="font-size:1.0625rem; margin-bottom:2rem;">
-        sparsi-go workflows compile to a single static Go binary with no external runtime
-        dependencies — no shared libraries, no interpreter, no container required.
-        Drop the binary on any machine and it runs.
+      <h1 style="margin-bottom:1.25rem;">
+        A Workload That <span class="hi-o">Behaves</span><br>
+        the Same Way at <span class="hi-p">3 a.m.</span>
+      </h1>
+      <p style="font-size:1.0625rem; margin-bottom:1.25rem; line-height:1.8; max-width:740px;">
+        sparsi-go is the reliability layer between your AI agent and the work it does.
+        Each business process is a single tool — deterministic at every possible point,
+        every step logged and reproducible, with AI used only where genuine judgment is
+        required.
+      </p>
+      <p style="font-size:1.0625rem; margin-bottom:2rem; line-height:1.8; max-width:740px; color:var(--text-2);">
+        For the people who carry the pager, that means the things that actually matter in
+        production: <strong>predictable behavior, an answer to "what happened on this
+        run?", failures that point at themselves, and a cost that doesn't move with
+        traffic</strong>.
       </p>
       <div class="hero-actions">
-        <a href="#stdin-stdout" class="btn btn-primary">Standalone Binaries ↓</a>
-        <a href="#timeouts" class="btn btn-secondary">Context Timeouts ↓</a>
-        <a href="#logging" class="btn btn-secondary">Logging &amp; Metrics ↓</a>
+        <a href="#observability" class="btn btn-primary">Observability ↓</a>
+        <a href="#isolation" class="btn btn-secondary">Failure Isolation ↓</a>
+        <a href="developers.html" class="btn btn-secondary hide-sm">Developer Docs</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Standalone executable ─────────────────────────────── -->
-<section class="section section--alt" id="stdin-stdout">
-  <div class="container">
-    <div class="section-header" style="text-align:left; margin-bottom:2rem;">
-      <span class="badge badge-orange">Default Deployment</span>
-      <h2 style="margin-top:0.75rem;">Standalone Executables</h2>
-      <p style="max-width:none; margin:0.75rem 0 0; text-align:left;">
-        The code-generation driver produces a complete, runnable Go program.
-        <code>go build</code> it and you get a single self-contained binary.
-      </p>
-    </div>
-
-    <div class="grid-2" style="margin-bottom:2.5rem;">
-      <div>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code><span class="cm"># Build — produces a single binary, nothing else</span>
-go build -o ticket-triager ./examples/ticket-triager
-
-<span class="cm"># Run — feed JSON on stdin, result on stdout</span>
-echo '{"body":"My payment failed twice"}' \
-  | ./ticket-triager
-
-<span class="cm"># Errors and diagnostics go to stderr</span>
-./ticket-triager &lt; ticket.json &gt; brief.json</code></pre>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:1rem;">What "no external dependencies" means</h3>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Go compiles everything — the standard library, the dagor runtime, the operator
-          logic, and all third-party packages — directly into the binary.
-          The resulting executable has:
-        </p>
-        <ul class="feat-list">
-          <li>No <code>.dll</code> or <code>.lib</code> files on Windows</li>
-          <li>No <code>.so</code> shared objects on Linux</li>
-          <li>No <code>.dylib</code> files on macOS</li>
-          <li>No language runtime to install (no JVM, no Python interpreter)</li>
-          <li>No <code>node_modules</code>, no <code>pip install</code>, no <code>gem install</code></li>
-        </ul>
-        <p style="margin-top:1rem; font-size:0.875rem; color:var(--text-3);">
-          The only exception is when an operator uses CGo (e.g. SQLite via mattn/go-sqlite3).
-          The built-in and generated operators are pure Go and introduce no such dependency.
-        </p>
-      </div>
-    </div>
-
-    <!-- stdin/stdout contract -->
-    <h3 style="margin-bottom:1.25rem;">The stdin / stdout / stderr contract</h3>
-    <div class="grid-3" style="margin-bottom:2.5rem;">
-      <div class="card" style="border-color:rgba(59,130,246,0.3);">
-        <div class="card-icon icon-blue">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><polyline points="9 10 4 15 9 20"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg>
-        </div>
-        <h3>stdin</h3>
-        <p>Raw input — ticket text, a JSON document, a batch of records. The first operator reads and parses it. No file path arguments needed; works naturally with Unix pipes.</p>
-      </div>
-      <div class="card" style="border-color:rgba(34,197,94,0.3);">
-        <div class="card-icon icon-green">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
-        </div>
-        <h3>stdout</h3>
-        <p>The workflow result — structured JSON, a plain-text report, or any typed output your last operator writes. Downstream programs can parse it directly.</p>
-      </div>
-      <div class="card" style="border-color:rgba(239,68,68,0.3);">
-        <div class="card-icon" style="background:rgba(239,68,68,0.12);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        </div>
-        <h3>stderr</h3>
-        <p>Operator logs, the <code>SlogReporter</code> stream, and any fatal error messages. Separate from the result so logging never corrupts the structured output.</p>
-      </div>
-    </div>
-
-    <!-- Deployment scenarios -->
-    <h3 style="margin-bottom:1.25rem;">Deployment scenarios</h3>
-    <div class="grid-2">
-      <div class="card">
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-          <div class="card-icon icon-orange" style="margin:0; flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange-light)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          </div>
-          <h3 style="margin:0;">Cron / Batch job</h3>
-        </div>
-        <p>Schedule the binary with cron, Task Scheduler, or a Kubernetes CronJob. One invocation = one workflow run. No server process to keep alive.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">crontab</span>
-          </div>
-          <pre><code>0 * * * * /opt/bin/analyzer &lt; /data/input.json \
-              &gt;&gt; /logs/output.ndjson 2&gt;&gt;/logs/err.log</code></pre>
-        </div>
-      </div>
-      <div class="card">
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-          <div class="card-icon icon-purple" style="margin:0; flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple-light)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.6 3.27 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l1.06-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <h3 style="margin:0;">AWS Lambda / Cloud Functions</h3>
-        </div>
-        <p>Compile for <code>GOOS=linux GOARCH=amd64</code>, zip, upload. The handler reads the event payload, runs the graph, returns the result. Cold starts are fast — small binary, no interpreter warmup.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code>GOOS=linux GOARCH=amd64 go build -o bootstrap .
-zip function.zip bootstrap</code></pre>
-        </div>
-      </div>
-      <div class="card">
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-          <div class="card-icon icon-blue" style="margin:0; flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-          </div>
-          <h3 style="margin:0;">Container (Docker / Kubernetes)</h3>
-        </div>
-        <p>The binary is the only artifact the container needs. Use a scratch or distroless base image for minimal attack surface. No OS packages, no language runtime layer.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">Dockerfile</span>
-          </div>
-          <pre><code>FROM golang:1.23 AS build
-WORKDIR /src
-COPY . .
-RUN CGO_ENABLED=0 go build -o /app .
-
-FROM scratch
-COPY --from=build /app /app
-ENTRYPOINT ["/app"]</code></pre>
-        </div>
-      </div>
-      <div class="card">
-        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-          <div class="card-icon icon-green" style="margin:0; flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <h3 style="margin:0;">Unix pipeline stage</h3>
-        </div>
-        <p>Chain multiple workflow binaries together. Each step reads structured output from the previous. Compose complex multi-model pipelines out of single-purpose binaries without modifying any code.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code>cat tickets.ndjson \
-  | ./triage \
-  | ./enrich \
-  | ./route &gt; routed.ndjson</code></pre>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Context Timeouts ──────────────────────────────────── -->
-<section class="section" id="timeouts">
-  <div class="container">
-    <div class="section-header" style="text-align:left; margin-bottom:2rem;">
-      <span class="badge badge-purple">Confirmed in dagor</span>
-      <h2 style="margin-top:0.75rem;">Context Timeouts</h2>
-      <p style="max-width:none; margin:0.75rem 0 0; text-align:left;">
-        The dagor engine fully honours Go's <code>context.Context</code> cancellation and deadline
-        semantics. Pass a context with a timeout or deadline to <code>engine.Run(ctx)</code> and the
-        engine will stop cleanly if that deadline is exceeded.
-      </p>
-    </div>
-
-    <div class="split" style="margin-bottom:2.5rem;">
-      <div>
-        <h3 style="margin-bottom:1rem;">How timeouts propagate</h3>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Context cancellation is checked at every level of the execution stack:
-        </p>
-        <ul class="feat-list" style="margin-bottom:1.5rem;">
-          <li><strong>Graph level</strong> — <code>engine.Run</code> selects on <code>ctx.Done()</code> alongside the normal completion signal. Whichever fires first wins.</li>
-          <li><strong>Vertex level</strong> — each vertex checks <code>ctx.Err()</code> before executing, returning early if the context is already cancelled.</li>
-          <li><strong>Operator level</strong> — the context is forwarded into every <code>op.Run(ctx)</code> call; operators that make network calls (e.g. AI ops) respect it natively.</li>
-          <li><strong>Map / Filter / Reduce</strong> — each element iteration checks <code>ctx.Err()</code> before processing the next item, so a timeout mid-loop exits cleanly.</li>
-        </ul>
-        <p style="font-size:0.875rem; color:var(--text-3);">
-          After cancellation, the engine waits for all active goroutines to finish their current
-          vertex before returning — it does not kill goroutines. The error returned by
-          <code>engine.Run</code> will be <code>context.DeadlineExceeded</code> or
-          <code>context.Canceled</code>.
-        </p>
-      </div>
-      <div>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code><span class="kw">import</span> (
-    <span class="st">"context"</span>
-    <span class="st">"time"</span>
-    <span class="st">"github.com/wwz16/dagor"</span>
-)
-
-<span class="cm">// Hard deadline: abort entire workflow after 5 s.</span>
-ctx, cancel := context.<span class="fn">WithTimeout</span>(
-    context.Background(), <span class="nu">5</span>*time.Second,
-)
-<span class="kw">defer</span> cancel()
-
-eng, _ := dagor.<span class="fn">NewEngine</span>(graph, pool)
-<span class="kw">defer</span> eng.<span class="fn">Close</span>(ctx)
-
-<span class="kw">if</span> err := eng.<span class="fn">Run</span>(ctx); err != <span class="kw">nil</span> {
-    <span class="kw">if</span> errors.<span class="fn">Is</span>(err, context.DeadlineExceeded) {
-        <span class="cm">// Workflow took too long — return a partial result</span>
-        <span class="cm">// or a 504 to the caller.</span>
-    }
-    <span class="kw">return</span> err
-}</code></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- Timeout patterns -->
-    <h3 style="margin-bottom:1.25rem;">Timeout patterns</h3>
-    <div class="grid-3">
-      <div class="card">
-        <h3 style="margin-bottom:0.5rem;">Per-request deadline</h3>
-        <p>Derive the context from the incoming HTTP request. If the client disconnects or times out, the graph stops automatically — no goroutine leak, no wasted AI tokens.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">handler.go</span>
-          </div>
-          <pre><code><span class="kw">func</span> <span class="fn">handler</span>(w http.ResponseWriter, r *http.Request) {
-    ctx, cancel := context.<span class="fn">WithTimeout</span>(
-        r.Context(), <span class="nu">10</span>*time.Second,
-    )
-    <span class="kw">defer</span> cancel()
-    eng.<span class="fn">Run</span>(ctx)
-}</code></pre>
-        </div>
-      </div>
-      <div class="card">
-        <h3 style="margin-bottom:0.5rem;">Global process budget</h3>
-        <p>In a batch or CLI program, set a single timeout for the whole run. The engine will drain whatever it can within the window and return a clear error if time runs out.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code>ctx, cancel := context.<span class="fn">WithTimeout</span>(
-    context.Background(),
-    <span class="nu">30</span>*time.Second,
-)
-<span class="kw">defer</span> cancel()
-eng.<span class="fn">Run</span>(ctx)</code></pre>
-        </div>
-      </div>
-      <div class="card">
-        <h3 style="margin-bottom:0.5rem;">Graceful shutdown</h3>
-        <p>Hook OS signals into a cancel function. When SIGTERM arrives the engine finishes in-flight vertices and returns, letting the process exit cleanly without a hard kill.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code>ctx, stop := signal.<span class="fn">NotifyContext</span>(
-    context.Background(),
-    syscall.SIGTERM, syscall.SIGINT,
-)
-<span class="kw">defer</span> stop()
-eng.<span class="fn">Run</span>(ctx)</code></pre>
-        </div>
-      </div>
-    </div>
-
-    <div class="quote-block" style="margin-top:2rem;">
-      <p>Because <code>engine.Run</code> passes the context directly into every <code>op.Run(ctx)</code> call,
-         AI operators that use the Claude SDK or any other HTTP client will honour the deadline
-         without any special wiring — the SDK's HTTP transport propagates it automatically.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── Web service integration ──────────────────────────── -->
-<section class="section section--alt" id="web-service">
-  <div class="container">
-    <div class="section-header" style="text-align:left; margin-bottom:2rem;">
-      <span class="badge badge-blue">Advanced</span>
-      <h2 style="margin-top:0.75rem;">Web Service Integration</h2>
-      <p style="max-width:none; margin:0.75rem 0 0; text-align:left;">
-        A dagor graph can be called from inside any HTTP handler, gRPC method, or message-queue
-        consumer. The engine is not a server — it is a function call that happens to be
-        graph-shaped. Embed it wherever you call functions.
-      </p>
-    </div>
-
-    <div class="split" style="margin-bottom:2.5rem;">
-      <div>
-        <h3 style="margin-bottom:1rem;">Per-request pattern (simple)</h3>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Build a new engine instance for every request. This is the simplest and
-          safest approach: engines are lightweight, state is never shared between
-          requests, and the request context controls the lifetime.
-        </p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">server.go</span>
-          </div>
-          <pre><code><span class="cm">// Build the graph once at startup (it is immutable).</span>
-<span class="kw">var</span> triageGraph *graph.Graph
-
-<span class="kw">func</span> <span class="fn">init</span>() {
-    triageGraph, _ = dagor.<span class="fn">NewGraphFromJson</span>(graphJSON)
-}
-
-<span class="kw">func</span> <span class="fn">triageHandler</span>(w http.ResponseWriter, r *http.Request) {
-    ctx, cancel := context.<span class="fn">WithTimeout</span>(r.Context(), <span class="nu">10</span>*time.Second)
-    <span class="kw">defer</span> cancel()
-
-    eng, err := dagor.<span class="fn">NewEngine</span>(triageGraph, goroutinePool)
-    <span class="kw">if</span> err != <span class="kw">nil</span> {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        <span class="kw">return</span>
-    }
-    <span class="kw">defer</span> eng.<span class="fn">Close</span>(ctx)
-
-    <span class="kw">if</span> err := eng.<span class="fn">Run</span>(ctx); err != <span class="kw">nil</span> {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        <span class="kw">return</span>
-    }
-
-    result, _ := eng.<span class="fn">GetOutput</span>(<span class="st">"final_brief"</span>)
-    json.<span class="fn">NewEncoder</span>(w).<span class="fn">Encode</span>(result)
-}</code></pre>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:1rem;">What gets shared vs. per-request</h3>
-        <div class="card" style="margin-bottom:1rem;">
-          <p style="font-weight:600; margin-bottom:0.75rem; color:var(--text-0);">Share across requests</p>
-          <ul class="feat-list">
-            <li><code>*graph.Graph</code> — immutable after build</li>
-            <li>Goroutine pool (<code>ants.Pool</code> or equivalent)</li>
-            <li>Operator registrations (<code>init()</code>-time, global)</li>
-          </ul>
-        </div>
-        <div class="card" style="border-color:rgba(249,115,22,0.25);">
-          <p style="font-weight:600; margin-bottom:0.75rem; color:var(--text-0);">Create per-request</p>
-          <ul class="feat-list">
-            <li><code>*dagor.Engine</code> — holds mutable run state</li>
-            <li>Context (carries deadline + run ID)</li>
-            <li>Input wires (injected before <code>Run</code>)</li>
-          </ul>
-        </div>
-        <div class="quote-block" style="margin-top:1.25rem;">
-          <p>The goroutine pool is shared intentionally: it bounds total concurrency across
-             all in-flight requests, preventing a traffic spike from spawning unbounded goroutines.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Goroutine pool sizing -->
-    <h3 style="margin-bottom:1rem;">Goroutine pool sizing</h3>
-    <p style="margin-bottom:1.5rem; font-size:0.9375rem;">
-      The pool controls how many vertices run in parallel across all concurrent workflow
-      executions. A reasonable starting point is <strong>2–4× the number of CPU cores</strong>
-      for CPU-bound graphs. For IO-heavy graphs (many AI ops), go higher — goroutines
-      waiting on network are not consuming CPU.
+<!-- ── Philosophy pull-quote ───────────────────────────────── -->
+<div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 0;">
+  <div class="container" style="text-align:center; max-width:820px;">
+    <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8;">
+      "An agent improvising a tool chain on every run is an operational liability —
+      non-reproducible, unattributable, and unbounded in cost. sparsi-go inverts this:
+      <strong>each business process is its own deterministic tool</strong>, with AI
+      sealed inside it, so what you operate is a workload with known behavior — not a
+      black box that surprises you in production."
     </p>
-    <div class="code-block" style="margin-bottom:2rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">main.go</span>
-      </div>
-      <pre><code><span class="kw">import</span> <span class="st">"github.com/panjf2000/ants/v2"</span>
-
-<span class="cm">// For AI-heavy workflows: most goroutines are waiting on HTTP.</span>
-<span class="cm">// A large pool lets more requests make progress concurrently.</span>
-pool, err := ants.<span class="fn">NewPool</span>(<span class="nu">200</span>,
-    ants.<span class="fn">WithNonblocking</span>(<span class="kw">false</span>), <span class="cm">// block callers when full</span>
-    ants.<span class="fn">WithPreAlloc</span>(<span class="kw">true</span>),    <span class="cm">// allocate goroutines eagerly</span>
-)
-<span class="kw">defer</span> pool.<span class="fn">Release</span>()</code></pre>
-    </div>
   </div>
-</section>
+</div>
 
-<!-- ── Logging & Metrics ──────────────────────────────────── -->
-<section class="section" id="logging">
-  <div class="container">
-    <div class="section-header" style="text-align:left; margin-bottom:2rem;">
-      <span class="badge badge-purple">Built-in</span>
-      <h2 style="margin-top:0.75rem;">Logging &amp; Metrics</h2>
-      <p style="max-width:none; margin:0.75rem 0 0; text-align:left;">
-        dagor ships a <code>Reporter</code> interface that fires structured events throughout the
-        graph lifecycle. The built-in <code>SlogReporter</code> routes every event to Go's
-        standard <code>log/slog</code> logger — including per-vertex durations and, for AI ops,
-        exact token counts after every LLM call.
-      </p>
-    </div>
-
-    <div class="split" style="margin-bottom:2.5rem;">
-      <div>
-        <h3 style="margin-bottom:1rem;">Wiring up the SlogReporter</h3>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Pass any <code>*slog.Logger</code> to <code>reporter.New</code> and supply it as an
-          engine option. Every event automatically includes the workflow's <code>run_id</code>
-          so concurrent runs can be correlated in any structured log sink.
-        </p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code><span class="kw">import</span> (
-    <span class="st">"log/slog"</span>
-    <span class="st">"os"</span>
-    <span class="st">"github.com/wwz16/dagor/reporter"</span>
-)
-
-<span class="cm">// JSON output to stderr — works with any log aggregator.</span>
-logger := slog.<span class="fn">New</span>(slog.<span class="fn">NewJSONHandler</span>(os.Stderr, &amp;slog.HandlerOptions{
-    Level: slog.LevelDebug, <span class="cm">// Info = graph + AI tokens; Debug adds per-vertex</span>
-}))
-
-eng, _ := dagor.<span class="fn">NewEngine</span>(graph, pool,
-    dagor.<span class="fn">WithReporter</span>(reporter.<span class="fn">New</span>(logger)),
-)
-eng.<span class="fn">Run</span>(ctx)</code></pre>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:1rem;">Events emitted</h3>
-        <div class="card" style="margin-bottom:1rem;">
-          <p style="font-weight:600; margin-bottom:0.5rem; color:var(--text-0);">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" style="vertical-align:-2px; margin-right:4px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            Info level
-          </p>
-          <ul class="feat-list">
-            <li><code>graph.start</code> — graph name, run_id</li>
-            <li><code>graph.finish</code> — graph, run_id, dur_ms (err on failure)</li>
-            <li><code>&lt;AIop&gt;.tokens</code> — input_tokens, output_tokens, run_id</li>
-          </ul>
-        </div>
-        <div class="card">
-          <p style="font-weight:600; margin-bottom:0.5rem; color:var(--text-0);">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2.5" style="vertical-align:-2px; margin-right:4px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            Debug level
-          </p>
-          <ul class="feat-list">
-            <li><code>vertex.start</code> — graph, vertex, type, run_id</li>
-            <li><code>vertex.finish</code> — graph, vertex, type, dur_ms, run_id</li>
-            <li><code>vertex.skipped</code> — graph, vertex, reason, run_id</li>
-            <li><code>vertex.fields</code> — vertex inputs and outputs by phase</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Token logging -->
-    <h3 style="margin-bottom:1.25rem;">AI Token Logging</h3>
-    <div class="grid-2" style="margin-bottom:2rem;">
-      <div>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Every AI operator in <code>sparsi-go/library</code>
-          (AIClassifyMultiLabelOp, AIScoreOp, AIBoolOp, AIBestMatchOp, AIRerankOp)
-          logs <code>input_tokens</code> and <code>output_tokens</code> at <code>Info</code>
-          level after each LLM call. No extra wiring — tokens appear automatically
-          whenever a logger is attached to the engine.
-        </p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">stderr — JSON log lines</span>
-          </div>
-          <pre><code>{"level":"INFO","msg":"graph.start",
-  "run_id":"3f9a2c…","graph":"ticket-triage"}
-{"level":"INFO","msg":"AIClassifyMultiLabelOp.tokens",
-  "run_id":"3f9a2c…","input_tokens":312,"output_tokens":18}
-{"level":"INFO","msg":"AIBoolOp.tokens",
-  "run_id":"3f9a2c…","input_tokens":84,"output_tokens":6}
-{"level":"INFO","msg":"graph.finish",
-  "run_id":"3f9a2c…","graph":"ticket-triage","dur_ms":1240}</code></pre>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:1rem;">Aggregating token costs</h3>
-        <p style="font-size:0.9375rem; margin-bottom:1rem;">
-          Because every token event carries a <code>run_id</code>, you can sum costs
-          per workflow run with any JSON log tool — no tracing SDK required.
-        </p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal — jq</span>
-          </div>
-          <pre><code><span class="cm"># Total tokens consumed by one run</span>
-grep '"run_id":"3f9a2c"' app.log \
-  | jq -s '[.[] | select(.input_tokens)
-           | (.input_tokens + .output_tokens)] | add'
-
-<span class="cm"># Per-run token totals across all runs</span>
-jq -s 'group_by(.run_id)[] | {
-  run_id: .[0].run_id,
-  tokens: ([.[].input_tokens, .[].output_tokens]
-           | map(numbers) | add)
-}' app.log</code></pre>
-        </div>
-        <div class="quote-block" style="margin-top:1.25rem;">
-          <p>Set the handler level to <code>slog.LevelInfo</code> in production to suppress
-             per-vertex debug chatter while keeping graph timings and token costs visible.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reasoning log -->
-    <h3 id="reasoning" style="margin:2.5rem 0 1.25rem;">Reasoning Log</h3>
-    <div class="grid-2" style="margin-bottom:2rem;">
-      <div>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          By default, AI ops produce only their typed result — the model's chain-of-thought is
-          discarded. Opt in to <strong>reasoning capture</strong> by deriving a context with
-          <code>library.WithReasoningLog</code> and passing it to <code>eng.Run</code>. Every AI
-          op executed inside that run appends a <code>ReasoningEntry</code> to the log; read
-          the entries after the run with no further wiring.
-        </p>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">
-          Each entry records the op name, the dagor <code>run_id</code>, a snapshot of input
-          field values, the output value, and the full reasoning string. The log is safe for
-          concurrent use across parallel graph vertices.
-        </p>
-        <div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin-bottom:1rem;">
-          <table style="width:100%;border-collapse:collapse;background:var(--bg-3);">
-            <thead><tr>
-              <th style="padding:0.5rem 0.875rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Field</th>
-              <th style="padding:0.5rem 0.875rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Type</th>
-              <th style="padding:0.5rem 0.875rem;text-align:left;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);border-bottom:1px solid var(--border);">Contents</th>
-            </tr></thead>
-            <tbody>
-              <tr>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>Op</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>string</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-2);">Op type name, e.g. <code>"AIScoreOp"</code></td>
-              </tr>
-              <tr>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>RunID</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>string</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-2);">dagor workflow run ID for cross-referencing logs</td>
-              </tr>
-              <tr>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>Inputs</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>map[string]any</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-2);">Snapshot of the op's input fields at invocation time</td>
-              </tr>
-              <tr>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>Output</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>any</code></td>
-                <td style="padding:0.5rem 0.875rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-2);">The value produced by the op (e.g. <code>float64</code>, <code>bool</code>, <code>[]string</code>)</td>
-              </tr>
-              <tr>
-                <td style="padding:0.5rem 0.875rem;"><code>Reasoning</code></td>
-                <td style="padding:0.5rem 0.875rem;"><code>string</code></td>
-                <td style="padding:0.5rem 0.875rem;color:var(--text-2);">Model's chain-of-thought for this invocation</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="quote-block">
-          <p>When reasoning is disabled (the default), AI ops skip the reasoning request entirely.
-             There is no performance cost for runs that do not opt in.</p>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:1rem;">Enabling reasoning and dumping entries</h3>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code><span class="kw">import</span> (
-    <span class="st">"encoding/json"</span>
-    <span class="st">"os"</span>
-    <span class="st">"github.com/akennis/sparsi-go/library"</span>
-)
-
-<span class="cm">// Derive a context that collects reasoning.</span>
-ctx, reasonLog := library.<span class="fn">WithReasoningLog</span>(context.<span class="fn">Background</span>())
-
-<span class="cm">// Run the graph — all AI ops inside record their reasoning.</span>
-<span class="kw">if</span> err := eng.<span class="fn">Run</span>(ctx); err != nil {
-    log.<span class="fn">Fatalf</span>(<span class="st">"run: %v"</span>, err)
-}
-
-<span class="cm">// Read entries after the run — no context lookup needed.</span>
-enc := json.<span class="fn">NewEncoder</span>(os.Stdout)
-enc.<span class="fn">SetIndent</span>(<span class="st">""</span>, <span class="st">"  "</span>)
-<span class="kw">for</span> _, e := <span class="kw">range</span> reasonLog.<span class="fn">Entries</span>() {
-    enc.<span class="fn">Encode</span>(e)
-}</code></pre>
-        </div>
-        <p style="font-size:0.875rem;color:var(--text-2);margin:1rem 0 0.75rem;">Each entry is emitted as a JSON object on stdout:</p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">stdout — one JSON object per AI op</span>
-          </div>
-          <pre><code>{
-  "Op": "AIScoreOp",
-  "RunID": "3f9a2c…",
-  "Inputs": {
-    "Input": "This blender is okay but a bit loud.",
-    "Criterion": "customer satisfaction"
-  },
-  "Output": 0.42,
-  "Reasoning": "The review is mildly negative about noise but
-not strongly dissatisfied. Score reflects lukewarm sentiment."
-}
-{
-  "Op": "AIBoolOp",
-  "RunID": "3f9a2c…",
-  "Inputs": { "Input": "This blender is okay but a bit loud." },
-  "Output": false,
-  "Reasoning": "No spam, abuse, or policy violation detected."
-}</code></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reporter interface note -->
-    <div class="quote-block">
-      <p>The <code>Reporter</code> interface is open: implement <code>OnGraphFinish</code> to push
-         a latency histogram to Prometheus, or wrap <code>SlogReporter</code> to also emit
-         OpenTelemetry spans. The built-in reporter is the zero-config starting point —
-         replace or compose it for production observability stacks.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── AI credential routing ──────────────────────────────────── -->
+<!-- ── Two kinds of AI ─────────────────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">AI credential routing</span>
-      <h2>Where API keys actually come from</h2>
-      <p>Every AI op resolves its provider SDK client through an <code>AIClientFactory</code>. The
-         bundled factory reads <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code> from the
-         environment — fine for laptops and CI. In production, register your own factory to source
-         credentials from Vault, AWS Secrets Manager, workload identity, an egress proxy, or
-         per-tenant vaults — without touching graph code.</p>
+      <span class="badge badge-purple">Read This First</span>
+      <h2>Two kinds of AI —<br>and which one you operate</h2>
+      <p>"AI" means two different things here, and the distinction matters most when
+         something is on fire.</p>
     </div>
-
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-icon icon-orange">①</div>
-        <h3>Process-wide default</h3>
-        <p>Replace once at <code>main()</code> startup. Every AI op picks it up.</p>
-        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>library.<span class="fn">SetDefaultAIClientFactory</span>(vaultFactory)</code></pre>
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+      <div class="card" style="border-color:rgba(249,115,22,0.35);">
+        <div class="card-icon icon-orange">🧠</div>
+        <h3>The orchestrating agent <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— outside the workload</span></h3>
+        <p>Decides <em>which</em> business process to run. You typically don't operate this
+           — it lives upstream. To it, your workload is one reliable tool call.</p>
       </div>
-      <div class="card">
-        <div class="card-icon icon-purple">②</div>
-        <h3>Registered by id</h3>
-        <p>Register multiple factories. Each vertex selects one via <code>client_factory_id</code>.</p>
-        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"prod"</span>, prod)
-library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"sandbox"</span>, sandbox)</code></pre>
-      </div>
-      <div class="card">
-        <div class="card-icon icon-blue">③</div>
-        <h3>Per-vertex ref</h3>
-        <p><code>credential_ref</code> routes inside the chosen factory — tenant id, environment, Vault path.</p>
-        <pre style="font-size:0.75rem; background:var(--bg-2); padding:0.75rem; border-radius:var(--radius-md); margin-top:0.75rem;"><code>Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
-    <span class="st">"client_factory_id"</span>: <span class="st">"prod"</span>,
-    <span class="st">"credential_ref"</span>:    <span class="st">"tenant-acme"</span>,
-})</code></pre>
+      <div class="card" style="border-color:rgba(139,92,246,0.35);">
+        <div class="card-icon icon-purple">⚙️</div>
+        <h3>AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— inside the workload</span></h3>
+        <p>Tightly-scoped steps within the process where no deterministic rule exists.
+           These are what you observe, bound, and isolate — each is logged with its exact
+           input, output, and reasoning.</p>
       </div>
     </div>
-
-    <div class="quote-block" style="margin-top:1.5rem;">
-      <p><strong>Security:</strong> the bundled factory's per-<code>ref</code> cache has no
-        eviction. Never derive <code>ref</code> from per-request input (tenant id from a request
-        header, user-supplied query parameter) — that produces an unbounded cache and a DoS vector.
-        Use <code>ref</code> only for the small, named credential sets the application controls.
-        See <a href="ai-routing.html">the credential-routing guide</a> for the worked Vault example.</p>
-    </div>
-
-    <p style="font-size:0.875rem; color:var(--text-3); margin-top:1rem;">
-      The <code>EmbeddingClientFactory</code> abstraction follows the same shape for retrievers
-      that embed text — see <a href="rag.html">the retrieval guide</a>.
-    </p>
   </div>
 </section>
 
-<!-- ── MCP pool sizing ────────────────────────────────────────── -->
-<section class="section section--alt">
+<!-- ── Reliability ─────────────────────────────────────────── -->
+<section class="section section--alt" id="reliability">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-orange">MCP pool sizing</span>
-      <h2>Warm-replenish pools for fan-out</h2>
-      <p>Stdio MCP servers carry a meaningful cold-start (Node.js boot, browser binary download,
-         protocol handshake). A graph that fans <code>MCPCallOp</code> / <code>MCPScriptOp</code>
-         across N items would otherwise pay that cost N times. Set <code>pool_size</code> on the
-         vertex and the library maintains a target number of pre-started subprocesses; vertices
-         sharing the same canonical session spec share warm slots.</p>
+      <span class="badge badge-orange">Reliability</span>
+      <h2>Most of the workload<br>can't drift</h2>
+      <p>The bulk of every process is plain deterministic code. It produces the same
+         output for the same input — forever — and is not affected when a model provider
+         ships an update. Only the genuinely ambiguous steps use AI, and their scope is
+         fixed by the shape of the process, not by the input.</p>
     </div>
-
     <div class="grid-3">
       <div class="card">
-        <h3><code>pool_size</code></h3>
-        <p>Target pool capacity per spec. <code>0</code> (default) disables pooling — every <code>Run</code> opens and closes its own session.</p>
+        <div class="card-icon icon-orange">🔒</div>
+        <h3>Deterministic majority</h3>
+        <p>The reproducible part of a run is the large part. Variance is confined to a few
+           explicitly-declared AI steps, not smeared across the whole workload.</p>
       </div>
       <div class="card">
-        <h3><code>pool_prewarm</code></h3>
-        <p><code>true</code> (default) fills the pool during <code>Setup</code> so the first
-          <code>Run</code> already has warm sessions. Set <code>false</code> for lazy fill.</p>
+        <div class="card-icon icon-blue">🧱</div>
+        <h3>Immune to model drift</h3>
+        <p>Deterministic logic doesn't change because a vendor updated a model. The blast
+           radius of a model change is exactly the AI steps — and those are named.</p>
       </div>
       <div class="card">
-        <h3>Shutdown contract</h3>
-        <p>Call <code>library.ShutdownMCPPool(ctx)</code> from <code>main()</code> — typically
-          via <code>defer</code> — so pre-started subprocesses drain cleanly at exit. Without it,
-          the runtime kills them on signal.</p>
+        <div class="card-icon icon-green">📦</div>
+        <h3>Deploy anywhere</h3>
+        <p>A process ships as a single self-contained executable — no interpreter, no
+           runtime layer, no service to keep alive. It runs the same on a laptop, a cron
+           host, a function, or a container.</p>
       </div>
     </div>
-
-    <div class="code-block" style="margin-top:1.5rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">main.go — pooled fan-out</span>
-      </div>
-      <pre style="font-size:0.8125rem;"><code>shootParams := map[<span class="ty">string</span>]<span class="ty">string</span>{
-    <span class="st">"command"</span>:   <span class="st">"npx"</span>,
-    <span class="st">"args"</span>:      <span class="st">"-y,@playwright/mcp@latest"</span>,
-    <span class="st">"out_dir"</span>:   outDir,
-    <span class="st">"pool_size"</span>: <span class="st">"8"</span>, <span class="cm">// 8 warm playwright-mcp subprocesses</span>
-}
-
-<span class="kw">func</span> <span class="fn">main</span>() {
-    <span class="cm">// ...</span>
-    <span class="kw">defer</span> library.<span class="fn">ShutdownMCPPool</span>(context.<span class="fn">Background</span>())
-    <span class="cm">// engine.Run(ctx) ...</span>
-}</code></pre>
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">→</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        No agent in the picture? The same process runs unchanged as a standalone
+        command-line job or a scheduled batch task. Operating a deterministic pipeline
+        with no agent at all is a first-class use case, not an afterthought.
+      </p>
     </div>
+  </div>
+</section>
 
-    <p style="font-size:0.875rem; color:var(--text-3); margin-top:1rem;">
-      Each borrow is a fresh session — the pool never reuses a session for a second logical call.
-      Pooling is supported only for <code>transport="stdio"</code> in v1. See
-      <a href="mcp.html">the MCP integration guide</a> for the full operator surface.
-    </p>
+<!-- ── Observability ───────────────────────────────────────── -->
+<section class="section" id="observability">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Observability</span>
+      <h2>Every step is logged —<br>including every AI call</h2>
+      <p>You should never have to ask "what did the AI do in there?" Each step emits a
+         structured event, and every AI call records its exact input, output, and the
+         reasoning behind it. Concurrent runs are correlated so you can reconstruct any
+         single run after the fact.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-blue">🧾</div>
+        <h3>Per-step events</h3>
+        <p>Start, finish, duration, and whether a step was skipped — emitted as structured
+           events that drop straight into your existing log pipeline.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🔍</div>
+        <h3>AI input / output / reasoning</h3>
+        <p>For every AI step: what went in, what came out, and why. Inspectable long after
+           the run, with no extra wiring.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-orange">🧮</div>
+        <h3>Cost is observable</h3>
+        <p>Each AI call's consumption is reported as it happens, tagged to the run — so
+           per-run cost is something you can total, not estimate.</p>
+      </div>
+    </div>
+    <div class="quote-block" style="margin-top:2rem;">
+      <p>The reporting surface is open: send timings to your metrics stack or emit traces
+         to your tracing backend. The built-in reporter is the zero-config starting point.
+         The wiring details live in the <a href="developers.html">developer docs</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Failure isolation ───────────────────────────────────── -->
+<section class="section section--alt" id="isolation">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Failure Isolation</span>
+      <h2>Failures point at<br>themselves</h2>
+      <p>When a prompt chain produces a wrong answer, debugging means replaying a
+         multi-step conversation and guessing which link failed. Here, the exact failing
+         step is named immediately, before any downstream work runs — so time-to-resolution
+         is short and the post-mortem writes itself.</p>
+    </div>
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+      <div class="card">
+        <div class="card-icon icon-green">🎯</div>
+        <h3>Named at the source</h3>
+        <p>The error is attributed to the specific step that failed — not buried somewhere
+           in an opaque chain. You start the investigation already knowing where to look.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">⏱️</div>
+        <h3>Bounded, cancelable runs</h3>
+        <p>A run honors deadlines and cancellation: if a request is abandoned or a budget
+           is exceeded, in-flight work winds down cleanly instead of leaking — and no AI
+           spend is wasted on a result nobody will read.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Reproducibility ─────────────────────────────────────── -->
+<section class="section" id="reproducibility">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Reproducibility</span>
+      <h2>Re-run it and get<br>the same thing</h2>
+      <p>The deterministic majority of a process reproduces exactly. Given the same input
+         and the same recorded AI outputs, a run is replayable — which is what makes
+         incident review, regression testing, and compliance evidence possible at all.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-blue">♻️</div>
+        <h3>Deterministic replay</h3>
+        <p>The same input always drives the deterministic steps down the same path. No
+           hidden state, no run-to-run drift in the part you control.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🗂️</div>
+        <h3>The process is an artifact</h3>
+        <p>The shape of the workload is version-controlled and reviewable — you can point
+           at exactly the definition that produced any given run.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">✅</div>
+        <h3>Testable without a model</h3>
+        <p>Deterministic steps can be exercised in CI with no API key and no model call,
+           so regressions are caught before they reach production.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Bounded cost in production ──────────────────────────── -->
+<section class="section section--alt" id="cost">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Bounded Cost</span>
+      <h2>Cost doesn't move<br>with traffic shape</h2>
+      <p>The number of AI calls per run is fixed by the structure of the process, not by
+         input length or model behavior. Branches that don't execute cost nothing. Spend
+         is something you forecast from the workload's shape, then watch shrink as
+         deterministic coverage grows.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">📉</div>
+        <h3>Fixed per-run ceiling</h3>
+        <p>Each run's AI cost is the sum of the AI steps that actually fire — a number you
+           can put in a budget, not a surprise on an invoice.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">✂️</div>
+        <h3>Unused branches are free</h3>
+        <p>Lanes that a given input doesn't reach are pruned. The AI steps inside them are
+           never invoked and never paid for.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">📊</div>
+        <h3>Attributable spend</h3>
+        <p>Because every AI call is tagged to its run, cost is allocatable per workload —
+           clean chargeback, no tracing SDK required.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -811,11 +286,13 @@ library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"sandbo
 <section class="section">
   <div class="container">
     <div class="cta-banner">
-      <h2>Ready to ship your first workflow?</h2>
-      <p>All examples compile to standalone binaries. No infra required to get started.</p>
+      <h2>Operate a workload —<br>not a black box</h2>
+      <p>Predictable behavior, every step logged, failures isolated, cost bounded — by
+         construction. The engineering mechanics are one click away.</p>
       <div class="cta-actions">
-        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">Browse the Repo →</a>
-        <a href="developers.html" class="btn btn-secondary">Developer Docs</a>
+        <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
+        <a href="concepts.html" class="btn btn-secondary">The Concepts</a>
+        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>
       </div>
     </div>
   </div>
@@ -835,6 +312,7 @@ library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"sandbo
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sparsi-go — Deterministic-First AI Workflows</title>
-  <meta name="description" content="A DAG workflow framework where computation is maximally deterministic and AI fills only the gaps where no deterministic solution exists.">
+  <title>sparsi-go — Deterministic Workflows, Packaged as MCP Tools</title>
+  <meta name="description" content="sparsi-go is the reliability layer between your AI agent and the work it does: each business process becomes one deterministic, fully auditable tool — predictable behavior and bounded cost by construction, not by prompt-engineering.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -51,16 +51,18 @@
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-eyebrow">
-          <span class="badge badge-orange">Go Framework</span>
+          <span class="badge badge-orange">Reliability Layer for AI Agents</span>
         </div>
         <h1 class="hero-title">
-          AI Workflows,<br>
-          <span class="hi-o">Deterministic</span> <span class="hi-p">by Design</span>
+          Deterministic Workflows<br>
+          Your Agents Can <span class="hi-o">Actually</span> <span class="hi-p">Trust</span>
         </h1>
         <p class="hero-desc">
-          sparsi-go builds DAG workflows where deterministic code is the default.
-          AI runs only where no deterministic solution exists — giving you predictability,
-          auditability, and dramatically lower token costs.
+          sparsi-go is the reliability layer between your AI agent and the work it does.
+          Each business process becomes a single tool the agent invokes — deterministic at
+          every possible point, every step logged and reproducible, with AI used only where
+          genuine judgment is required. Predictable behavior, a complete audit trail, and
+          bounded cost — by construction, not by prompt-engineering.
         </p>
         <div class="hero-actions">
           <a href="developers.html" class="btn btn-primary">Get Started</a>
@@ -177,114 +179,198 @@
 <div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 0;">
   <div class="container" style="text-align:center; max-width:800px;">
     <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8;">
-      "Most AI workflows treat every step as a prompt. sparsi-go inverts this:
-      <strong>determinism is the goal</strong>, and AI fills only the gaps the library cannot cover."
+      "Hand an agent fifty low-level tools and every problem means reinventing a long,
+      brittle tool chain — expensive, unpredictable, and hard to audit. sparsi-go inverts this:
+      <strong>package each business process as its own deterministic MCP tool</strong> — with
+      AI operations sealed inside it — so the calling agent reasons at the level of an
+      executive, a support lead, or a marketer, not a plumber wiring primitives."
     </p>
   </div>
 </div>
 
-<!-- ── Benefits ────────────────────────────────────────────── -->
+<!-- ── Two layers of AI ─────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Read This First</span>
+      <h2>Two kinds of AI — keep them straight</h2>
+      <p>"AI" means two different things on this page. sparsi-go is the boundary
+         between them: the agent calls one high-level tool; the AI operations are
+         sealed inside it.</p>
+    </div>
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+
+      <div class="card" style="border-color:rgba(249,115,22,0.35);">
+        <div class="card-icon icon-orange">🧠</div>
+        <h3>The orchestrating agent <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— outside the workflow</span></h3>
+        <p>The autonomous agent that decides <em>which</em> sparsi-go MCP tool to invoke
+           and what to do with the result. It reasons about the goal — acting as an
+           executive, a support lead, or a marketer — never about the plumbing inside
+           a tool. It does not see individual ops; it sees one reliable tool call.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.35);">
+        <div class="card-icon icon-purple">⚙️</div>
+        <h3>AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— inside the workflow</span></h3>
+        <p>Individual nodes <em>within</em> a DAG that interpret, transform, or route data
+           where no deterministic solution exists. Each is tightly scoped, model-pinned,
+           and logged with its exact input, output, and reasoning. The calling agent
+           never invokes these directly — the workflow does.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── One process, one tool ────────────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
+      <span class="badge badge-orange">What It Looks Like</span>
+      <h2>One business process. One tool.<br>Zero loose primitives.</h2>
+      <p>Take a refund request. Without sparsi-go, an agent stitches together a dozen
+         low-level calls and re-improvises the policy every time. With sparsi-go, it calls
+         one tool — and everything inside is fixed, logged, and reviewable.</p>
+    </div>
+
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+
+      <div class="card">
+        <div class="card-icon icon-purple">🧠</div>
+        <h3>What the agent sees</h3>
+        <p>A single tool — <strong>handle_refund(request)</strong>. The agent decides
+           <em>when</em> a refund is warranted and what to tell the customer next. It never
+           touches the steps inside: one call in, one structured result and a full audit
+           trail out.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-blue">🔒</div>
+        <h3>What happens inside</h3>
+        <p>AI reads the customer's free-form message and extracts the request. Deterministic
+           code applies refund policy, looks up the account, computes the amount, and calls
+           the payment system. AI drafts the reply. Every step is recorded with its exact
+           input and output.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">→</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        The policy lives in code, so it runs the same way every time and can be tested
+        without a model. AI handles only the two genuinely ambiguous steps — reading the
+        message and writing the reply. The agent reasons about the customer, not the plumbing.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Benefits ────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
       <span class="badge badge-orange">Why sparsi-go</span>
-      <h2>Build AI workflows you can<br>test, audit, and trust</h2>
-      <p>Every workflow decision is explicit. Every deterministic step is reproducible.
-         AI only runs where it genuinely adds value.</p>
+      <h2>Predictable, auditable, and cheap —<br>by construction</h2>
+      <p>These aren't options you tune. They fall out of the architecture: deterministic
+         by default, AI only where judgment is genuinely required.</p>
     </div>
     <div class="grid-3">
       <div class="card">
         <div class="card-icon icon-orange">🔒</div>
         <h3>Deterministic by Default</h3>
-        <p>Library ops are pure functions. The same inputs always produce the same outputs — forever.
-           Unit-test them without API keys. Cache their results. Compose them freely.</p>
+        <p>The same inputs produce the same outputs, every time, forever. The bulk of every
+           workflow is plain code you can test without ever calling a model.</p>
       </div>
       <div class="card">
         <div class="card-icon icon-purple">🤖</div>
-        <h3>AI Only Where Needed</h3>
-        <p>AI ops fire only when no deterministic solution covers the gap. Every AI call is logged
-           with its exact input, output, and reasoning — fully inspectable after the fact.</p>
+        <h3>AI Only Where It Earns It</h3>
+        <p>AI runs only where no deterministic rule can cover the gap. Every AI step is
+           recorded with its exact input, output, and reasoning — inspectable long after
+           the run.</p>
       </div>
       <div class="card">
         <div class="card-icon icon-blue">⚡</div>
         <h3>Parallel by Architecture</h3>
-        <p>The dagor engine resolves dependencies and schedules independent branches concurrently.
-           No manual thread management — parallel execution comes free from the DAG structure.</p>
+        <p>Independent work runs concurrently with no manual thread management. Speed comes
+           from the shape of the workflow, not from hand-tuning.</p>
       </div>
       <div class="card">
         <div class="card-icon icon-green">🔍</div>
         <h3>Fail-Fast Isolation</h3>
-        <p>When something goes wrong, the exact failing vertex is identified immediately.
-           Errors don't cascade invisibly through a prompt chain — they surface at the source.</p>
+        <p>When something breaks, the exact failing step is named immediately. Errors
+           surface at their source instead of disappearing into a prompt chain.</p>
       </div>
       <div class="card">
         <div class="card-icon icon-orange">💰</div>
-        <h3>Predictable Token Cost</h3>
-        <p>AI call count is bounded by workflow structure, not by input length or model whims.
-           As your op library grows, coverage expands and AI calls shrink.</p>
+        <h3>Bounded, Predictable Cost</h3>
+        <p>The number of AI calls is fixed by the workflow, not by input length or model
+           mood. Cost is known before you run — and shrinks as deterministic coverage grows.</p>
       </div>
       <div class="card">
         <div class="card-icon icon-purple">🔀</div>
-        <h3>Multi-Model by Design</h3>
-        <p>Every AI op selects its own <code>provider</code> and <code>model</code>. Mix Claude and Gemini in one workflow — route verification to an independent model, send bulk ops to cheaper ones, and specialise by task without rewiring the graph.</p>
+        <h3>Trust Through Independence</h3>
+        <p>Route each step to the model best suited to it, and have a second, independent
+           model verify the first. Cross-checking is wiring, not a research project.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Det vs AI boundary ───────────────────────────────────── -->
-<section class="section section--alt">
+<!-- ── The Decision Line ────────────────────────────────────── -->
+<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-orange">The Decision Line</span>
       <h2>What belongs in code — and what belongs in AI</h2>
-      <p>The boundary is sharper than it looks. Most "complex" workflow steps
-         are actually deterministic once you know the rule. Reserve AI for what
-         genuinely requires language understanding or judgment.</p>
+      <p>The boundary is sharper than most teams assume. Most "complex" steps are
+         deterministic once you know the rule. AI is reserved for what genuinely needs
+         language understanding or judgment — which is also what keeps cost and audit
+         under control.</p>
     </div>
 
     <div class="grid-2" style="gap:2rem; align-items:start;">
       <!-- Deterministic side -->
       <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
         <div style="background:rgba(59,130,246,0.08); padding:1.25rem 1.5rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
-          <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">det op</span>
-          <h3 style="margin:0; font-size:1.0625rem;">Write Go code for this</h3>
+          <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
+          <h3 style="margin:0; font-size:1.0625rem;">Handle this in code</h3>
         </div>
         <div style="padding:1.5rem; display:flex; flex-direction:column; gap:1rem;">
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
             <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Conditional routing</p>
-            <p style="font-size:0.875rem; margin:0;">Once AI returns a category, all downstream <code>if category == "billing"</code> branching is a predicate gate — pure Go, zero tokens.</p>
+            <p style="font-size:0.875rem; margin:0;">Once a category is known, every downstream branch is a fixed rule — no model, no tokens, the same path every time.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
             <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Formula scoring</p>
-            <p style="font-size:0.875rem; margin:0;">Once AI extracts counts and durations, the difficulty formula <code>ingredients + steps×1.5 + minutes×0.1</code> and band thresholds (easy/medium/hard) are all deterministic.</p>
+            <p style="font-size:0.875rem; margin:0;">Difficulty, risk, priority — any score that's a formula over known numbers is plain arithmetic, not a judgment call.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Structured text parsing</p>
-            <p style="font-size:0.875rem; margin:0;"><code>RegexExtractOp</code> handles log lines, ISO dates, serial numbers, and any format you can describe as a pattern. No AI needed.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Structured parsing</p>
+            <p style="font-size:0.875rem; margin:0;">Log lines, dates, IDs, and any format you can describe as a pattern parse deterministically. No model needed.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Lookup with fallback</p>
-            <p style="font-size:0.875rem; margin:0;"><code>StringLookupOp</code> checks a map and returns <code>""</code> on a miss. Wire that empty string into <code>SkipIf</code> on an AI op — AI only fires when the lookup fails.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Lookups with fallback</p>
+            <p style="font-size:0.875rem; margin:0;">Check a known table first; only fall through to AI on a miss. Most cases never reach the model at all.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">API responses &amp; JSON</p>
-            <p style="font-size:0.875rem; margin:0;"><code>HTTPGetOp</code> + <code>JSONExtractOp</code> retrieves and parses structured API data deterministically. AI is only needed if the response is unstructured prose.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Calls to your systems</p>
+            <p style="font-size:0.875rem; margin:0;">Fetching and parsing well-formed responses from your existing services is deterministic. AI is only needed for unstructured prose.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Arithmetic on extracted values</p>
-            <p style="font-size:0.875rem; margin:0;"><code>AddFloatOp</code>/<code>AddIntOp</code>, <code>MulFloatOp</code>/<code>MulIntOp</code>, <code>ClampFloatOp</code>, <code>RoundOp</code> — once AI gives you numbers, all maths is deterministic. Separate float64 and int variants keep wires type-safe.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Arithmetic</p>
+            <p style="font-size:0.875rem; margin:0;">Sums, products, clamps, rounding — once the numbers are in hand, the maths is fixed and reproducible.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Threshold flags</p>
-            <p style="font-size:0.875rem; margin:0;">"wet = precip &gt; 0.1 mm", "windy = wind &gt; 25 km/h" — float comparison predicates, not AI questions. The numbers are facts; the thresholds are your policy.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Threshold decisions</p>
+            <p style="font-size:0.875rem; margin:0;">"Over the limit?", "outside the window?" — these are policy in code, not questions for a model. The numbers are facts; the thresholds are yours.</p>
           </div>
 
         </div>
@@ -293,44 +379,44 @@
       <!-- AI side -->
       <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
         <div style="background:rgba(139,92,246,0.08); padding:1.25rem 1.5rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
-          <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI op</span>
-          <h3 style="margin:0; font-size:1.0625rem;">Use an AI op for this</h3>
+          <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
+          <h3 style="margin:0; font-size:1.0625rem;">Hand this to AI</h3>
         </div>
         <div style="padding:1.5rem; display:flex; flex-direction:column; gap:1rem;">
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
             <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Free-form classification</p>
-            <p style="font-size:0.875rem; margin:0;">Categorising a support ticket as billing/bug/feature requires language understanding. Keyword matching misfires on edge cases; AI handles nuance reliably.</p>
+            <p style="font-size:0.875rem; margin:0;">Sorting a messy customer message into the right category needs language understanding — keyword matching misfires on the edge cases that matter.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Extraction from unstructured prose</p>
-            <p style="font-size:0.875rem; margin:0;">Pulling "name", "account_id", and "refund amount" from a customer's freehand email cannot be done with a fixed regex — field positions and phrasing vary.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Extraction from prose</p>
+            <p style="font-size:0.875rem; margin:0;">Pulling a name, an account, and an amount out of a freehand email, where the wording and order change every time.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Subjective scoring</p>
-            <p style="font-size:0.875rem; margin:0;">"How severe is this bug?" and "What is the business impact of this feature?" require judgment. A formula can't encode what "critical" means without human-quality reasoning.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Subjective judgment</p>
+            <p style="font-size:0.875rem; margin:0;">"How severe is this?" or "what's the business impact?" — calls that need human-quality reasoning, not a formula.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
             <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Semantic yes/no</p>
-            <p style="font-size:0.875rem; margin:0;">"Does this bug report indicate a regression?" cannot be answered by keyword presence — a user might say "this used to work last month" without using the word "regression".</p>
+            <p style="font-size:0.875rem; margin:0;">"Does this describe a regression?" — answerable from meaning, not from whether a particular word appears.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Summarisation &amp; text generation</p>
-            <p style="font-size:0.875rem; margin:0;">Compressing a document to a single sentence, or writing a context-aware outfit recommendation, requires understanding and generation — not a formula.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Summarization &amp; drafting</p>
+            <p style="font-size:0.875rem; margin:0;">Compressing a document, or writing a context-aware reply, needs genuine understanding and generation.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Semantic matching &amp; ranking</p>
-            <p style="font-size:0.875rem; margin:0;">"Which of these candidates is most relevant to the query?" requires understanding both the query and the candidates — not a string-equality or cosine-similarity shortcut.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Ranking &amp; matching</p>
+            <p style="font-size:0.875rem; margin:0;">Choosing the most relevant option needs comprehension of both the request and every candidate — not a string match.</p>
           </div>
 
           <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Open-ended number parsing</p>
-            <p style="font-size:0.875rem; margin:0;">Converting "$1.2k", "two thousand", or "approx. 40–50" to a canonical float cannot be done reliably with a regex when user phrasing is unconstrained.</p>
+            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Messy number parsing</p>
+            <p style="font-size:0.875rem; margin:0;">Turning "$1.2k", "two thousand", or "about 40–50" into one canonical number when the phrasing is unconstrained.</p>
           </div>
 
         </div>
@@ -340,112 +426,10 @@
     <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
       <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The practical test:</strong> if you could write a unit test that passes reliably without calling an LLM, it belongs in a deterministic op.
-        If the answer depends on reading a sentence and understanding what a human likely meant — it belongs in an AI op.
+        <strong>The practical test:</strong> if you could test it reliably without ever calling a model, it belongs in code.
+        If the answer depends on reading a sentence and understanding what a human likely meant — hand it to AI.
       </p>
     </div>
-  </div>
-</section>
-
-<!-- ── Pre-built AI ops ──────────────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-purple">Library Reference</span>
-      <h2>Pre-built AI ops</h2>
-      <p>Drop-in AI ops for the most common workflow needs. Each one is a typed Go struct
-         with a single AI call and retry-on-parse-failure. Reasoning is captured via
-         <code>WithReasoningLog</code> when needed. Token costs are approximate and scale with input length.</p>
-    </div>
-    <div class="comparison" style="margin-bottom:1.5rem;">
-      <table>
-        <thead>
-          <tr>
-            <th style="min-width:220px;">Op</th>
-            <th>What it does</th>
-            <th style="min-width:120px;">Output type</th>
-            <th style="min-width:150px; white-space:nowrap;">Typical tokens <span style="font-weight:400; text-transform:none; letter-spacing:0; color:var(--text-3);">(in / out)</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code style="color:var(--purple-light);">ModeSelectOp</code></td>
-            <td>Classifies text into <strong>exactly one</strong> of N caller-specified categories. Use it at the top of a multi-branch workflow to dispatch to the correct lane.</td>
-            <td><code>string</code> (one category)</td>
-            <td style="color:var(--text-2);">200 + input / <strong>~5</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIClassifyMultiLabelOp</code></td>
-            <td>Tags text with <strong>zero or more</strong> of N categories. Use when a document can legitimately belong to multiple buckets simultaneously.</td>
-            <td><code>[]string</code></td>
-            <td style="color:var(--text-2);">200 + input / <strong>~20</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIBoolOp</code></td>
-            <td>Answers a yes/no predicate about the input — e.g. "does this contain PII?", "is this a regression?". The tightest possible AI call: output budget is 8 tokens.</td>
-            <td><code>bool</code></td>
-            <td style="color:var(--text-2);">150 + input / <strong>~2</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIScoreOp</code></td>
-            <td>Scores text against a caller-defined criterion and returns a <code>float64</code> in [0, 1]. Examples: relevance, severity, readability, toxicity. Output budget: 16 tokens.</td>
-            <td><code>float64</code> ∈ [0,1]</td>
-            <td style="color:var(--text-2);">200 + input / <strong>~3</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIParseNumberOp</code></td>
-            <td>Converts free-form text to a <code>float64</code>: handles "$1.2k", "two thousand", "approx. 40–50", currency symbols, and written-out numbers. Use after any unstructured numeric field.</td>
-            <td><code>float64</code></td>
-            <td style="color:var(--text-2);">200 + input / <strong>~5</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIExtractStringSliceOp</code></td>
-            <td>Pulls a list of items from prose — ingredients from a recipe, steps from instructions, names from a paragraph. Returns a <code>[]string</code> (CSV-serialised internally).</td>
-            <td><code>[]string</code></td>
-            <td style="color:var(--text-2);">200 + input / <strong>~50</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIExtractMapOp</code></td>
-            <td>Extracts a fixed set of named fields from free text — name, email, account ID, amounts — when the fields are known but their position and phrasing vary per document.</td>
-            <td><code>map[string]string</code></td>
-            <td style="color:var(--text-2);">200 + input / <strong>~80</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AISummarizeOp</code></td>
-            <td>Distils a <code>[]string</code> of items into a single summary string. The <code>operation</code> param shapes the instruction — "one concise sentence", "bullet-point highlights", etc.</td>
-            <td><code>string</code></td>
-            <td style="color:var(--text-2);">200 + items / <strong>~150</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIComputeStringToStringOp</code></td>
-            <td>General text-in, text-out transformation: summarise, translate, rewrite, generate a recommendation. The broadest AI op — use it when none of the narrower ops fit.</td>
-            <td><code>string</code></td>
-            <td style="color:var(--text-2);">200 + input / <strong>50–500</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIBestMatchOp</code></td>
-            <td>Given a query and a list of candidates, returns the 0-based index of the single best match. Use for semantic routing, FAQ lookup, or product recommendation.</td>
-            <td><code>int</code> (index)</td>
-            <td style="color:var(--text-2);">200 + query + candidates / <strong>~3</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIRerankOp</code></td>
-            <td>Reranks a list of candidates by relevance to a query, returning a full permutation of 0-based indices (best first). Use when order matters, not just the top pick.</td>
-            <td><code>[]int</code> (permutation)</td>
-            <td style="color:var(--text-2);">200 + query + N×candidates / <strong>~N×3</strong></td>
-          </tr>
-          <tr>
-            <td><code style="color:var(--purple-light);">AIComputeMathOperandsToFloat64Op</code></td>
-            <td>Performs any binary float64 operation that doesn't exist in the deterministic library — e.g. geometric mean, weighted harmonic average, or domain-specific formulas. The canonical AI-as-fallback example.</td>
-            <td><code>float64</code></td>
-            <td style="color:var(--text-2);">~150 / <strong>~5</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:0.8125rem; color:var(--text-3); text-align:center;">
-      All built-in ops default to <strong>claude-sonnet-4-6</strong>, but every op accepts <code>provider</code> and <code>model</code> parameters — assign any model to any vertex, mix Claude and Gemini in one workflow. Token counts are input-text-dependent; "input" means prompt overhead beyond the content you supply. Every op retries up to 3× on parse failure with configurable exponential back-off.
-    </p>
   </div>
 </section>
 
@@ -453,105 +437,61 @@
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">Multi-Model Orchestration</span>
-      <h2>The right model for every step —<br>in a single workflow</h2>
-      <p>Every AI op carries its own <code>provider</code> and <code>model</code> parameters.
-         Mix Claude and Gemini within one DAG, route tasks to the model best suited for them,
-         and use a second independent model to verify the first.
-         OpenAI support is on the roadmap.</p>
+      <span class="badge badge-purple">Multi-Model Trust</span>
+      <h2>The right model for each step —<br>and a second one to check it</h2>
+      <p>Auditability isn't only logging. It's being able to have one model's output
+         independently verified by another. sparsi-go makes cross-model checking and
+         cost-aware routing ordinary wiring — not a research project.</p>
     </div>
 
-    <div class="grid-3" style="margin-bottom:2.5rem;">
+    <div class="grid-3" style="margin-bottom:2rem;">
 
       <div class="card">
         <div class="card-icon icon-purple">🔍</div>
         <h3>Independent Verification</h3>
-        <p>A model that generated content has already committed to its framing — it tends to see what it expects.
-           Wire a second, independent model as a quality gate: it surfaces unsupported claims the first model
-           overlooked. The faithful-summary example has Claude summarise, then Gemini
-           verify that every factual claim is grounded in the source.</p>
+        <p>A model that wrote something tends to believe it. Put a second, independent
+           model in the path as a quality gate — it catches unsupported claims the first
+           one glossed over. One model drafts; another checks every claim against the
+           source.</p>
       </div>
 
       <div class="card">
         <div class="card-icon icon-blue">⚡</div>
-        <h3>Cost-Optimized Routing</h3>
-        <p>Not every op needs your most capable model. Route bulk boolean checks and simple classification
-           to a cost-efficient model; send complex reasoning, long-context synthesis, or code generation
-           to your highest-tier model. Cost per run drops without touching any business logic.</p>
+        <h3>Cost-Aware Routing</h3>
+        <p>Not every step needs your most expensive model. Send bulk checks and simple
+           sorting to a cheap, fast model; reserve the top-tier model for the hard
+           reasoning. Cost drops with no change to business logic.</p>
       </div>
 
       <div class="card">
         <div class="card-icon icon-orange">🎯</div>
         <h3>Specialization by Task</h3>
-        <p>Different providers lead on different capabilities. Use the model with the best multilingual
-           support for localisation ops, the strongest code model for generation steps, the fastest
-           model for high-throughput boolean checks — all composable within one coherent workflow.</p>
+        <p>Different providers lead at different things. Use the strongest model per
+           task — multilingual here, code there, fast-and-cheap for high volume — all
+           inside one coherent workflow.</p>
       </div>
 
     </div>
 
-    <div class="split" style="gap:2rem; align-items:start;">
-      <div>
-        <h3 style="margin-bottom:1rem;">Model selection is per-vertex, not per-workflow</h3>
-        <p style="margin-bottom:1rem; font-size:0.9375rem; line-height:1.75;">
-          The <code>provider</code> and <code>model</code> params live on each op independently.
-          Changing any op to a different model is a one-line edit — the rest of the graph
-          is untouched. Exponential back-off retry is also parameterised per op, so high-value
-          ops can retry more aggressively than cheap bulk calls.
-        </p>
-        <ul class="check-list">
-          <li>Claude (Anthropic) — supported today</li>
-          <li>Gemini (Google) — supported today</li>
-          <li>OpenAI — on the roadmap</li>
-          <li>Custom providers — any Go struct that calls your endpoint</li>
-        </ul>
-        <div style="margin-top:1.5rem;">
-          <a href="example-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
-        </div>
-      </div>
-      <div>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">faithful-summary / main.go</span>
-          </div>
-          <pre style="font-size:0.8125rem;"><code><span class="cm">// Claude generates the summary</span>
-Vertex(<span class="st">"summarize"</span>).Op(<span class="st">"AIComputeStringToStringOp"</span>).
-    Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
-        <span class="st">"operation"</span>: <span class="st">"summarize in 3–5 concise sentences…"</span>,
-        <span class="st">"provider"</span>:  <span class="st">"claude"</span>,
-        <span class="st">"model"</span>:     <span class="st">"claude-sonnet-4-6"</span>,
-    }).
-    Input(<span class="st">"Input"</span>, <span class="st">"source"</span>).
-    Output(<span class="st">"Result"</span>, <span class="st">"summary"</span>).
-
-<span class="cm">// Gemini independently checks faithfulness</span>
-Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
-    Params(map[<span class="ty">string</span>]<span class="ty">string</span>{
-        <span class="st">"predicate"</span>: <span class="st">"does every factual claim appear in the source?"</span>,
-        <span class="st">"provider"</span>:  <span class="st">"gemini"</span>,
-        <span class="st">"model"</span>:     <span class="st">"gemini-3-flash-preview"</span>,
-    }).
-    Input(<span class="st">"Input"</span>, <span class="st">"query"</span>).
-    Output(<span class="st">"Result"</span>, <span class="st">"faithful"</span>)</code></pre>
-        </div>
-        <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem; font-style:italic;">
-          Two different providers, one workflow. The deterministic formatting op in between
-          assembles the verification prompt — zero tokens, zero latency.
-        </p>
-      </div>
+    <div style="text-align:center; max-width:760px; margin:0 auto;">
+      <p style="font-size:0.9375rem; color:var(--text-2); line-height:1.75; margin-bottom:1.5rem;">
+        Two different models, one workflow — and the step that hands off between them is
+        plain deterministic code: no tokens, no latency, fully logged.
+      </p>
+      <a href="example-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
     </div>
 
   </div>
 </section>
 
 <!-- ── Comparison table ─────────────────────────────────────── -->
-<section class="section section--alt">
+<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">Comparison</span>
-      <h2>sparsi-go vs. a pure LLM chain</h2>
-      <p>When every step is a prompt, every step pays the cost of non-determinism.</p>
+      <h2>sparsi-go vs. handing an agent raw tools</h2>
+      <p>Give an agent a pile of primitives and every run re-improvises the process —
+         paying the cost of non-determinism in tokens, in audit gaps, and in surprises.</p>
     </div>
     <div class="comparison">
       <table>
@@ -559,7 +499,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
           <tr>
             <th>Dimension</th>
             <th>⚡ sparsi-go</th>
-            <th>Pure LLM Chain</th>
+            <th>Raw tools / prompt chain</th>
           </tr>
         </thead>
         <tbody>
@@ -580,7 +520,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
           </tr>
           <tr>
             <td>Failure attribution</td>
-            <td><span class="yes">✓</span> Error pinpointed to the exact failing vertex</td>
+            <td><span class="yes">✓</span> Error pinpointed to the exact failing step</td>
             <td><span class="no">✗</span> Error buried somewhere in the chain</td>
           </tr>
           <tr>
@@ -600,7 +540,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
           </tr>
           <tr>
             <td>Conditional branching</td>
-            <td><span class="yes">✓</span> Predicate gates prune skip-propagated subtrees</td>
+            <td><span class="yes">✓</span> Unused branches are pruned by simple rules</td>
             <td><span class="no">✗</span> Requires a meta-prompt or glue code</td>
           </tr>
           <tr>
@@ -615,35 +555,37 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
 </section>
 
 <!-- ── How it works ─────────────────────────────────────────── -->
-<section class="section">
+<section class="section section--alt">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-purple">How It Works</span>
-      <h2>Three layers, one coherent workflow</h2>
+      <h2>From a messy request<br>to one reliable tool call</h2>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-connector"></div>
-        <h3>Define Your DAG</h3>
-        <p>Wire deterministic library ops for every step where the logic is known.
-           Annotate struct fields with <code>dag:"input"</code> / <code>dag:"output"</code> tags
-           and connect them with a fluent builder.</p>
+        <h3>AI Reads the Input</h3>
+        <p>At the front of the workflow, AI turns a natural-language request into clean,
+           structured values — categories, fields, numbers — so everything downstream
+           runs on facts, not prose.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-connector"></div>
-        <h3>AI Fills the Gaps</h3>
-        <p>Where no deterministic op covers the need, drop in an
-           <code>AIComputeOp</code>, <code>ModeSelectOp</code>, or any typed AI op.
-           Use <code>SkipIf</code> wires so AI only fires on cache misses.</p>
+        <h3>Deterministic Core Does the Work</h3>
+        <p>Plain code applies your policy and talks to your existing systems, exactly the
+           same way every time. AI is dropped back in only where judgment is genuinely
+           required — including writing the final reply.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-connector"></div>
-        <h3>Run With Confidence</h3>
-        <p>The dagor engine resolves dependencies, executes independent branches in parallel,
-           and surfaces failures with vertex-level precision. Ship it as a CLI or MCP server.</p>
+        <h3>Ship It as One Tool</h3>
+        <p>The engine runs independent work in parallel and logs every step and
+           side-effect. The whole process is exposed as a single tool your agent
+           invokes — one reliable call instead of dozens of fragile ones. No agent?
+           The same workflow runs standalone from a CLI or batch job, unchanged.</p>
       </div>
     </div>
   </div>
@@ -655,10 +597,10 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
     <div class="section-header">
       <span class="badge badge-orange">Examples</span>
       <h2>See the patterns in practice</h2>
-      <p>Twelve self-contained programs, each demonstrating a distinct DAG pattern — from
-         fan-out/coalesce to per-item MapOver, cross-model verification where Claude and Gemini
-         collaborate in a single workflow, MCP tool calls (local stdio + remote HTTP),
-         retrieval-augmented generation with citation validation, and AI-driven repair.</p>
+      <p>Self-contained programs, each showing a distinct pattern — classification and
+         routing, cross-model verification, parallel fan-out, tool use, retrieval with
+         citation checks, and self-repair. The implementation detail lives in the docs;
+         here's the shape.</p>
     </div>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; margin-bottom:2rem;">
@@ -666,10 +608,10 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
       <a href="example-ticket-triager.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <h3 style="margin:0 0 0.875rem; font-size:1rem;">Ticket Triager</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Classify → predicate-gate → parallel AI lanes → coalesce. The canonical fan-out pattern.</p>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Classify a request, route it down the right lane, run those lanes in parallel, then merge. The canonical fan-out.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">ModeSelectOp</span>
-            <span class="tag tag-det">predicate gates</span>
+            <span class="tag tag-ai">Classification</span>
+            <span class="tag tag-det">Routing</span>
           </div>
         </div>
       </a>
@@ -677,10 +619,10 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
       <a href="example-faithful-summary.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <h3 style="margin:0 0 0.875rem; font-size:1rem;">Faithful Summary</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Claude summarises; Gemini independently checks every claim is grounded in the source. The canonical cross-model verification pattern.</p>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">One model summarizes; a second, independent model checks every claim is grounded in the source.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">Claude + Gemini</span>
-            <span class="tag tag-det">verification gate</span>
+            <span class="tag tag-ai">Cross-model</span>
+            <span class="tag tag-det">Verification</span>
           </div>
         </div>
       </a>
@@ -688,43 +630,43 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
       <a href="example-hn-topic-brief.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <h3 style="margin:0 0 0.875rem; font-size:1rem;">HN Topic Brief</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">MapOver fan-out runs AI on every story in parallel. Dominant-category detection routes the summary style.</p>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Run AI over every item in parallel, then let the dominant theme shape the final summary.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">MapOver</span>
-            <span class="tag tag-det">DominantCategory</span>
+            <span class="tag tag-ai">Parallel</span>
+            <span class="tag tag-det">Synthesis</span>
           </div>
         </div>
       </a>
 
       <a href="example-local-mcp-server.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Local MCP — Playwright fan-out</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">One stateful playwright-mcp session searches Google; MapOver spawns N parallel sessions to screenshot each URL. Warm-replenish pool size 8.</p>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Browser Tool Use</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Drive a real browser session to search, then fan out parallel sessions to capture each result.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">MCPScriptOp</span>
-            <span class="tag tag-ai">MapOver fan-out</span>
+            <span class="tag tag-det">Tool use</span>
+            <span class="tag tag-ai">Fan-out</span>
           </div>
         </div>
       </a>
 
       <a href="example-rag-bm25.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">RAG (BM25) with citations</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Retrieval over a local <code>.txt</code> knowledge base. XML-wrapped prompt; LLM-cited sources filtered through <code>ValidateCitationsOp</code>.</p>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">RAG with citations</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Answer from a local knowledge base and validate every cited source before it's returned.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">RetrieveOp</span>
-            <span class="tag tag-det">ValidateCitationsOp</span>
+            <span class="tag tag-det">Retrieval</span>
+            <span class="tag tag-det">Citations</span>
           </div>
         </div>
       </a>
 
       <a href="example-with-repair.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">WithRepair — AI-assisted recovery</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">A two-stage pipeline: JSON parser fixes malformed input; routing validator round-trips through XML to fix business-rule violations.</p>
+          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Self-Repair</h3>
+          <p style="font-size:0.875rem; margin-bottom:0.875rem;">A malformed input or a broken business rule is detected and repaired in a second pass — automatically.</p>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">ErrRepairable</span>
-            <span class="tag tag-ai">JSON + XML repair</span>
+            <span class="tag tag-det">Validation</span>
+            <span class="tag tag-ai">Recovery</span>
           </div>
         </div>
       </a>
@@ -732,7 +674,7 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
     </div>
 
     <div style="text-align:center;">
-      <a href="examples.html" class="btn btn-secondary">Browse all 12 examples →</a>
+      <a href="examples.html" class="btn btn-secondary">Browse all examples →</a>
     </div>
   </div>
 </section>
@@ -741,8 +683,8 @@ Vertex(<span class="st">"verify"</span>).Op(<span class="st">"AIBoolOp"</span>).
 <section class="section section--alt">
   <div class="container">
     <div class="cta-banner">
-      <h2>Ready to build workflows that behave?</h2>
-      <p>One <code>go get</code> and you're writing deterministic-first AI pipelines in minutes.</p>
+      <h2>Give your agents one reliable tool —<br>not fifty brittle ones</h2>
+      <p>Package a business process as a deterministic, fully auditable tool. Predictable behavior and bounded cost, by construction.</p>
       <div class="cta-actions">
         <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
         <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>

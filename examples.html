@@ -41,11 +41,11 @@
       <div class="hero-eyebrow"><span class="badge badge-orange">Examples</span></div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.75rem); margin-bottom:1rem;">Twelve real workflows, explained</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Each example is a self-contained Go program that demonstrates a distinct DAG pattern.
-        Browse them to see how deterministic ops and AI ops combine in practice — cross-model
-        verification, MapOver fan-out, MCP-driven local and remote tool integrations,
-        retrieval-augmented generation with citation validation, and AI-driven recovery of
-        deterministic ops.
+        sparsi-go packages each business process as its own deterministic, fully auditable
+        tool — AI used only where genuine judgment is required. Each example below is one
+        such process, told as a plain-language pattern: what it does, and where the line
+        between deterministic code and AI falls. Open any one for the full technical
+        walkthrough.
       </p>
     </div>
   </div>
@@ -62,12 +62,11 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">01</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Customer Support Ticket Triager</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Classifies a free-text ticket with AI, routes it to a category-specific extraction lane, and emits a structured JSON brief. The clearest demonstration of the fan-out / predicate-gate / coalesce pattern.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">AI reads a free-text ticket and decides its category; deterministic rules route it down the matching lane, those lanes run in parallel, and the results merge into one structured brief. The canonical classify-route-fan-out shape.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-ai">ModeSelectOp</span>
-              <span class="tag tag-det">predicate gates</span>
-              <span class="tag tag-ai">parallel lanes</span>
-              <span class="tag tag-det">CoalesceNStringOp</span>
+              <span class="tag tag-ai">Classification</span>
+              <span class="tag tag-det">Routing</span>
+              <span class="tag tag-det">Parallel</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -80,12 +79,11 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">02</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Recipe Difficulty Analyzer</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Runs three AI extractors in parallel over recipe instructions, then feeds counts and cook time into a deterministic scoring formula to classify difficulty and generate targeted cooking advice.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Three AI extractors read the recipe in parallel; a deterministic formula turns the counts and cook time into a difficulty score, which routes to targeted cooking advice. AI reads the prose, code does the maths.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-ai">parallel extractors</span>
-              <span class="tag tag-det">arithmetic scoring</span>
-              <span class="tag tag-det">SliceLenOp</span>
-              <span class="tag tag-ai">difficulty lanes</span>
+              <span class="tag tag-det">Parallel</span>
+              <span class="tag tag-ai">Classification</span>
+              <span class="tag tag-det">Routing</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -98,12 +96,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">03</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">GitHub README Quality Report</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Fetches a repository README (trying main and master branches in parallel), fans out five AI probes concurrently, averages two scores deterministically, and appends an optional test-coverage warning.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Fetches a repository's README, runs five independent AI quality probes at once, then averages the scores deterministically and appends a coverage warning. Independent AI assessments combined by code.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">parallel HTTP fetches</span>
-              <span class="tag tag-ai">five parallel probes</span>
-              <span class="tag tag-det">SelectStringOp</span>
-              <span class="tag tag-det">StringConcatOp</span>
+              <span class="tag tag-det">Parallel</span>
+              <span class="tag tag-ai">Verification</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -116,12 +112,11 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">04</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Weather-Aware Outfit Advisor</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Parses live weather numbers with AI, classifies conditions with a multi-label op, computes temperature band and wet/windy flags deterministically, then generates outfit advice with an orthogonal extreme-weather probe.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">AI reads messy live weather text into numbers and classifies the conditions; deterministic rules derive temperature band and wet/windy flags, then AI drafts outfit advice with a separate extreme-weather check.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-ai">AIParseNumberOp</span>
-              <span class="tag tag-ai">AIClassifyMultiLabelOp</span>
-              <span class="tag tag-det">IfFloatGtOp</span>
-              <span class="tag tag-ai">orthogonal probe</span>
+              <span class="tag tag-ai">Classification</span>
+              <span class="tag tag-det">Routing</span>
+              <span class="tag tag-det">Parallel</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -134,12 +129,11 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">05</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">HackerNews Topic Brief</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Fans out per-story AI checks across N HN story titles using MapOver, filters and flattens results deterministically, picks a brief style from the dominant category, then summarises in technical, business, or policy format.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Runs an AI check over every story title in parallel, filters the results deterministically, lets the dominant theme pick a brief style, then summarizes in technical, business, or policy form.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-ai">MapOver fan-out</span>
-              <span class="tag tag-det">FilterAndFlattenOp</span>
-              <span class="tag tag-det">DominantCategoryOp</span>
-              <span class="tag tag-ai">ModeSelectOp</span>
+              <span class="tag tag-det">Parallel</span>
+              <span class="tag tag-ai">Classification</span>
+              <span class="tag tag-det">Routing</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -152,12 +146,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">06</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Faithful Summary</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Uses Claude to summarise a source document and Gemini to independently verify that every factual claim is grounded in the source. The clearest demonstration of the cross-model verification pattern — a second, independent model as a quality gate against hallucination.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">One model summarizes a source document; a second, independent model checks that every claim is grounded in the source. The clearest demonstration of an independent model as a quality gate against hallucination.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-ai">Claude (summarize)</span>
-              <span class="tag tag-ai">Gemini (verify)</span>
-              <span class="tag tag-det">FormatFaithfulnessCheckOp</span>
-              <span class="tag tag-ai">AIBoolOp</span>
+              <span class="tag tag-ai">Cross-model</span>
+              <span class="tag tag-ai">Verification</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -170,12 +162,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">07</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Local MCP — Google Search &amp; Per-URL Screenshots</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Drives a local <code>playwright-mcp</code> subprocess over stdio: one <code>MCPScriptOp</code> session searches Google and extracts the first three result URLs, then a downstream <code>MapOver</code> fans out three parallel sessions that each open a URL and save a screenshot. Demonstrates session continuity, fan-out across independent sessions, and the warm-replenish session pool.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Drives a real local browser: one session searches Google and pulls the first three result URLs, then three parallel sessions each open a URL and capture a screenshot. Tool use with session continuity and fan-out.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">MCPScriptOp (stdio)</span>
-              <span class="tag tag-ai">MapOver fan-out</span>
-              <span class="tag tag-det">browser_evaluate</span>
-              <span class="tag tag-det">MCP session pool</span>
+              <span class="tag tag-det">Tool use</span>
+              <span class="tag tag-det">Parallel</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -188,12 +178,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">08</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Remote MCP — Cloudflare Docs Search</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Calls the public <code>https://docs.mcp.cloudflare.com/mcp</code> server's <code>search_cloudflare_documentation</code> tool over the streamable HTTP transport — no subprocess, no API keys. A single <code>MCPCallOp</code> vertex shows how a remote MCP endpoint becomes a one-line DAG step.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Calls a public remote documentation-search tool over HTTP — no subprocess, no API keys. Shows how a remote tool endpoint becomes a single reliable step in the workflow.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">MCPCallOp (http)</span>
-              <span class="tag tag-det">remote MCP server</span>
-              <span class="tag tag-det">streamable HTTP</span>
-              <span class="tag tag-det">no API key</span>
+              <span class="tag tag-det">Tool use</span>
+              <span class="tag tag-det">Retrieval</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -206,12 +194,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">09</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">Stock Analyzer — zero custom ops</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">A full live-data workflow built without a single custom operator. Parallel <code>HTTPGetOp</code> from Yahoo Finance, <code>JSONExtractOp</code> for fields, <code>AIParseNumberOp</code> for stringly-typed numerics, deterministic <code>SubFloatOp</code> for the change, <code>AIScoreOp</code> for headline sentiment, and a <code>StringConcatOp</code> chain that assembles the final analysis prompt.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">A full live-data workflow built entirely from pre-built steps — no custom code. Fetches market data in parallel, parses it, computes the change deterministically, and scores headline sentiment with AI before assembling the analysis.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">library only</span>
-              <span class="tag tag-det">HTTPGetOp · JSONExtractOp</span>
-              <span class="tag tag-ai">AIScoreOp</span>
-              <span class="tag tag-ai">multi-step prompt assembly</span>
+              <span class="tag tag-det">Parallel</span>
+              <span class="tag tag-ai">Classification</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -224,12 +210,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">10</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">RAG (BM25) — local knowledge base with citations</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Implements a tiny BM25 retriever over a folder of <code>.txt</code> files, wires <code>RetrieveOp</code> into an XML-wrapped prompt (prompt-injection mitigation), asks the LLM to cite sources, parses the citations, and filters them through <code>ValidateCitationsOp</code> against the retrieved allow-list.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">Answers a question from a local knowledge base, asks the model to cite its sources, then deterministically filters every citation against the documents actually retrieved — hallucinated sources can't survive.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">Retriever interface</span>
-              <span class="tag tag-det">RetrieveOp</span>
-              <span class="tag tag-det">ValidateCitationsOp</span>
-              <span class="tag tag-ai">grounded answer</span>
+              <span class="tag tag-det">Retrieval</span>
+              <span class="tag tag-det">Verification</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -242,12 +226,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">11</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">RAG (Gemini embeddings) — vector similarity</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">The same seven-vertex graph as the BM25 example, with the retriever swapped to in-memory Gemini embeddings + cosine similarity. Demonstrates <code>ResolveEmbeddingClient</code> and the <code>EmbeddingClientFactory</code> abstraction — swap in Voyage, OpenAI, Cohere, or in-house embedders without touching the graph.</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">The same retrieval workflow as the previous example, with the retriever swapped to vector similarity over embeddings — the rest of the process is untouched. Shows how the retrieval backend is pluggable without changing the workflow.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">EmbeddingClientFactory</span>
-              <span class="tag tag-det">cosine similarity</span>
-              <span class="tag tag-det">ValidateCitationsOp</span>
-              <span class="tag tag-ai">vector retrieval</span>
+              <span class="tag tag-det">Retrieval</span>
+              <span class="tag tag-det">Verification</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -260,12 +242,10 @@
           <div style="font-size:2rem; font-weight:800; color:var(--orange); font-family:monospace; opacity:0.5; min-width:2.5rem;">12</div>
           <div>
             <h3 style="margin-bottom:0.4rem; color:var(--text-0);">WithRepair — AI-assisted recovery</h3>
-            <p style="font-size:0.9rem; margin-bottom:0.75rem;">A two-stage ticket pipeline that exercises both wire-format paths of <code>library.WithRepair</code>: a JSON parser corrects malformed input (string-target repair); a routing validator round-trips the offending ticket through XML to satisfy a business rule (struct-target repair).</p>
+            <p style="font-size:0.9rem; margin-bottom:0.75rem;">A two-stage pipeline where malformed input and a broken business rule are each detected and repaired by a bounded second AI pass — automatically, without failing the run. Deterministic detection, AI recovery.</p>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <span class="tag tag-det">ErrRepairable</span>
-              <span class="tag tag-det">UnmarshalRepair</span>
-              <span class="tag tag-ai">JSON + XML repair</span>
-              <span class="tag tag-det">reasoning log</span>
+              <span class="tag tag-det">Verification</span>
+              <span class="tag tag-ai">Recovery</span>
             </div>
           </div>
           <div style="color:var(--text-3); font-size:1.25rem;">→</div>
@@ -297,6 +277,7 @@
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>

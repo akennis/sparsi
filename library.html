@@ -41,7 +41,13 @@
         <span class="badge badge-blue">100+ Operators · Retrieval · Repair · Factories</span>
       </div>
       <h1 style="margin-bottom:1rem;">Operator Library</h1>
-      <p style="font-size:1.0625rem;line-height:1.75;max-width:640px;">Every operator available in sparsi-go, organized by category. Deterministic ops run as pure Go functions. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;margin-bottom:1rem;">
+        sparsi-go is the reliability layer between your AI agent and the work it does:
+        each business process becomes a single deterministic, fully auditable tool. This
+        catalog is the raw material — and the ratio is the point. <strong>Most of these
+        operators are deterministic</strong>; the AI operators are the small, scoped set
+        you reach for only where genuine judgment is required.</p>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;">Every operator available, organized by category. Deterministic ops run as pure Go functions, testable without a model. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
     </div>
   </div>
 </section>
@@ -616,8 +622,11 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="developers.html">Developers</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
+      <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
       <li><a href="library.html">Library</a></li>
+      <li><a href="examples.html">Examples</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Concepts — sparsi-go</title>
-  <meta name="description" content="Conceptual guides for sparsi-go: the DAG engine, MCP tool calls, retrieval-augmented generation, AI-driven repair, and pluggable AI credential routing.">
+  <meta name="description" content="The ideas behind sparsi-go: the DAG execution model, the two layers of AI, why determinism is the moat, and how multi-model verification works.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -37,66 +37,282 @@
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section class="hero" style="padding:4rem 0 3rem;">
   <div class="container">
-    <div style="max-width:820px;">
+    <div style="max-width:840px;">
       <div class="hero-eyebrow" style="margin-bottom:0.75rem;">
         <span class="badge badge-purple">Concepts</span>
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">The ideas behind sparsi-go</h1>
-      <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Five short guides covering the load-bearing mechanics of the framework — the DAG itself,
-        how to call external tools over MCP, how to wire retrieval and citation validation,
-        how to use AI as a typed recovery path for deterministic ops, and how to plug your own
-        credential routing into the AI client layer.
+      <p style="font-size:1.0625rem; line-height:1.8; margin-bottom:0;">
+        sparsi-go is the reliability layer between your AI agent and the work it does.
+        Each business process becomes a single deterministic, fully auditable tool — with
+        AI used only where genuine judgment is required. The packaging (an MCP tool the
+        agent calls) is the delivery mechanism; <strong>determinism is the value</strong>.
+        This page explains the four ideas that make that true.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ── Concept cards ───────────────────────────────────────── -->
+<!-- ── Why determinism is the moat ─────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
-    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.25rem;">
+    <div class="section-header">
+      <span class="badge badge-orange">Idea 1</span>
+      <h2>Determinism is the moat,<br>not a side effect</h2>
+      <p>Plenty of tools package work as MCP tools. The defensible claim is narrower: a
+         sparsi-go tool is <em>deterministic at every possible point</em>, so its behavior,
+         cost, and audit trail are properties of construction — not of prompt-engineering.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">🔒</div>
+        <h3>Same inputs → same outputs</h3>
+        <p>The bulk of every workflow is plain code. It produces identical results on
+           identical inputs, forever, and is testable without ever calling a model.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🤖</div>
+        <h3>AI only where it earns it</h3>
+        <p>AI is inserted only where no deterministic rule can cover the gap. Each AI step
+           is scoped, model-pinned, and logged with input, output, and reasoning.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">💰</div>
+        <h3>Cost falls out of structure</h3>
+        <p>The number of AI calls is fixed by the shape of the graph, not by input length.
+           Cost is known before a run and shrinks as deterministic coverage grows.</p>
+      </div>
+    </div>
+    <div class="quote-block" style="margin-top:2rem;">
+      <p>The inversion: hand an agent fifty low-level tools and every problem means
+         reinventing a long, brittle tool chain. Package <strong>each business process as
+         its own deterministic tool</strong> instead — multiple task-specific tools, never
+         one monolith — and the calling agent reasons like an executive, not a plumber.</p>
+    </div>
+  </div>
+</section>
 
+<!-- ── The two layers of AI ────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Idea 2</span>
+      <h2>The two layers of AI,<br>in depth</h2>
+      <p>"AI" is used for two structurally different things. Conflating them is the single
+         most common reason agent systems become unauditable. sparsi-go is the boundary
+         between the two.</p>
+    </div>
+
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+      <div class="card" style="border-color:rgba(249,115,22,0.35);">
+        <div class="card-icon icon-orange">🧠</div>
+        <h3>The orchestrating agent <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— outside the workflow</span></h3>
+        <p>The autonomous agent that decides <em>which</em> tool to invoke and what to do
+           with the result. It reasons about the goal — as an executive, a support lead,
+           an analyst. It has no visibility into the steps inside a tool and never appears
+           in graph code. To it, a sparsi-go workflow is one reliable function call.</p>
+      </div>
+      <div class="card" style="border-color:rgba(139,92,246,0.35);">
+        <div class="card-icon icon-purple">⚙️</div>
+        <h3>AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— inside the workflow</span></h3>
+        <p>Individual vertices <em>within</em> a DAG that interpret, transform, or route
+           data where no deterministic rule exists. Each is tightly scoped, pinned to a
+           specific model, and logged with its exact input, output, and reasoning. The
+           agent never invokes these — the graph does, in a fixed position.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">→</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        Why the distinction is load-bearing: the agent's reasoning is inherently
+        non-deterministic and that is fine — it is choosing <em>what</em> to do. The
+        determinism guarantee applies <em>inside</em> the tool, to <em>how</em> the work
+        is done. Keeping the layers separate is what lets one be free-wheeling while the
+        other is auditable.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── The DAG model ───────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Idea 3</span>
+      <h2>The DAG execution model</h2>
+      <p>A sparsi-go workflow is a Directed Acyclic Graph. Raw input enters and is routed
+         to subscribing nodes; the engine resolves dependencies, runs independent work in
+         parallel, prunes unused branches, and ends at leaf nodes with side-effects
+         solidified and the final result returned to the caller.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-blue">🔗</div>
+        <h3>Vertices &amp; typed wires</h3>
+        <p>Each vertex is an op — a pure function with typed inputs and outputs. Wires are
+           named typed values; the wiring is the data contract and the documentation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">⚡</div>
+        <h3>Parallel by architecture</h3>
+        <p>Independent vertices run concurrently with no manual thread management. Speed is
+           a property of the graph's shape, not of hand-tuning.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-orange">✂️</div>
+        <h3>Predicate gates &amp; skip-propagation</h3>
+        <p>Conditional branches are plain code predicates. Unreached branches are pruned —
+           and the AI ops inside them are never invoked or paid for.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🎯</div>
+        <h3>Fail-fast isolation</h3>
+        <p>An error is attributed to the exact failing vertex before any downstream work
+           runs. There is a natural isolation boundary for both testing and debugging.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">🔁</div>
+        <h3>Fan-out &amp; merge</h3>
+        <p>Map an operation across a collection and merge the results back. Parallelism and
+           recombination are first-class, not bolted on.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">🧪</div>
+        <h3>Testable without a model</h3>
+        <p>Because deterministic ops are pure functions, they are unit-tested with no API
+           key and no model call — the part you control is verifiable in CI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── The decision line ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Idea 3a</span>
+      <h2>The decision line:<br>code vs. AI</h2>
+      <p>The boundary is sharper than most teams assume. Most "complex" steps are
+         deterministic once you know the rule. AI is reserved for what genuinely needs
+         language understanding or judgment — which is also what keeps cost and audit
+         under control.</p>
+    </div>
+    <div class="grid-2" style="gap:2rem; align-items:start;">
+      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); padding:1.5rem;">
+        <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
+        <h3 style="margin:0.75rem 0 0.75rem;">Handle in code</h3>
+        <p style="font-size:0.9375rem; color:var(--text-2); line-height:1.8; margin:0;">
+          Conditional routing, formula scoring, structured parsing, lookups with fallback,
+          calls to your own systems, arithmetic, threshold decisions — anything you could
+          test reliably without ever calling a model.</p>
+      </div>
+      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); padding:1.5rem;">
+        <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
+        <h3 style="margin:0.75rem 0 0.75rem;">Hand to AI</h3>
+        <p style="font-size:0.9375rem; color:var(--text-2); line-height:1.8; margin:0;">
+          Free-form classification, extraction from prose, subjective judgment, semantic
+          yes/no, summarization and drafting, ranking and matching, messy number parsing —
+          anything that depends on reading a sentence and understanding what a human meant.</p>
+      </div>
+    </div>
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The practical test:</strong> if you could test it reliably without ever
+        calling a model, it belongs in code. If the answer depends on reading a sentence
+        and understanding what a human likely meant — hand it to AI.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Multi-model verification ────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Idea 4</span>
+      <h2>Multi-model verification<br>as a trust mechanism</h2>
+      <p>Auditability is not only logging — it is being able to have one model's output
+         independently checked by another. Because AI steps are discrete typed vertices,
+         cross-model checking and cost-aware routing are ordinary wiring, not a research
+         project.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-purple">🔍</div>
+        <h3>Independent verification</h3>
+        <p>A model that wrote something tends to believe it. Put a second, independent
+           model in the path as a quality gate: one drafts, another checks every claim
+           against the source. The handoff between them is plain deterministic code — no
+           tokens, no latency, fully logged.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">⚡</div>
+        <h3>Cost-aware routing</h3>
+        <p>Not every step needs your most expensive model. Route bulk and simple sorting
+           to a cheap, fast model; reserve the top tier for hard reasoning. Cost drops
+           with no change to business logic.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-orange">🎯</div>
+        <h3>Specialization by task</h3>
+        <p>Different providers lead at different things. Use the strongest model per task —
+           multilingual here, code there, fast-and-cheap for volume — inside one coherent
+           workflow.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="example-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Go deeper ───────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Go Deeper</span>
+      <h2>Mechanics, in full detail</h2>
+      <p>These guides take the ideas above down to the API surface. They are the
+         technical-tier companions to this page.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.25rem;">
       <a href="dag.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <div class="card-icon icon-blue">🧩</div>
           <h3>DAG engine</h3>
-          <p style="font-size:0.9375rem; margin:0;">Vertices, typed wires, <code>dag</code> field tags, the dagor scheduler, predicate gates, skip-propagation, <code>MapOver</code> fan-out, and <code>Merge</code>. The shape every sparsi workflow starts from.</p>
+          <p style="font-size:0.9375rem; margin:0;">Vertices, typed wires, field tags, the scheduler, predicate gates, skip-propagation, fan-out, and merge — the shape every workflow starts from.</p>
         </div>
       </a>
-
       <a href="mcp.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <div class="card-icon icon-purple">🛰️</div>
           <h3>MCP integration</h3>
-          <p style="font-size:0.9375rem; margin:0;"><code>MCPCallOp</code> for one-shot tool calls; <code>MCPScriptOp</code> for multi-call sessions that share server state. Pooled subprocesses, warm replenish, custom <code>MCPArgsFormatter</code> / <code>MCPResponseParser</code>, <code>MCPToolError</code> recovery.</p>
+          <p style="font-size:0.9375rem; margin:0;">One-shot tool calls and multi-call sessions that share server state, pooled subprocesses, custom formatters and parsers, tool-error recovery.</p>
         </div>
       </a>
-
       <a href="rag.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <div class="card-icon icon-orange">📚</div>
           <h3>Retrieval &amp; citations</h3>
-          <p style="font-size:0.9375rem; margin:0;">The <code>Retriever</code> interface, <code>RetrieveOp</code> / <code>RetrieveWithFiltersOp</code>, citation allow-list filtering via <code>ValidateCitationsOp</code>, and pluggable embedding providers through <code>EmbeddingClientFactory</code>.</p>
+          <p style="font-size:0.9375rem; margin:0;">The retriever interface, retrieval ops, deterministic citation allow-list filtering, and pluggable embedding providers.</p>
         </div>
       </a>
-
       <a href="repair.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <div class="card-icon icon-green">🔧</div>
           <h3>AI-driven repair</h3>
-          <p style="font-size:0.9375rem; margin:0;">Wrap a deterministic op with <code>WithRepair</code> so a typed <code>*ErrRepairable</code> escalates to an LLM that mutates the input until it parses or satisfies your business rules. Bounded by <code>max_attempts</code>.</p>
+          <p style="font-size:0.9375rem; margin:0;">Wrap a deterministic op so a typed repairable error escalates to a bounded AI pass that mutates the input until it satisfies your rules.</p>
         </div>
       </a>
-
       <a href="ai-routing.html" style="text-decoration:none;">
         <div class="card" style="height:100%;">
           <div class="card-icon icon-purple">🔐</div>
           <h3>AI credential routing</h3>
-          <p style="font-size:0.9375rem; margin:0;">Implement <code>AIClientFactory</code> to source Anthropic / Gemini clients from Vault, AWS Secrets Manager, workload identity, or per-tenant credentials — without env vars and without changing graph code.</p>
+          <p style="font-size:0.9375rem; margin:0;">Source provider clients from Vault, a secrets manager, workload identity, or per-tenant stores — without env vars and without changing graph code.</p>
         </div>
       </a>
-
     </div>
   </div>
 </section>

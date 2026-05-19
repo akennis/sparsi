@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sparsi-go — Deterministic Workflows, Packaged as MCP Tools</title>
-  <meta name="description" content="sparsi-go is the reliability layer between your AI agent and the work it does: each business process becomes one deterministic, fully auditable tool — predictable behavior and bounded cost by construction, not by prompt-engineering.">
+  <title>sparsi-go — Capture the 80% of Agentic Requests That Already Follow a Known Path</title>
+  <meta name="description" content="Most end-user agentic requests follow a finite set of action paths through systems you already have. sparsi-go lets you package each common request type as one deterministic, auditable MCP tool — and gracefully hands back anything it can't safely handle.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -51,18 +51,19 @@
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-eyebrow">
-          <span class="badge badge-orange">Reliability Layer for AI Agents</span>
+          <span class="badge badge-orange">The 80% Already Follows a Known Path</span>
         </div>
         <h1 class="hero-title">
-          Deterministic Workflows<br>
-          Your Agents Can <span class="hi-o">Actually</span> <span class="hi-p">Trust</span>
+          Capture the Agentic Requests<br>
+          That <span class="hi-o">Already</span> Have a <span class="hi-p">Known Path</span>
         </h1>
         <p class="hero-desc">
-          sparsi-go is the reliability layer between your AI agent and the work it does.
-          Each business process becomes a single tool the agent invokes — deterministic at
-          every possible point, every step logged and reproducible, with AI used only where
-          genuine judgment is required. Predictable behavior, a complete audit trail, and
-          bounded cost — by construction, not by prompt-engineering.
+          Most things your users ask an agent to do — "return this," "where's my order,"
+          "change my plan" — aren't open-ended. They follow a finite set of action paths
+          through systems you already run. sparsi-go lets you package each common request
+          type as <strong>one deterministic MCP tool</strong>: AI understands the ask, plain
+          code does the work, and anything it can't safely handle is handed straight back to
+          the agent. Capture the predictable 80%; let the long tail stay on the flexible path.
         </p>
         <div class="hero-actions">
           <a href="developers.html" class="btn btn-primary">Get Started</a>
@@ -168,89 +169,191 @@
           </g>
 
           <!-- Caption -->
-          <text x="280" y="362" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.08em">5 deterministic ops &#183; 3 AI ops &#183; one DAG</text>
+          <text x="280" y="362" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.08em">1 request type &#183; 1 DAG &#183; mostly deterministic, a few AI ops</text>
         </svg>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Philosophy pull-quote ───────────────────────────────── -->
+<!-- ── Core insight pull-quote ─────────────────────────────── -->
 <div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 0;">
-  <div class="container" style="text-align:center; max-width:800px;">
+  <div class="container" style="text-align:center; max-width:820px;">
     <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8;">
-      "Hand an agent fifty low-level tools and every problem means reinventing a long,
-      brittle tool chain — expensive, unpredictable, and hard to audit. sparsi-go inverts this:
-      <strong>package each business process as its own deterministic MCP tool</strong> — with
-      AI operations sealed inside it — so the calling agent reasons at the level of an
-      executive, a support lead, or a marketer, not a plumber wiring primitives."
+      "A general agent treats every request as a novel problem to reason through from
+      scratch. But your users mostly ask for the same handful of things — and each one
+      already has a fixed path through systems you built years ago.
+      <strong>sparsi-go captures that path once</strong>, so the common case runs like code
+      and only the genuine exceptions reach the model."
     </p>
   </div>
 </div>
 
-<!-- ── Two layers of AI ─────────────────────────────────────── -->
+<!-- ── Architecture: how a request flows ────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">Read This First</span>
-      <h2>Two kinds of AI — keep them straight</h2>
-      <p>"AI" means two different things on this page. sparsi-go is the boundary
-         between them: the agent calls one high-level tool; the AI operations are
-         sealed inside it.</p>
+      <span class="badge badge-purple">The Architecture</span>
+      <h2>How a request flows through sparsi-go</h2>
+      <p>The user talks to your chatbot. The agent LLM recognizes the intent and forwards
+         it to a sparsi-go MCP server. Inside, an AI classifier routes the request through
+         deterministic channels; a final AI node writes the reply, which the agent relays
+         back. One boundary, crossed twice — and nothing else leaks across it.</p>
     </div>
-    <div class="grid-2" style="gap:2rem; align-items:stretch;">
 
-      <div class="card" style="border-color:rgba(249,115,22,0.35);">
-        <div class="card-icon icon-orange">🧠</div>
-        <h3>The orchestrating agent <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— outside the workflow</span></h3>
-        <p>The autonomous agent that decides <em>which</em> sparsi-go MCP tool to invoke
-           and what to do with the result. It reasons about the goal — acting as an
-           executive, a support lead, or a marketer — never about the plumbing inside
-           a tool. It does not see individual ops; it sees one reliable tool call.</p>
-      </div>
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="A user talks to a chatbot; the agent LLM forwards the request across the MCP boundary into a sparsi-go DAG that starts with an AI classifier, routes through deterministic channels, and ends in an AI synthesizer whose natural-language response is relayed back through the agent LLM to the user">
+        <defs>
+          <radialGradient id="a-det" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
+          </radialGradient>
+          <radialGradient id="a-ai" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#f5d0fe"/><stop offset="55%" stop-color="#a855f7"/><stop offset="100%" stop-color="#4c1d95"/>
+          </radialGradient>
+          <radialGradient id="a-user" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#e2e8f0"/><stop offset="100%" stop-color="#475569"/>
+          </radialGradient>
+          <filter id="a-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="a-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="a-arr" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+          </marker>
+          <marker id="a-arr-p" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#a855f7"/>
+          </marker>
+        </defs>
 
-      <div class="card" style="border-color:rgba(139,92,246,0.35);">
-        <div class="card-icon icon-purple">⚙️</div>
-        <h3>AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.875rem;">— inside the workflow</span></h3>
-        <p>Individual nodes <em>within</em> a DAG that interpret, transform, or route data
-           where no deterministic solution exists. Each is tightly scoped, model-pinned,
-           and logged with its exact input, output, and reasoning. The calling agent
-           never invokes these directly — the workflow does.</p>
-      </div>
+        <!-- ── MCP boundary ─────────────────────────────────────── -->
+        <line x1="300" y1="46" x2="300" y2="470" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 6"/>
+        <text x="300" y="34" text-anchor="middle" font-size="11" fill="#94a3b8" font-family="monospace" letter-spacing="0.08em">MCP boundary</text>
 
+        <!-- ── sparsi container ─────────────────────────────────── -->
+        <rect x="322" y="58" width="648" height="384" rx="16" fill="rgba(139,92,246,0.045)" stroke="rgba(139,92,246,0.28)"/>
+        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">sparsi-go MCP server &#183; one DAG</text>
+
+        <!-- ── Forward edges ────────────────────────────────────── -->
+        <g stroke="#64748b" stroke-width="1.8" fill="none">
+          <line x1="86"  y1="150" x2="116" y2="150" marker-end="url(#a-arr)"/>
+          <line x1="240" y1="150" x2="367" y2="240" marker-end="url(#a-arr)"/>
+          <line x1="438" y1="222" x2="510" y2="160" marker-end="url(#a-arr)"/>
+          <line x1="438" y1="258" x2="510" y2="320" marker-end="url(#a-arr)"/>
+          <line x1="573" y1="150" x2="645" y2="150" marker-end="url(#a-arr)"/>
+          <line x1="573" y1="330" x2="645" y2="330" marker-end="url(#a-arr)"/>
+          <line x1="708" y1="160" x2="788" y2="222" marker-end="url(#a-arr)"/>
+          <line x1="708" y1="320" x2="788" y2="258" marker-end="url(#a-arr)"/>
+        </g>
+
+        <!-- ── Return path (synthesized NL response) ────────────── -->
+        <path d="M 830 277 L 830 462 L 178 462 L 178 188" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-opacity="0.75" stroke-dasharray="6 5" marker-end="url(#a-arr-p)"/>
+        <path d="M 116 178 Q 90 178 84 168" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-opacity="0.75" stroke-dasharray="6 5" marker-end="url(#a-arr-p)"/>
+        <text x="500" y="481" text-anchor="middle" font-size="11" fill="#c084fc" font-family="monospace" letter-spacing="0.05em">natural-language response &#8212; relayed unchanged by the agent LLM</text>
+
+        <!-- ── AI node halos ────────────────────────────────────── -->
+        <circle cx="402" cy="240" r="44" fill="url(#a-halo)">
+          <animate attributeName="r" values="36;52;36" dur="3.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="830" cy="240" r="44" fill="url(#a-halo)">
+          <animate attributeName="r" values="36;52;36" dur="3.6s" begin="-1.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-1.8s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ── Nodes ────────────────────────────────────────────── -->
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+
+          <!-- User -->
+          <circle cx="55" cy="150" r="30" fill="url(#a-user)" stroke="#94a3b8" stroke-width="2"/>
+          <text x="55" y="155" font-size="12" fill="#0f172a">User</text>
+
+          <!-- Chatbot / Agent LLM -->
+          <rect x="120" y="110" width="122" height="80" rx="12" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-width="2"/>
+          <text x="181" y="143" font-size="12.5" fill="#fdba74">Chatbot /</text>
+          <text x="181" y="161" font-size="12.5" fill="#fdba74">agent LLM</text>
+          <text x="181" y="100" font-size="10" fill="#fb923c" font-weight="normal">your model</text>
+
+          <!-- AI classifier -->
+          <circle cx="402" cy="240" r="33" fill="url(#a-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#a-glow)"/>
+          <text x="402" y="237" font-size="13" fill="#f3e8ff">AI</text>
+          <text x="402" y="252" font-size="9.5" fill="#ddd6fe">classify</text>
+
+          <!-- Channel A (deterministic) -->
+          <circle cx="540" cy="150" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="540" y="147" font-size="12" fill="#dbeafe">det</text>
+          <text x="540" y="162" font-size="9" fill="#bfdbfe">op()</text>
+          <circle cx="675" cy="150" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="675" y="147" font-size="12" fill="#dbeafe">det</text>
+          <text x="675" y="162" font-size="9" fill="#bfdbfe">op()</text>
+
+          <!-- Channel B (deterministic) -->
+          <circle cx="540" cy="330" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="540" y="327" font-size="12" fill="#dbeafe">det</text>
+          <text x="540" y="342" font-size="9" fill="#bfdbfe">op()</text>
+          <circle cx="675" cy="330" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="675" y="327" font-size="12" fill="#dbeafe">det</text>
+          <text x="675" y="342" font-size="9" fill="#bfdbfe">op()</text>
+
+          <!-- AI synthesizer -->
+          <circle cx="830" cy="240" r="33" fill="url(#a-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#a-glow)"/>
+          <text x="830" y="237" font-size="13" fill="#f3e8ff">AI</text>
+          <text x="830" y="252" font-size="9.5" fill="#ddd6fe">respond</text>
+        </g>
+
+        <!-- ── Captions ─────────────────────────────────────────── -->
+        <g font-family="monospace" text-anchor="middle" fill="#64748b" font-size="10.5">
+          <text x="402" y="298">AI classifier &#8212; routes the request</text>
+          <text x="607" y="118">deterministic channel</text>
+          <text x="607" y="380">deterministic channel (one or more)</text>
+          <text x="830" y="298">AI synthesizes the reply</text>
+        </g>
+      </svg>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔑</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The agent LLM and sparsi-go's node models are different models.</strong>
+        The chatbot's model only ever sees a tool call and a finished natural-language
+        reply. The classifier and synthesizer inside the DAG run on their own
+        independently pinned models — chosen, versioned, and audited per workflow. The
+        boundary is real: no prompts, no scratchpad, no intermediate state crosses it in
+        either direction.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- ── One process, one tool ────────────────────────────────── -->
+<!-- ── Most requests aren't open-ended ───────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-orange">What It Looks Like</span>
-      <h2>One business process. One tool.<br>Zero loose primitives.</h2>
-      <p>Take a refund request. Without sparsi-go, an agent stitches together a dozen
-         low-level calls and re-improvises the policy every time. With sparsi-go, it calls
-         one tool — and everything inside is fixed, logged, and reviewable.</p>
+      <span class="badge badge-orange">The Observation</span>
+      <h2>Most agentic requests<br>aren't actually open-ended</h2>
+      <p>A customer says <em>"I want to return this."</em> That isn't a novel problem —
+         it's a known path. The only genuinely open part is understanding the ask and
+         handling the edges. Everything else is your existing systems, called in a
+         fixed order.</p>
     </div>
 
     <div class="grid-2" style="gap:2rem; align-items:stretch;">
 
       <div class="card">
         <div class="card-icon icon-purple">🧠</div>
-        <h3>What the agent sees</h3>
-        <p>A single tool — <strong>handle_refund(request)</strong>. The agent decides
-           <em>when</em> a refund is warranted and what to tell the customer next. It never
-           touches the steps inside: one call in, one structured result and a full audit
-           trail out.</p>
+        <h3>What actually needs judgment</h3>
+        <p>Reading a free-form message into structured intent — <em>is this a return, an
+           exchange, or a complaint?</em> — and writing the reply back. That's a thin
+           slice of AI at the front and the end. Two ops, not twenty.</p>
       </div>
 
       <div class="card">
         <div class="card-icon icon-blue">🔒</div>
-        <h3>What happens inside</h3>
-        <p>AI reads the customer's free-form message and extracts the request. Deterministic
-           code applies refund policy, looks up the account, computes the amount, and calls
-           the payment system. AI drafts the reply. Every step is recorded with its exact
-           input and output.</p>
+        <h3>What's just your systems, in order</h3>
+        <p>Look up the order history. Run the fraud check. Apply return policy. Create
+           the shipping label. Post the accounting entry. Each is a deterministic call
+           to a system you already own — the same way, every time.</p>
       </div>
 
     </div>
@@ -258,75 +361,123 @@
     <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
       <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">→</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        The policy lives in code, so it runs the same way every time and can be tested
-        without a model. AI handles only the two genuinely ambiguous steps — reading the
-        message and writing the reply. The agent reasons about the customer, not the plumbing.
+        Returns, order status, plan changes, cancellations, address updates — a short
+        list of request types covers the large majority of what users ask. Each one is a
+        recognizable path you can capture once and run forever.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ── Benefits ────────────────────────────────────────────── -->
+<!-- ── The path to using sparsi-go ──────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-orange">Why sparsi-go</span>
-      <h2>Predictable, auditable, and cheap —<br>by construction</h2>
-      <p>These aren't options you tune. They fall out of the architecture: deterministic
-         by default, AI only where judgment is genuinely required.</p>
+      <span class="badge badge-purple">How You Adopt It</span>
+      <h2>The path to using sparsi-go</h2>
+      <p>You don't rewrite your agent. You peel the predictable request types off it,
+         one at a time, and give each its own deterministic tool.</p>
     </div>
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-icon icon-orange">🔒</div>
-        <h3>Deterministic by Default</h3>
-        <p>The same inputs produce the same outputs, every time, forever. The bulk of every
-           workflow is plain code you can test without ever calling a model.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-connector"></div>
+        <h3>Identify common request types</h3>
+        <p>Look at what users actually ask your agent. A handful of intents — returns,
+           status checks, plan changes — cover most of the volume. Rank them by
+           frequency and start at the top of the list.</p>
       </div>
-      <div class="card">
-        <div class="card-icon icon-purple">🤖</div>
-        <h3>AI Only Where It Earns It</h3>
-        <p>AI runs only where no deterministic rule can cover the gap. Every AI step is
-           recorded with its exact input, output, and reasoning — inspectable long after
-           the run.</p>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-connector"></div>
+        <h3>Model each as a DAG</h3>
+        <p>One sparsi-go MCP server per request type. An AI node reads the request into
+           structured facts; deterministic nodes call your order, fraud, shipping, and
+           billing systems in a fixed sequence; an AI node drafts the response. Mostly
+           code, a few AI nodes where judgment is unavoidable.</p>
       </div>
-      <div class="card">
-        <div class="card-icon icon-blue">⚡</div>
-        <h3>Parallel by Architecture</h3>
-        <p>Independent work runs concurrently with no manual thread management. Speed comes
-           from the shape of the workflow, not from hand-tuning.</p>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-connector"></div>
+        <h3>Test it like code</h3>
+        <p>Because the path is deterministic, you unit-test it without ever calling a
+           model. Pin the AI nodes, replay real requests, and you know exactly how it
+           behaves before it ever reaches a user.</p>
       </div>
-      <div class="card">
-        <div class="card-icon icon-green">🔍</div>
-        <h3>Fail-Fast Isolation</h3>
-        <p>When something breaks, the exact failing step is named immediately. Errors
-           surface at their source instead of disappearing into a prompt chain.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon icon-orange">💰</div>
-        <h3>Bounded, Predictable Cost</h3>
-        <p>The number of AI calls is fixed by the workflow, not by input length or model
-           mood. Cost is known before you run — and shrinks as deterministic coverage grows.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon icon-purple">🔀</div>
-        <h3>Trust Through Independence</h3>
-        <p>Route each step to the model best suited to it, and have a second, independent
-           model verify the first. Cross-checking is wiring, not a research project.</p>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-connector"></div>
+        <h3>Wire it into your agent</h3>
+        <p>Register the server with a description the LLM reliably matches to the right
+           kind of prompt. From the agent's side it's one tool call. From yours, it's a
+           tested, auditable pipeline — and the long tail still falls through to the
+           agent, unchanged.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── The Decision Line ────────────────────────────────────── -->
+<!-- ── Routing & fallback ───────────────────────────────────── -->
 <section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">When the Match Is Wrong</span>
+      <h2>True positives run cheap.<br>Everything else degrades gracefully.</h2>
+      <p>The LLM picks the tool, so it won't always pick right. sparsi-go is built for
+         that: a misroute costs you almost nothing, and the request lands exactly where
+         it would have without the tool.</p>
+    </div>
+
+    <div class="grid-3" style="gap:2rem; align-items:stretch;">
+
+      <div class="card" style="border-color:rgba(34,197,94,0.35);">
+        <div class="card-icon icon-green">✓</div>
+        <h3>True positive</h3>
+        <p>The request really is this type. It runs through the DAG deterministically —
+           low, bounded token cost, every step logged, the same path every time. This is
+           the 80% you came for.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(249,115,22,0.35);">
+        <div class="card-icon icon-orange">↩</div>
+        <h3>False positive</h3>
+        <p>The agent routed it here, but it isn't really this request type. The DAG
+           detects the mismatch early — before touching any system — and punts it
+           straight back to the LLM. No side effects, negligible cost.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.35);">
+        <div class="card-icon icon-purple">⤴</div>
+        <h3>Out of scope</h3>
+        <p>A genuine instance the workflow can't safely complete — a policy edge, missing
+           data, a value past a threshold. It's returned to the LLM for fallback, or
+           escalated into a human-backed queue. Never forced through.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The asymmetry that makes this safe:</strong> capturing the common path is
+        a large, permanent win; getting a match wrong costs an early bail-out and a
+        hand-back. You're never worse off than the plain agent — and on the 80%, you're
+        dramatically better.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── The Decision Line ────────────────────────────────────── -->
+<section class="section section--alt">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-orange">The Decision Line</span>
       <h2>What belongs in code — and what belongs in AI</h2>
-      <p>The boundary is sharper than most teams assume. Most "complex" steps are
-         deterministic once you know the rule. AI is reserved for what genuinely needs
-         language understanding or judgment — which is also what keeps cost and audit
-         under control.</p>
+      <p>Inside a DAG, the boundary is sharper than most teams assume. Most "complex"
+         steps are deterministic once you know the rule. AI is reserved for what
+         genuinely needs language understanding or judgment — which is also what keeps
+         cost and audit under control.</p>
     </div>
 
     <div class="grid-2" style="gap:2rem; align-items:start;">
@@ -433,73 +584,74 @@
   </div>
 </section>
 
-<!-- ── Multi-Model Orchestration ────────────────────────────── -->
-<section class="section section--alt">
+<!-- ── Benefits ────────────────────────────────────────────── -->
+<section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">Multi-Model Trust</span>
-      <h2>The right model for each step —<br>and a second one to check it</h2>
-      <p>Auditability isn't only logging. It's being able to have one model's output
-         independently verified by another. sparsi-go makes cross-model checking and
-         cost-aware routing ordinary wiring — not a research project.</p>
+      <span class="badge badge-orange">What You Get on the 80%</span>
+      <h2>Predictable, auditable, and cheap —<br>by construction</h2>
+      <p>These aren't options you tune. They fall out of capturing a known path as a DAG:
+         deterministic by default, AI only where judgment is genuinely required.</p>
     </div>
-
-    <div class="grid-3" style="margin-bottom:2rem;">
-
+    <div class="grid-3">
       <div class="card">
-        <div class="card-icon icon-purple">🔍</div>
-        <h3>Independent Verification</h3>
-        <p>A model that wrote something tends to believe it. Put a second, independent
-           model in the path as a quality gate — it catches unsupported claims the first
-           one glossed over. One model drafts; another checks every claim against the
-           source.</p>
+        <div class="card-icon icon-orange">🔒</div>
+        <h3>Deterministic by Default</h3>
+        <p>The same inputs produce the same outputs, every time, forever. The bulk of every
+           workflow is plain code you can test without ever calling a model.</p>
       </div>
-
+      <div class="card">
+        <div class="card-icon icon-purple">🤖</div>
+        <h3>AI Only Where It Earns It</h3>
+        <p>AI runs only where no deterministic rule can cover the gap. Every AI step is
+           recorded with its exact input, output, and reasoning — inspectable long after
+           the run.</p>
+      </div>
       <div class="card">
         <div class="card-icon icon-blue">⚡</div>
-        <h3>Cost-Aware Routing</h3>
-        <p>Not every step needs your most expensive model. Send bulk checks and simple
-           sorting to a cheap, fast model; reserve the top-tier model for the hard
-           reasoning. Cost drops with no change to business logic.</p>
+        <h3>Parallel by Architecture</h3>
+        <p>Independent work runs concurrently with no manual thread management. Speed comes
+           from the shape of the workflow, not from hand-tuning.</p>
       </div>
-
       <div class="card">
-        <div class="card-icon icon-orange">🎯</div>
-        <h3>Specialization by Task</h3>
-        <p>Different providers lead at different things. Use the strongest model per
-           task — multilingual here, code there, fast-and-cheap for high volume — all
-           inside one coherent workflow.</p>
+        <div class="card-icon icon-green">🔍</div>
+        <h3>Fail-Fast Isolation</h3>
+        <p>When something breaks, the exact failing step is named immediately. Errors
+           surface at their source instead of disappearing into a prompt chain.</p>
       </div>
-
+      <div class="card">
+        <div class="card-icon icon-orange">💰</div>
+        <h3>Bounded, Predictable Cost</h3>
+        <p>The number of AI calls is fixed by the workflow, not by input length or model
+           mood. Cost is known before you run — and shrinks as deterministic coverage grows.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🔀</div>
+        <h3>Trust Through Independence</h3>
+        <p>Route each step to the model best suited to it, and have a second, independent
+           model verify the first. Cross-checking is wiring, not a research project.</p>
+      </div>
     </div>
-
-    <div style="text-align:center; max-width:760px; margin:0 auto;">
-      <p style="font-size:0.9375rem; color:var(--text-2); line-height:1.75; margin-bottom:1.5rem;">
-        Two different models, one workflow — and the step that hands off between them is
-        plain deterministic code: no tokens, no latency, fully logged.
-      </p>
-      <a href="example-faithful-summary.html" class="btn btn-secondary">See the faithful-summary example →</a>
-    </div>
-
   </div>
 </section>
 
 <!-- ── Comparison table ─────────────────────────────────────── -->
-<section class="section">
+<section class="section section--alt">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">Comparison</span>
-      <h2>sparsi-go vs. handing an agent raw tools</h2>
-      <p>Give an agent a pile of primitives and every run re-improvises the process —
-         paying the cost of non-determinism in tokens, in audit gaps, and in surprises.</p>
+      <h2>The known path: a sparsi-go tool vs. the raw agent</h2>
+      <p>Hand the agent a pile of primitives and every run re-improvises the process —
+         paying the cost of non-determinism in tokens, in audit gaps, and in surprises.
+         On a known request type, that's pure waste.</p>
     </div>
     <div class="comparison">
       <table>
         <thead>
           <tr>
             <th>Dimension</th>
-            <th>⚡ sparsi-go</th>
-            <th>Raw tools / prompt chain</th>
+            <th>⚡ sparsi-go tool</th>
+            <th>Raw agent / prompt chain</th>
           </tr>
         </thead>
         <tbody>
@@ -539,9 +691,9 @@
             <td><span class="no">✗</span> Behaviour shifts when the provider updates</td>
           </tr>
           <tr>
-            <td>Conditional branching</td>
-            <td><span class="yes">✓</span> Unused branches are pruned by simple rules</td>
-            <td><span class="no">✗</span> Requires a meta-prompt or glue code</td>
+            <td>Misroute handling</td>
+            <td><span class="yes">✓</span> Out-of-scope detected early, punted back cleanly</td>
+            <td><span class="no">✗</span> No notion of scope; pushes ahead regardless</td>
           </tr>
           <tr>
             <td>Compliance readiness</td>
@@ -554,53 +706,15 @@
   </div>
 </section>
 
-<!-- ── How it works ─────────────────────────────────────────── -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-purple">How It Works</span>
-      <h2>From a messy request<br>to one reliable tool call</h2>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-connector"></div>
-        <h3>AI Reads the Input</h3>
-        <p>At the front of the workflow, AI turns a natural-language request into clean,
-           structured values — categories, fields, numbers — so everything downstream
-           runs on facts, not prose.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-connector"></div>
-        <h3>Deterministic Core Does the Work</h3>
-        <p>Plain code applies your policy and talks to your existing systems, exactly the
-           same way every time. AI is dropped back in only where judgment is genuinely
-           required — including writing the final reply.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-connector"></div>
-        <h3>Ship It as One Tool</h3>
-        <p>The engine runs independent work in parallel and logs every step and
-           side-effect. The whole process is exposed as a single tool your agent
-           invokes — one reliable call instead of dozens of fragile ones. No agent?
-           The same workflow runs standalone from a CLI or batch job, unchanged.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── Examples preview ─────────────────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-orange">Examples</span>
-      <h2>See the patterns in practice</h2>
-      <p>Self-contained programs, each showing a distinct pattern — classification and
-         routing, cross-model verification, parallel fan-out, tool use, retrieval with
-         citation checks, and self-repair. The implementation detail lives in the docs;
-         here's the shape.</p>
+      <h2>The DAG patterns you'll reach for</h2>
+      <p>Self-contained programs, each showing a distinct pattern you'll use building
+         request-type servers — classification and routing, cross-model verification,
+         parallel fan-out, tool use, retrieval with citation checks, and self-repair.</p>
     </div>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; margin-bottom:2rem;">
@@ -683,8 +797,9 @@
 <section class="section section--alt">
   <div class="container">
     <div class="cta-banner">
-      <h2>Give your agents one reliable tool —<br>not fifty brittle ones</h2>
-      <p>Package a business process as a deterministic, fully auditable tool. Predictable behavior and bounded cost, by construction.</p>
+      <h2>Start with your top three request types</h2>
+      <p>Capture the paths your users walk most. The predictable 80% runs deterministically
+         and cheap; the long tail stays on the agent, where it belongs.</p>
       <div class="cta-actions">
         <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
         <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>

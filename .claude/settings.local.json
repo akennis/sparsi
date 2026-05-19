@@ -11,7 +11,11 @@
       "Bash(sed -i 's|<span class=\"stat-n\">MIT</span>|<span class=\"stat-n\">BSD 3-Clause</span>|g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
       "Bash(sed -i 's/MIT licensed\\\\./BSD 3-Clause licensed./g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
       "Bash(sed -i 's/MIT licence — no proprietary workflow runtime/BSD 3-Clause licence — no proprietary workflow runtime/g' /mnt/c/Users/albert.kennis/projects/sparsi.ai/leaders.html)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(xargs sed -i 's|class=\"brand\">sparsi</span>-go</span>|class=\"brand\">sparsi</span></span>|g')",
+      "Read(//mnt/c/Users/albert.kennis/projects/sparsi-go/examples/**)",
+      "Bash(sed -n 1,30p __TRACKED_VAR__/main.go)",
+      "Bash(grep -n -A4 'mcp.AddTool\\\\|flag.Bool\\\\|flag.String\\\\|flag.Duration\\\\|Name:.*\"\\\\|Description:.*\"\\\\|usage:' __TRACKED_VAR__/main.go)"
     ]
   }
 }

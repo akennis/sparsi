@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sparsi-go — Capture the 80% of Agentic Requests That Already Follow a Known Path</title>
-  <meta name="description" content="Most end-user agentic requests follow a finite set of action paths through systems you already have. sparsi-go lets you package each common request type as one deterministic, auditable MCP tool — and gracefully hands back anything it can't safely handle.">
+  <title>sparsi — Capture the 80% of Agentic Requests That Already Follow a Known Path</title>
+  <meta name="description" content="Most end-user agentic requests follow a finite set of action paths through systems you already have. sparsi lets you package each common request type as one deterministic, auditable MCP tool — and gracefully hands back anything it can't safely handle.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +15,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
-      <span><span class="brand">sparsi</span>-go</span>
+      <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -60,7 +60,7 @@
         <p class="hero-desc">
           Most things your users ask an agent to do — "return this," "where's my order,"
           "change my plan" — aren't open-ended. They follow a finite set of action paths
-          through systems you already run. sparsi-go lets you package each common request
+          through systems you already run. sparsi lets you package each common request
           type as <strong>one deterministic MCP tool</strong>: AI understands the ask, plain
           code does the work, and anything it can't safely handle is handed straight back to
           the agent. Capture the predictable 80%; let the long tail stay on the flexible path.
@@ -183,7 +183,7 @@
       "A general agent treats every request as a novel problem to reason through from
       scratch. But your users mostly ask for the same handful of things — and each one
       already has a fixed path through systems you built years ago.
-      <strong>sparsi-go captures that path once</strong>, so the common case runs like code
+      <strong>sparsi captures that path once</strong>, so the common case runs like code
       and only the genuine exceptions reach the model."
     </p>
   </div>
@@ -194,9 +194,9 @@
   <div class="container">
     <div class="section-header">
       <span class="badge badge-purple">The Architecture</span>
-      <h2>How a request flows through sparsi-go</h2>
+      <h2>How a request flows through sparsi</h2>
       <p>The user talks to your chatbot. The agent LLM recognizes the intent and forwards
-         it to a sparsi-go MCP server. Inside, an AI classifier routes the request through
+         it to a sparsi MCP server. Inside, an AI classifier routes the request through
          deterministic channels; a final AI node writes the reply, which the agent relays
          back. One boundary, crossed twice — and nothing else leaks across it.</p>
     </div>
@@ -233,7 +233,7 @@
 
         <!-- ── sparsi container ─────────────────────────────────── -->
         <rect x="322" y="58" width="648" height="384" rx="16" fill="rgba(139,92,246,0.045)" stroke="rgba(139,92,246,0.28)"/>
-        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">sparsi-go MCP server &#183; one DAG</text>
+        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">sparsi MCP server &#183; one DAG</text>
 
         <!-- ── Forward edges ────────────────────────────────────── -->
         <g stroke="#64748b" stroke-width="1.8" fill="none">
@@ -315,7 +315,7 @@
     <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
       <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔑</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The agent LLM and sparsi-go's node models are different models.</strong>
+        <strong>The agent LLM and sparsi's node models are different models.</strong>
         The chatbot's model only ever sees a tool call and a finished natural-language
         reply. The classifier and synthesizer inside the DAG run on their own
         independently pinned models — chosen, versioned, and audited per workflow. The
@@ -374,7 +374,7 @@
   <div class="container">
     <div class="section-header">
       <span class="badge badge-purple">How You Adopt It</span>
-      <h2>The path to using sparsi-go</h2>
+      <h2>The path to using sparsi</h2>
       <p>You don't rewrite your agent. You peel the predictable request types off it,
          one at a time, and give each its own deterministic tool.</p>
     </div>
@@ -391,7 +391,7 @@
         <div class="step-num">2</div>
         <div class="step-connector"></div>
         <h3>Model each as a DAG</h3>
-        <p>One sparsi-go MCP server per request type. An AI node reads the request into
+        <p>One sparsi MCP server per request type. An AI node reads the request into
            structured facts; deterministic nodes call your order, fraud, shipping, and
            billing systems in a fixed sequence; an AI node drafts the response. Mostly
            code, a few AI nodes where judgment is unavoidable.</p>
@@ -423,7 +423,7 @@
     <div class="section-header">
       <span class="badge badge-orange">When the Match Is Wrong</span>
       <h2>True positives run cheap.<br>Everything else degrades gracefully.</h2>
-      <p>The LLM picks the tool, so it won't always pick right. sparsi-go is built for
+      <p>The LLM picks the tool, so it won't always pick right. sparsi is built for
          that: a misroute costs you almost nothing, and the request lands exactly where
          it would have without the tool.</p>
     </div>
@@ -794,7 +794,7 @@
 </section>
 
 <!-- ── CTA ──────────────────────────────────────────────────── -->
-<section class="section section--alt">
+<section class="section">
   <div class="container">
     <div class="cta-banner">
       <h2>Start with your top three request types</h2>

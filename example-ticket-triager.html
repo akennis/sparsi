@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Example 01: Ticket Triager — sparsi-go</title>
-  <meta name="description" content="A sparsi-go example that classifies support tickets with AI and routes them to category-specific extraction lanes.">
+  <meta name="description" content="A sparsi-go example that classifies support tickets with AI, routes them to category-specific extraction lanes, and — runnable as an MCP server — punts on 'other' tickets by returning a tool error to the calling agent.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +15,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
-      <span><span class="brand">sparsi</span>-go</span>
+      <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -53,8 +53,13 @@
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Customer Support Ticket Triager</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:1.5rem;">
         Reads a free-text support ticket, uses AI to classify it as billing / bug / feature / or other,
-        then routes it through a category-specific extraction lane. Each lane runs AI ops tailored to
-        its category and serializes the results into a structured JSON brief.
+        then routes it through a category-specific extraction lane. The billing, bug, and feature lanes
+        run AI ops tailored to their category and serialize the results into a structured JSON brief.
+        The <strong>"other" lane is intentionally unsupported</strong>: a ticket that classifies as
+        <code>other</code> aborts the run with an error rather than producing a brief — and when the
+        workflow is exposed over MCP, that error flows straight back to the calling agent as a tool
+        failure. It's a deliberate demonstration of an MCP server that <em>punts</em> on requests it
+        can't fulfil instead of faking an answer.
       </p>
 
       <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
@@ -62,9 +67,10 @@
         <ul class="feat-list">
           <li>The <strong>fan-out / predicate-gate / coalesce</strong> pattern — one classifier splits into N parallel lanes; exactly one fires per run</li>
           <li>How <strong>predicate-gated vertices</strong> prune entire lane subtrees when their condition is false (skip-propagation)</li>
-          <li><strong>CoalesceNStringOp</strong> for N-to-1 merging: returns the single non-nil wire result across all lanes</li>
-          <li>Writing <strong>custom ops</strong> by implementing the <code>Operator</code> interface for lane-specific JSON serialization</li>
-          <li>How the AI call count scales with routing: billing tickets spend 3 AI calls; bug tickets spend 4; not the sum of all lanes</li>
+          <li><strong>CoalesceNStringOp</strong> for N-to-1 merging: only the three supported lanes feed it; it returns the single non-nil wire</li>
+          <li>How a gated <strong>error-only op</strong> (<code>RejectOtherOp</code>) lets a workflow <strong>deliberately fail</strong> on inputs it shouldn't handle — and how that failure surfaces cleanly through the <strong>MCP tool boundary</strong> as a rejection the calling agent can act on</li>
+          <li>Per-vertex <strong>credential routing</strong> via a custom <code>AIClientFactory</code> — each AI op declares a <code>credential_ref</code> cost center so teams bill on their own API key</li>
+          <li>Running the same binary as a one-shot CLI <em>or</em> a stdio <strong>MCP server</strong> with <code>--mcp</code></li>
         </ul>
       </div>
 
@@ -82,7 +88,7 @@
     <div class="section-header">
       <span class="badge badge-blue">The DAG</span>
       <h2>Pipeline structure</h2>
-      <p>One AI classification step at the top splits into four parallel lanes. Only the lane whose predicate matches the category actually executes — the others are pruned by skip-propagation.</p>
+      <p>One AI classification step at the top splits into four parallel lanes. Only the lane whose predicate matches the category actually executes — the others are pruned by skip-propagation. Three lanes produce a brief and coalesce into one result; the fourth, <code>other</code>, runs a single op that fails the run on purpose.</p>
     </div>
 
     <!-- Pipeline flow diagram -->
@@ -102,14 +108,15 @@
           <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">billing lane</div>
           <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">bug lane</div>
           <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">feature lane</div>
-          <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:var(--blue-light); font-family:monospace; white-space:nowrap;">other lane</div>
+          <div style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.45); border-radius:var(--radius-md); padding:0.4rem 0.75rem; font-size:0.72rem; color:#f87171; font-family:monospace; white-space:nowrap;">other lane → error</div>
         </div>
         <div style="color:var(--text-3);">→</div>
         <div style="background:var(--blue-dim); border:1px solid rgba(59,130,246,0.4); border-radius:var(--radius-md); padding:0.6rem 0.9rem; text-align:center; font-size:0.75rem;">
           <div style="color:var(--blue-light); font-weight:700; font-family:monospace;">CoalesceN</div>
-          <div style="color:var(--text-3); margin-top:0.2rem;">merge 4→1</div>
+          <div style="color:var(--text-3); margin-top:0.2rem;">merge 3→1</div>
         </div>
       </div>
+      <p style="text-align:center; font-size:0.78rem; color:var(--text-3); margin:1rem 0 0;">The <code style="color:#f87171;">other</code> lane has no path into CoalesceN — when it fires, <code>RejectOtherOp</code> aborts the whole run before coalesce is ever reached.</p>
     </div>
 
     <div class="grid-2" style="gap:1.5rem; align-items:start;">
@@ -130,12 +137,16 @@
             <p style="font-size:0.875rem; margin:0;">A pass-through op with a <code>Condition</code> predicate. When the predicate is false, this vertex is skipped and skip-propagation prunes every downstream vertex in that lane — zero AI calls are made for the pruned lanes.</p>
           </div>
           <div>
-            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">EncodeBillingOp / EncodeBugOp / EncodeFeatureOp / EncodeOtherOp</p>
-            <p style="font-size:0.875rem; margin:0;">Custom ops that serialize lane-specific outputs into a JSON envelope. Pure Go — no AI calls.</p>
+            <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">EncodeBillingOp / EncodeBugOp / EncodeFeatureOp</p>
+            <p style="font-size:0.875rem; margin:0;">Custom ops that serialize each supported lane's outputs into a JSON envelope. Pure Go — no AI calls.</p>
+          </div>
+          <div>
+            <p style="font-size:0.8rem; font-weight:700; color:#f87171; margin-bottom:0.25rem; font-family:monospace;">RejectOtherOp</p>
+            <p style="font-size:0.875rem; margin:0;">The entire "other" lane. Its <code>Run</code> does nothing but <code>return errOtherUnsupported</code>. Sitting downstream of <code>gate_other</code>, skip-propagation prunes it for every supported category; when a ticket actually classifies as <code>other</code> the gate fires, this op runs, and the returned error aborts the whole graph.</p>
           </div>
           <div>
             <p style="font-size:0.8rem; font-weight:700; color:var(--blue-light); margin-bottom:0.25rem; font-family:monospace;">CoalesceNStringOp</p>
-            <p style="font-size:0.875rem; margin:0;">Scans four input wires and returns the first non-nil one. Since exactly one lane ran, exactly one wire is non-nil.</p>
+            <p style="font-size:0.875rem; margin:0;">Scans the three supported lane wires (<code>n: 3</code>) and returns the first non-nil one. Since exactly one of those lanes ran, exactly one wire is non-nil. The "other" lane never reaches here — it fails the run first.</p>
           </div>
         </div>
       </div>
@@ -164,8 +175,8 @@
             <p style="font-size:0.875rem; margin:0;">Summarises the requested feature in one sentence and scores its business impact. Both run in parallel.</p>
           </div>
           <div>
-            <p style="font-size:0.8rem; font-weight:700; color:var(--purple-light); margin-bottom:0.25rem; font-family:monospace;">Other lane: AIComputeStringToStringOp</p>
-            <p style="font-size:0.875rem; margin:0;">Generates a polite one-paragraph acknowledgement for anything that doesn't fit the other categories.</p>
+            <p style="font-size:0.8rem; font-weight:700; color:#f87171; margin-bottom:0.25rem; font-family:monospace;">Other lane: no AI</p>
+            <p style="font-size:0.875rem; margin:0;">The "other" lane spends <strong>zero AI calls past the classifier</strong>. It exists only to reject — <code>RejectOtherOp</code> fails the run, so an unsupported ticket never burns extraction tokens.</p>
           </div>
         </div>
       </div>
@@ -180,7 +191,7 @@
     <div class="section-header">
       <span class="badge badge-purple">Implementation</span>
       <h2>Walkthrough</h2>
-      <p>Four key patterns to study in <code>main.go</code>.</p>
+      <p>Five key patterns to study in <code>main.go</code>.</p>
     </div>
 
     <!-- Step 1: Predicate registration -->
@@ -242,21 +253,21 @@
 
     <!-- Step 3: CoalesceN -->
     <div style="margin-bottom:3rem;">
-      <h3 style="margin-bottom:0.5rem;">3. Merging four lanes into one result</h3>
-      <p style="margin-bottom:1.25rem;"><code>CoalesceNStringOp</code> takes N input wires and returns the first non-nil one. Because exactly one lane ran, exactly one encode op produced a non-nil wire. The <code>Merge(config.MergeCoalesce)</code> call tells the engine to wait for all inputs before evaluating, even though most will be nil (skipped).</p>
+      <h3 style="margin-bottom:0.5rem;">3. Merging the three supported lanes into one result</h3>
+      <p style="margin-bottom:1.25rem;"><code>CoalesceNStringOp</code> takes N input wires and returns the first non-nil one. Only the three <em>supported</em> lanes feed it (<code>n: 3</code>) — the "other" lane has no wire here because it fails the run before coalesce is reached. Because exactly one supported lane ran, exactly one encode op produced a non-nil wire. The <code>Merge(config.MergeCoalesce)</code> call tells the engine to wait for all inputs before evaluating, even though two will be nil (skipped).</p>
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-filename">main.go — buildGraph() (coalesce)</span>
         </div>
         <pre><code><span class="fn">Vertex</span>(<span class="st">"final"</span>).<span class="fn">Op</span>(<span class="st">"CoalesceNStringOp"</span>).
-    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">int</span>{<span class="st">"n"</span>: <span class="nu">4</span>}).
+    <span class="fn">Params</span>(map[<span class="ty">string</span>]<span class="ty">int</span>{<span class="st">"n"</span>: <span class="nu">3</span>}).
     <span class="fn">Merge</span>(config.MergeCoalesce).
     <span class="fn">Input</span>(<span class="st">"Input0"</span>, <span class="st">"billing_json"</span>).
     <span class="fn">Input</span>(<span class="st">"Input1"</span>, <span class="st">"bug_json"</span>).
     <span class="fn">Input</span>(<span class="st">"Input2"</span>, <span class="st">"feature_json"</span>).
-    <span class="fn">Input</span>(<span class="st">"Input3"</span>, <span class="st">"other_json"</span>).
-    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_brief"</span>).</code></pre>
+    <span class="fn">Output</span>(<span class="st">"Result"</span>, <span class="st">"final_brief"</span>).
+<span class="cm">// No Input for "other": that lane fails the run before this op.</span></code></pre>
       </div>
     </div>
 
@@ -290,22 +301,84 @@
       </div>
     </div>
 
+    <!-- Step 5: Deliberate rejection through the MCP boundary -->
+    <div style="margin-bottom:3rem;">
+      <h3 style="margin-bottom:0.5rem;">5. Deliberately failing — and punting through MCP</h3>
+      <p style="margin-bottom:1.25rem;">The "other" lane is the interesting one. There is no encode op and no AI extraction — just <code>RejectOtherOp</code>, gated on <code>lane_is_other</code>, whose only job is to <strong>error</strong>. For every supported category the gate is skipped and skip-propagation prunes this op so it never fires; when a ticket genuinely classifies as <code>other</code>, the gate fires, <code>Run</code> returns <code>errOtherUnsupported</code>, and the whole graph run aborts.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — RejectOtherOp</span>
+        </div>
+        <pre><code><span class="kw">var</span> errOtherUnsupported = errors.<span class="fn">New</span>(<span class="st">`ticket classified as "other": unsupported category`</span>)
+
+<span class="kw">func</span> (op *<span class="ty">RejectOtherOp</span>) <span class="fn">Run</span>(_ context.<span class="ty">Context</span>) <span class="ty">error</span> {
+    <span class="kw">return</span> errOtherUnsupported
+}</code></pre>
+      </div>
+      <p style="margin:1.25rem 0;">In CLI mode that aborted run exits the process non-zero. In <strong>MCP mode</strong> the tool handler catches it with <code>errors.Is</code> and returns it as a clean tool error — so the failure crosses the MCP boundary and lands back in the calling agent as a tool-call rejection it can read and act on, rather than a hung pipeline or a fabricated brief. This is the whole point of the example: <strong>an MCP server that punts on requests it can't fulfil.</strong></p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go — runMCPServer() handler</span>
+        </div>
+        <pre><code>res, err := <span class="fn">runWorkflow</span>(ctx, pool, in)
+<span class="kw">if</span> err != <span class="kw">nil</span> {
+    <span class="kw">if</span> errors.<span class="fn">Is</span>(err, errOtherUnsupported) {
+        <span class="kw">return</span> <span class="kw">nil</span>, <span class="kw">nil</span>, fmt.<span class="fn">Errorf</span>(
+            <span class="st">"this ticket was classified as \"other\" and cannot be triaged: "</span> +
+            <span class="st">"the triager supports only billing, bug, and feature tickets"</span>)
+    }
+    <span class="kw">return</span> <span class="kw">nil</span>, <span class="kw">nil</span>, err
+}
+<span class="kw">return</span> <span class="kw">nil</span>, res, <span class="kw">nil</span></code></pre>
+      </div>
+    </div>
+
     <!-- Run It -->
     <div>
       <h3 style="margin-bottom:0.5rem;">Run it</h3>
-      <p style="margin-bottom:1.25rem;">Four test tickets are included — one per category. The <code>ai_nodes</code> field in the output shows exactly which AI ops fired for that ticket type.</p>
+      <p style="margin-bottom:1.25rem;">Four test tickets are included — one per category. The <code>ai_nodes</code> field in the output shows exactly which AI ops fired for that ticket type. The first three produce a JSON brief and exit 0; <code>other.txt</code> is the deliberate failure case — it exits <strong>non-zero</strong> with <code>ticket classified as "other": unsupported category</code> and produces no brief. Pass a file with <code>--ticket</code>, or inline text with <code>--ticket-text</code>.</p>
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-filename">shell</span>
         </div>
-        <pre><code><span class="cm"># Set your API key</span>
+        <pre><code><span class="cm"># Set your API key (or a per-cost-center key, e.g. CLAUDE_API_KEY_BILLING)</span>
 <span class="kw">export</span> CLAUDE_API_KEY=&lt;your key&gt;
 
 go run ./examples/ticket-triager --ticket examples/ticket-triager/testdata/tickets/billing.txt
 go run ./examples/ticket-triager --ticket examples/ticket-triager/testdata/tickets/bug.txt
 go run ./examples/ticket-triager --ticket examples/ticket-triager/testdata/tickets/feature.txt
+
+<span class="cm"># Deliberate rejection: exits non-zero, no brief</span>
 go run ./examples/ticket-triager --ticket examples/ticket-triager/testdata/tickets/other.txt</code></pre>
+      </div>
+
+      <h3 style="margin:2.5rem 0 0.5rem;">Run it as an MCP server</h3>
+      <p style="margin-bottom:1.25rem;">The same binary is dual-mode. Pass <code>--mcp</code> and instead of running once and exiting it speaks the Model Context Protocol over stdin/stdout, exposing the entire DAG as a single MCP tool, <code>triage_ticket</code>. The Go SDK derives the tool's input schema from the workflow's <code>UserInput</code> struct and validates every <code>tools/call</code> request against it. A supported ticket returns the structured brief as the tool result; an <code>other</code> ticket returns a tool <strong>error</strong> — the calling agent sees "this ticket was classified as 'other' and cannot be triaged" and can re-route or ask the user, exactly as it would for any tool that declines a request.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">shell</span>
+        </div>
+        <pre><code><span class="cm"># Speak MCP over stdin/stdout instead of running once</span>
+go run ./examples/ticket-triager --mcp</code></pre>
+      </div>
+      <p style="margin:1.25rem 0 0;">Register it with any MCP client by pointing the client at that command:</p>
+      <div class="code-block" style="margin-top:0.75rem;">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">.mcp.json</span>
+        </div>
+        <pre><code>{
+  <span class="st">"mcpServers"</span>: {
+    <span class="st">"ticket-triager"</span>: {
+      <span class="st">"command"</span>: <span class="st">"go"</span>,
+      <span class="st">"args"</span>: [<span class="st">"run"</span>, <span class="st">"./examples/ticket-triager"</span>, <span class="st">"--mcp"</span>]
+    }
+  }
+}</code></pre>
       </div>
     </div>
 

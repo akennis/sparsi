@@ -15,7 +15,7 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
-      <span><span class="brand">sparsi</span>-go</span>
+      <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -1010,6 +1010,60 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
         </div>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Go ───────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">Why Go</span>
+      <h2>Go power and reliability<br>in your micro-services landscape</h2>
+      <p>A sparsi DAG lives inside your service mesh, not beside it. Every deterministic
+         node is plain Go reaching out over the wire — so the workflow connects to any
+         modern endpoint you already run, with the type safety and concurrency that keep
+         it dependable under load.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon icon-orange">🔌</div>
+        <h3>Speaks every protocol in your stack</h3>
+        <p>A deterministic op is just Go calling a service: REST and JSON over HTTP/2,
+           gRPC and Protobuf, GraphQL, Kafka or NATS, S3, SQL and Redis — anything with a
+           Go client or a wire format you can wrap. <code>IOHTTPGetOp</code> and
+           <code>MCPCallOp</code> ship in the box; a custom op for an internal endpoint is
+           a few dozen lines. No sidecar, no translation tier — the DAG dials your
+           micro-services directly.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">🔑</div>
+        <h3>Enterprise auth the mesh expects</h3>
+        <p>First-class JWT, OAuth2 / OIDC, mTLS, and request signing — the same
+           mechanisms your services already gate on. Pair it with <code>AIClientFactory</code>
+           to pull credentials from Vault, AWS Secrets Manager, or workload identity, and
+           a node authenticates to a downstream API exactly the way the rest of your fleet
+           does — a library call, not a research project.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">🛡️</div>
+        <h3>Reliable codegen, reliable runtime</h3>
+        <p>Static typing catches generated workflow code at compile time, before a single
+           request runs. Garbage collection removes a whole class of memory bugs.
+           Goroutines make the DAG's parallel fan-out across services cheap and safe —
+           concurrency you can trust without hand-managed threads, on a single static
+           binary that drops cleanly into any container or VM.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--blue-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The point:</strong> sparsi doesn't ask your architecture to change around
+        it. It fits into the micro-services landscape you already operate — same
+        protocols, same auth, same deployment unit — and Go is what makes that fit
+        reliable instead of fragile.
+      </p>
     </div>
   </div>
 </section>

@@ -228,6 +228,13 @@ nav {
 
 .yes { color: var(--green); font-weight: 600; }
 .no  { color: var(--red);   font-weight: 600; }
+.na  { color: var(--text-3); font-weight: 600; }
+.comparison tr.cmp-group td {
+  background: var(--bg-2); color: var(--text-2);
+  font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.625rem 1.25rem;
+}
 
 /* ── Code block ──────────────────────────────────────────── */
 
@@ -286,6 +293,13 @@ pre code { background: none; padding: 0; }
 .feat-list li { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.9375rem; color: var(--text-2); }
 .feat-list li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
 
+/* "What this example teaches" callout — more readable than muted body text */
+.teaches { padding: 1.75rem !important; }
+.teaches > p:first-child { padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.teaches .feat-list { gap: 0.875rem; }
+.teaches .feat-list li { display: block; position: relative; padding-left: 1.5rem; font-size: 1rem; line-height: 1.65; color: var(--text-1); }
+.teaches .feat-list li::before { position: absolute; left: 0; top: 0; }
+
 .check-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
 .check-list li { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.9375rem; color: var(--text-2); }
 .check-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
@@ -310,7 +324,57 @@ pre code { background: none; padding: 0; }
 .tag-det { background: var(--blue-dim);   color: var(--blue-light);   }
 .tag-ai  { background: var(--purple-dim); color: var(--purple-light); }
 
-/* ── DAG diagram container ────────────────────────────────── */
+/* ── Decision line (code vs AI, paired rows) ─────────────── */
+
+.decision-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.dl-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1.25rem 1rem;
+}
+.dl-head h3 { margin: 0; font-size: 1.0625rem; }
+.dl-head-det { background: rgba(59,130,246,0.08);  border-bottom: 1px solid rgba(59,130,246,0.2); }
+.dl-head-ai  { background: rgba(139,92,246,0.08);  border-bottom: 1px solid rgba(139,92,246,0.2); }
+.dl-cell { padding: 0.6rem 1rem; }
+.dl-cell-det { background: rgba(59,130,246,0.04); }
+.dl-cell-ai  { background: rgba(139,92,246,0.04); }
+.dl-head-det, .dl-cell-det { border-right: 1px solid var(--border); }
+.dl-tile {
+  height: 100%; box-sizing: border-box;
+  padding: 0.875rem 1rem;
+  background: var(--bg-2); border-radius: var(--radius-md);
+}
+.dl-tile h4 { margin: 0 0 0.3rem; font-size: 0.8125rem; font-weight: 700; }
+.dl-tile p  { margin: 0; font-size: 0.875rem; }
+.dl-tile-det h4 { color: var(--blue-light); }
+.dl-tile-ai  h4 { color: var(--purple-light); }
+.dl-ops {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.6rem;
+  margin-top: 0.7rem; padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+.dl-ops-label {
+  font-size: 0.625rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.dl-ops a {
+  font-family: monospace; font-size: 0.75rem;
+  color: var(--purple-light); text-decoration: none;
+}
+.dl-ops a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .decision-line { grid-template-columns: 1fr; }
+  .dl-head-det, .dl-cell-det { border-right: none; }
+}
+
+/* ── Workflow diagram container ───────────────────────────── */
 
 .dag-wrap {
   background: var(--bg-0); border: 1px solid var(--border);

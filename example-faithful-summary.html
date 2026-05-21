@@ -14,7 +14,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi workflow - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
       <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
@@ -72,14 +72,14 @@
         </p>
       </div>
 
-      <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+      <div class="teaches" style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); margin-bottom:1.5rem;">
         <p style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange-light); margin-bottom:0.75rem;">What this example teaches</p>
         <ul class="feat-list">
           <li>The <strong>cross-model verification pattern</strong>: using one model to generate and a different, independent model to audit the output</li>
           <li>How to set <code>provider</code> and <code>model</code> parameters <strong>per vertex</strong> — each op selects its own model, independent of the rest of the graph</li>
           <li>Wiring a <strong>custom deterministic op</strong> (<code>FormatFaithfulnessCheckOp</code>) to prepare the verification prompt without burning any tokens</li>
           <li>Using <code>AIBoolOp</code> as a typed binary verdict: the tightest possible AI call, with an output budget of ~2 tokens</li>
-          <li>How two AI calls from different providers compose cleanly in a single DAG — no special framework support needed beyond the param fields</li>
+          <li>How two AI calls from different providers compose cleanly in a single workflow — no special framework support needed beyond the param fields</li>
         </ul>
       </div>
 
@@ -91,11 +91,11 @@
   </div>
 </section>
 
-<!-- ── The DAG ──────────────────────────────────────────────── -->
+<!-- ── The workflow ──────────────────────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-blue">The DAG</span>
+      <span class="badge badge-blue">The workflow</span>
       <h2>Pipeline structure</h2>
       <p>Four vertices. One model generates; one deterministic op formats; a second model verifies. The boundary between providers is explicit in the graph topology.</p>
     </div>
@@ -134,7 +134,7 @@
 
       </div>
       <p style="font-size:0.75rem; color:var(--text-3); text-align:center; margin-top:1.25rem; font-style:italic;">
-        The source wire feeds both the summarize op and the format_check op — DAG parallelism is free, wiring is explicit.
+        The source wire feeds both the summarize op and the format_check op — workflow parallelism is free, wiring is explicit.
       </p>
     </div>
 
@@ -301,7 +301,7 @@ go run . --text <span class="st">"The quick brown fox…"</span></code></pre>
       </div>
 
       <h3 style="margin:2.5rem 0 0.5rem;">Run it as an MCP server</h3>
-      <p style="margin-bottom:1.25rem;">The same binary is dual-mode. Pass <code>--mcp</code> and instead of running once and exiting it speaks the Model Context Protocol over stdin/stdout, exposing the entire DAG as a single MCP tool, <code>summarize_and_verify</code>. The Go SDK derives the tool's input schema from the workflow's <code>UserInput</code> struct and validates every <code>tools/call</code> request against it, so an agent drives the whole Claude-summarise → Gemini-verify pipeline with one tool call.</p>
+      <p style="margin-bottom:1.25rem;">The same binary is dual-mode. Pass <code>--mcp</code> and instead of running once and exiting it speaks the Model Context Protocol over stdin/stdout, exposing the entire workflow as a single MCP tool, <code>summarize_and_verify</code>. The Go SDK derives the tool's input schema from the workflow's <code>UserInput</code> struct and validates every <code>tools/call</code> request against it, so an agent drives the whole Claude-summarise → Gemini-verify pipeline with one tool call.</p>
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
@@ -355,7 +355,7 @@ go run ./examples/faithful-summary --mcp</code></pre>
       <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
         <strong>The broader principle:</strong> any time model A produces output that model A would be biased to approve,
-        route the approval step to model B. The cross-model separation is a one-line param change in the DAG.
+        route the approval step to model B. The cross-model separation is a one-line param change in the workflow.
       </p>
     </div>
   </div>
@@ -419,7 +419,7 @@ go run ./examples/faithful-summary --mcp</code></pre>
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi DAG"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi workflow"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
       <span>sparsi-go</span>
     </div>
     <ul class="footer-links">

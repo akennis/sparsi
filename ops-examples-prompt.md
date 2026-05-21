@@ -2,7 +2,7 @@
 
 You are updating the sparsi.ai website. Each HTML file in
 `/mnt/c/Users/albert.kennis/projects/sparsi.ai/ops/` has a "Graph Config Example"
-section showing a partial DAG builder snippet. Your job is to replace every such section
+section showing a partial DAG workflow builder snippet. Your job is to replace every such section
 with a "Complete Runnable Example" — a full, standalone Go program that compiles and runs.
 
 `ai-bool.html` is already done and serves as the reference. Do not touch it.

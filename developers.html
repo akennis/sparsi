@@ -14,7 +14,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi workflow - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
       <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
@@ -46,7 +46,7 @@
         AI used only where genuine judgment is required.
       </p>
       <p style="font-size:1.0625rem; margin-bottom:2rem; color:var(--text-2);">
-        Concretely, that's a DAG: ops are plain Go structs, wires are typed values, and
+        Concretely, that's a DAG workflow: ops are plain Go structs, wires are typed values, and
         the engine handles dependency resolution, parallelism, and skip-propagation. You
         write the logic — this page is the how.
       </p>
@@ -79,7 +79,7 @@
       </div>
       <div class="card" style="border-color:rgba(139,92,246,0.35);">
         <h3 style="font-size:1rem;">⚙️ AI operations <span style="font-weight:400; color:var(--text-3); font-size:0.8125rem;">— inside the workflow</span></h3>
-        <p style="font-size:0.9375rem; margin:0;">DAG vertices that interpret, transform, or route where no deterministic rule exists. Model-pinned, typed, logged. The graph invokes these — the agent never does.</p>
+        <p style="font-size:0.9375rem; margin:0;">Workflow vertices that interpret, transform, or route where no deterministic rule exists. Model-pinned, typed, logged. The graph invokes these — the agent never does.</p>
       </div>
     </div>
     <p style="font-size:0.875rem; color:var(--text-3); text-align:center; margin:1.5rem 0 0;">
@@ -171,7 +171,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
           <span style="font-size:1.75rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7; line-height:1;">1</span>
           <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/sparsi-design</code></h3>
         </div>
-        <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Describe your task in plain English. The skill reads the full operator library and design rules, picks the most structurally similar example, then produces a structured DAG design — ASCII diagram, vertex list, predicates, and rationale.</p>
+        <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Describe your task in plain English. The skill reads the full operator library and design rules, picks the most structurally similar example, then produces a structured DAG workflow design — ASCII diagram, vertex list, predicates, and rationale.</p>
         <ul class="feat-list">
           <li>Maximises deterministic ops; AI only where necessary</li>
           <li>Iterative — refine the design before generating any code</li>
@@ -325,7 +325,7 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
       </div>
       <div class="card">
         <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
-          <span class="tag" style="background:rgba(249,115,22,0.12);color:var(--orange-light);">DAG</span>
+          <span class="tag" style="background:rgba(249,115,22,0.12);color:var(--orange-light);">DAG workflow</span>
           <h3 style="margin:0;">The Graph</h3>
         </div>
         <p style="margin-bottom:1rem;">Vertices wired by named values (<em>wires</em>). The dagor engine resolves
@@ -353,7 +353,7 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
          using exactly the right AI calls and nothing more.</p>
     </div>
 
-    <!-- DAG diagram -->
+    <!-- workflow diagram -->
     <div class="dag-wrap" style="margin-bottom:2.5rem;">
       <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="max-width:760px; width:100%;">
         <defs>
@@ -722,7 +722,7 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <h3>Predicates <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">19 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Float, int, and string comparisons that produce a <code>bool</code> wire — the primary input for DAG branch conditions.</p>
+        <p style="margin-bottom:0.875rem;">Float, int, and string comparisons that produce a <code>bool</code> wire — the primary input for workflow branch conditions.</p>
         <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
           <a href="ops/pred-iffloatgt.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">IfFloatGt/Lt/Eq…</a>
           <a href="ops/pred-ifintgt.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">IfIntGt/Lt/Eq…</a>
@@ -967,7 +967,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
   <div class="container">
     <div class="section-header">
       <span class="badge badge-purple">Beyond the basics</span>
-      <h2>Capabilities that compose with the DAG you just built</h2>
+      <h2>Capabilities that compose with the DAG workflow you just built</h2>
       <p>The same operator pattern extends to four advanced surfaces. Each has its own concept
         guide and at least one worked example.</p>
     </div>
@@ -978,7 +978,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
         <div class="card" style="height:100%;">
           <div class="card-icon icon-purple">🛰️</div>
           <h3>MCP integration</h3>
-          <p style="font-size:0.9375rem;">Call any <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> tool — local stdio subprocess or remote streamable HTTP — as a regular DAG vertex. <code>MCPCallOp</code> for one-shot calls; <code>MCPScriptOp</code> for stateful multi-call sessions. Warm-replenish pooling keeps cold-start off the critical path.</p>
+          <p style="font-size:0.9375rem;">Call any <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> tool — local stdio subprocess or remote streamable HTTP — as a regular workflow vertex. <code>MCPCallOp</code> for one-shot calls; <code>MCPScriptOp</code> for stateful multi-call sessions. Warm-replenish pooling keeps cold-start off the critical path.</p>
           <p style="font-size:0.8125rem; color:var(--text-3); margin-top:0.75rem;">Worked examples: <a href="example-local-mcp-server.html">Playwright fan-out</a>, <a href="example-remote-mcp-server.html">Cloudflare docs search</a>.</p>
         </div>
       </a>
@@ -1020,7 +1020,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     <div class="section-header">
       <span class="badge badge-blue">Why Go</span>
       <h2>Go power and reliability<br>in your micro-services landscape</h2>
-      <p>A sparsi DAG lives inside your service mesh, not beside it. Every deterministic
+      <p>A sparsi DAG workflow lives inside your service mesh, not beside it. Every deterministic
          node is plain Go reaching out over the wire — so the workflow connects to any
          modern endpoint you already run, with the type safety and concurrency that keep
          it dependable under load.</p>
@@ -1033,7 +1033,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
            gRPC and Protobuf, GraphQL, Kafka or NATS, S3, SQL and Redis — anything with a
            Go client or a wire format you can wrap. <code>IOHTTPGetOp</code> and
            <code>MCPCallOp</code> ship in the box; a custom op for an internal endpoint is
-           a few dozen lines. No sidecar, no translation tier — the DAG dials your
+           a few dozen lines. No sidecar, no translation tier — the workflow dials your
            micro-services directly.</p>
       </div>
       <div class="card">
@@ -1050,7 +1050,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
         <h3>Reliable codegen, reliable runtime</h3>
         <p>Static typing catches generated workflow code at compile time, before a single
            request runs. Garbage collection removes a whole class of memory bugs.
-           Goroutines make the DAG's parallel fan-out across services cheap and safe —
+           Goroutines make the workflow's parallel fan-out across services cheap and safe —
            concurrency you can trust without hand-managed threads, on a single static
            binary that drops cleanly into any container or VM.</p>
       </div>
@@ -1086,7 +1086,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi DAG"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi workflow"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
       <span>sparsi-go</span>
     </div>
     <ul class="footer-links">

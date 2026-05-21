@@ -78,7 +78,7 @@
             <tbody><tr><td style="padding:0.6rem 1rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>map</code></td><td style="padding:0.6rem 1rem;border-bottom:1px solid rgba(31,45,69,.5);"><code>string</code></td><td style="padding:0.6rem 1rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-3);">'{}'</td><td style="padding:0.6rem 1rem;border-bottom:1px solid rgba(31,45,69,.5);color:var(--text-2);">JSON key→value lookup table</td></tr></tbody>
           </table>
         </div></div>
-      <div><h3 style="margin-bottom:0.875rem;">Typical Use Cases</h3><ul class="feat-list" style="margin-bottom:1.5rem;"><li>Code-to-label translation (status code to message)</li><li>Static routing tables in DAG config</li><li>Config-driven string substitution</li></ul><div class="card" style="margin-top:1rem;"><p><strong>Returns empty string on miss.</strong> Use <code>IfEmptyStringOp</code> downstream to detect and handle missing keys.</p></div></div>
+      <div><h3 style="margin-bottom:0.875rem;">Typical Use Cases</h3><ul class="feat-list" style="margin-bottom:1.5rem;"><li>Code-to-label translation (status code to message)</li><li>Static routing tables in workflow config</li><li>Config-driven string substitution</li></ul><div class="card" style="margin-top:1rem;"><p><strong>Returns empty string on miss.</strong> Use <code>IfEmptyStringOp</code> downstream to detect and handle missing keys.</p></div></div>
     </div>
     <h3 style="margin-top:2.5rem;margin-bottom:1rem;">Complete Runnable Example</h3>
     <p style="color:var(--text-2);margin-bottom:1rem;">Translates a locale code like "fr" to its full language name for display in the UI.</p>

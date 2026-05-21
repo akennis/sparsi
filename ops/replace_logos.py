@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Replace inline nav-logo and footer-logo SVGs in all HTML files with the new DAG logo."""
+"""Replace inline nav-logo and footer-logo SVGs in all HTML files with the new sparsi workflow logo."""
 import glob, os, re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 
-# Layered DAG: L1(x=14, 2 det) -> L2(x=38, 3 det) -> L3(x=62, 2 AI) -> L4(x=86, 1 AI).
+# Layered sparsi workflow: L1(x=14, 2 det) -> L2(x=38, 3 det) -> L3(x=62, 2 AI) -> L4(x=86, 1 AI).
 # Edges are pre-shortened so they sit between node circumferences (radius 8).
 NAV_SVG = (
-    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers">'
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi workflow - 3 AI nodes distributed across left and middle layers">'
     '<defs>'
     '<radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient>'
     '<radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient>'
@@ -36,10 +36,10 @@ NAV_SVG = (
     '</svg>'
 )
 
-# Footer DAG: identical topology with separate gradient IDs so it can coexist with the
+# Footer sparsi workflow: identical topology with separate gradient IDs so it can coexist with the
 # nav-logo on the same page; no glow filter (visual is too small to benefit).
 FOOTER_SVG = (
-    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi DAG">'
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi workflow">'
     '<defs>'
     '<radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient>'
     '<radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient>'

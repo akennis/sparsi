@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sparsi — Capture the 80% of Agentic Requests That Already Follow a Known Path</title>
-  <meta name="description" content="Most end-user agentic requests follow a finite set of action paths through systems you already have. sparsi lets you package each common request type as one deterministic, auditable MCP tool — and gracefully hands back anything it can't safely handle.">
+  <title>Sparsi — Higher-Level MCP Tools for Agents</title>
+  <meta name="description" content="Sparsi packages repeating agentic requests as MCP servers — internal workflows that are deterministic where the path is fixed, with AI only where judgment counts. Each workflow's AI runs on models you pin separately from the calling agent, so you can mix models per workflow for maximum efficiency and effectiveness.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi DAG - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi workflow - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
       <span><span class="brand">sparsi</span></span>
     </a>
     <ul class="nav-links">
@@ -34,46 +34,47 @@
   </div>
 </nav>
 
-<!-- ── Skills nudge strip ───────────────────────────────────── -->
-<div style="background:linear-gradient(90deg,rgba(139,92,246,0.13) 0%,rgba(249,115,22,0.08) 100%); border-bottom:1px solid rgba(139,92,246,0.22); padding:0.625rem 0; text-align:center;">
-  <div class="container">
-    <p style="margin:0; font-size:0.875rem; color:var(--text-1); line-height:1.5;">
-      <span style="color:var(--purple-light); font-weight:600;">Claude Code users:</span>
-      try <code>/sparsi-design</code> and <code>/sparsi-codegen</code> — AI-assisted workflow design &amp; codegen in your editor.
-      <a href="developers.html#skills" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Install the skills →</a>
-    </p>
-  </div>
-</div>
-
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-eyebrow">
-          <span class="badge badge-orange">The 80% Already Follows a Known Path</span>
+          <span class="badge badge-orange">For developers building enterprise agents</span>
         </div>
         <h1 class="hero-title">
-          Capture the Agentic Requests<br>
-          That <span class="hi-o">Already</span> Have a <span class="hi-p">Known Path</span>
+          Build higher-level <span class="hi-o">agentic tools</span><br>
+          with the <span class="hi-p">Sparsi</span> framework
         </h1>
         <p class="hero-desc">
-          Most things your users ask an agent to do — "return this," "where's my order,"
-          "change my plan" — aren't open-ended. They follow a finite set of action paths
-          through systems you already run. sparsi lets you package each common request
-          type as <strong>one deterministic MCP tool</strong>: AI understands the ask, plain
-          code does the work, and anything it can't safely handle is handed straight back to
-          the agent. Capture the predictable 80%; let the long tail stay on the flexible path.
+          <strong>Sparsi is a framework for building AI-powered MCP servers</strong> —
+          compiled workflows that optimize agents for common requests, reserving deep
+          thinking for the long tail. A DAG engine and a large library of deterministic
+          and AI operations let you wire your existing services — in any language — into
+          agentic tools, with determinism, reliability, and observability built in.
         </p>
+        <p style="font-size:0.875rem; color:var(--text-2); margin:0.875rem 0 0;">
+          Workflows orchestrate services in <strong style="color:var(--text-1);">any
+          language</strong>. You design them in plain English and the codegen skills
+          generate the <strong style="color:var(--text-1);">sparsi-go</strong> program —
+          the Go runtime ships today, with more authoring runtimes (TypeScript next) on
+          the roadmap.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin:1.25rem 0 1.5rem;">
+          <span style="font-size:0.75rem; font-weight:600; color:var(--text-2); background:var(--bg-3); border:1px solid var(--border); border-radius:999px; padding:0.3rem 0.75rem;">✓ Deterministic by default</span>
+          <span style="font-size:0.75rem; font-weight:600; color:var(--text-2); background:var(--bg-3); border:1px solid var(--border); border-radius:999px; padding:0.3rem 0.75rem;">✓ Audit record per AI call</span>
+          <span style="font-size:0.75rem; font-weight:600; color:var(--text-2); background:var(--bg-3); border:1px solid var(--border); border-radius:999px; padding:0.3rem 0.75rem;">✓ Bounded token cost</span>
+          <span style="font-size:0.75rem; font-weight:600; color:var(--text-2); background:var(--bg-3); border:1px solid var(--border); border-radius:999px; padding:0.3rem 0.75rem;">✓ Unit-testable, no API key</span>
+        </div>
         <div class="hero-actions">
-          <a href="developers.html" class="btn btn-primary">Get Started</a>
+          <a href="#get-started" class="btn btn-primary">Get Started</a>
           <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
-          <a href="leaders.html" class="btn btn-secondary hide-sm">For Leaders →</a>
+          <a href="developers.html" class="btn btn-secondary hide-sm">Developer Docs →</a>
         </div>
       </div>
       <div class="hero-visual">
-        <!-- Hero illustration: a DAG with 5 deterministic nodes and 3 AI nodes -->
-        <svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A DAG with 5 deterministic nodes and 3 AI nodes flowing left to right">
+        <!-- Hero illustration: a workflow with 5 deterministic nodes and 3 AI nodes -->
+        <svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A workflow with 5 deterministic nodes and 3 AI nodes flowing left to right">
           <defs>
             <radialGradient id="h-det" cx="38%" cy="35%" r="62%">
               <stop offset="0%"   stop-color="#93c5fd"/>
@@ -169,25 +170,67 @@
           </g>
 
           <!-- Caption -->
-          <text x="280" y="362" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.08em">1 request type &#183; 1 DAG &#183; mostly deterministic, a few AI ops</text>
+          <text x="280" y="362" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.08em">1 request type &#183; 1 workflow &#183; mostly deterministic, a few AI ops</text>
         </svg>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Core insight pull-quote ─────────────────────────────── -->
-<div style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 0;">
-  <div class="container" style="text-align:center; max-width:820px;">
-    <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8;">
-      "A general agent treats every request as a novel problem to reason through from
-      scratch. But your users mostly ask for the same handful of things — and each one
-      already has a fixed path through systems you built years ago.
-      <strong>sparsi captures that path once</strong>, so the common case runs like code
-      and only the genuine exceptions reach the model."
+<!-- ── Skills nudge strip ───────────────────────────────────── -->
+<div style="background:linear-gradient(90deg,rgba(139,92,246,0.13) 0%,rgba(249,115,22,0.08) 100%); border-top:1px solid rgba(139,92,246,0.22); border-bottom:1px solid rgba(139,92,246,0.22); padding:0.625rem 0; text-align:center;">
+  <div class="container">
+    <p style="margin:0; font-size:0.875rem; color:var(--text-1); line-height:1.5;">
+      <span style="color:var(--purple-light); font-weight:600;">Skill users:</span>
+      try <code>/sparsi-design</code> and <code>/sparsi-codegen</code> — AI-assisted workflow design &amp; codegen in your editor.
+      <a href="#get-started" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Get started →</a>
     </p>
   </div>
 </div>
+
+<!-- ── The architectural shift: interpreted vs compiled ─────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">The Architectural Shift</span>
+      <h2>Your agent interprets.<br>Sparsi compiles.</h2>
+      <p>The difference between an interpreter and a compiler is <em>when</em> the
+         work happens — on every run, or just once. <strong>Today's agents are
+         interpreters: they re-derive the same routine on every request.</strong>
+         Sparsi gives them the build step they never had.</p>
+    </div>
+
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+
+      <div class="card">
+        <div class="card-icon icon-blue">🔁</div>
+        <h3>Interpreted: re-planned every request</h3>
+        <p><strong>Re-derived from scratch, every single request.</strong> Your
+           agent takes the same goal and rebuilds the whole routine from
+           primitives — <code>search</code>, <code>fetch</code>, <code>read</code>,
+           <code>write</code>, <code>call</code> — stitching them together each
+           time it runs. Nothing carries over between runs. So every time a user
+           asks <em>"where's my order?"</em> the plan is built fresh, and you pay
+           the reasoning cost again in tokens, in latency, and in a fresh chance
+           to get it wrong.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">⚡</div>
+        <h3>Compiled: planned once, run many</h3>
+        <p><strong>Authored once, then replayed.</strong> A compiler pays the
+           stitching cost a single time, at build time, and every run after gets
+           the result for free. Sparsi is that build step for agents: you author
+           the routine once — classify the ask, route through the right channel,
+           hit your systems in order, write the reply — and Sparsi compiles it
+           into a fixed DAG. Every request after runs that compiled path instead
+           of re-deriving it — less work, fewer tokens, right more often. The
+           long tail still falls through to the primitives, exactly as today.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ── Architecture: how a request flows ────────────────────── -->
 <section class="section section--alt">
@@ -198,11 +241,14 @@
       <p>The user talks to your chatbot. The agent LLM recognizes the intent and forwards
          it to a sparsi MCP server. Inside, an AI classifier routes the request through
          deterministic channels; a final AI node writes the reply, which the agent relays
-         back. One boundary, crossed twice — and nothing else leaks across it.</p>
+         back. The diagram below shows the minimum useful shape — one AI op upstream, one
+         downstream — but a workflow can place additional AI nodes <em>anywhere</em> along
+         the path wherever a step genuinely needs language understanding or judgment. One
+         boundary, crossed twice — and nothing else leaks across it.</p>
     </div>
 
     <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="A user talks to a chatbot; the agent LLM forwards the request across the MCP boundary into a sparsi-go DAG that starts with an AI classifier, routes through deterministic channels, and ends in an AI synthesizer whose natural-language response is relayed back through the agent LLM to the user">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="A user talks to a chatbot; the agent LLM forwards the request across the MCP boundary into a sparsi workflow that starts with an AI classifier, routes through deterministic channels, and ends in an AI synthesizer whose natural-language response is relayed back through the agent LLM to the user">
         <defs>
           <radialGradient id="a-det" cx="38%" cy="35%" r="62%">
             <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
@@ -233,7 +279,7 @@
 
         <!-- ── sparsi container ─────────────────────────────────── -->
         <rect x="322" y="58" width="648" height="384" rx="16" fill="rgba(139,92,246,0.045)" stroke="rgba(139,92,246,0.28)"/>
-        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">sparsi MCP server &#183; one DAG</text>
+        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">sparsi MCP server &#183; one workflow</text>
 
         <!-- ── Forward edges ────────────────────────────────────── -->
         <g stroke="#64748b" stroke-width="1.8" fill="none">
@@ -305,7 +351,7 @@
         <!-- ── Captions ─────────────────────────────────────────── -->
         <g font-family="monospace" text-anchor="middle" fill="#64748b" font-size="10.5">
           <text x="402" y="298">AI classifier &#8212; routes the request</text>
-          <text x="607" y="118">deterministic channel</text>
+          <text x="607" y="118">deterministic channel &#8212; AI ops can appear here too</text>
           <text x="607" y="380">deterministic channel (one or more)</text>
           <text x="830" y="298">AI synthesizes the reply</text>
         </g>
@@ -317,53 +363,24 @@
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
         <strong>The agent LLM and sparsi's node models are different models.</strong>
         The chatbot's model only ever sees a tool call and a finished natural-language
-        reply. The classifier and synthesizer inside the DAG run on their own
-        independently pinned models — chosen, versioned, and audited per workflow. The
-        boundary is real: no prompts, no scratchpad, no intermediate state crosses it in
-        either direction.
+        reply. Inside the workflow, sparsi embeds its own AI with a purpose-fit model at
+        each point — a cheap classifier here, a strong synthesizer there, an independent
+        checker where it earns its keep — each chosen, versioned, and audited per
+        workflow. The boundary is real: no prompts, no scratchpad, no intermediate state
+        crosses it in either direction.
       </p>
     </div>
-  </div>
-</section>
 
-<!-- ── Most requests aren't open-ended ───────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-orange">The Observation</span>
-      <h2>Most agentic requests<br>aren't actually open-ended</h2>
-      <p>A customer says <em>"I want to return this."</em> That isn't a novel problem —
-         it's a known path. The only genuinely open part is understanding the ask and
-         handling the edges. Everything else is your existing systems, called in a
-         fixed order.</p>
-    </div>
-
-    <div class="grid-2" style="gap:2rem; align-items:stretch;">
-
-      <div class="card">
-        <div class="card-icon icon-purple">🧠</div>
-        <h3>What actually needs judgment</h3>
-        <p>Reading a free-form message into structured intent — <em>is this a return, an
-           exchange, or a complaint?</em> — and writing the reply back. That's a thin
-           slice of AI at the front and the end. Two ops, not twenty.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-blue">🔒</div>
-        <h3>What's just your systems, in order</h3>
-        <p>Look up the order history. Run the fraud check. Apply return policy. Create
-           the shipping label. Post the accounting entry. Each is a deterministic call
-           to a system you already own — the same way, every time.</p>
-      </div>
-
-    </div>
-
-    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">→</span>
+    <div style="margin-top:1rem; background:var(--bg-2); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">➕</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        Returns, order status, plan changes, cancellations, address updates — a short
-        list of request types covers the large majority of what users ask. Each one is a
-        recognizable path you can capture once and run forever.
+        <strong>Use as much AI as the request type actually needs.</strong> The
+        classifier-then-synthesizer shape above is the minimum; it isn't a cap. A workflow
+        can drop an AI node mid-channel to extract a structured value from prose, ask a
+        semantic yes/no before a branch, score relevance, or have an independent model
+        cross-check a prior AI step. Each extra AI op gets the same treatment as the
+        first — its own pinned model, its own prompt, its own audit record — so adding
+        flexibility doesn't dilute determinism elsewhere in the path.
       </p>
     </div>
   </div>
@@ -376,7 +393,7 @@
       <span class="badge badge-purple">How You Adopt It</span>
       <h2>The path to using sparsi</h2>
       <p>You don't rewrite your agent. You peel the predictable request types off it,
-         one at a time, and give each its own deterministic tool.</p>
+         one at a time, and give each its own determinism-geared tool.</p>
     </div>
     <div class="steps">
       <div class="step">
@@ -390,7 +407,7 @@
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-connector"></div>
-        <h3>Model each as a DAG</h3>
+        <h3>Model each as a workflow</h3>
         <p>One sparsi MCP server per request type. An AI node reads the request into
            structured facts; deterministic nodes call your order, fraud, shipping, and
            billing systems in a fixed sequence; an AI node drafts the response. Mostly
@@ -400,9 +417,9 @@
         <div class="step-num">3</div>
         <div class="step-connector"></div>
         <h3>Test it like code</h3>
-        <p>Because the path is deterministic, you unit-test it without ever calling a
-           model. Pin the AI nodes, replay real requests, and you know exactly how it
-           behaves before it ever reaches a user.</p>
+        <p>Because everything but the AI nodes is deterministic — and you pin those — you
+           unit-test it without ever calling a model. Replay real requests, and you know
+           exactly how it behaves before it ever reaches a user.</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
@@ -433,15 +450,15 @@
       <div class="card" style="border-color:rgba(34,197,94,0.35);">
         <div class="card-icon icon-green">✓</div>
         <h3>True positive</h3>
-        <p>The request really is this type. It runs through the DAG deterministically —
+        <p>The request really is this type. It runs through the workflow along a fixed path —
            low, bounded token cost, every step logged, the same path every time. This is
-           the 80% you came for.</p>
+           the routine path you came for.</p>
       </div>
 
       <div class="card" style="border-color:rgba(249,115,22,0.35);">
         <div class="card-icon icon-orange">↩</div>
         <h3>False positive</h3>
-        <p>The agent routed it here, but it isn't really this request type. The DAG
+        <p>The agent routed it here, but it isn't really this request type. The workflow
            detects the mismatch early — before touching any system — and punts it
            straight back to the LLM. No side effects, negligible cost.</p>
       </div>
@@ -461,8 +478,8 @@
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
         <strong>The asymmetry that makes this safe:</strong> capturing the common path is
         a large, permanent win; getting a match wrong costs an early bail-out and a
-        hand-back. You're never worse off than the plain agent — and on the 80%, you're
-        dramatically better.
+        hand-back. You're never worse off than the plain agent — and on the requests
+        that repeat, you're dramatically better.
       </p>
     </div>
   </div>
@@ -474,104 +491,145 @@
     <div class="section-header">
       <span class="badge badge-orange">The Decision Line</span>
       <h2>What belongs in code — and what belongs in AI</h2>
-      <p>Inside a DAG, the boundary is sharper than most teams assume. Most "complex"
+      <p>Inside a workflow, the boundary is sharper than most teams assume. Most "complex"
          steps are deterministic once you know the rule. AI is reserved for what
          genuinely needs language understanding or judgment — which is also what keeps
          cost and audit under control.</p>
     </div>
 
-    <div class="grid-2" style="gap:2rem; align-items:start;">
-      <!-- Deterministic side -->
-      <div style="background:var(--bg-3); border:1px solid rgba(59,130,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
-        <div style="background:rgba(59,130,246,0.08); padding:1.25rem 1.5rem; border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; gap:0.75rem;">
-          <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
-          <h3 style="margin:0; font-size:1.0625rem;">Handle this in code</h3>
+    <div class="decision-line">
+
+      <div class="dl-head dl-head-det">
+        <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
+        <h3>Handle this in code</h3>
+      </div>
+      <div class="dl-head dl-head-ai">
+        <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
+        <h3>Hand this to AI</h3>
+      </div>
+
+      <!-- Pair: routing / classification -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Conditional routing</h4>
+          <p>Once a category is known, every downstream branch is a fixed rule — no model, no tokens, the same path every time.</p>
         </div>
-        <div style="padding:1.5rem; display:flex; flex-direction:column; gap:1rem;">
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Conditional routing</p>
-            <p style="font-size:0.875rem; margin:0;">Once a category is known, every downstream branch is a fixed rule — no model, no tokens, the same path every time.</p>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Free-form classification</h4>
+          <p>Sorting a messy customer message into the right category needs language understanding — keyword matching misfires on the edge cases that matter.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-classify-multilabel.html">AIClassifyMultiLabelOp</a>
           </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Formula scoring</p>
-            <p style="font-size:0.875rem; margin:0;">Difficulty, risk, priority — any score that's a formula over known numbers is plain arithmetic, not a judgment call.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Structured parsing</p>
-            <p style="font-size:0.875rem; margin:0;">Log lines, dates, IDs, and any format you can describe as a pattern parse deterministically. No model needed.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Lookups with fallback</p>
-            <p style="font-size:0.875rem; margin:0;">Check a known table first; only fall through to AI on a miss. Most cases never reach the model at all.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Calls to your systems</p>
-            <p style="font-size:0.875rem; margin:0;">Fetching and parsing well-formed responses from your existing services is deterministic. AI is only needed for unstructured prose.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Arithmetic</p>
-            <p style="font-size:0.875rem; margin:0;">Sums, products, clamps, rounding — once the numbers are in hand, the maths is fixed and reproducible.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--blue-light); margin-bottom:0.3rem;">Threshold decisions</p>
-            <p style="font-size:0.875rem; margin:0;">"Over the limit?", "outside the window?" — these are policy in code, not questions for a model. The numbers are facts; the thresholds are yours.</p>
-          </div>
-
         </div>
       </div>
 
-      <!-- AI side -->
-      <div style="background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-lg); overflow:hidden;">
-        <div style="background:rgba(139,92,246,0.08); padding:1.25rem 1.5rem; border-bottom:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; gap:0.75rem;">
-          <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
-          <h3 style="margin:0; font-size:1.0625rem;">Hand this to AI</h3>
-        </div>
-        <div style="padding:1.5rem; display:flex; flex-direction:column; gap:1rem;">
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Free-form classification</p>
-            <p style="font-size:0.875rem; margin:0;">Sorting a messy customer message into the right category needs language understanding — keyword matching misfires on the edge cases that matter.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Extraction from prose</p>
-            <p style="font-size:0.875rem; margin:0;">Pulling a name, an account, and an amount out of a freehand email, where the wording and order change every time.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Subjective judgment</p>
-            <p style="font-size:0.875rem; margin:0;">"How severe is this?" or "what's the business impact?" — calls that need human-quality reasoning, not a formula.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Semantic yes/no</p>
-            <p style="font-size:0.875rem; margin:0;">"Does this describe a regression?" — answerable from meaning, not from whether a particular word appears.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Summarization &amp; drafting</p>
-            <p style="font-size:0.875rem; margin:0;">Compressing a document, or writing a context-aware reply, needs genuine understanding and generation.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Ranking &amp; matching</p>
-            <p style="font-size:0.875rem; margin:0;">Choosing the most relevant option needs comprehension of both the request and every candidate — not a string match.</p>
-          </div>
-
-          <div style="padding:0.875rem 1rem; background:var(--bg-2); border-radius:var(--radius-md);">
-            <p style="font-size:0.8125rem; font-weight:700; color:var(--purple-light); margin-bottom:0.3rem;">Messy number parsing</p>
-            <p style="font-size:0.875rem; margin:0;">Turning "$1.2k", "two thousand", or "about 40–50" into one canonical number when the phrasing is unconstrained.</p>
-          </div>
-
+      <!-- Pair: parsing / extraction -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Structured parsing</h4>
+          <p>Log lines, dates, IDs, and any format you can describe as a pattern parse deterministically. No model needed.</p>
         </div>
       </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Extraction from prose</h4>
+          <p>Pulling a name, an account, and an amount out of a freehand email, where the wording and order change every time.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-extract-map.html">AIExtractMapOp</a>
+            <a href="ops/ai-extract-string-slice.html">AIExtractStringSliceOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: formula scoring / subjective judgment -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Formula scoring</h4>
+          <p>Difficulty, risk, priority — any score that's a formula over known numbers is plain arithmetic, not a judgment call.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Subjective judgment</h4>
+          <p>"How severe is this?" or "what's the business impact?" — calls that need human-quality reasoning, not a formula.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-score.html">AIScoreOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: threshold / semantic yes-no -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Threshold decisions</h4>
+          <p>"Over the limit?", "outside the window?" — these are policy in code, not questions for a model. The numbers are facts; the thresholds are yours.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Semantic yes/no</h4>
+          <p>"Does this describe a regression?" — answerable from meaning, not from whether a particular word appears.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-bool.html">AIBoolOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: lookup / ranking -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Lookups with fallback</h4>
+          <p>Check a known table first; only fall through to AI on a miss. Most cases never reach the model at all.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Ranking &amp; matching</h4>
+          <p>Choosing the most relevant option needs comprehension of both the request and every candidate — not a string match.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-best-match.html">AIBestMatchOp</a>
+            <a href="ops/ai-rerank.html">AIRerankOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: arithmetic / messy number parsing -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Arithmetic</h4>
+          <p>Sums, products, clamps, rounding — once the numbers are in hand, the maths is fixed and reproducible.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Messy number parsing</h4>
+          <p>Turning "$1.2k", "two thousand", or "about 40–50" into one canonical number when the phrasing is unconstrained.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-parse-number.html">AIParseNumberOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: system calls / summarization -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Calls to your systems</h4>
+          <p>Fetching and parsing well-formed responses from your existing services is deterministic. AI is only needed for unstructured prose.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Summarization &amp; drafting</h4>
+          <p>Compressing a document, or writing a context-aware reply, needs genuine understanding and generation.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-summarize.html">AISummarizeOp</a>
+            <a href="ops/ai-compute-string.html">AIComputeStringToStringOp</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
@@ -588,10 +646,11 @@
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-orange">What You Get on the 80%</span>
+      <span class="badge badge-orange">What You Get on Repeating Requests</span>
       <h2>Predictable, auditable, and cheap —<br>by construction</h2>
-      <p>These aren't options you tune. They fall out of capturing a known path as a DAG:
-         deterministic by default, AI only where judgment is genuinely required.</p>
+      <p>These aren't options you tune. They fall out of capturing a known path as a
+         workflow: deterministic by default, AI only where judgment is genuinely
+         required.</p>
     </div>
     <div class="grid-3">
       <div class="card">
@@ -640,21 +699,24 @@
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">Comparison</span>
-      <h2>The known path: a sparsi-go tool vs. the raw agent</h2>
-      <p>Hand the agent a pile of primitives and every run re-improvises the process —
-         paying the cost of non-determinism in tokens, in audit gaps, and in surprises.
-         On a known request type, that's pure waste.</p>
+      <h2>When a sparsi tool wins — and when the raw agent does</h2>
+      <p>On a known, repeating request type, an agent's improvisation is overhead: it
+         re-derives the same plan and re-pays for non-determinism in tokens, in audit
+         gaps, and in surprises. But that same improvisation is exactly what you want
+         for novel work. The two aren't rivals — a sparsi tool takes the known path,
+         and the agent keeps everything else.</p>
     </div>
     <div class="comparison">
       <table>
         <thead>
           <tr>
             <th>Dimension</th>
-            <th>⚡ sparsi-go tool</th>
+            <th>⚡ sparsi tool</th>
             <th>Raw agent / prompt chain</th>
           </tr>
         </thead>
         <tbody>
+          <tr class="cmp-group"><td colspan="3">Where a sparsi tool leads — known, repeating request types</td></tr>
           <tr>
             <td>Output reproducibility</td>
             <td><span class="yes">✓</span> Deterministic steps always reproduce exactly</td>
@@ -700,6 +762,27 @@
             <td><span class="yes">✓</span> Deterministic steps satisfy data-flow requirements</td>
             <td><span class="no">✗</span> Hard to prove consistency run-to-run</td>
           </tr>
+          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and the long tail</td></tr>
+          <tr>
+            <td>Unanticipated request types</td>
+            <td><span class="na">—</span> Covers only the workflows you authored; the rest falls through</td>
+            <td><span class="yes">✓</span> Improvises a plan for request types no one modeled in advance</td>
+          </tr>
+          <tr>
+            <td>Upfront investment</td>
+            <td><span class="no">✗</span> Each request type needs a workflow authored, tested, and compiled</td>
+            <td><span class="yes">✓</span> Works the moment it has primitives — no build step</td>
+          </tr>
+          <tr>
+            <td>Adapting to change</td>
+            <td><span class="no">✗</span> A changed rule means re-authoring and recompiling the DAG</td>
+            <td><span class="yes">✓</span> A prompt edit absorbs new requirements on the spot</td>
+          </tr>
+          <tr>
+            <td>Open-ended reasoning</td>
+            <td><span class="no">✗</span> The path is fixed at build time — no improvising mid-run</td>
+            <td><span class="yes">✓</span> Chains and back-tracks freely as an open task unfolds</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -711,7 +794,7 @@
   <div class="container">
     <div class="section-header">
       <span class="badge badge-orange">Examples</span>
-      <h2>The DAG patterns you'll reach for</h2>
+      <h2>The workflow patterns you'll reach for</h2>
       <p>Self-contained programs, each showing a distinct pattern you'll use building
          request-type servers — classification and routing, cross-model verification,
          parallel fan-out, tool use, retrieval with citation checks, and self-repair.</p>
@@ -793,18 +876,97 @@
   </div>
 </section>
 
-<!-- ── CTA ──────────────────────────────────────────────────── -->
-<section class="section">
+<!-- ── Get Started ──────────────────────────────────────────── -->
+<section class="section" id="get-started">
   <div class="container">
-    <div class="cta-banner">
-      <h2>Start with your top three request types</h2>
-      <p>Capture the paths your users walk most. The predictable 80% runs deterministically
-         and cheap; the long tail stays on the agent, where it belongs.</p>
-      <div class="cta-actions">
-        <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
-        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>
-        <a href="leaders.html" class="btn btn-purple">For Engineering Leaders</a>
+    <div class="section-header">
+      <span class="badge badge-purple">Get Started</span>
+      <h2>Install the skills, then describe your workflow</h2>
+      <p>The fastest path into sparsi is the two Claude Code skills. Install them once,
+         then hand Claude a plain-English workflow description — it designs the DAG,
+         generates the <code>sparsi-go</code> program, and compiles it for you.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div class="card-icon icon-purple">1</div>
+        <h3>Install the skills</h3>
+        <p>Download the two skill bundles and drop them into your skills directory.
+           Works with <strong>Claude Code</strong> and <strong>Gemini CLI</strong>.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <div class="code-header">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-filename">terminal</span>
+          </div>
+          <pre><code><span class="cm"># macOS / Linux — global install</span>
+cp -r sparsi-design  ~/.claude/skills/
+cp -r sparsi-codegen ~/.claude/skills/</code></pre>
+        </div>
+        <p style="font-size:0.875rem; margin:1rem 0 0;">
+          <a href="developers.html#skills" style="color:var(--orange-light);">Bundle downloads &amp; Windows / project-local install →</a>
+        </p>
       </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div class="card-icon icon-purple">2</div>
+        <h3>Run the skills and generate an MCP server executable</h3>
+        <p>Paste the prompt below into Claude Code. It runs both skills back to
+           back — <code>/sparsi-design</code> drafts the DAG, <code>/sparsi-codegen</code>
+           generates and compiles the <code>sparsi-go</code> program — leaving you a
+           standalone MCP server binary. It reproduces
+           <a href="example-ticket-triager.html" style="color:var(--orange-light);">Example 01 — the Ticket Triager</a>:
+           an AI classifier fanning out into parallel, category-specific extraction
+           lanes, coalesced into one JSON brief and exposed as an MCP tool.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <div class="code-header">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-filename">Claude Code — canned prompt</span>
+          </div>
+          <pre><code><span class="cm"># Step 1 — design the workflow (refine with follow-ups until you approve it)</span>
+/sparsi-design Build a customer-support ticket triager. One AI op classifies a
+  free-text ticket as billing, bug, feature, or other. Route each category to its
+  own AI extraction lane: billing pulls name, email, account_id and a refund
+  amount; bug pulls reproduction steps, a 0-1 severity score, and a regression
+  yes/no; feature summarizes the request and scores business impact. Gate the
+  lanes so exactly one fires, run their AI ops in parallel, and coalesce the three
+  supported lanes into a single JSON brief. The "other" lane has no AI — it
+  deliberately fails the run. Expose the whole workflow as an MCP tool named
+  triage_ticket.
+
+<span class="cm"># Step 2 — generate, compile, and auto-fix build errors</span>
+/sparsi-codegen &lt;paste the approved design&gt; ./ticket-triager</code></pre>
+        </div>
+      </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div class="card-icon icon-purple">3</div>
+        <h3>Integrate the MCP server into Claude</h3>
+        <p>Register the compiled binary with Claude Code and the
+           <code>triage_ticket</code> tool is live — the agent calls it like any
+           other MCP tool.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <div class="code-header">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-filename">terminal</span>
+          </div>
+          <pre><code><span class="cm"># register the compiled MCP server</span>
+claude mcp add ticket-triager ./ticket-triager/ticket-triager</code></pre>
+        </div>
+        <p style="font-size:0.875rem; color:var(--text-3); margin:1rem 0 0;">
+          Set <code>CLAUDE_API_KEY</code> in the server's environment first — the
+          only configuration the workflow needs. Any other MCP-capable host
+          (Gemini CLI, other agent runtimes) registers the same binary with its
+          own equivalent command.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="cta-actions" style="justify-content:center;">
+      <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
+      <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>
+      <a href="examples.html" class="btn btn-secondary">Browse Examples</a>
     </div>
   </div>
 </section>
@@ -813,8 +975,8 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi DAG"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
-      <span>sparsi-go</span>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi workflow"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
+      <span>sparsi</span>
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>

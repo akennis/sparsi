@@ -82,7 +82,7 @@
           <li>Normalizing a score against a maximum</li>
           <li>Per-unit rate calculation</li>
         </ul>
-        <div class="card" style="margin-top:1.5rem;"><p><strong>Zero-divisor protection.</strong> The op returns an error (not Inf/NaN) when B is zero. Use <code>IfFloatEqOp</code> upstream to guard against a zero denominator, or handle the error in the DAG skip logic.</p></div>
+        <div class="card" style="margin-top:1.5rem;"><p><strong>Zero-divisor protection.</strong> The op returns an error (not Inf/NaN) when B is zero. Use <code>IfFloatEqOp</code> upstream to guard against a zero denominator, or handle the error in the workflow skip logic.</p></div>
       </div>
     </div>
     <h3 style="margin-top:2.5rem;margin-bottom:1rem;">Complete Runnable Example</h3>

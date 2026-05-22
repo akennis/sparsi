@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Docs — sparsi-go</title>
-  <meta name="description" content="Build deterministic AI workflows with sparsi-go. Quick start, core concepts, and a complete annotated example.">
+  <title>Developer Docs — Sparsi</title>
+  <meta name="description" content="Build deterministic AI workflows with Sparsi. Quick start, core concepts, and a complete annotated example.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,8 +14,8 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="sparsi workflow - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
-      <span><span class="brand">sparsi</span></span>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sparsi workflow - 3 AI nodes distributed across left and middle layers"><defs><radialGradient id="dl-d" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-ai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient><filter id="dl-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-d)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="14" cy="66" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/><circle cx="38" cy="50" r="8" fill="url(#dl-ai)" stroke="#c084fc" stroke-width="1.2" filter="url(#dl-glow)"/></svg>
+      <span><span class="brand">Sparsi</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -41,7 +41,7 @@
       <span class="badge badge-blue" style="margin-bottom:1rem; display:inline-flex;">Developer Docs</span>
       <h1 style="margin-bottom:1rem;">Build AI Workflows<br>You Can Actually <span class="hi-o">Debug</span></h1>
       <p style="font-size:1.0625rem; margin-bottom:1rem;">
-        sparsi-go is the reliability layer between your AI agent and the work it does:
+        Sparsi is the reliability layer between your AI agent and the work it does:
         each business process becomes a single deterministic, fully auditable tool — with
         AI used only where genuine judgment is required.
       </p>
@@ -67,7 +67,7 @@
   <div class="container" style="max-width:880px;">
     <p style="font-size:1.0625rem; color:var(--text-1); font-style:italic; line-height:1.8; text-align:center; margin-bottom:1.75rem;">
       "Hand an agent fifty low-level tools and every problem means reinventing a long,
-      brittle tool chain. sparsi-go inverts this: <strong>package each business process
+      brittle tool chain. Sparsi inverts this: <strong>package each business process
       as its own deterministic tool</strong> — with AI sealed inside it — so the calling
       agent reasons at the level of an executive or a support lead, not a plumber wiring
       primitives."
@@ -161,7 +161,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
       <span class="badge badge-purple">Claude Code Skills</span>
       <h2>Design &amp; Generate Workflows with AI</h2>
       <p>Two Claude Code slash commands that turn a plain-English task description into a
-         compilable sparsi-go program — without writing any boilerplate by hand.</p>
+         compilable Sparsi program — without writing any boilerplate by hand.</p>
     </div>
 
     <!-- Two-step flow -->
@@ -279,7 +279,7 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
     </div>
 
     <div class="quote-block">
-      <p>Bundle versions track the library — replace both skill directories when you upgrade sparsi-go.
+      <p>Bundle versions track the library — replace both skill directories when you upgrade Sparsi.
          Browse the skill source on
          <a href="https://github.com/akennis/sparsi-go/tree/main/skills" target="_blank" rel="noopener" style="color:var(--orange-light);">GitHub →</a>
       </p>
@@ -1020,7 +1020,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     <div class="section-header">
       <span class="badge badge-blue">Why Go</span>
       <h2>Go power and reliability<br>in your micro-services landscape</h2>
-      <p>A sparsi DAG workflow lives inside your service mesh, not beside it. Every deterministic
+      <p>A Sparsi DAG workflow lives inside your service mesh, not beside it. Every deterministic
          node is plain Go reaching out over the wire — so the workflow connects to any
          modern endpoint you already run, with the type safety and concurrency that keep
          it dependable under load.</p>
@@ -1059,7 +1059,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
       <span style="color:var(--blue-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The point:</strong> sparsi doesn't ask your architecture to change around
+        <strong>The point:</strong> Sparsi doesn't ask your architecture to change around
         it. It fits into the micro-services landscape you already operate — same
         protocols, same auth, same deployment unit — and Go is what makes that fit
         reliable instead of fragile.
@@ -1086,8 +1086,8 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="sparsi workflow"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
-      <span>sparsi-go</span>
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="Sparsi workflow"><defs><radialGradient id="dl-fd" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient><radialGradient id="dl-fai" cx="38%" cy="35%" r="65%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#5b21b6"/></radialGradient></defs><g stroke="#64748b" stroke-width="1.3" fill="none" stroke-linecap="round"><line x1="21" y1="30" x2="31" y2="26"/><line x1="21" y1="38" x2="31" y2="46"/><line x1="21" y1="62" x2="31" y2="54"/><line x1="21" y1="70" x2="31" y2="74"/><line x1="45" y1="26" x2="55" y2="30"/><line x1="45" y1="46" x2="55" y2="38"/><line x1="45" y1="54" x2="55" y2="62"/><line x1="45" y1="74" x2="55" y2="70"/><line x1="69" y1="38" x2="79" y2="46"/><line x1="69" y1="62" x2="79" y2="54"/></g><circle cx="38" cy="22" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="38" cy="78" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="34" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="62" cy="66" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="86" cy="50" r="8" fill="url(#dl-fd)" stroke="#60a5fa" stroke-width="1.2"/><circle cx="14" cy="34" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="14" cy="66" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/><circle cx="38" cy="50" r="8" fill="url(#dl-fai)" stroke="#c084fc" stroke-width="1.2"/></svg>
+      <span>Sparsi</span>
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>

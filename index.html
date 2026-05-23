@@ -11,6 +11,7 @@
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────── -->
+<!-- HEADER:START -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -19,12 +20,12 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="developers.html">Developers</a></li>
-      <li><a href="leaders.html">For Leaders</a></li>
-      <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
-      <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="nav-gh">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -33,6 +34,7 @@
     </ul>
   </div>
 </nav>
+<!-- HEADER:END -->
 
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section class="hero">
@@ -230,6 +232,143 @@
            long tail still falls through to the primitives, exactly as today.</p>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── The tool palette: primitives + Sparsi tools ──────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">One Tool Palette</span>
+      <h2>Your agent keeps its primitives.<br>Sparsi tools join the same palette.</h2>
+      <p>A Sparsi MCP server registers like any other tool — it lands in the agent's
+         tool list right beside <code>search</code>, <code>fetch</code>, and the rest.
+         The agent never has to choose <em>primitives or Sparsi</em>; it draws from one
+         palette and calls whatever mix a given request needs.</p>
+    </div>
+
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
+      <svg viewBox="0 40 1000 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="An LLM agent at the base fans calls up to a shared tool palette: a cluster of small primitive MCP tools and, beside them, a larger composite Sparsi MCP tool whose box contains a compiled DAG of mixed deterministic and AI nodes">
+        <defs>
+          <radialGradient id="p-det" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
+          </radialGradient>
+          <radialGradient id="p-ai" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#f5d0fe"/><stop offset="55%" stop-color="#a855f7"/><stop offset="100%" stop-color="#4c1d95"/>
+          </radialGradient>
+          <filter id="p-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="p-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="p-arr" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+          </marker>
+        </defs>
+
+        <!-- ── Agent → tool edges (drawn first so blocks overlay) ─ -->
+        <g stroke="#475569" stroke-width="1.8" fill="none">
+          <line x1="500" y1="372" x2="99"  y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="199" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="299" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="399" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="499" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="774" y2="282" marker-end="url(#p-arr)"/>
+        </g>
+
+        <!-- ── Primitive MCP tools ───────────────────────────── -->
+        <text x="299" y="70" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="monospace" letter-spacing="0.04em">Primitive MCP tools &#183; one call, one action</text>
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+          <rect x="60"  y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="99"  y="123" font-size="12.5" fill="#cbd5e1">search()</text>
+          <rect x="160" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="199" y="123" font-size="12.5" fill="#cbd5e1">fetch()</text>
+          <rect x="260" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="299" y="123" font-size="12.5" fill="#cbd5e1">read()</text>
+          <rect x="360" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="399" y="123" font-size="12.5" fill="#cbd5e1">write()</text>
+          <rect x="460" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="499" y="123" font-size="12.5" fill="#cbd5e1">call()</text>
+        </g>
+
+        <!-- ── Sparsi MCP tool (composite — DAG inside its box) ─ -->
+        <rect x="600" y="58" width="348" height="224" rx="16" fill="rgba(139,92,246,0.06)" stroke="rgba(139,92,246,0.4)" stroke-width="1.6"/>
+        <text x="620" y="82" font-size="12.5" fill="#a78bfa" font-family="monospace" font-weight="bold" letter-spacing="0.04em">Sparsi MCP tool</text>
+        <text x="620" y="99" font-size="9.5" fill="#8b7fb8" font-family="monospace">one call &#183; a whole workflow</text>
+
+        <!-- inner DAG edges -->
+        <g stroke="#64748b" stroke-width="1.5" fill="none">
+          <line x1="678" y1="180" x2="726" y2="156" marker-end="url(#p-arr)"/>
+          <line x1="678" y1="196" x2="726" y2="222" marker-end="url(#p-arr)"/>
+          <line x1="760" y1="148" x2="812" y2="148" marker-end="url(#p-arr)"/>
+          <line x1="760" y1="230" x2="812" y2="230" marker-end="url(#p-arr)"/>
+          <line x1="846" y1="156" x2="894" y2="180" marker-end="url(#p-arr)"/>
+          <line x1="846" y1="222" x2="894" y2="196" marker-end="url(#p-arr)"/>
+        </g>
+
+        <!-- inner DAG AI halos -->
+        <circle cx="662" cy="188" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="830" cy="230" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="910" cy="188" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- inner DAG nodes -->
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+          <circle cx="662" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="662" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
+          <circle cx="742" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="742" y="151" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="742" cy="230" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="742" y="233" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="830" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="830" y="151" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="830" cy="230" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="830" y="233" font-size="8.5" fill="#f3e8ff">AI</text>
+          <circle cx="910" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="910" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
+        </g>
+        <text x="774" y="269" text-anchor="middle" font-size="9.5" fill="#8b7fb8" font-family="monospace">compiled DAG &#183; deterministic + AI nodes</text>
+
+        <!-- ── LLM agent (base) ──────────────────────────────── -->
+        <rect x="380" y="372" width="240" height="72" rx="14" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-width="2"/>
+        <text x="500" y="404" text-anchor="middle" font-size="15" fill="#fdba74" font-family="monospace" font-weight="bold">LLM agent</text>
+        <text x="500" y="424" text-anchor="middle" font-size="10" fill="#fb923c" font-family="monospace">interprets the ask &#183; calls the tools</text>
+
+        <!-- ── Caption ───────────────────────────────────────── -->
+        <text x="500" y="478" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.04em">Both are MCP tools on a single palette &#8212; the agent calls whatever mix each request needs</text>
+      </svg>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔀</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>It's a mix, not a switch.</strong> Within a single request the agent
+        blends both kinds of call freely. Sometimes one Sparsi tool call does the whole
+        job. More often it does the bulk of the work — the known, repeating part of the
+        request — while a few primitive calls handle whatever falls outside it. It's
+        never all-or-nothing: primitives and Sparsi tools compose, call by call.
+      </p>
+    </div>
+
+    <div style="margin-top:1rem; background:var(--bg-2); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">📈</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The more Sparsi, the better.</strong> Every request type you capture as
+        a Sparsi tool moves more of the agent's traffic onto a deterministic,
+        bounded-cost, audited path — while the primitives stay as the long-tail
+        fallback. The larger the share of an agent's work that flows through Sparsi
+        tools, the more reliable and efficient the whole system becomes.
+      </p>
     </div>
   </div>
 </section>
@@ -487,158 +626,113 @@
   </div>
 </section>
 
-<!-- ── The Decision Line ────────────────────────────────────── -->
+<!-- ── Sparsi operations ────────────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-orange">The Decision Line</span>
-      <h2>What belongs in code — and what belongs in AI</h2>
-      <p>Inside a workflow, the boundary is sharper than most teams assume. Most "complex"
-         steps are deterministic once you know the rule. AI is reserved for what
-         genuinely needs language understanding or judgment — which is also what keeps
-         cost and audit under control.</p>
+      <span class="badge badge-orange">The Building Blocks</span>
+      <h2>Sparsi operations</h2>
+      <p>A workflow is assembled from <em>operations</em> — typed nodes, each with a fixed
+         set of named inputs and outputs. Four kinds cover the whole surface: a
+         deterministic library, an AI library, a RAG library, and custom operations you
+         write yourself. They share one wiring contract, so a single workflow mixes them
+         freely.</p>
     </div>
 
-    <div class="decision-line">
+    <div class="grid-2" style="gap:1.5rem; align-items:stretch;">
 
-      <div class="dl-head dl-head-det">
-        <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
-        <h3>Handle this in code</h3>
-      </div>
-      <div class="dl-head dl-head-ai">
-        <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
-        <h3>Hand this to AI</h3>
-      </div>
-
-      <!-- Pair: routing / classification -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Conditional routing</h4>
-          <p>Once a category is known, every downstream branch is a fixed rule — no model, no tokens, the same path every time.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Free-form classification</h4>
-          <p>Sorting a messy customer message into the right category needs language understanding — keyword matching misfires on the edge cases that matter.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-classify-multilabel.html">AIClassifyMultiLabelOp</a>
-          </div>
-        </div>
+      <div class="card">
+        <span class="tag tag-det" style="font-size:0.8125rem; padding:0.3rem 0.75rem;">deterministic library</span>
+        <h3 style="margin:0.875rem 0 0.625rem;">Pure code, no model</h3>
+        <p>Dozens of ready-made operators that run as plain functions — arithmetic, string
+           and slice work, predicates, routing and selection, JSON and time. No tokens, no
+           API key, no network. The same inputs always produce the same outputs, so they
+           unit-test in CI and form the deterministic backbone of every workflow.</p>
       </div>
 
-      <!-- Pair: parsing / extraction -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Structured parsing</h4>
-          <p>Log lines, dates, IDs, and any format you can describe as a pattern parse deterministically. No model needed.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Extraction from prose</h4>
-          <p>Pulling a name, an account, and an amount out of a freehand email, where the wording and order change every time.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-extract-map.html">AIExtractMapOp</a>
-            <a href="ops/ai-extract-string-slice.html">AIExtractStringSliceOp</a>
-          </div>
-        </div>
+      <div class="card">
+        <span class="tag tag-ai" style="font-size:0.8125rem; padding:0.3rem 0.75rem;">AI library</span>
+        <h3 style="margin:0.875rem 0 0.625rem;">Model calls with typed results</h3>
+        <p>Operators that hand a step to a model and return a typed, structured result —
+           classify, extract, score, semantic yes/no, rerank, best-match, summarize, parse.
+           Each AI operation is configured independently — see below — so every model call
+           in a workflow runs on its own settings. Because that includes the provider and
+           model, one AI op can verify another's output on a different model — cross-model
+           checking is just one more node on the graph.</p>
       </div>
 
-      <!-- Pair: formula scoring / subjective judgment -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Formula scoring</h4>
-          <p>Difficulty, risk, priority — any score that's a formula over known numbers is plain arithmetic, not a judgment call.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Subjective judgment</h4>
-          <p>"How severe is this?" or "what's the business impact?" — calls that need human-quality reasoning, not a formula.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-score.html">AIScoreOp</a>
-          </div>
-        </div>
+      <div class="card">
+        <span class="tag" style="font-size:0.8125rem; padding:0.3rem 0.75rem; background:rgba(34,197,94,0.14); color:#4ade80;">RAG library</span>
+        <h3 style="margin:0.875rem 0 0.625rem;">Retrieval with grounded citations</h3>
+        <p>A retrieval layer behind a backend-agnostic <code>Retriever</code> interface —
+           implement it once over BM25, a vector store, or a hosted search service.
+           Retrieve operators pull context into the graph; a citation validator filters
+           model-emitted sources against an allow-list, so answers stay grounded.</p>
       </div>
 
-      <!-- Pair: threshold / semantic yes-no -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Threshold decisions</h4>
-          <p>"Over the limit?", "outside the window?" — these are policy in code, not questions for a model. The numbers are facts; the thresholds are yours.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Semantic yes/no</h4>
-          <p>"Does this describe a regression?" — answerable from meaning, not from whether a particular word appears.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-bool.html">AIBoolOp</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pair: lookup / ranking -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Lookups with fallback</h4>
-          <p>Check a known table first; only fall through to AI on a miss. Most cases never reach the model at all.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Ranking &amp; matching</h4>
-          <p>Choosing the most relevant option needs comprehension of both the request and every candidate — not a string match.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-best-match.html">AIBestMatchOp</a>
-            <a href="ops/ai-rerank.html">AIRerankOp</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pair: arithmetic / messy number parsing -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Arithmetic</h4>
-          <p>Sums, products, clamps, rounding — once the numbers are in hand, the maths is fixed and reproducible.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Messy number parsing</h4>
-          <p>Turning "$1.2k", "two thousand", or "about 40–50" into one canonical number when the phrasing is unconstrained.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-parse-number.html">AIParseNumberOp</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pair: system calls / summarization -->
-      <div class="dl-cell dl-cell-det">
-        <div class="dl-tile dl-tile-det">
-          <h4>Calls to your systems</h4>
-          <p>Fetching and parsing well-formed responses from your existing services is deterministic. AI is only needed for unstructured prose.</p>
-        </div>
-      </div>
-      <div class="dl-cell dl-cell-ai">
-        <div class="dl-tile dl-tile-ai">
-          <h4>Summarization &amp; drafting</h4>
-          <p>Compressing a document, or writing a context-aware reply, needs genuine understanding and generation.</p>
-          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
-            <a href="ops/ai-summarize.html">AISummarizeOp</a>
-            <a href="ops/ai-compute-string.html">AIComputeStringToStringOp</a>
-          </div>
-        </div>
+      <div class="card">
+        <span class="tag" style="font-size:0.8125rem; padding:0.3rem 0.75rem; background:rgba(249,115,22,0.14); color:var(--orange-light);">custom</span>
+        <h3 style="margin:0.875rem 0 0.625rem;">Operations you write</h3>
+        <p>When nothing in the libraries fits, write your own — a small struct with
+           <code>dag:"input"</code> / <code>dag:"output"</code> tags and a
+           <code>Run(ctx)</code> method. This is how a workflow reaches your existing
+           services in any language. A custom op is a first-class node: same wiring, same
+           testing, same audit record.</p>
       </div>
 
     </div>
 
-    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+    <!-- AI operation configuration -->
+    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.5rem;">
+      <div style="display:flex; gap:0.875rem; align-items:flex-start; margin-bottom:1.25rem;">
+        <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🤖</span>
+        <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+          <strong>Each AI operation is configured on its own.</strong> Two AI ops on the
+          same graph share nothing by default — each pins six settings independently, so a
+          cheap classifier and a strong synthesizer coexist in one workflow without
+          compromise.
+        </p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.75rem;">
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">System prompt</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The role and standing rules the model runs under.</p>
+        </div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Context prompt</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The per-call framing wrapped around the wired inputs.</p>
+        </div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Provider</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">Anthropic or Google — the SDK the call routes through.</p>
+        </div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Model</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The exact model pinned for this operation.</p>
+        </div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">API key provider</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The factory that sources the credential — env var, Vault, per-tenant store.</p>
+        </div>
+        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Token budget</strong>
+          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">A hard ceiling on the tokens the call may spend.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAG composition -->
+    <div style="margin-top:1rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔗</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The practical test:</strong> if you could test it reliably without ever calling a model, it belongs in code.
-        If the answer depends on reading a sentence and understanding what a human likely meant — hand it to AI.
+        <strong>Operations compose into a DAG.</strong> Every operation — deterministic, AI,
+        RAG, or custom — exposes a typed set of <em>named inputs and outputs</em>. You build
+        a workflow by wiring one operation's output to the next operation's input by name;
+        the wires form a directed acyclic graph, and that graph is exactly what Sparsi
+        compiles and runs — resolving dependencies, executing independent branches in
+        parallel, and pruning the ones that get skipped. Because all four kinds share the
+        same input/output contract, they interoperate on one graph: a deterministic parse
+        feeds an AI classifier, a RAG retrieval feeds a custom call into your service.
       </p>
     </div>
   </div>
@@ -974,6 +1068,7 @@ claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pr
 </section>
 
 <!-- ── Footer ───────────────────────────────────────────────── -->
+<!-- FOOTER:START -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
@@ -982,18 +1077,19 @@ claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pr
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="developers.html">Developers</a></li>
-      <li><a href="leaders.html">For Leaders</a></li>
-      <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
-      <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
     <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
+<!-- FOOTER:END -->
 
 </body>
 </html>

@@ -11,6 +11,7 @@
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────── -->
+<!-- HEADER:START -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -19,12 +20,12 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="developers.html" class="active">Developers</a></li>
-      <li><a href="leaders.html">For Leaders</a></li>
-      <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
-      <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
+      <li><a href="developers.html" class="active">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="nav-gh">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -33,6 +34,7 @@
     </ul>
   </div>
 </nav>
+<!-- HEADER:END -->
 
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section class="hero" style="padding:4rem 0 3rem;">
@@ -55,8 +57,9 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
           github.com/akennis/sparsi-go
         </a>
-        <a href="#example" class="btn btn-secondary">See the Example ↓</a>
+        <a href="#quick-start" class="btn btn-secondary">Quick Start ↓</a>
         <a href="#skills" class="btn btn-secondary">Skills ↓</a>
+        <a href="library.html" class="btn btn-secondary">Operator Library →</a>
       </div>
     </div>
   </div>
@@ -90,66 +93,44 @@
   </div>
 </div>
 
-<!-- ── Quick install ────────────────────────────────────────── -->
-<section class="section section--alt" style="padding:3rem 0;">
+<!-- ── Quick Start: clone, build, run ───────────────────────── -->
+<section class="section section--alt" id="quick-start">
   <div class="container">
-    <div class="section-header" style="margin-bottom:2rem; text-align:left;">
-      <h2>Quick Start</h2>
+    <div class="section-header">
+      <span class="badge badge-blue">Quick Start</span>
+      <h2>Clone, build, run an example</h2>
+      <p>Three commands take you from a fresh clone to a running Sparsi workflow. Start
+         here, then design your own with the skills below.</p>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
-      <div>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">Add the library to your module:</p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code>go get github.com/akennis/sparsi-go</code></pre>
-        </div>
-        <p style="margin-top:1.25rem; margin-bottom:1rem; font-size:0.9375rem;">Run the codegen driver (designs + generates a workflow from a prompt):</p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code>export CLAUDE_API_KEY=&lt;your key&gt;
-go run github.com/akennis/sparsi-go</code></pre>
-        </div>
+
+    <div class="code-block" style="max-width:720px; margin:0 auto 1.5rem;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">terminal</span>
       </div>
-      <div>
-        <p style="margin-bottom:1rem; font-size:0.9375rem;">Or build your own workflow directly:</p>
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">main.go</span>
-          </div>
-          <pre><code><span class="kw">import</span> (
-    _ <span class="st">"github.com/akennis/sparsi-go/library"</span>
-    <span class="st">"github.com/wwz16/dagor/graph"</span>
-    <span class="st">"github.com/wwz16/dagor/operator"</span>
-    <span class="st">"github.com/wwz16/dagor/operator/builtin"</span>
-)
+      <pre><code><span class="cm"># 1 — clone the repo</span>
+git clone https://github.com/akennis/sparsi-go
+cd sparsi-go
 
-<span class="kw">type</span> <span class="ty">inputKey</span> <span class="kw">struct</span>{}
+<span class="cm"># 2 — build everything: operator library, examples, tooling</span>
+go build ./...
 
-<span class="kw">func</span> <span class="fn">init</span>() {
-    operator.RegisterOpFactory(<span class="st">"input_const"</span>,
-        builtin.ContextValFactory[<span class="ty">string</span>](inputKey{}))
-}
+<span class="cm"># 3 — run an example (a model call needs your Claude API key)</span>
+export CLAUDE_API_KEY=&lt;your key&gt;
+go run ./examples/ticket-triager</code></pre>
+    </div>
 
-g, _ := graph.NewBuilder(<span class="st">"my-workflow"</span>).
-    Vertex(<span class="st">"input_const"</span>).Op(<span class="st">"input_const"</span>).
-        Output(<span class="st">"Result"</span>, <span class="st">"text"</span>).
-    Vertex(<span class="st">"transform"</span>).Op(<span class="st">"AIComputeStringToStringOp"</span>).
-        Params(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"summarize"</span>}).
-        Input(<span class="st">"Input"</span>, <span class="st">"text"</span>).
-        Output(<span class="st">"Result"</span>, <span class="st">"summary"</span>).
-    Build()
-
-ctx := context.WithValue(context.Background(), inputKey{}, input)
-result, _ := engine.Run(ctx, g)</code></pre>
-        </div>
-      </div>
+    <div style="max-width:720px; margin:0 auto; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--blue-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">✅</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>Prerequisites:</strong> a recent <strong>Go</strong> toolchain (the minimum
+        version is pinned in the repo's <code>go.mod</code>), <strong>git</strong>, and a
+        <strong>Claude API key</strong> from
+        <a href="https://console.anthropic.com" target="_blank" rel="noopener" style="color:var(--blue-light);">console.anthropic.com</a>,
+        exported as <code>CLAUDE_API_KEY</code>. Deterministic ops need no key — only steps
+        that call a model read it. More runnable programs are on the
+        <a href="examples.html" style="color:var(--blue-light);">Examples</a> page.
+      </p>
     </div>
   </div>
 </section>
@@ -284,6 +265,57 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
          <a href="https://github.com/akennis/sparsi-go/tree/main/skills" target="_blank" rel="noopener" style="color:var(--orange-light);">GitHub →</a>
       </p>
     </div>
+  </div>
+</section>
+
+<!-- ── Build a workflow by hand ──────────────────────────────── -->
+<section class="section section--alt" id="by-hand">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">Manual Authoring</span>
+      <h2>Or build a workflow by hand</h2>
+      <p>The skills are the fast path. When you want full control — or you're folding a
+         workflow into an existing Go service — author the graph directly with the builder
+         API. Skill-generated and hand-written workflows compile to the same DAG.</p>
+    </div>
+
+    <div class="code-block" style="max-width:760px; margin:0 auto;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">main.go</span>
+      </div>
+      <pre><code><span class="kw">import</span> (
+    _ <span class="st">"github.com/akennis/sparsi-go/library"</span>
+    <span class="st">"github.com/wwz16/dagor/graph"</span>
+    <span class="st">"github.com/wwz16/dagor/operator"</span>
+    <span class="st">"github.com/wwz16/dagor/operator/builtin"</span>
+)
+
+<span class="kw">type</span> <span class="ty">inputKey</span> <span class="kw">struct</span>{}
+
+<span class="kw">func</span> <span class="fn">init</span>() {
+    operator.RegisterOpFactory(<span class="st">"input_const"</span>,
+        builtin.ContextValFactory[<span class="ty">string</span>](inputKey{}))
+}
+
+g, _ := graph.NewBuilder(<span class="st">"my-workflow"</span>).
+    Vertex(<span class="st">"input_const"</span>).Op(<span class="st">"input_const"</span>).
+        Output(<span class="st">"Result"</span>, <span class="st">"text"</span>).
+    Vertex(<span class="st">"transform"</span>).Op(<span class="st">"AIComputeStringToStringOp"</span>).
+        Params(map[<span class="ty">string</span>]<span class="ty">string</span>{<span class="st">"operation"</span>: <span class="st">"summarize"</span>}).
+        Input(<span class="st">"Input"</span>, <span class="st">"text"</span>).
+        Output(<span class="st">"Result"</span>, <span class="st">"summary"</span>).
+    Build()
+
+ctx := context.WithValue(context.Background(), inputKey{}, input)
+result, _ := engine.Run(ctx, g)</code></pre>
+    </div>
+
+    <p style="max-width:760px; margin:1rem auto 0; font-size:0.9rem; color:var(--text-3);">
+      The builder API in full — vertices, typed wires, conditional gates, fan-out and
+      merge — is covered in the <a href="dag.html">DAG engine guide</a>. Every operator you
+      can wire in is catalogued in the <a href="library.html">Operator Library</a>.
+    </p>
   </div>
 </section>
 
@@ -646,6 +678,163 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
   </div>
 </section>
 
+<!-- ── The Decision Line ─────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-orange">The Decision Line</span>
+      <h2>What belongs in code — and what belongs in AI</h2>
+      <p>Inside a workflow, the boundary is sharper than most teams assume. Most "complex"
+         steps are deterministic once you know the rule. AI is reserved for what
+         genuinely needs language understanding or judgment — which is also what keeps
+         cost and audit under control.</p>
+    </div>
+
+    <div class="decision-line">
+
+      <div class="dl-head dl-head-det">
+        <span class="tag tag-det" style="font-size:0.875rem; padding:0.3rem 0.75rem;">deterministic</span>
+        <h3>Handle this in code</h3>
+      </div>
+      <div class="dl-head dl-head-ai">
+        <span class="tag tag-ai" style="font-size:0.875rem; padding:0.3rem 0.75rem;">AI</span>
+        <h3>Hand this to AI</h3>
+      </div>
+
+      <!-- Pair: routing / classification -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Conditional routing</h4>
+          <p>Once a category is known, every downstream branch is a fixed rule — no model, no tokens, the same path every time.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Free-form classification</h4>
+          <p>Sorting a messy customer message into the right category needs language understanding — keyword matching misfires on the edge cases that matter.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-classify-multilabel.html">AIClassifyMultiLabelOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: parsing / extraction -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Structured parsing</h4>
+          <p>Log lines, dates, IDs, and any format you can describe as a pattern parse deterministically. No model needed.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Extraction from prose</h4>
+          <p>Pulling a name, an account, and an amount out of a freehand email, where the wording and order change every time.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-extract-map.html">AIExtractMapOp</a>
+            <a href="ops/ai-extract-string-slice.html">AIExtractStringSliceOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: formula scoring / subjective judgment -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Formula scoring</h4>
+          <p>Difficulty, risk, priority — any score that's a formula over known numbers is plain arithmetic, not a judgment call.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Subjective judgment</h4>
+          <p>"How severe is this?" or "what's the business impact?" — calls that need human-quality reasoning, not a formula.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-score.html">AIScoreOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: threshold / semantic yes-no -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Threshold decisions</h4>
+          <p>"Over the limit?", "outside the window?" — these are policy in code, not questions for a model. The numbers are facts; the thresholds are yours.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Semantic yes/no</h4>
+          <p>"Does this describe a regression?" — answerable from meaning, not from whether a particular word appears.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-bool.html">AIBoolOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: lookup / ranking -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Lookups with fallback</h4>
+          <p>Check a known table first; only fall through to AI on a miss. Most cases never reach the model at all.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Ranking &amp; matching</h4>
+          <p>Choosing the most relevant option needs comprehension of both the request and every candidate — not a string match.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-best-match.html">AIBestMatchOp</a>
+            <a href="ops/ai-rerank.html">AIRerankOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: arithmetic / messy number parsing -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Arithmetic</h4>
+          <p>Sums, products, clamps, rounding — once the numbers are in hand, the maths is fixed and reproducible.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Messy number parsing</h4>
+          <p>Turning "$1.2k", "two thousand", or "about 40–50" into one canonical number when the phrasing is unconstrained.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-parse-number.html">AIParseNumberOp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair: system calls / summarization -->
+      <div class="dl-cell dl-cell-det">
+        <div class="dl-tile dl-tile-det">
+          <h4>Calls to your systems</h4>
+          <p>Fetching and parsing well-formed responses from your existing services is deterministic. AI is only needed for unstructured prose.</p>
+        </div>
+      </div>
+      <div class="dl-cell dl-cell-ai">
+        <div class="dl-tile dl-tile-ai">
+          <h4>Summarization &amp; drafting</h4>
+          <p>Compressing a document, or writing a context-aware reply, needs genuine understanding and generation.</p>
+          <div class="dl-ops"><span class="dl-ops-label">Operators</span>
+            <a href="ops/ai-summarize.html">AISummarizeOp</a>
+            <a href="ops/ai-compute-string.html">AIComputeStringToStringOp</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The practical test:</strong> if you could test it reliably without ever calling a model, it belongs in code.
+        If the answer depends on reading a sentence and understanding what a human likely meant — hand it to AI.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ── More examples ─────────────────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
@@ -672,110 +861,6 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
         <span class="tag tag-det">det. band logic</span>
         <span class="tag tag-ai" style="margin-left:0.25rem;">one AI op</span>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Library Reference ──────────────────────────────────── -->
-<section class="section section--alt" id="library">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-blue">Operator Library</span>
-      <h2>89 Built-in Operators</h2>
-      <p>Every operator you need for deterministic processing and AI-powered inference, ready to wire into a graph.</p>
-    </div>
-
-    <div class="grid-3" style="margin-bottom:2.5rem;">
-      <div class="card">
-        <div class="card-icon icon-purple">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple-light)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <h3>AI Operators <span class="tag tag-ai" style="margin-left:0.375rem;vertical-align:middle;">12 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Classification, scoring, boolean judgement, extraction, ranking, and free-form string transformation — all backed by Claude.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/ai-classify-multilabel.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">AIClassifyMultiLabel</a>
-          <a href="ops/ai-score.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">AIScore</a>
-          <a href="ops/ai-bool.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">AIBool</a>
-          <a href="ops/ai-best-match.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">AIBestMatch</a>
-          <a href="ops/ai-rerank.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">AIRerank</a>
-          <a href="ops/mode-select.html" style="font-size:0.8125rem;color:var(--purple-light);text-decoration:none;background:var(--purple-dim);padding:0.15rem 0.5rem;border-radius:4px;">ModeSelect</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
-        <h3>Math &amp; Logic <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">27 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Arithmetic in separate float64 and int variants (Add, Sub, Mul, Div, Pow, Mod), aggregation, clamping, type casts, boolean gates — all zero-latency, zero-cost.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/math-addfloat.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Add/Sub/Mul/Div/Pow/Mod (float)</a>
-          <a href="ops/math-addint.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Add/Sub/Mul/Div/Pow/Mod (int)</a>
-          <a href="ops/math-clampfloat.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Clamp/Sum/Min/Max (float &amp; int)</a>
-          <a href="ops/math-inttofloat64.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Int↔Float64 cast</a>
-          <a href="ops/bool-and.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">And/Or/Not</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>Predicates <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">19 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Float, int, and string comparisons that produce a <code>bool</code> wire — the primary input for workflow branch conditions.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/pred-iffloatgt.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">IfFloatGt/Lt/Eq…</a>
-          <a href="ops/pred-ifintgt.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">IfIntGt/Lt/Eq…</a>
-          <a href="ops/pred-ifstringcontains.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">IfStringContains…</a>
-          <a href="ops/pred-betweenfloat.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">BetweenFloat</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
-        </div>
-        <h3>String &amp; Slice <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">18 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Concat, split, lookup, regex, type-to-string conversion (float, int, bool, any), and slice manipulation — element access, filtering, joining, and top-K selection.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/string-concat.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Concat/Split</a>
-          <a href="ops/string-lookup.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Lookup</a>
-          <a href="ops/string-regex-extract.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">RegexExtract</a>
-          <a href="ops/string-float64tostring.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Float/Int/Bool/Any→String</a>
-          <a href="ops/slice-topk.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">SliceTopK</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-        </div>
-        <h3>Select &amp; Route <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">8 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">Ternary selection, switch/case, and nil-coalescing defaults — the plumbing for conditional data flow.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/select-string.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Select*</a>
-          <a href="ops/select-switch.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">SwitchString</a>
-          <a href="ops/select-defaultstring.html" style="font-size:0.8125rem;color:var(--blue-light);text-decoration:none;background:var(--blue-dim);padding:0.15rem 0.5rem;border-radius:4px;">Default*</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-orange">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange-light)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <h3>I/O, JSON &amp; Time <span class="tag tag-det" style="margin-left:0.375rem;vertical-align:middle;">5 ops</span></h3>
-        <p style="margin-bottom:0.875rem;">File read, environment variables, HTTP GET, JSON path extraction, and city timezone lookup.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
-          <a href="ops/io-fileread.html" style="font-size:0.8125rem;color:var(--orange-light);text-decoration:none;background:var(--orange-dim);padding:0.15rem 0.5rem;border-radius:4px;">FileRead</a>
-          <a href="ops/io-env.html" style="font-size:0.8125rem;color:var(--orange-light);text-decoration:none;background:var(--orange-dim);padding:0.15rem 0.5rem;border-radius:4px;">Env</a>
-          <a href="ops/io-httpget.html" style="font-size:0.8125rem;color:var(--orange-light);text-decoration:none;background:var(--orange-dim);padding:0.15rem 0.5rem;border-radius:4px;">HTTPGet</a>
-          <a href="ops/json-extract.html" style="font-size:0.8125rem;color:var(--orange-light);text-decoration:none;background:var(--orange-dim);padding:0.15rem 0.5rem;border-radius:4px;">JSONExtract</a>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center;">
-      <a href="library.html" class="btn btn-primary">Browse All 89 Operators →</a>
     </div>
   </div>
 </section>
@@ -1083,6 +1168,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
 </section>
 
 <!-- ── Footer ───────────────────────────────────────────────── -->
+<!-- FOOTER:START -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
@@ -1091,18 +1177,19 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     </div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="developers.html">Developers</a></li>
-      <li><a href="leaders.html">For Leaders</a></li>
-      <li><a href="operations.html">DevOps</a></li>
       <li><a href="concepts.html">Concepts</a></li>
-      <li><a href="library.html">Library</a></li>
       <li><a href="examples.html">Examples</a></li>
+      <li><a href="developers.html">Developers</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="operations.html">DevOps</a></li>
+      <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
     <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
+<!-- FOOTER:END -->
 
 </body>
 </html>

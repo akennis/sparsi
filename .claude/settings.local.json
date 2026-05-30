@@ -15,7 +15,16 @@
       "Bash(xargs sed -i 's|class=\"brand\">sparsi</span>-go</span>|class=\"brand\">sparsi</span></span>|g')",
       "Read(//mnt/c/Users/albert.kennis/projects/sparsi-go/examples/**)",
       "Bash(sed -n 1,30p __TRACKED_VAR__/main.go)",
-      "Bash(grep -n -A4 'mcp.AddTool\\\\|flag.Bool\\\\|flag.String\\\\|flag.Duration\\\\|Name:.*\"\\\\|Description:.*\"\\\\|usage:' __TRACKED_VAR__/main.go)"
+      "Bash(grep -n -A4 'mcp.AddTool\\\\|flag.Bool\\\\|flag.String\\\\|flag.Duration\\\\|Name:.*\"\\\\|Description:.*\"\\\\|usage:' __TRACKED_VAR__/main.go)",
+      "Bash(go version *)",
+      "Read(//tmp/sparsi-go/**)",
+      "Read(//tmp/dagor/**)",
+      "Read(//tmp/akennis-dagor/**)",
+      "Read(//tmp/**)",
+      "Bash(GOTOOLCHAIN=auto go version)",
+      "Bash(go env *)",
+      "Bash(echo \"GOTOOLCHAIN=$\\(go env GOTOOLCHAIN\\)\")",
+      "Bash(timeout 10 ./ticket-triager --mcp)"
     ]
   }
 }

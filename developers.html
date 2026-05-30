@@ -132,6 +132,20 @@ go run ./examples/ticket-triager</code></pre>
         <a href="examples.html" style="color:var(--blue-light);">Examples</a> page.
       </p>
     </div>
+
+    <div style="max-width:720px; margin:1.25rem auto 0; background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>No key yet?</strong> Every generated <code>-mcp</code> binary
+        accepts a <code>--sampling</code> flag that routes its AI ops through
+        the connected MCP client's host LLM via
+        <code>sampling/createMessage</code>. Register the binary in Claude Code
+        with <code>./your-workflow -mcp --sampling</code> and try the workflow
+        end-to-end without setting <code>CLAUDE_API_KEY</code>. See
+        <a href="#sampling-override" style="color:var(--purple-light);">Sampling override</a>
+        below for trade-offs and when to switch back to a real key.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -286,9 +300,9 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
       </div>
       <pre><code><span class="kw">import</span> (
     _ <span class="st">"github.com/akennis/sparsi-go/library"</span>
-    <span class="st">"github.com/wwz16/dagor/graph"</span>
-    <span class="st">"github.com/wwz16/dagor/operator"</span>
-    <span class="st">"github.com/wwz16/dagor/operator/builtin"</span>
+    <span class="st">"github.com/akennis/dagor/graph"</span>
+    <span class="st">"github.com/akennis/dagor/operator"</span>
+    <span class="st">"github.com/akennis/dagor/operator/builtin"</span>
 )
 
 <span class="kw">type</span> <span class="ty">inputKey</span> <span class="kw">struct</span>{}
@@ -946,8 +960,8 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
     <span class="st">"fmt"</span>
     <span class="st">"log"</span>
 
-    <span class="st">"github.com/wwz16/dagor/config"</span>
-    <span class="st">"github.com/wwz16/dagor/operator"</span>
+    <span class="st">"github.com/akennis/dagor/config"</span>
+    <span class="st">"github.com/akennis/dagor/operator"</span>
 )
 
 <span class="kw">type</span> <span class="ty">SayHelloOp</span> <span class="kw">struct</span> {
@@ -1016,9 +1030,9 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
       </div>
       <pre><code><span class="kw">import</span> (
     _ <span class="st">"yourmodule/myops"</span> <span class="cm">// registers SayHelloOp via init()</span>
-    <span class="st">"github.com/wwz16/dagor/graph"</span>
-    <span class="st">"github.com/wwz16/dagor/operator/builtin"</span>
-    <span class="st">"github.com/wwz16/dagor/operator"</span>
+    <span class="st">"github.com/akennis/dagor/graph"</span>
+    <span class="st">"github.com/akennis/dagor/operator/builtin"</span>
+    <span class="st">"github.com/akennis/dagor/operator"</span>
 )
 
 <span class="kw">type</span> <span class="ty">nameKey</span> <span class="kw">struct</span>{}
@@ -1044,6 +1058,107 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     <div class="quote-block" style="margin-top:2rem;">
       <p>For operators with many fields, the <code>daggen</code> tool auto-generates <code>InputFields</code>, <code>OutputFields</code>, <code>SetInputField</code>, and <code>ResetFields</code> from <code>dag:"input"</code> / <code>dag:"output"</code> struct tags — run <code>go run cmd/daggen/main.go -type=SayHelloOp</code> to get started.</p>
     </div>
+  </div>
+</section>
+
+<!-- ── Sampling override ─────────────────────────────────────── -->
+<section class="section" id="sampling-override">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">Onboarding shortcut</span>
+      <h2>Run keyless with <code>--sampling</code></h2>
+      <p>Every <code>-mcp</code> binary the codegen skill produces accepts a
+         <code>--sampling</code> flag. When the flag is set, the AI ops in the
+         workflow stop reading <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code>
+         and instead ask the connected MCP client to run each completion on the
+         host LLM via the protocol's <code>sampling/createMessage</code> reverse
+         call. The host pays the tokens; you pay nothing to take a workflow for
+         a spin.</p>
+    </div>
+
+    <div class="grid-2" style="gap:1.5rem; margin-bottom:1.5rem;">
+      <div class="card">
+        <h3 style="margin-top:0;">When to use it</h3>
+        <ul class="feat-list">
+          <li>First-run / demo of a freshly generated workflow before you provision an API key.</li>
+          <li>Sharing a single binary with a colleague — they register it in their own Claude Code and try it without any setup.</li>
+          <li>Internal evaluation workflows where the AI ops are model-agnostic (classification, summarization) and the host model is fine.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">When NOT to use it</h3>
+        <ul class="feat-list">
+          <li>Production deployments — the host gets the final say on which model runs each op; your per-op <code>provider</code> / <code>model</code> become hints only.</li>
+          <li>High-fanout / batch workflows — sampling-aware clients typically prompt the user to approve each sampling request.</li>
+          <li>Anything tuned to a specific model's behavior (cost-optimized Haiku classifiers, Opus-grade reasoning steps). Pin the model with a real API key instead.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-bottom:1.5rem;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">terminal — keyless trial run</span>
+      </div>
+      <pre><code><span class="cm"># Register the same binary you'd run in production — just add --sampling.</span>
+<span class="cm"># Claude Code is sampling-aware; Claude Desktop is too. Other MCP clients</span>
+<span class="cm"># may not be — the server fails fast at startup if the connected client</span>
+<span class="cm"># does not advertise the sampling capability.</span>
+claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
+    </div>
+
+    <h3 style="margin-bottom:0.75rem;">How it works under the hood</h3>
+    <p style="font-size:0.9375rem; margin-bottom:1rem;">
+      <code>--sampling</code> is wired by the codegen skill into three small
+      pieces of the generated <code>-mcp</code> entrypoint:
+    </p>
+    <ol style="font-size:0.9375rem; padding-left:1.25rem; margin-bottom:1.5rem;">
+      <li style="margin-bottom:0.5rem;">An <code>InitializedHandler</code> fires once when the MCP client connects.
+        It calls <code>library.EnableSamplingOverride()</code> and logs a
+        one-line startup banner on stderr (<code>"sparsi: --sampling active
+        — every AI op will run on the host LLM"</code>) so the override is
+        observable. It also checks
+        <code>session.InitializeParams().Capabilities.Sampling</code> and
+        warns when the client did not advertise sampling — many clients
+        (Claude Code included) handle <code>sampling/createMessage</code>
+        without listing the capability, so the missing-cap branch is a
+        warning rather than a fatal; the actual round-trip on the first AI
+        op is the real source of truth.</li>
+      <li style="margin-bottom:0.5rem;">Each tool-call handler installs the per-request
+        <code>*mcp.ServerSession</code> on <code>ctx</code> via
+        <code>library.WithMCPServerSession</code>. The library's internal
+        <code>samplingCaller</code> pulls that session out and issues
+        <code>sampling/createMessage</code>, forwarding the originally-declared
+        <code>provider</code> / <code>model</code> as
+        <code>ModelPreferences.Hints</code> so a sampling-aware host can still
+        match the workflow's intent.</li>
+    </ol>
+
+    <h3 style="margin-bottom:0.75rem;">Locking it off in production builds</h3>
+    <p style="font-size:0.9375rem; margin-bottom:1rem;">
+      For regulated environments or hosted services that must guarantee no
+      operator can swap the model out via <code>--sampling</code>, add a single
+      <code>init()</code> to a build-tagged file in the generated module:
+    </p>
+    <div class="code-block" style="margin-bottom:1.5rem;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <span class="code-filename">production.go</span>
+      </div>
+      <pre><code><span class="kw">//go:build production</span>
+
+<span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">"github.com/akennis/sparsi-go/library"</span>
+
+<span class="kw">func</span> init() { library.DisallowSamplingOverride() }</code></pre>
+    </div>
+    <p style="font-size:0.9375rem;">
+      After that, <code>--sampling</code> is rejected at server startup. The
+      check is one-way — there is no Re-allow — so a build that includes the
+      <code>production</code> tag can never be coaxed back into sampling mode
+      by another <code>init()</code> or runtime path.
+    </p>
   </div>
 </section>
 

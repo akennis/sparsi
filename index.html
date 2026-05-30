@@ -1055,6 +1055,30 @@ claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pr
           (Gemini CLI, other agent runtimes) registers the same binary with its
           own equivalent command.
         </p>
+
+        <div style="margin-top:1.25rem; background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1rem 1.25rem;">
+          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.5rem;">No API key? Try <code>--sampling</code> first</strong>
+          <p style="font-size:0.875rem; margin:0 0 0.75rem;">
+            Add <code>--sampling</code> after <code>-mcp</code> and every AI op
+            in the workflow runs on the host LLM (Claude Code's own model) via
+            MCP <code>sampling/createMessage</code> — no <code>CLAUDE_API_KEY</code>
+            required to take it for a spin.
+          </p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span></span><span></span><span></span></div>
+              <span class="code-filename">terminal — keyless trial run</span>
+            </div>
+            <pre><code>claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp --sampling</code></pre>
+          </div>
+          <p style="font-size:0.8125rem; color:var(--text-3); margin:0.75rem 0 0;">
+            Exploration-mode only: the host picks the model (your per-op
+            <code>provider</code> / <code>model</code> become hints), tokens
+            are billed to your Claude account, and the host typically prompts
+            for approval on each call. For production, drop the flag and use
+            an API key so each AI op runs on the model the design pinned.
+          </p>
+        </div>
       </div>
 
     </div>

@@ -122,11 +122,11 @@ import (
 	"time"
 
 	"github.com/akennis/sparsi-go/library"
-	_ "github.com/wwz16/dagor/operator/builtin"
+	_ "github.com/akennis/dagor/operator/builtin"
 
 	"github.com/panjf2000/ants/v2"
-	"github.com/wwz16/dagor"
-	"github.com/wwz16/dagor/graph"
+	"github.com/akennis/dagor"
+	"github.com/akennis/dagor/graph"
 )
 
 func main() {
@@ -196,7 +196,7 @@ a pointer to the op's field type:
 #### Conditional routing (when the example needs a predicate gate)
 
 ```go
-import "github.com/wwz16/dagor/predicate"
+import "github.com/akennis/dagor/predicate"
 
 predicate.Register("pred_name", func(inputs map[string]any) bool {
     v, ok := inputs["wire_name"].(*bool)   // or *string, *float64, etc.
@@ -239,7 +239,7 @@ go 1.25.5
 require github.com/akennis/sparsi-go v0.0.0
 
 replace github.com/akennis/sparsi-go => /mnt/c/Users/albert.kennis/projects/sparsi-go
-replace github.com/wwz16/dagor => /mnt/c/Users/albert.kennis/projects/dagor
+replace github.com/akennis/dagor => /mnt/c/Users/albert.kennis/projects/dagor
 ```
 
 ---

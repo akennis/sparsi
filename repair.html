@@ -51,12 +51,12 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">AI-driven repair</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Some deterministic ops have a fixable failure mode — a JSON blob that's almost right, a
-        ticket that's almost valid, a schema violation a language model could plausibly correct.
-        Rather than hand-coding a retry path, wrap the op with <code>library.WithRepair</code>
-        and have the op return a typed <code>*ErrRepairable</code> carrying a self-contained prompt.
-        The wrapper sends that prompt to an LLM, parses the response back into the op's input type,
-        and re-runs.
+        Sparsi workflows provide built-in mechanisms for self-healing. Some
+        deterministic ops have a fixable failure mode — a JSON blob that's almost
+        right, or a schema violation a language model could plausibly correct.
+        Rather than hand-coding a retry path, Sparsi provides a repair wrapper
+        (<code>library.WithRepair</code>) that uses a bounded LLM pass to recover
+        deterministic logic.
       </p>
     </div>
   </div>

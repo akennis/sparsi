@@ -51,11 +51,12 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">AI credential routing</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Every AI op in Sparsi resolves its provider SDK client through an
-        <code>AIClientFactory</code>. The bundled factory reads <code>CLAUDE_API_KEY</code> and
-        <code>GEMINI_API_KEY</code> from the environment. Replace it with your own implementation
-        to source credentials from HashiCorp Vault, AWS Secrets Manager, workload identity, an
-        egress proxy, or a per-tenant credential vault — without touching any graph code.
+        Sparsi makes it easy to manage AI credentials at scale. Every AI op
+        resolves its provider SDK client through an <code>AIClientFactory</code>,
+        allowing you to source credentials from HashiCorp Vault, AWS Secrets Manager,
+        workload identity, or per-tenant vaults without touching any graph code.
+        The bundled factory reads <code>CLAUDE_API_KEY</code> and
+        <code>GEMINI_API_KEY</code> from the environment.
       </p>
     </div>
   </div>

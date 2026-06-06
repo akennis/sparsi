@@ -36,7 +36,7 @@
 </nav>
 <!-- HEADER:END -->
 
-<!-- ── Hero ────────────────────────────────────────────────── -->
+<!-- ── 1 · Hero ────────────────────────────────────────────── -->
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
@@ -142,6 +142,7 @@
 
             <circle cx="70"  cy="250" r="28" fill="url(#h-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#h-glow)"/>
             <text   x="70"   y="247" font-size="14" fill="#f3e8ff">AI</text>
+            <text   x="70"   y="247" font-size="14" fill="#f3e8ff">AI</text>
             <text   x="70"   y="263" font-size="10" fill="#ddd6fe">op()</text>
 
             <!-- L2: 2 deterministic flanking 1 AI in the middle -->
@@ -186,12 +187,381 @@
     <p style="margin:0; font-size:0.875rem; color:var(--text-1); line-height:1.5;">
       <span style="color:var(--purple-light); font-weight:600;">Skill users:</span>
       try <code>/sparsi-design</code> and <code>/sparsi-codegen</code> — AI-assisted workflow design &amp; codegen in your editor.
-      <a href="#get-started" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Get started →</a>
+      <a href="developers.html#skills" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Get started →</a>
     </p>
   </div>
 </div>
 
-<!-- ── Benefits ────────────────────────────────────────────── -->
+<!-- ── 2 · The core idea: interpreted vs compiled ──────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">The Core Idea</span>
+      <h2>Your agent interprets.<br>Sparsi compiles.</h2>
+      <p>The difference between an interpreter and a compiler is <em>when</em> the work
+         happens — on every run, or just once. Today's agents are interpreters: they
+         re-derive the same routine on every request. Sparsi gives them the build step
+         they never had.</p>
+    </div>
+
+    <div class="grid-2" style="gap:2rem; align-items:stretch;">
+
+      <div class="card">
+        <div class="card-icon icon-blue">🔁</div>
+        <h3>Interpreted: re-planned every request</h3>
+        <p><strong>The plan is re-derived every request.</strong> Your system
+           prompt, your installed skills, your MCP servers — those stand still.
+           The plan built on top of them does not: your agent takes the same
+           goal and stitches the routine together from primitives —
+           <code>search</code>, <code>fetch</code>, <code>read</code>,
+           <code>write</code>, <code>call</code> — from scratch, every time it
+           runs. No plan carries over between runs. So every time a user asks
+           <em>"where's my order?"</em> the routine is built fresh, and you pay
+           the reasoning cost again in tokens, in latency, and in a fresh chance
+           to get it wrong.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">⚡</div>
+        <h3>Compiled: planned once, run many</h3>
+        <p><strong>Authored once, then replayed.</strong> A compiler pays the
+           stitching cost a single time, at build time, and every run after gets
+           the result for free. Sparsi is that build step for agents: you author
+           the routine once — classify the ask, route through the right channel,
+           hit your systems in order, write the reply — and Sparsi compiles it
+           into a fixed DAG. Every request after runs that compiled path instead
+           of re-deriving it — less work, fewer tokens, right more often. The
+           unique, novel scenarios still fall through to the primitives, exactly as today.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 3 · One tool palette: primitives + Sparsi tools ─────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">One Tool Palette</span>
+      <h2>Your agent keeps its primitives.<br>Sparsi tools join the same palette.</h2>
+      <p>A Sparsi MCP server registers like any other tool — it lands in the agent's
+         tool list right beside <code>search</code>, <code>fetch</code>, and the rest.
+         The agent never has to choose <em>primitives or Sparsi</em>; it draws from one
+         palette and calls whatever mix a given request needs.</p>
+    </div>
+
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
+      <svg viewBox="0 40 1000 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="An LLM agent at the base fans calls up to a shared tool palette: a cluster of small primitive MCP tools and, beside them, a larger composite Sparsi MCP tool whose box contains a compiled DAG of mixed deterministic and AI nodes">
+        <defs>
+          <radialGradient id="p-det" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
+          </radialGradient>
+          <radialGradient id="p-ai" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#f5d0fe"/><stop offset="55%" stop-color="#a855f7"/><stop offset="100%" stop-color="#4c1d95"/>
+          </radialGradient>
+          <filter id="p-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="p-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="p-arr" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+          </marker>
+        </defs>
+
+        <!-- ── Agent → tool edges (drawn first so blocks overlay) ─ -->
+        <g stroke="#475569" stroke-width="1.8" fill="none">
+          <line x1="500" y1="372" x2="99"  y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="199" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="299" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="399" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="499" y2="150" marker-end="url(#p-arr)"/>
+          <line x1="500" y1="372" x2="774" y2="282" marker-end="url(#p-arr)"/>
+        </g>
+
+        <!-- ── Primitive MCP tools ───────────────────────────── -->
+        <text x="299" y="70" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="monospace" letter-spacing="0.04em">Primitive MCP tools &#183; one call, one action</text>
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+          <rect x="60"  y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="99"  y="123" font-size="12.5" fill="#cbd5e1">search()</text>
+          <rect x="160" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="199" y="123" font-size="12.5" fill="#cbd5e1">fetch()</text>
+          <rect x="260" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="299" y="123" font-size="12.5" fill="#cbd5e1">read()</text>
+          <rect x="360" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="399" y="123" font-size="12.5" fill="#cbd5e1">write()</text>
+          <rect x="460" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
+          <text x="499" y="123" font-size="12.5" fill="#cbd5e1">call()</text>
+        </g>
+
+        <!-- ── Sparsi MCP tool (composite — DAG inside its box) ─ -->
+        <rect x="600" y="58" width="348" height="224" rx="16" fill="rgba(139,92,246,0.06)" stroke="rgba(139,92,246,0.4)" stroke-width="1.6"/>
+        <text x="620" y="82" font-size="12.5" fill="#a78bfa" font-family="monospace" font-weight="bold" letter-spacing="0.04em">Sparsi MCP tool</text>
+        <text x="620" y="99" font-size="9.5" fill="#8b7fb8" font-family="monospace">one call &#183; a whole workflow</text>
+
+        <!-- inner DAG edges -->
+        <g stroke="#64748b" stroke-width="1.5" fill="none">
+          <line x1="678" y1="180" x2="726" y2="156" marker-end="url(#p-arr)"/>
+          <line x1="678" y1="196" x2="726" y2="222" marker-end="url(#p-arr)"/>
+          <line x1="760" y1="148" x2="812" y2="148" marker-end="url(#p-arr)"/>
+          <line x1="760" y1="230" x2="812" y2="230" marker-end="url(#p-arr)"/>
+          <line x1="846" y1="156" x2="894" y2="180" marker-end="url(#p-arr)"/>
+          <line x1="846" y1="222" x2="894" y2="196" marker-end="url(#p-arr)"/>
+        </g>
+
+        <!-- inner DAG AI halos -->
+        <circle cx="662" cy="188" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="830" cy="230" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="910" cy="188" r="16" fill="url(#p-halo)">
+          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- inner DAG nodes -->
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+          <circle cx="662" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="662" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
+          <circle cx="742" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="742" y="151" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="742" cy="230" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="742" y="233" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="830" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text   x="830" y="151" font-size="8.5" fill="#dbeafe">det</text>
+          <circle cx="830" cy="230" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="830" y="233" font-size="8.5" fill="#f3e8ff">AI</text>
+          <circle cx="910" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
+          <text   x="910" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
+        </g>
+        <text x="774" y="269" text-anchor="middle" font-size="9.5" fill="#8b7fb8" font-family="monospace">compiled DAG &#183; deterministic + AI nodes</text>
+
+        <!-- ── LLM agent (base) ──────────────────────────────── -->
+        <rect x="380" y="372" width="240" height="72" rx="14" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-width="2"/>
+        <text x="500" y="404" text-anchor="middle" font-size="15" fill="#fdba74" font-family="monospace" font-weight="bold">LLM agent</text>
+        <text x="500" y="424" text-anchor="middle" font-size="10" fill="#fb923c" font-family="monospace">interprets the ask &#183; calls the tools</text>
+
+        <!-- ── Caption ───────────────────────────────────────── -->
+        <text x="500" y="478" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.04em">Both are MCP tools on a single palette &#8212; the agent calls whatever mix each request needs</text>
+      </svg>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔀</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>It's a mix, not a switch.</strong> Within a single request the agent
+        blends both kinds of call freely. Sometimes one Sparsi tool call does the whole
+        job. More often it does the bulk of the work — the known, repeating part of the
+        request — while a few primitive calls handle whatever falls outside it. It's
+        never all-or-nothing: primitives and Sparsi tools compose, call by call.
+      </p>
+    </div>
+
+    <div style="margin-top:1rem; background:var(--bg-2); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">📈</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The more Sparsi, the better.</strong> Every request type you capture as
+        a Sparsi tool moves more of the agent's traffic onto a deterministic,
+        bounded-cost, audited path — while the primitives stay as the long-tail
+        fallback. The larger the share of an agent's work that flows through Sparsi
+        tools, the more reliable and efficient the whole system becomes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4 · Architecture: how a request flows ────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-blue">The Architecture</span>
+      <h2>How a request flows through Sparsi</h2>
+      <p>The user talks to your chatbot. The agent LLM recognizes the intent and forwards
+         it to a Sparsi MCP server. Inside, an AI classifier routes the request through
+         deterministic channels; a final AI node writes the reply, which the agent relays
+         back. The diagram below shows the minimum useful shape — one AI op upstream, one downstream — but a workflow can place additional AI nodes anywhere along the path wherever a step genuinely needs language understanding or judgment. One boundary, crossed twice — and nothing else leaks across it.</p>
+    </div>
+
+    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="A user talks to a chatbot; the agent LLM forwards the request across the MCP boundary into a Sparsi workflow that starts with an AI classifier, routes through deterministic channels, and ends in an AI synthesizer whose natural-language response is relayed back through the agent LLM to the user">
+        <defs>
+          <radialGradient id="a-det" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
+          </radialGradient>
+          <radialGradient id="a-ai" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#f5d0fe"/><stop offset="55%" stop-color="#a855f7"/><stop offset="100%" stop-color="#4c1d95"/>
+          </radialGradient>
+          <radialGradient id="a-user" cx="38%" cy="35%" r="62%">
+            <stop offset="0%" stop-color="#e2e8f0"/><stop offset="100%" stop-color="#475569"/>
+          </radialGradient>
+          <filter id="a-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="a-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="a-arr" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+          </marker>
+          <marker id="a-arr-p" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,4 L0,8 Z" fill="#a855f7"/>
+          </marker>
+        </defs>
+
+        <!-- ── MCP boundary ─────────────────────────────────────── -->
+        <line x1="300" y1="46" x2="300" y2="470" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 6"/>
+        <text x="300" y="34" text-anchor="middle" font-size="11" fill="#94a3b8" font-family="monospace" letter-spacing="0.08em">MCP boundary</text>
+
+        <!-- ── Sparsi container ─────────────────────────────────── -->
+        <rect x="322" y="58" width="648" height="384" rx="16" fill="rgba(139,92,246,0.045)" stroke="rgba(139,92,246,0.28)"/>
+        <text x="342" y="84" font-size="11" fill="#a78bfa" font-family="monospace" letter-spacing="0.06em">Sparsi MCP server &#183; one workflow</text>
+
+        <!-- ── Forward edges ────────────────────────────────────── -->
+        <g stroke="#64748b" stroke-width="1.8" fill="none">
+          <line x1="86"  y1="150" x2="116" y2="150" marker-end="url(#a-arr)"/>
+          <line x1="240" y1="150" x2="367" y2="240" marker-end="url(#a-arr)"/>
+          <line x1="438" y1="222" x2="510" y2="160" marker-end="url(#a-arr)"/>
+          <line x1="438" y1="258" x2="510" y2="320" marker-end="url(#a-arr)"/>
+          <line x1="573" y1="150" x2="645" y2="150" marker-end="url(#a-arr)"/>
+          <line x1="573" y1="330" x2="645" y2="330" marker-end="url(#a-arr)"/>
+          <line x1="708" y1="160" x2="788" y2="222" marker-end="url(#a-arr)"/>
+          <line x1="708" y1="320" x2="788" y2="258" marker-end="url(#a-arr)"/>
+        </g>
+
+        <!-- ── Return path (synthesized NL response) ────────────── -->
+        <path d="M 830 277 L 830 462 L 178 462 L 178 188" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-opacity="0.75" stroke-dasharray="6 5" marker-end="url(#a-arr-p)"/>
+        <path d="M 116 178 Q 90 178 84 168" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-opacity="0.75" stroke-dasharray="6 5" marker-end="url(#a-arr-p)"/>
+        <text x="500" y="481" text-anchor="middle" font-size="11" fill="#c084fc" font-family="monospace" letter-spacing="0.05em">natural-language response &#8212; relayed unchanged by the agent LLM</text>
+
+        <!-- ── AI node halos ────────────────────────────────────── -->
+        <circle cx="402" cy="240" r="44" fill="url(#a-halo)">
+          <animate attributeName="r" values="36;52;36" dur="3.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="830" cy="240" r="44" fill="url(#a-halo)">
+          <animate attributeName="r" values="36;52;36" dur="3.6s" begin="-1.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-1.8s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ── Nodes ────────────────────────────────────────────── -->
+        <g font-family="monospace" font-weight="bold" text-anchor="middle">
+
+          <!-- User -->
+          <circle cx="55" cy="150" r="30" fill="url(#a-user)" stroke="#94a3b8" stroke-width="2"/>
+          <text x="55" y="155" font-size="12" fill="#0f172a">User</text>
+
+          <!-- Chatbot / Agent LLM -->
+          <rect x="120" y="110" width="122" height="80" rx="12" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-width="2"/>
+          <text x="181" y="143" font-size="12.5" fill="#fdba74">Chatbot /</text>
+          <text x="181" y="161" font-size="12.5" fill="#fdba74">agent LLM</text>
+          <text x="181" y="100" font-size="10" fill="#fb923c" font-weight="normal">your model</text>
+
+          <!-- AI classifier -->
+          <circle cx="402" cy="240" r="33" fill="url(#a-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#a-glow)"/>
+          <text x="402" y="237" font-size="13" fill="#f3e8ff">AI</text>
+          <text x="402" y="252" font-size="9.5" fill="#ddd6fe">classify</text>
+
+          <!-- Channel A (deterministic) -->
+          <circle cx="540" cy="150" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="540" y="147" font-size="12" fill="#dbeafe">det</text>
+          <text x="540" y="162" font-size="9" fill="#bfdbfe">op()</text>
+          <circle cx="675" cy="150" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="675" y="147" font-size="12" fill="#dbeafe">det</text>
+          <text x="675" y="162" font-size="9" fill="#bfdbfe">op()</text>
+
+          <!-- Channel B (deterministic) -->
+          <circle cx="540" cy="330" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="540" y="327" font-size="12" fill="#dbeafe">det</text>
+          <text x="540" y="342" font-size="9" fill="#bfdbfe">op()</text>
+          <circle cx="675" cy="330" r="28" fill="url(#a-det)" stroke="#60a5fa" stroke-width="2"/>
+          <text x="675" y="327" font-size="12" fill="#dbeafe">det</text>
+          <text x="675" y="342" font-size="9" fill="#bfdbfe">op()</text>
+
+          <!-- AI synthesizer -->
+          <circle cx="830" cy="240" r="33" fill="url(#a-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#a-glow)"/>
+          <text x="830" y="237" font-size="13" fill="#f3e8ff">AI</text>
+          <text x="830" y="252" font-size="9.5" fill="#ddd6fe">respond</text>
+        </g>
+
+        <!-- ── Captions ─────────────────────────────────────────── -->
+        <g font-family="monospace" text-anchor="middle" fill="#64748b" font-size="10.5">
+          <text x="402" y="298">AI classifier &#8212; routes the request</text>
+          <text x="607" y="118">deterministic channel &#8212; AI ops can appear here too</text>
+          <text x="607" y="380">deterministic channel (one or more)</text>
+          <text x="830" y="298">AI synthesizes the reply</text>
+        </g>
+      </svg>
+    </div>
+
+    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
+      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔑</span>
+      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
+        <strong>The agent LLM and Sparsi's node models are different models.</strong>
+        The chatbot's model only ever sees a tool call and a finished natural-language
+        reply. Inside the workflow, Sparsi embeds its own AI with a purpose-fit model at
+        each point — a cheap classifier here, a strong synthesizer there, an independent
+        checker where it earns its keep — each chosen, versioned, and audited per
+        workflow. The boundary is real: no prompts, no scratchpad, no intermediate state
+        crosses it in either direction.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5 · How you adopt Sparsi ────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-purple">How You Adopt It</span>
+      <h2>The path to using Sparsi</h2>
+      <p>You don't rewrite your agent. You peel the predictable request types off it,
+         one at a time, and give each its own determinism-geared tool.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-connector"></div>
+        <h3>Identify common request types</h3>
+        <p>Look at what users actually ask your agent. A handful of intents — returns,
+           status checks, plan changes — cover most of the volume. Rank them by
+           frequency and start at the top of the list.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-connector"></div>
+        <h3>Model each as a workflow</h3>
+        <p>One Sparsi MCP server per request type. An AI node reads the request into
+           structured facts; deterministic nodes call your order, fraud, shipping, and
+           billing systems in a fixed sequence; an AI node drafts the response. Mostly
+           code, a few AI nodes where judgment is unavoidable.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-connector"></div>
+        <h3>Test it like code</h3>
+        <p>Because everything but the AI nodes is deterministic — and you pin those — you
+           unit-test it without ever calling a model. Replay real requests, and you know
+           exactly how it behaves before it ever reaches a user.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-connector"></div>
+        <h3>Wire it into your agent</h3>
+        <p>Register the server with a description the LLM reliably matches to the right
+           kind of prompt. From the agent's side it's one tool call. From yours, it's a
+           tested, auditable pipeline — while unique, novel requests still fall through to the
+           agent, unchanged.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6 · Benefits ────────────────────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
@@ -243,7 +613,7 @@
   </div>
 </section>
 
-<!-- ── Comparison table ─────────────────────────────────────── -->
+<!-- ── 7 · Comparison table ─────────────────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -338,7 +708,7 @@
   </div>
 </section>
 
-<!-- ── CTA ──────────────────────────────────────────────────── -->
+<!-- ── 8 · CTA ──────────────────────────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div style="text-align:center; max-width:700px; margin:0 auto;">

@@ -45,9 +45,10 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">The ideas behind Sparsi</h1>
       <p style="font-size:1.0625rem; line-height:1.8; margin-bottom:0;">
-        Sparsi compiles your agent's repeating requests into lean, deterministic-first MCP
-        tools. By maximizing pre-written code and reserving AI for genuine judgment, you
-        get workflows that are auditable, cost-effective, and right more often.
+        Sparsi packages repeatable tasks into stable, deterministic-first MCP tools.
+        By replacing multi-call reasoning loops with a single call to a composed workflow,
+        you get workloads that are auditable, cost-effective, and right more often—reserving
+        AI for genuine judgment.
       </p>
     </div>
   </div>
@@ -92,7 +93,7 @@
            hit your systems in order, write the reply — and Sparsi compiles it
            into a fixed DAG. Every request after runs that compiled path instead
            of re-deriving it — less work, fewer tokens, right more often. The
-           long tail still falls through to the primitives, exactly as today.</p>
+           unique, novel scenarios still fall through to the primitives, exactly as today.</p>
       </div>
 
     </div>
@@ -775,7 +776,7 @@
             <td><span class="yes">✓</span> Deterministic steps satisfy data-flow requirements</td>
             <td><span class="no">✗</span> Hard to prove consistency run-to-run</td>
           </tr>
-          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and the long tail</td></tr>
+          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and unique, one-off requests</td></tr>
           <tr>
             <td>Unanticipated request types</td>
             <td><span class="na">—</span> Covers only the workflows you authored; the rest falls through</td>
@@ -843,7 +844,7 @@
         <h3>Wire it into your agent</h3>
         <p>Register the server with a description the LLM reliably matches to the right
            kind of prompt. From the agent's side it's one tool call. From yours, it's a
-           tested, auditable pipeline — and the long tail still falls through to the
+           tested, auditable pipeline — while unique, novel requests still fall through to the
            agent, unchanged.</p>
       </div>
     </div>

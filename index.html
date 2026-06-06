@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sparsi — Higher-Level MCP Tools for Agents</title>
-  <meta name="description" content="Sparsi is a framework for building lightweight, cost-effective MCP servers. Sparsi MCP servers reduce token usage, completion latency, and AI errors by maximizing pre-written deterministic code and using AI only where judgment is required.">
+  <meta name="description" content="Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools. Replace costly reasoning loops with a single call to an efficient, composed workflow to reduce token burn and completion time.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -46,13 +46,13 @@
         </div>
         <h1 class="hero-title">
           Build higher-level <span class="hi-o">agentic tools</span><br>
-          with the <span class="hi-p">Sparsi</span> framework
+          with <span class="hi-p">Sparsi</span>
         </h1>
         <p class="hero-desc">
-          <strong>Sparsi is a framework for building lightweight, cost-effective MCP servers.</strong>
-          Sparsi MCP servers drastically reduce token usage, completion latency, and the
-          possibility of AI errors corrupting output by maximizing the use of pre-written
-          deterministic code in each workflow and only using AI where judgment is required.
+          <strong>Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools.</strong>
+          It replaces costly, multi-call reasoning loops with a single call to a composed workflow,
+          maximizing determinism to reduce token usage and completion time by handling
+          routines in code and saving raw reasoning for the unique cases that actually need it.
         </p>
         <p style="font-size:0.875rem; color:var(--text-2); margin:0.875rem 0 0;">
           Workflows orchestrate services in <strong style="color:var(--text-1);">any
@@ -228,7 +228,8 @@
            hit your systems in order, write the reply — and Sparsi compiles it
            into a fixed DAG. Every request after runs that compiled path instead
            of re-deriving it — less work, fewer tokens, right more often. The
-           long tail still falls through to the primitives, exactly as today.</p>
+           the long tail of unique scenarios still falls through to the primitives,
+           exactly as today.</p>
       </div>
 
     </div>
@@ -567,8 +568,8 @@
         <h3>Wire it into your agent</h3>
         <p>Register the server with a description the LLM reliably matches to the right
            kind of prompt. From the agent's side it's one tool call. From yours, it's a
-           tested, auditable pipeline — and the long tail still falls through to the
-           agent, unchanged.</p>
+           tested, auditable pipeline — while the long tail of unique scenarios your workflow
+           will need to handle stays on the agent, unchanged.</p>
       </div>
     </div>
   </div>
@@ -857,7 +858,7 @@
             <td><span class="yes">✓</span> Deterministic steps satisfy data-flow requirements</td>
             <td><span class="no">✗</span> Hard to prove consistency run-to-run</td>
           </tr>
-          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and the long tail</td></tr>
+          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and unique, one-off requests</td></tr>
           <tr>
             <td>Unanticipated request types</td>
             <td><span class="na">—</span> Covers only the workflows you authored; the rest falls through</td>

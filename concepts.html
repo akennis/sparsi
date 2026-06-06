@@ -54,190 +54,7 @@
   </div>
 </section>
 
-<!-- ── 1 · The core idea: interpreted vs compiled ──────────── -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-purple">The Core Idea</span>
-      <h2>Your agent interprets.<br>Sparsi compiles.</h2>
-      <p>The difference between an interpreter and a compiler is <em>when</em> the work
-         happens — on every run, or just once. Today's agents are interpreters: they
-         re-derive the same routine on every request. Sparsi gives them the build step
-         they never had.</p>
-    </div>
-
-    <div class="grid-2" style="gap:2rem; align-items:stretch;">
-
-      <div class="card">
-        <div class="card-icon icon-blue">🔁</div>
-        <h3>Interpreted: re-planned every request</h3>
-        <p><strong>The plan is re-derived every request.</strong> Your system
-           prompt, your installed skills, your MCP servers — those stand still.
-           The plan built on top of them does not: your agent takes the same
-           goal and stitches the routine together from primitives —
-           <code>search</code>, <code>fetch</code>, <code>read</code>,
-           <code>write</code>, <code>call</code> — from scratch, every time it
-           runs. No plan carries over between runs. So every time a user asks
-           <em>"where's my order?"</em> the routine is built fresh, and you pay
-           the reasoning cost again in tokens, in latency, and in a fresh chance
-           to get it wrong.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-icon icon-purple">⚡</div>
-        <h3>Compiled: planned once, run many</h3>
-        <p><strong>Authored once, then replayed.</strong> A compiler pays the
-           stitching cost a single time, at build time, and every run after gets
-           the result for free. Sparsi is that build step for agents: you author
-           the routine once — classify the ask, route through the right channel,
-           hit your systems in order, write the reply — and Sparsi compiles it
-           into a fixed DAG. Every request after runs that compiled path instead
-           of re-deriving it — less work, fewer tokens, right more often. The
-           unique, novel scenarios still fall through to the primitives, exactly as today.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── 2 · One tool palette: primitives + Sparsi tools ─────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-blue">One Tool Palette</span>
-      <h2>Your agent keeps its primitives.<br>Sparsi tools join the same palette.</h2>
-      <p>A Sparsi MCP server registers like any other tool — it lands in the agent's
-         tool list right beside <code>search</code>, <code>fetch</code>, and the rest.
-         The agent never has to choose <em>primitives or Sparsi</em>; it draws from one
-         palette and calls whatever mix a given request needs.</p>
-    </div>
-
-    <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
-      <svg viewBox="0 40 1000 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:720px; height:auto;" role="img" aria-label="An LLM agent at the base fans calls up to a shared tool palette: a cluster of small primitive MCP tools and, beside them, a larger composite Sparsi MCP tool whose box contains a compiled DAG of mixed deterministic and AI nodes">
-        <defs>
-          <radialGradient id="p-det" cx="38%" cy="35%" r="62%">
-            <stop offset="0%" stop-color="#93c5fd"/><stop offset="55%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0c1a3a"/>
-          </radialGradient>
-          <radialGradient id="p-ai" cx="38%" cy="35%" r="62%">
-            <stop offset="0%" stop-color="#f5d0fe"/><stop offset="55%" stop-color="#a855f7"/><stop offset="100%" stop-color="#4c1d95"/>
-          </radialGradient>
-          <filter id="p-glow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <radialGradient id="p-halo" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
-          </radialGradient>
-          <marker id="p-arr" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="7" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
-          </marker>
-        </defs>
-
-        <!-- ── Agent → tool edges (drawn first so blocks overlay) ─ -->
-        <g stroke="#475569" stroke-width="1.8" fill="none">
-          <line x1="500" y1="372" x2="99"  y2="150" marker-end="url(#p-arr)"/>
-          <line x1="500" y1="372" x2="199" y2="150" marker-end="url(#p-arr)"/>
-          <line x1="500" y1="372" x2="299" y2="150" marker-end="url(#p-arr)"/>
-          <line x1="500" y1="372" x2="399" y2="150" marker-end="url(#p-arr)"/>
-          <line x1="500" y1="372" x2="499" y2="150" marker-end="url(#p-arr)"/>
-          <line x1="500" y1="372" x2="774" y2="282" marker-end="url(#p-arr)"/>
-        </g>
-
-        <!-- ── Primitive MCP tools ───────────────────────────── -->
-        <text x="299" y="70" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="monospace" letter-spacing="0.04em">Primitive MCP tools &#183; one call, one action</text>
-        <g font-family="monospace" font-weight="bold" text-anchor="middle">
-          <rect x="60"  y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
-          <text x="99"  y="123" font-size="12.5" fill="#cbd5e1">search()</text>
-          <rect x="160" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
-          <text x="199" y="123" font-size="12.5" fill="#cbd5e1">fetch()</text>
-          <rect x="260" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
-          <text x="299" y="123" font-size="12.5" fill="#cbd5e1">read()</text>
-          <rect x="360" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
-          <text x="399" y="123" font-size="12.5" fill="#cbd5e1">write()</text>
-          <rect x="460" y="86" width="78" height="64" rx="10" fill="rgba(148,163,184,0.10)" stroke="#64748b" stroke-width="1.6"/>
-          <text x="499" y="123" font-size="12.5" fill="#cbd5e1">call()</text>
-        </g>
-
-        <!-- ── Sparsi MCP tool (composite — DAG inside its box) ─ -->
-        <rect x="600" y="58" width="348" height="224" rx="16" fill="rgba(139,92,246,0.06)" stroke="rgba(139,92,246,0.4)" stroke-width="1.6"/>
-        <text x="620" y="82" font-size="12.5" fill="#a78bfa" font-family="monospace" font-weight="bold" letter-spacing="0.04em">Sparsi MCP tool</text>
-        <text x="620" y="99" font-size="9.5" fill="#8b7fb8" font-family="monospace">one call &#183; a whole workflow</text>
-
-        <!-- inner DAG edges -->
-        <g stroke="#64748b" stroke-width="1.5" fill="none">
-          <line x1="678" y1="180" x2="726" y2="156" marker-end="url(#p-arr)"/>
-          <line x1="678" y1="196" x2="726" y2="222" marker-end="url(#p-arr)"/>
-          <line x1="760" y1="148" x2="812" y2="148" marker-end="url(#p-arr)"/>
-          <line x1="760" y1="230" x2="812" y2="230" marker-end="url(#p-arr)"/>
-          <line x1="846" y1="156" x2="894" y2="180" marker-end="url(#p-arr)"/>
-          <line x1="846" y1="222" x2="894" y2="196" marker-end="url(#p-arr)"/>
-        </g>
-
-        <!-- inner DAG AI halos -->
-        <circle cx="662" cy="188" r="16" fill="url(#p-halo)">
-          <animate attributeName="r" values="13;23;13" dur="3.6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="830" cy="230" r="16" fill="url(#p-halo)">
-          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-1.2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="910" cy="188" r="16" fill="url(#p-halo)">
-          <animate attributeName="r" values="13;23;13" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="1;0.3;1" dur="3.6s" begin="-2.4s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- inner DAG nodes -->
-        <g font-family="monospace" font-weight="bold" text-anchor="middle">
-          <circle cx="662" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
-          <text   x="662" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
-          <circle cx="742" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
-          <text   x="742" y="151" font-size="8.5" fill="#dbeafe">det</text>
-          <circle cx="742" cy="230" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
-          <text   x="742" y="233" font-size="8.5" fill="#dbeafe">det</text>
-          <circle cx="830" cy="148" r="18" fill="url(#p-det)" stroke="#60a5fa" stroke-width="1.8"/>
-          <text   x="830" y="151" font-size="8.5" fill="#dbeafe">det</text>
-          <circle cx="830" cy="230" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
-          <text   x="830" y="233" font-size="8.5" fill="#f3e8ff">AI</text>
-          <circle cx="910" cy="188" r="18" fill="url(#p-ai)"  stroke="#c084fc" stroke-width="2" filter="url(#p-glow)"/>
-          <text   x="910" y="191" font-size="8.5" fill="#f3e8ff">AI</text>
-        </g>
-        <text x="774" y="269" text-anchor="middle" font-size="9.5" fill="#8b7fb8" font-family="monospace">compiled DAG &#183; deterministic + AI nodes</text>
-
-        <!-- ── LLM agent (base) ──────────────────────────────── -->
-        <rect x="380" y="372" width="240" height="72" rx="14" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-width="2"/>
-        <text x="500" y="404" text-anchor="middle" font-size="15" fill="#fdba74" font-family="monospace" font-weight="bold">LLM agent</text>
-        <text x="500" y="424" text-anchor="middle" font-size="10" fill="#fb923c" font-family="monospace">interprets the ask &#183; calls the tools</text>
-
-        <!-- ── Caption ───────────────────────────────────────── -->
-        <text x="500" y="478" text-anchor="middle" font-size="11" fill="#64748b" font-family="monospace" letter-spacing="0.04em">Both are MCP tools on a single palette &#8212; the agent calls whatever mix each request needs</text>
-      </svg>
-    </div>
-
-    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔀</span>
-      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>It's a mix, not a switch.</strong> Within a single request the agent
-        blends both kinds of call freely. Sometimes one Sparsi tool call does the whole
-        job. More often it does the bulk of the work — the known, repeating part of the
-        request — while a few primitive calls handle whatever falls outside it. It's
-        never all-or-nothing: primitives and Sparsi tools compose, call by call.
-      </p>
-    </div>
-
-    <div style="margin-top:1rem; background:var(--bg-2); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">📈</span>
-      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The more Sparsi, the better.</strong> Every request type you capture as
-        a Sparsi tool moves more of the agent's traffic onto a deterministic,
-        bounded-cost, audited path — while the primitives stay as the long-tail
-        fallback. The larger the share of an agent's work that flows through Sparsi
-        tools, the more reliable and efficient the whole system becomes.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── 3 · The two layers of AI ────────────────────────────── -->
+<!-- ── 1 · The two layers of AI ────────────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
@@ -280,7 +97,7 @@
   </div>
 </section>
 
-<!-- ── 4 · The workflow, end to end ─────────────────────────── -->
+<!-- ── 2 · The workflow, end to end ─────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -545,7 +362,7 @@
   </div>
 </section>
 
-<!-- ── 5 · The code/AI boundary &amp; determinism ─────────────── -->
+<!-- ── 3 · The code/AI boundary &amp; determinism ─────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
@@ -616,7 +433,7 @@
   </div>
 </section>
 
-<!-- ── 6 · Multi-model verification ────────────────────────── -->
+<!-- ── 4 · Multi-model verification ────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -657,7 +474,7 @@
   </div>
 </section>
 
-<!-- ── 7 · Routing & fallback: when the match is wrong ─────── -->
+<!-- ── 5 · Routing & fallback: when the match is wrong ─────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
@@ -704,149 +521,6 @@
         hand-back. You're never worse off than the plain agent — and on the requests
         that repeat, you're dramatically better.
       </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── 8 · Comparison: when a Sparsi tool wins ─────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-blue">Comparison</span>
-      <h2>When a Sparsi tool wins — and when the raw agent does</h2>
-      <p>On a known, repeating request type, an agent's improvisation is overhead: it
-         re-derives the same plan and re-pays for non-determinism in tokens, in audit
-         gaps, and in surprises. But that same improvisation is exactly what you want
-         for novel work. The two aren't rivals — a Sparsi tool takes the known path,
-         and the agent keeps everything else.</p>
-    </div>
-    <div class="comparison">
-      <table>
-        <thead>
-          <tr>
-            <th>Dimension</th>
-            <th>⚡ Sparsi tool</th>
-            <th>Raw agent / prompt chain</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="cmp-group"><td colspan="3">Where a Sparsi tool leads — known, repeating request types</td></tr>
-          <tr>
-            <td>Output reproducibility</td>
-            <td><span class="yes">✓</span> Deterministic steps always reproduce exactly</td>
-            <td><span class="no">✗</span> Non-deterministic at every link</td>
-          </tr>
-          <tr>
-            <td>Token cost</td>
-            <td><span class="yes">✓</span> Tokens only for true AI gaps; all else is free</td>
-            <td><span class="no">✗</span> Every transformation burns tokens</td>
-          </tr>
-          <tr>
-            <td>Unit testability</td>
-            <td><span class="yes">✓</span> Deterministic ops tested without any API key</td>
-            <td><span class="no">✗</span> No natural isolation boundary for testing</td>
-          </tr>
-          <tr>
-            <td>Failure attribution</td>
-            <td><span class="yes">✓</span> Error pinpointed to the exact failing step</td>
-            <td><span class="no">✗</span> Error buried somewhere in the chain</td>
-          </tr>
-          <tr>
-            <td>Audit trail</td>
-            <td><span class="yes">✓</span> Every AI call logs input, output, reasoning</td>
-            <td><span class="no">✗</span> Black box; no per-step record</td>
-          </tr>
-          <tr>
-            <td>Parallel execution</td>
-            <td><span class="yes">✓</span> Independent branches run concurrently for free</td>
-            <td><span class="no">✗</span> Sequential by default; parallelism is manual</td>
-          </tr>
-          <tr>
-            <td>Model-version stability</td>
-            <td><span class="yes">✓</span> Deterministic logic is immune to model drift</td>
-            <td><span class="no">✗</span> Behaviour shifts when the provider updates</td>
-          </tr>
-          <tr>
-            <td>Misroute handling</td>
-            <td><span class="yes">✓</span> Out-of-scope detected early, punted back cleanly</td>
-            <td><span class="no">✗</span> No notion of scope; pushes ahead regardless</td>
-          </tr>
-          <tr>
-            <td>Compliance readiness</td>
-            <td><span class="yes">✓</span> Deterministic steps satisfy data-flow requirements</td>
-            <td><span class="no">✗</span> Hard to prove consistency run-to-run</td>
-          </tr>
-          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and unique, one-off requests</td></tr>
-          <tr>
-            <td>Unanticipated request types</td>
-            <td><span class="na">—</span> Covers only the workflows you authored; the rest falls through</td>
-            <td><span class="yes">✓</span> Improvises a plan for request types no one modeled in advance</td>
-          </tr>
-          <tr>
-            <td>Upfront investment</td>
-            <td><span class="no">✗</span> Each request type needs a workflow authored, tested, and compiled</td>
-            <td><span class="yes">✓</span> Works the moment it has primitives — no build step</td>
-          </tr>
-          <tr>
-            <td>Adapting to change</td>
-            <td><span class="no">✗</span> A changed rule means re-authoring and recompiling the DAG</td>
-            <td><span class="yes">✓</span> A prompt edit absorbs new requirements on the spot</td>
-          </tr>
-          <tr>
-            <td>Open-ended reasoning</td>
-            <td><span class="no">✗</span> The path is fixed at build time — no improvising mid-run</td>
-            <td><span class="yes">✓</span> Chains and back-tracks freely as an open task unfolds</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ── 10 · How you adopt Sparsi ────────────────────────────── -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-purple">How You Adopt It</span>
-      <h2>The path to using Sparsi</h2>
-      <p>You don't rewrite your agent. You peel the predictable request types off it,
-         one at a time, and give each its own determinism-geared tool.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-connector"></div>
-        <h3>Identify common request types</h3>
-        <p>Look at what users actually ask your agent. A handful of intents — returns,
-           status checks, plan changes — cover most of the volume. Rank them by
-           frequency and start at the top of the list.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-connector"></div>
-        <h3>Model each as a workflow</h3>
-        <p>One Sparsi MCP server per request type. An AI node reads the request into
-           structured facts; deterministic nodes call your order, fraud, shipping, and
-           billing systems in a fixed sequence; an AI node drafts the response. Mostly
-           code, a few AI nodes where judgment is unavoidable.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-connector"></div>
-        <h3>Test it like code</h3>
-        <p>Because everything but the AI nodes is deterministic — and you pin those — you
-           unit-test it without ever calling a model. Replay real requests, and you know
-           exactly how it behaves before it ever reaches a user.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-connector"></div>
-        <h3>Wire it into your agent</h3>
-        <p>Register the server with a description the LLM reliably matches to the right
-           kind of prompt. From the agent's side it's one tool call. From yours, it's a
-           tested, auditable pipeline — while unique, novel requests still fall through to the
-           agent, unchanged.</p>
-      </div>
     </div>
   </div>
 </section>

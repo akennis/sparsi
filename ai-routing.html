@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI credential routing — Sparsi</title>
-  <meta name="description" content="Plug your own credential source into Sparsi via AIClientFactory: Vault, AWS Secrets Manager, workload identity, or per-tenant routing. No env vars, no graph changes.">
+  <meta name="description" content="Manage AI credentials at scale with Sparsi AIClientFactory. Securely route credentials from Vault, AWS Secrets Manager, or workload identity without graph changes.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -51,11 +51,12 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">AI credential routing</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Every AI op in Sparsi resolves its provider SDK client through an
-        <code>AIClientFactory</code>. The bundled factory reads <code>CLAUDE_API_KEY</code> and
-        <code>GEMINI_API_KEY</code> from the environment. Replace it with your own implementation
-        to source credentials from HashiCorp Vault, AWS Secrets Manager, workload identity, an
-        egress proxy, or a per-tenant credential vault — without touching any graph code.
+        Sparsi makes it easy to manage AI credentials at scale. Every AI op
+        resolves its provider SDK client through an <code>AIClientFactory</code>,
+        allowing you to source credentials from HashiCorp Vault, AWS Secrets Manager,
+        workload identity, or per-tenant vaults without touching any graph code.
+        The bundled factory reads <code>CLAUDE_API_KEY</code> and
+        <code>GEMINI_API_KEY</code> from the environment.
       </p>
     </div>
   </div>
@@ -233,7 +234,7 @@ library.<span class="fn">RegisterAIClientFactory</span>(<span class="st">"sandbo
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sparsi — Higher-Level MCP Tools for Agents</title>
-  <meta name="description" content="Sparsi packages repeating agentic requests as MCP servers — internal workflows that are deterministic where the path is fixed, with AI only where judgment counts. Each workflow's AI runs on models you pin separately from the calling agent, so you can mix models per workflow for maximum efficiency and effectiveness.">
+  <meta name="description" content="Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools. Replace costly reasoning loops with a single call to an efficient, composed workflow to reduce token burn and completion time.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -36,7 +36,7 @@
 </nav>
 <!-- HEADER:END -->
 
-<!-- ── Hero ────────────────────────────────────────────────── -->
+<!-- ── 1 · Hero ────────────────────────────────────────────── -->
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
@@ -46,14 +46,13 @@
         </div>
         <h1 class="hero-title">
           Build higher-level <span class="hi-o">agentic tools</span><br>
-          with the <span class="hi-p">Sparsi</span> framework
+          with <span class="hi-p">Sparsi</span>
         </h1>
         <p class="hero-desc">
-          <strong>Sparsi is a framework for building AI-powered MCP servers</strong> —
-          compiled workflows that optimize agents for common requests, reserving deep
-          thinking for the long tail. A DAG engine and a large library of deterministic
-          and AI operations let you wire your existing services — in any language — into
-          agentic tools, with determinism, reliability, and observability built in.
+          <strong>Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools.</strong>
+          It replaces costly, multi-call reasoning loops with a single call to a composed workflow,
+          maximizing determinism to reduce token usage and completion time by handling
+          routines in code and saving raw reasoning for the unique cases that actually need it.
         </p>
         <p style="font-size:0.875rem; color:var(--text-2); margin:0.875rem 0 0;">
           Workflows orchestrate services in <strong style="color:var(--text-1);">any
@@ -143,6 +142,7 @@
 
             <circle cx="70"  cy="250" r="28" fill="url(#h-ai)" stroke="#c084fc" stroke-width="2.5" filter="url(#h-glow)"/>
             <text   x="70"   y="247" font-size="14" fill="#f3e8ff">AI</text>
+            <text   x="70"   y="247" font-size="14" fill="#f3e8ff">AI</text>
             <text   x="70"   y="263" font-size="10" fill="#ddd6fe">op()</text>
 
             <!-- L2: 2 deterministic flanking 1 AI in the middle -->
@@ -187,21 +187,21 @@
     <p style="margin:0; font-size:0.875rem; color:var(--text-1); line-height:1.5;">
       <span style="color:var(--purple-light); font-weight:600;">Skill users:</span>
       try <code>/sparsi-design</code> and <code>/sparsi-codegen</code> — AI-assisted workflow design &amp; codegen in your editor.
-      <a href="#get-started" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Get started →</a>
+      <a href="developers.html#skills" style="color:var(--orange-light); margin-left:0.5rem; white-space:nowrap;">Get started →</a>
     </p>
   </div>
 </div>
 
-<!-- ── The architectural shift: interpreted vs compiled ─────── -->
-<section class="section">
+<!-- ── 2 · The core idea: interpreted vs compiled ──────────── -->
+<section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">The Architectural Shift</span>
+      <span class="badge badge-purple">The Core Idea</span>
       <h2>Your agent interprets.<br>Sparsi compiles.</h2>
-      <p>The difference between an interpreter and a compiler is <em>when</em> the
-         work happens — on every run, or just once. <strong>Today's agents are
-         interpreters: they re-derive the same routine on every request.</strong>
-         Sparsi gives them the build step they never had.</p>
+      <p>The difference between an interpreter and a compiler is <em>when</em> the work
+         happens — on every run, or just once. Today's agents are interpreters: they
+         re-derive the same routine on every request. Sparsi gives them the build step
+         they never had.</p>
     </div>
 
     <div class="grid-2" style="gap:2rem; align-items:stretch;">
@@ -209,12 +209,14 @@
       <div class="card">
         <div class="card-icon icon-blue">🔁</div>
         <h3>Interpreted: re-planned every request</h3>
-        <p><strong>Re-derived from scratch, every single request.</strong> Your
-           agent takes the same goal and rebuilds the whole routine from
-           primitives — <code>search</code>, <code>fetch</code>, <code>read</code>,
-           <code>write</code>, <code>call</code> — stitching them together each
-           time it runs. Nothing carries over between runs. So every time a user
-           asks <em>"where's my order?"</em> the plan is built fresh, and you pay
+        <p><strong>The plan is re-derived every request.</strong> Your system
+           prompt, your installed skills, your MCP servers — those stand still.
+           The plan built on top of them does not: your agent takes the same
+           goal and stitches the routine together from primitives —
+           <code>search</code>, <code>fetch</code>, <code>read</code>,
+           <code>write</code>, <code>call</code> — from scratch, every time it
+           runs. No plan carries over between runs. So every time a user asks
+           <em>"where's my order?"</em> the routine is built fresh, and you pay
            the reasoning cost again in tokens, in latency, and in a fresh chance
            to get it wrong.</p>
       </div>
@@ -229,15 +231,15 @@
            hit your systems in order, write the reply — and Sparsi compiles it
            into a fixed DAG. Every request after runs that compiled path instead
            of re-deriving it — less work, fewer tokens, right more often. The
-           long tail still falls through to the primitives, exactly as today.</p>
+           unique, novel scenarios still fall through to the primitives, exactly as today.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ── The tool palette: primitives + Sparsi tools ──────────── -->
-<section class="section section--alt">
+<!-- ── 3 · One tool palette: primitives + Sparsi tools ─────── -->
+<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">One Tool Palette</span>
@@ -373,19 +375,16 @@
   </div>
 </section>
 
-<!-- ── Architecture: how a request flows ────────────────────── -->
+<!-- ── 4 · Architecture: how a request flows ────────────────────── -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-purple">The Architecture</span>
+      <span class="badge badge-blue">The Architecture</span>
       <h2>How a request flows through Sparsi</h2>
       <p>The user talks to your chatbot. The agent LLM recognizes the intent and forwards
          it to a Sparsi MCP server. Inside, an AI classifier routes the request through
          deterministic channels; a final AI node writes the reply, which the agent relays
-         back. The diagram below shows the minimum useful shape — one AI op upstream, one
-         downstream — but a workflow can place additional AI nodes <em>anywhere</em> along
-         the path wherever a step genuinely needs language understanding or judgment. One
-         boundary, crossed twice — and nothing else leaks across it.</p>
+         back. The diagram below shows the minimum useful shape — one AI op upstream, one downstream — but a workflow can place additional AI nodes anywhere along the path wherever a step genuinely needs language understanding or judgment. One boundary, crossed twice — and nothing else leaks across it.</p>
     </div>
 
     <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; overflow-x:auto;">
@@ -511,24 +510,11 @@
         crosses it in either direction.
       </p>
     </div>
-
-    <div style="margin-top:1rem; background:var(--bg-2); border:1px solid rgba(249,115,22,0.3); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">➕</span>
-      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>Use as much AI as the request type actually needs.</strong> The
-        classifier-then-synthesizer shape above is the minimum; it isn't a cap. A workflow
-        can drop an AI node mid-channel to extract a structured value from prose, ask a
-        semantic yes/no before a branch, score relevance, or have an independent model
-        cross-check a prior AI step. Each extra AI op gets the same treatment as the
-        first — its own pinned model, its own prompt, its own audit record — so adding
-        flexibility doesn't dilute determinism elsewhere in the path.
-      </p>
-    </div>
   </div>
 </section>
 
-<!-- ── The path to using Sparsi ──────────────────────────── -->
-<section class="section section--alt">
+<!-- ── 5 · How you adopt Sparsi ────────────────────────────── -->
+<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-purple">How You Adopt It</span>
@@ -568,178 +554,15 @@
         <h3>Wire it into your agent</h3>
         <p>Register the server with a description the LLM reliably matches to the right
            kind of prompt. From the agent's side it's one tool call. From yours, it's a
-           tested, auditable pipeline — and the long tail still falls through to the
+           tested, auditable pipeline — while unique, novel requests still fall through to the
            agent, unchanged.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Routing & fallback ───────────────────────────────────── -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-orange">When the Match Is Wrong</span>
-      <h2>True positives run cheap.<br>Everything else degrades gracefully.</h2>
-      <p>The LLM picks the tool, so it won't always pick right. Sparsi is built for
-         that: a misroute costs you almost nothing, and the request lands exactly where
-         it would have without the tool.</p>
-    </div>
-
-    <div class="grid-3" style="gap:2rem; align-items:stretch;">
-
-      <div class="card" style="border-color:rgba(34,197,94,0.35);">
-        <div class="card-icon icon-green">✓</div>
-        <h3>True positive</h3>
-        <p>The request really is this type. It runs through the workflow along a fixed path —
-           low, bounded token cost, every step logged, the same path every time. This is
-           the routine path you came for.</p>
-      </div>
-
-      <div class="card" style="border-color:rgba(249,115,22,0.35);">
-        <div class="card-icon icon-orange">↩</div>
-        <h3>False positive</h3>
-        <p>The agent routed it here, but it isn't really this request type. The workflow
-           detects the mismatch early — before touching any system — and punts it
-           straight back to the LLM. No side effects, negligible cost.</p>
-      </div>
-
-      <div class="card" style="border-color:rgba(139,92,246,0.35);">
-        <div class="card-icon icon-purple">⤴</div>
-        <h3>Out of scope</h3>
-        <p>A genuine instance the workflow can't safely complete — a policy edge, missing
-           data, a value past a threshold. It's returned to the LLM for fallback, or
-           escalated into a human-backed queue. Never forced through.</p>
-      </div>
-
-    </div>
-
-    <div style="margin-top:2rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">💡</span>
-      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>The asymmetry that makes this safe:</strong> capturing the common path is
-        a large, permanent win; getting a match wrong costs an early bail-out and a
-        hand-back. You're never worse off than the plain agent — and on the requests
-        that repeat, you're dramatically better.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── Sparsi operations ────────────────────────────────────── -->
+<!-- ── 6 · Benefits ────────────────────────────────────────────── -->
 <section class="section section--alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-orange">The Building Blocks</span>
-      <h2>Sparsi operations</h2>
-      <p>A workflow is assembled from <em>operations</em> — typed nodes, each with a fixed
-         set of named inputs and outputs. Four kinds cover the whole surface: a
-         deterministic library, an AI library, a RAG library, and custom operations you
-         write yourself. They share one wiring contract, so a single workflow mixes them
-         freely.</p>
-    </div>
-
-    <div class="grid-2" style="gap:1.5rem; align-items:stretch;">
-
-      <div class="card">
-        <span class="tag tag-det" style="font-size:0.8125rem; padding:0.3rem 0.75rem;">deterministic library</span>
-        <h3 style="margin:0.875rem 0 0.625rem;">Pure code, no model</h3>
-        <p>Dozens of ready-made operators that run as plain functions — arithmetic, string
-           and slice work, predicates, routing and selection, JSON and time. No tokens, no
-           API key, no network. The same inputs always produce the same outputs, so they
-           unit-test in CI and form the deterministic backbone of every workflow.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag tag-ai" style="font-size:0.8125rem; padding:0.3rem 0.75rem;">AI library</span>
-        <h3 style="margin:0.875rem 0 0.625rem;">Model calls with typed results</h3>
-        <p>Operators that hand a step to a model and return a typed, structured result —
-           classify, extract, score, semantic yes/no, rerank, best-match, summarize, parse.
-           Each AI operation is configured independently — see below — so every model call
-           in a workflow runs on its own settings. Because that includes the provider and
-           model, one AI op can verify another's output on a different model — cross-model
-           checking is just one more node on the graph.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag" style="font-size:0.8125rem; padding:0.3rem 0.75rem; background:rgba(34,197,94,0.14); color:#4ade80;">RAG library</span>
-        <h3 style="margin:0.875rem 0 0.625rem;">Retrieval with grounded citations</h3>
-        <p>A retrieval layer behind a backend-agnostic <code>Retriever</code> interface —
-           implement it once over BM25, a vector store, or a hosted search service.
-           Retrieve operators pull context into the graph; a citation validator filters
-           model-emitted sources against an allow-list, so answers stay grounded.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag" style="font-size:0.8125rem; padding:0.3rem 0.75rem; background:rgba(249,115,22,0.14); color:var(--orange-light);">custom</span>
-        <h3 style="margin:0.875rem 0 0.625rem;">Operations you write</h3>
-        <p>When nothing in the libraries fits, write your own — a small struct with
-           <code>dag:"input"</code> / <code>dag:"output"</code> tags and a
-           <code>Run(ctx)</code> method. This is how a workflow reaches your existing
-           services in any language. A custom op is a first-class node: same wiring, same
-           testing, same audit record.</p>
-      </div>
-
-    </div>
-
-    <!-- AI operation configuration -->
-    <div style="margin-top:1.5rem; background:var(--bg-2); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1.5rem;">
-      <div style="display:flex; gap:0.875rem; align-items:flex-start; margin-bottom:1.25rem;">
-        <span style="color:var(--purple-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🤖</span>
-        <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-          <strong>Each AI operation is configured on its own.</strong> Two AI ops on the
-          same graph share nothing by default — each pins six settings independently, so a
-          cheap classifier and a strong synthesizer coexist in one workflow without
-          compromise.
-        </p>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.75rem;">
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">System prompt</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The role and standing rules the model runs under.</p>
-        </div>
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Context prompt</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The per-call framing wrapped around the wired inputs.</p>
-        </div>
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Provider</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">Anthropic or Google — the SDK the call routes through.</p>
-        </div>
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Model</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The exact model pinned for this operation.</p>
-        </div>
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">API key provider</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">The factory that sources the credential — env var, Vault, per-tenant store.</p>
-        </div>
-        <div style="background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.75rem 0.875rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.25rem;">Token budget</strong>
-          <p style="font-size:0.8125rem; margin:0; color:var(--text-2); line-height:1.5;">A hard ceiling on the tokens the call may spend.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- DAG composition -->
-    <div style="margin-top:1rem; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
-      <span style="color:var(--orange); font-size:1.25rem; flex-shrink:0; line-height:1.4;">🔗</span>
-      <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>Operations compose into a DAG.</strong> Every operation — deterministic, AI,
-        RAG, or custom — exposes a typed set of <em>named inputs and outputs</em>. You build
-        a workflow by wiring one operation's output to the next operation's input by name;
-        the wires form a directed acyclic graph, and that graph is exactly what Sparsi
-        compiles and runs — resolving dependencies, executing independent branches in
-        parallel, and pruning the ones that get skipped. Because all four kinds share the
-        same input/output contract, they interoperate on one graph: a deterministic parse
-        feeds an AI classifier, a RAG retrieval feeds a custom call into your service.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── Benefits ────────────────────────────────────────────── -->
-<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-orange">What You Get on Repeating Requests</span>
@@ -790,8 +613,8 @@
   </div>
 </section>
 
-<!-- ── Comparison table ─────────────────────────────────────── -->
-<section class="section section--alt">
+<!-- ── 7 · Comparison table ─────────────────────────────────────── -->
+<section class="section">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">Comparison</span>
@@ -858,7 +681,7 @@
             <td><span class="yes">✓</span> Deterministic steps satisfy data-flow requirements</td>
             <td><span class="no">✗</span> Hard to prove consistency run-to-run</td>
           </tr>
-          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and the long tail</td></tr>
+          <tr class="cmp-group"><td colspan="3">Where the raw agent leads — novel work and unique, one-off requests</td></tr>
           <tr>
             <td>Unanticipated request types</td>
             <td><span class="na">—</span> Covers only the workflows you authored; the rest falls through</td>
@@ -885,208 +708,20 @@
   </div>
 </section>
 
-<!-- ── Examples preview ─────────────────────────────────────── -->
-<section class="section">
+<!-- ── 8 · CTA ──────────────────────────────────────────────────── -->
+<section class="section section--alt">
   <div class="container">
-    <div class="section-header">
-      <span class="badge badge-orange">Examples</span>
-      <h2>The workflow patterns you'll reach for</h2>
-      <p>Self-contained programs, each showing a distinct pattern you'll use building
-         request-type servers — classification and routing, cross-model verification,
-         parallel fan-out, tool use, retrieval with citation checks, and self-repair.</p>
-    </div>
-
-    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; margin-bottom:2rem;">
-
-      <a href="example-ticket-triager.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Ticket Triager</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Classify a request, route it down the right lane, run those lanes in parallel, then merge. The canonical fan-out.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">Classification</span>
-            <span class="tag tag-det">Routing</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-faithful-summary.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Faithful Summary</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">One model summarizes; a second, independent model checks every claim is grounded in the source.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">Cross-model</span>
-            <span class="tag tag-det">Verification</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-hn-topic-brief.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">HN Topic Brief</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Run AI over every item in parallel, then let the dominant theme shape the final summary.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-ai">Parallel</span>
-            <span class="tag tag-det">Synthesis</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-local-mcp-server.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Browser Tool Use</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Drive a real browser session to search, then fan out parallel sessions to capture each result.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">Tool use</span>
-            <span class="tag tag-ai">Fan-out</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-rag-bm25.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">RAG with citations</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">Answer from a local knowledge base and validate every cited source before it's returned.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">Retrieval</span>
-            <span class="tag tag-det">Citations</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="example-with-repair.html" style="text-decoration:none;">
-        <div class="card" style="height:100%;">
-          <h3 style="margin:0 0 0.875rem; font-size:1rem;">Self-Repair</h3>
-          <p style="font-size:0.875rem; margin-bottom:0.875rem;">A malformed input or a broken business rule is detected and repaired in a second pass — automatically.</p>
-          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <span class="tag tag-det">Validation</span>
-            <span class="tag tag-ai">Recovery</span>
-          </div>
-        </div>
-      </a>
-
-    </div>
-
-    <div style="text-align:center;">
-      <a href="examples.html" class="btn btn-secondary">Browse all examples →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Get Started ──────────────────────────────────────────── -->
-<section class="section" id="get-started">
-  <div class="container">
-    <div class="section-header">
-      <span class="badge badge-purple">Get Started</span>
-      <h2>Install the skills, then describe your workflow</h2>
-      <p>The fastest path into Sparsi is the two Claude Code skills. Install them once,
-         then hand Claude a plain-English workflow description — it designs the DAG,
-         generates the <code>Sparsi</code> program, and compiles it for you.</p>
-    </div>
-
-    <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
-
-      <div class="card" style="border-color:rgba(139,92,246,0.3);">
-        <div class="card-icon icon-purple">1</div>
-        <h3>Install the skills</h3>
-        <p>Download the two skill bundles and drop them into your skills directory.
-           Works with <strong>Claude Code</strong> and <strong>Gemini CLI</strong>.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code><span class="cm"># macOS / Linux — global install</span>
-cp -r sparsi-design  ~/.claude/skills/
-cp -r sparsi-codegen ~/.claude/skills/</code></pre>
-        </div>
-        <p style="font-size:0.875rem; margin:1rem 0 0;">
-          <a href="developers.html#skills" style="color:var(--orange-light);">Bundle downloads &amp; Windows / project-local install →</a>
-        </p>
+    <div style="text-align:center; max-width:700px; margin:0 auto;">
+      <h2 style="margin-bottom:1.5rem;">Ready to build reliable workflows?</h2>
+      <p style="font-size:1.125rem; color:var(--text-1); margin-bottom:2rem;">
+        Move your repeating agentic tasks from high-latency "thinking" loops to stable,
+        deterministic-first tool calls.
+      </p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="developers.html" class="btn btn-primary">Start Building →</a>
+        <a href="concepts.html" class="btn btn-secondary">Learn How it Works</a>
+        <a href="examples.html" class="btn btn-secondary">Explore Examples</a>
       </div>
-
-      <div class="card" style="border-color:rgba(139,92,246,0.3);">
-        <div class="card-icon icon-purple">2</div>
-        <h3>Run the skills and generate an MCP server executable</h3>
-        <p>Paste the prompt below into Claude Code. It runs both skills back to
-           back — <code>/sparsi-design</code> drafts the DAG, <code>/sparsi-codegen</code>
-           generates and compiles the <code>Sparsi</code> program — leaving you a
-           standalone MCP server binary. It reproduces
-           <a href="example-ticket-triager.html" style="color:var(--orange-light);">Example 01 — the Ticket Triager</a>:
-           an AI classifier fanning out into parallel, category-specific extraction
-           lanes, coalesced into one JSON brief and exposed as an MCP tool.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">Claude Code — canned prompt</span>
-          </div>
-          <pre><code><span class="cm"># Step 1 — design the workflow (refine with follow-ups until you approve it)</span>
-/sparsi-design Build a customer-support ticket triager. One AI op classifies a
-  free-text ticket as billing, bug, feature, or other. Route each category to its
-  own AI extraction lane: billing pulls name, email, account_id and a refund
-  amount; bug pulls reproduction steps, a 0-1 severity score, and a regression
-  yes/no; feature summarizes the request and scores business impact. Gate the
-  lanes so exactly one fires, run their AI ops in parallel, and coalesce the three
-  supported lanes into a single JSON brief. The "other" lane has no AI — it
-  deliberately fails the run. Expose the whole workflow as an MCP tool named
-  triage_ticket.
-
-<span class="cm"># Step 2 — generate, compile, and auto-fix build errors</span>
-/sparsi-codegen &lt;paste the approved design&gt; ./ticket-triager</code></pre>
-        </div>
-      </div>
-
-      <div class="card" style="border-color:rgba(139,92,246,0.3);">
-        <div class="card-icon icon-purple">3</div>
-        <h3>Integrate the MCP server into Claude</h3>
-        <p>Register the compiled binary with Claude Code and the
-           <code>triage_ticket</code> tool is live — the agent calls it like any
-           other MCP tool.</p>
-        <div class="code-block" style="margin-top:1rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">terminal</span>
-          </div>
-          <pre><code><span class="cm"># register the compiled MCP server — the -mcp flag starts stdio MCP mode</span>
-claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pre>
-        </div>
-        <p style="font-size:0.875rem; color:var(--text-3); margin:1rem 0 0;">
-          Set <code>CLAUDE_API_KEY</code> in the server's environment first — the
-          only configuration the workflow needs. Any other MCP-capable host
-          (Gemini CLI, other agent runtimes) registers the same binary with its
-          own equivalent command.
-        </p>
-
-        <div style="margin-top:1.25rem; background:var(--bg-3); border:1px solid rgba(139,92,246,0.3); border-radius:var(--radius-md); padding:1rem 1.25rem;">
-          <strong style="display:block; font-size:0.8125rem; color:var(--purple-light); font-family:monospace; margin-bottom:0.5rem;">No API key? Try <code>--sampling</code> first</strong>
-          <p style="font-size:0.875rem; margin:0 0 0.75rem;">
-            Add <code>--sampling</code> after <code>-mcp</code> and every AI op
-            in the workflow runs on the host LLM (Claude Code's own model) via
-            MCP <code>sampling/createMessage</code> — no <code>CLAUDE_API_KEY</code>
-            required to take it for a spin.
-          </p>
-          <div class="code-block">
-            <div class="code-header">
-              <div class="code-dots"><span></span><span></span><span></span></div>
-              <span class="code-filename">terminal — keyless trial run</span>
-            </div>
-            <pre><code>claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp --sampling</code></pre>
-          </div>
-          <p style="font-size:0.8125rem; color:var(--text-3); margin:0.75rem 0 0;">
-            Exploration-mode only: the host picks the model (your per-op
-            <code>provider</code> / <code>model</code> become hints), tokens
-            are billed to your Claude account, and the host typically prompts
-            for approval on each call. For production, drop the flag and use
-            an API key so each AI op runs on the model the design pinned.
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cta-actions" style="justify-content:center;">
-      <a href="developers.html" class="btn btn-primary">Developer Docs →</a>
-      <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-secondary">View Source</a>
-      <a href="examples.html" class="btn btn-secondary">Browse Examples</a>
     </div>
   </div>
 </section>
@@ -1110,7 +745,7 @@ claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pr
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

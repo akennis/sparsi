@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Operator Library — Sparsi</title>
-  <meta name="description" content="Complete reference for all Sparsi operators — AI, MCP, Retrieval, Repair, Math, String, Predicate, Select, Slice, Boolean, I/O, JSON, and Time ops, plus the AIClientFactory and EmbeddingClientFactory abstractions.">
+  <meta name="description" content="Complete reference for all Sparsi operators — the tool for packaging repeatable multi-step tasks into deterministic-first MCP tools.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -44,9 +44,11 @@
       </div>
       <h1 style="margin-bottom:1rem;">Operator Library</h1>
       <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;margin-bottom:1rem;">
-        Sparsi is the reliability layer between your AI agent and the work it does:
-        each business process becomes a single deterministic, fully auditable tool. This
-        catalog is the raw material — and the ratio is the point. <strong>Most of these
+        Sparsi provides a comprehensive toolkit for building efficient, reliable agentic
+        tools. This catalog of deterministic and AI operators is designed to minimize
+        model dependencies—maximizing pre-written logic to reduce cost and eliminate
+        hallucinations in your production workflows.
+      </p>
         operators are deterministic</strong>; the AI operators are the small, scoped set
         you reach for only where genuine judgment is required.</p>
       <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;">Every operator available, organized by category. Deterministic ops run as pure Go functions, testable without a model. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
@@ -633,7 +635,7 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

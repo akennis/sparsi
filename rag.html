@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Retrieval &amp; citations — Sparsi</title>
-  <meta name="description" content="Retrieval-augmented generation in Sparsi: the Retriever interface, RetrieveOp/RetrieveWithFiltersOp, citation allow-list filtering via ValidateCitationsOp, and pluggable embedding providers.">
+  <meta name="description" content="RAG-driven MCP servers in Sparsi. Implementation of the Retriever interface, citation allow-list filtering, and pluggable embedding backends for reliable retrieval.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -51,12 +51,11 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">Retrieval &amp; citations</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Sparsi ships a small, opinionated retrieval layer: a single <code>Retriever</code>
-        interface, two retrieval operators that thread query and filters through the workflow, an
-        <code>EmbeddingClientFactory</code> abstraction for vector-store backends, and a
-        deterministic citation-validation op that filters LLM-emitted citations against an
-        allow-list. Pick a backend (BM25, vector store, hosted search), implement
-        <code>Retriever</code>, register it, and the rest of the graph stays the same.
+        Sparsi provides a robust architectural foundation for RAG-driven MCP
+        servers. It ships an opinionated retrieval layer: a single <code>Retriever</code>
+        interface, two retrieval operators that thread query and filters through the
+        workflow, and an <code>EmbeddingClientFactory</code> abstraction for vector-store
+        backends.
       </p>
     </div>
   </div>
@@ -306,7 +305,7 @@ library.<span class="fn">RegisterEmbeddingClientFactory</span>(<span class="st">
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MCP integration — Sparsi</title>
-  <meta name="description" content="Calling Model Context Protocol tools from a Sparsi workflow: MCPCallOp for single calls, MCPScriptOp for multi-call sessions, warm-replenish pooling, custom args formatters and response parsers.">
+  <meta name="description" content="Building high-performance MCP servers with Sparsi. Learn about MCPCallOp, MCPScriptOp, warm-replenish pooling, and native Model Context Protocol integration.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -51,11 +51,11 @@
       </div>
       <h1 style="font-size:clamp(1.75rem,4vw,2.5rem); margin-bottom:1rem;">MCP integration</h1>
       <p style="font-size:1.0625rem; line-height:1.75; margin-bottom:0;">
-        Sparsi speaks the <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a>
-        natively. Tools live inside the workflow just like any other operator — typed inputs, typed
-        outputs, predicate gates, parallel scheduling. Two operators cover the spectrum:
-        <code>MCPCallOp</code> for one-shot calls, <code>MCPScriptOp</code> for sessions that span
-        multiple calls. Both support stdio subprocesses and remote HTTP transports.
+        Sparsi allows you to build high-performance MCP servers that speak the
+        <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a>
+        natively. By wrapping complex business processes as compiled workflows,
+        you get tools that are faster, more reliable, and cheaper to run than
+        standard "prompt-only" MCP implementations.
       </p>
     </div>
   </div>
@@ -295,7 +295,7 @@
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

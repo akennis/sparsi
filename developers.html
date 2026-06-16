@@ -43,9 +43,10 @@
       <span class="badge badge-blue" style="margin-bottom:1rem; display:inline-flex;">Developer Docs</span>
       <h1 style="margin-bottom:1rem;">Build AI Workflows<br>You Can Actually <span class="hi-o">Debug</span></h1>
       <p style="font-size:1.0625rem; margin-bottom:1rem;">
-        Sparsi is the reliability layer between your AI agent and the work it does:
-        each business process becomes a single deterministic, fully auditable tool — with
-        AI used only where genuine judgment is required.
+        Sparsi is a DAG engine for packaging repeatable multi-step tasks into
+        deterministic-first MCP tools. It replaces costly reasoning chains with a
+        single call to a composed workflow—drastically reducing token burn and
+        completion time by using AI only where it earns its keep.
       </p>
       <p style="font-size:1.0625rem; margin-bottom:2rem; color:var(--text-2);">
         Concretely, that's a DAG workflow: ops are plain Go structs, wires are typed values, and
@@ -93,14 +94,67 @@
   </div>
 </div>
 
-<!-- ── Quick Start: clone, build, run ───────────────────────── -->
+<!-- ── Quick Start ───────────────────────── -->
 <section class="section section--alt" id="quick-start">
   <div class="container">
     <div class="section-header">
       <span class="badge badge-blue">Quick Start</span>
-      <h2>Clone, build, run an example</h2>
-      <p>Three commands take you from a fresh clone to a running Sparsi workflow. Start
-         here, then design your own with the skills below.</p>
+      <h2>Start building reliable workflows</h2>
+      <p>The fastest path into Sparsi is the two Claude Code skills. Install them once,
+         then hand Claude a plain-English workflow description — it designs the DAG,
+         generates the <code>Sparsi</code> program, and compiles it for you.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:3rem;">
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+          <span style="font-size:1.5rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7;">1</span>
+          <h3 style="margin:0;">Install the skills</h3>
+        </div>
+        <p style="font-size:0.9375rem;">Download the two skill bundles and drop them into your skills directory. Works with <strong>Claude Code</strong> and <strong>Gemini CLI</strong>.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <pre><code><span class="cm"># macOS / Linux</span>
+cp -r sparsi-design  ~/.claude/skills/
+cp -r sparsi-codegen ~/.claude/skills/</code></pre>
+        </div>
+        <p style="font-size:0.875rem; margin:1rem 0 0;">
+          <a href="#skills" style="color:var(--orange-light);">Bundle downloads &amp; Windows / project-local install ↓</a>
+        </p>
+      </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+          <span style="font-size:1.5rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7;">2</span>
+          <h3 style="margin:0;">Design &amp; compile your workflow</h3>
+        </div>
+        <p style="font-size:0.9375rem;">Paste the prompt below into your editor. It designed a customer-support ticket triager: an AI classifier fanning out into category-specific extraction lanes, coalesced into one JSON brief.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <pre><code>/sparsi-design Build a customer-support ticket triager. One AI op classifies a
+  free-text ticket. Route each category to its own AI extraction lane.
+  Expose the whole workflow as an MCP tool named triage_ticket.
+
+<span class="cm"># ... approve the design, then generate and compile ...</span>
+/sparsi-codegen &lt;approved-design&gt; ./ticket-triager</code></pre>
+        </div>
+      </div>
+
+      <div class="card" style="border-color:rgba(139,92,246,0.3);">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+          <span style="font-size:1.5rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7;">3</span>
+          <h3 style="margin:0;">Integrate the MCP server</h3>
+        </div>
+        <p style="font-size:0.9375rem;">Register the compiled binary with your agent and the <code>triage_ticket</code> tool is live.</p>
+        <div class="code-block" style="margin-top:1rem;">
+          <pre><code>claude mcp add ticket-triager -- ./ticket-triager/ticket-triager -mcp</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-header">
+      <h2>Alternatively: clone, build, run</h2>
+      <p>Or start by running one of the built-in examples from the source repo.</p>
     </div>
 
     <div class="code-block" style="max-width:720px; margin:0 auto 1.5rem;">
@@ -1301,7 +1355,7 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

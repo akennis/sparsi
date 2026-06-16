@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sparsi — Higher-Level MCP Tools for Agents</title>
-  <meta name="description" content="Sparsi compiles your agent's repeating request types into deterministic MCP tools — mostly plain code, AI only where judgment counts, with bounded cost and a per-step audit trail.">
+  <meta name="description" content="Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools. Turn unpredictable reasoning loops into efficient, composed workflows to reduce token burn and latency.">
   <link rel="icon" type="image/svg+xml" href="mascot.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -49,11 +49,10 @@
           <span class="hi-p">Sparsi</span> compiles.
         </h1>
         <p class="hero-desc">
-          <strong>Sparsi is a framework for building AI-powered MCP servers.</strong>
-          It captures the request types your agent handles over and over — returns,
-          status checks, plan changes — as compiled workflows: mostly deterministic
-          code, AI only where judgment counts, with bounded cost and a per-step audit
-          trail. The long tail still falls through to the agent, unchanged.
+          <strong>Sparsi packages repeatable multi-step tasks into deterministic-first MCP tools.</strong>
+          It replaces costly, multi-call reasoning loops with a single call to a composed workflow,
+          maximizing determinism to reduce token usage and completion time by handling
+          routines in code and saving raw reasoning for the unique cases that actually need it.
         </p>
         <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin:1.25rem 0 1.5rem;">
           <span style="font-size:0.75rem; font-weight:600; color:var(--text-2); background:var(--bg-3); border:1px solid var(--border); border-radius:999px; padding:0.3rem 0.75rem;">✓ Deterministic by default</span>
@@ -380,7 +379,7 @@
     <div class="section-header">
       <span class="badge badge-purple">Where to Go Next</span>
       <h2>Pick your path</h2>
-      <p>Sparsi is a developer framework with a clear story for the people who own
+      <p>Sparsi is a tool with a clear story for the people who own
          reliability and spend. Start where you fit.</p>
     </div>
     <div class="grid-2" style="gap:2rem; align-items:stretch;">
@@ -521,7 +520,7 @@ claude mcp add my-workflow -- ./my-workflow/my-workflow -mcp</code></pre>
       <li><a href="releases.html">Releases</a></li>
       <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
   </div>
 </footer>
 <!-- FOOTER:END -->

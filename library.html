@@ -68,7 +68,7 @@
       </p>
         operators are deterministic</strong>; the AI operators are the small, scoped set
         you reach for only where genuine judgment is required.</p>
-      <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;">Every operator available, organized by category. Deterministic ops run as pure Go functions, testable without a model. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
+      <p style="font-size:1.0625rem;line-height:1.75;max-width:680px;">Every operator available, organized by category. Deterministic ops run as pure native functions, testable without a model. AI ops call Claude or Gemini and support structured retries. The library also ships a retrieval layer (<code>Retriever</code> + <code>RetrieveOp</code> + citation validation), a repair wrapper (<code>WithRepair</code>) for AI-assisted recovery of deterministic ops, and pluggable factories for AI / embedding credentials.</p>
     </div>
   </div>
 </section>
@@ -262,7 +262,7 @@
       <a href="ops/math-round.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RoundOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Round float64 to nearest integer</p></a>
       <a href="ops/math-inttofloat64.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IntToFloat64Op</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Widen int wire to float64</p></a>
       <a href="ops/math-float64toint.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">Float64ToIntOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Truncate float64 wire to int</p></a>
-      <a href="ops/math-pack.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">PackMathOperandsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Pack two float64 inputs into a MathOperands struct</p></a>
+      <a href="ops/math-pack.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">PackMathOperandsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Pack two float64 inputs into a MathOperands object</p></a>
     </div>
   </div>
 </section>
@@ -282,7 +282,7 @@
       <a href="ops/string-tolower.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringToLowerOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Convert string to lower case</p></a>
       <a href="ops/string-split.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringSplitOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Split string by separator into a slice</p></a>
       <a href="ops/string-lookup.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">StringLookupOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Static key→value string lookup table</p></a>
-      <a href="ops/string-regex-match.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Test if string matches a Go regex pattern</p></a>
+      <a href="ops/string-regex-match.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Test if string matches a regex pattern</p></a>
       <a href="ops/string-regex-extract.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">RegexExtractOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Extract first match or capture group</p></a>
     </div>
 
@@ -291,7 +291,7 @@
       <a href="ops/string-float64tostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">Float64ToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format float64 as string using %v</p></a>
       <a href="ops/string-inttostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IntToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format int as string using %v</p></a>
       <a href="ops/string-booltostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">BoolToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format bool as "true" or "false"</p></a>
-      <a href="ops/string-tostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format any pointer value as string — escape hatch for custom struct wires</p></a>
+      <a href="ops/string-tostring.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">ToStringOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Format any pointer value as string — escape hatch for custom object wires</p></a>
     </div>
   </div>
 </section>
@@ -330,7 +330,7 @@
       <a href="ops/pred-ifstringcontains.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringContainsOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A contains B as substring</p></a>
       <a href="ops/pred-ifstringhasprefix.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringHasPrefixOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A starts with B</p></a>
       <a href="ops/pred-ifstringhassuffix.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringHasSuffixOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">A ends with B</p></a>
-      <a href="ops/pred-ifstringregexmatch.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringRegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Input matches a Go regex pattern</p></a>
+      <a href="ops/pred-ifstringregexmatch.html" class="card" style="text-decoration:none;display:block;"><code style="color:var(--text-0);">IfStringRegexMatchOp</code><p style="font-size:0.875rem;margin:0.375rem 0 0;">Input matches a regex pattern</p></a>
     </div>
 
     <h3 style="margin-bottom:1rem;color:var(--text-2);font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;">Empty Predicates</h3>
@@ -436,7 +436,7 @@
           <code style="font-size:0.875rem;color:var(--text-0);">MCPCallOp[In, Out]</code>
           <span class="tag tag-det" style="font-size:0.7rem;">Integration</span>
         </div>
-        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Invoke a single MCP tool as one workflow step. Each <code>Run</code> opens a fresh session, completes the handshake, calls one tool, and tears the session down. Default dispatch decodes <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, slice and map shapes, and any JSON-decodable struct (structured content preferred when the server emits it). Implement <code>MCPArgsFormatter</code> / <code>MCPResponseParser</code> for full control.</p>
+        <p style="font-size:0.875rem;margin:0 0 0.5rem;">Invoke a single MCP tool as one workflow step. Each <code>Run</code> opens a fresh session, completes the handshake, calls one tool, and tears the session down. Default dispatch decodes <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, slice and map shapes, and any JSON-decodable object (structured content preferred when the server emits it). Implement <code>MCPArgsFormatter</code> / <code>MCPResponseParser</code> for full control.</p>
         <p style="font-size:0.8125rem;margin:0;color:var(--text-2);">Params: <code>transport</code>, <code>command</code>/<code>args</code>/<code>env</code> (stdio) or <code>url</code>/<code>headers</code> (http), <code>tool_name</code>, <code>init_timeout_ms</code>, <code>call_timeout_ms</code>, <code>max_retries</code>, <code>pool_size</code>, <code>pool_prewarm</code>.</p>
       </a>
       <a href="https://github.com/akennis/sparsi-go/blob/main/library/mcp_script_op.go" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block;">
@@ -563,19 +563,36 @@
       <span class="badge badge-blue">ContextValFactory</span>
       <span class="tag tag-det">Deterministic</span>
     </div>
-    <p style="max-width:640px;margin-bottom:2rem;"><code>builtin.ContextValFactory[T](key)</code> creates a typed operator factory that reads a value of type <code>T</code> from <code>context.Context</code> at graph execution time. This is the standard pattern for injecting per-run inputs — ticket text, API responses, weights — into a workflow without baking values into the graph at build time.</p>
+        <p style="max-width:640px;margin-bottom:2rem;">The standard pattern for injecting per-run inputs — ticket text, API responses, weights — into a workflow without baking values into the graph at build time. Each language SDK has a native, idiomatic way of handling this.</p>
     <div class="grid-2">
       <div class="card">
         <div style="margin-bottom:0.75rem;">
-          <code style="font-size:0.875rem;color:var(--text-0);">builtin.ContextValFactory[T](key)</code>
+          <code style="font-size:0.875rem;color:var(--text-0);">Input injection</code>
         </div>
-        <p style="font-size:0.875rem;margin-bottom:1rem;">Generic factory. Register once under a name in <code>init()</code>; inject the value via <code>context.WithValue</code> before each run. Supports any type: <code>string</code>, <code>float64</code>, <code>int</code>, <code>bool</code>, <code>[]string</code>.</p>
-        <div class="code-block" style="font-size:0.8rem;">
-          <div class="code-header">
-            <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-filename">registration + wiring</span>
+        <p style="font-size:0.875rem;margin-bottom:1rem;">In Go, use <code>ContextValFactory</code>. In Python, use <code>ContextValOp</code>. In TypeScript, declare <code>wf.input()</code>.</p>
+        <div class="code-block" style="font-size:0.8rem; padding-top: 0;">
+          <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+            <button class="lang-tab active" data-lang="go">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+              Go
+            </button>
+            <button class="lang-tab" data-lang="py">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+              Python
+            </button>
+            <button class="lang-tab" data-lang="ts">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+              TypeScript
+            </button>
           </div>
-          <pre><code><span class="kw">type</span> <span class="ty">ticketBodyKey</span> <span class="kw">struct</span>{}
+
+          <!-- Go Content -->
+          <div class="tab-content active" data-lang="go">
+            <div class="code-header" style="border-bottom: none; background: transparent;">
+              <div class="code-dots"><span></span><span></span><span></span></div>
+              <span class="code-filename">registration + wiring</span>
+            </div>
+            <pre style="margin:0;"><code><span class="kw">type</span> <span class="ty">ticketBodyKey</span> <span class="kw">struct</span>{}
 
 <span class="cm">// Register in init()</span>
 operator.RegisterOpFactory(<span class="st">"body_const"</span>,
@@ -587,6 +604,40 @@ Vertex(<span class="st">"body_const"</span>).Op(<span class="st">"body_const"</s
 
 <span class="cm">// Inject value at run time</span>
 ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
+          </div>
+
+          <!-- Python Content -->
+          <div class="tab-content" data-lang="py">
+            <div class="code-header" style="border-bottom: none; background: transparent;">
+              <div class="code-dots"><span></span><span></span><span></span></div>
+              <span class="code-filename">wiring</span>
+            </div>
+            <pre style="margin:0;"><code><span class="cm"># Wire into graph</span>
+b.vertex(<span class="st">"body_const"</span>).op(<span class="st">"ContextValOp"</span>) \
+    .params({<span class="st">"key"</span>: <span class="st">"ticket_body"</span>}) \
+    .output(<span class="st">"result"</span>, <span class="st">"ticket_body"</span>)
+
+<span class="cm"># Inject value at run time</span>
+ctx = {<span class="st">"ticket_body"</span>: <span class="st">"The server is down..."</span>}</code></pre>
+          </div>
+
+          <!-- TypeScript Content -->
+          <div class="tab-content" data-lang="ts">
+            <div class="code-header" style="border-bottom: none; background: transparent;">
+              <div class="code-dots"><span></span><span></span><span></span></div>
+              <span class="code-filename">wiring</span>
+            </div>
+            <pre style="margin:0;"><code><span class="cm">// Define the input and its type</span>
+<span class="kw">const</span> ticketBody = wf.input&lt;<span class="ty">string</span>&gt;(<span class="st">"ticket_body"</span>);
+
+<span class="cm">// The input wire can now be passed directly to downstream ops</span>
+<span class="kw">const</span> summary = wf.ai.<span class="fn">compute</span>(ticketBody, {
+  operation: <span class="st">"summarize this ticket"</span>
+});
+
+<span class="cm">// Inject value at run time</span>
+<span class="kw">const</span> result = <span class="kw">await</span> wf.<span class="fn">run</span>({ ticket_body: <span class="st">"The server is down..."</span> });</code></pre>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -625,7 +676,7 @@ ctx := context.WithValue(ctx, ticketBodyKey{}, ticketBody)</code></pre>
   <div class="container">
     <div class="cta-banner" style="text-align:center;padding:3rem 2rem;">
       <h2 style="margin-bottom:1rem;">Ready to build?</h2>
-      <p style="margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;">Combine these operators using the Go fluent builder API. The runtime handles wiring, skip logic, and retry — you just describe what to compute.</p>
+      <p style="margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;">Combine these operators using the builder and workflow APIs. The runtime handles wiring, skip logic, and retry — you just describe what to compute.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
         <a href="developers.html" class="btn btn-primary">Get Started</a>
         <a href="examples.html" class="btn btn-secondary">View Examples</a>

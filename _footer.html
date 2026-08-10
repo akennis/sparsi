@@ -13,8 +13,37 @@
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://github.com/akennis" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026</p>
   </div>
 </footer>
+<script>
+  function switchTab(lang) {
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      if (tab.dataset.lang === lang) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+    document.querySelectorAll('.tab-content').forEach(content => {
+      if (content.dataset.lang === lang) {
+        content.classList.add('active');
+      } else {
+        content.classList.remove('active');
+      }
+    });
+    localStorage.setItem('sparsi-lang', lang);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.lang));
+    });
+    const saved = localStorage.getItem('sparsi-lang');
+    if (saved) {
+      switchTab(saved);
+    }
+  });
+</script>

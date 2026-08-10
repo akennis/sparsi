@@ -27,10 +27,27 @@
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="nav-gh">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        <span class="hide-sm">GitHub</span>
-      </a></li>
+      <li class="nav-dropdown">
+        <button class="nav-gh" aria-haspopup="true" aria-expanded="false" style="background: var(--bg-3); color: var(--text-1); border: 1px solid var(--border-light); display: inline-flex; align-items: center; gap: 0.375rem; border-radius: var(--radius-sm); padding: 0.45rem 0.875rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="hide-sm">GitHub</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-dropdown-content">
+          <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+            Go
+          </a>
+          <a href="https://github.com/npolarski1/sparsi-py" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+            Python
+          </a>
+          <a href="https://github.com/akennis/sparsi-ts" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+            TypeScript
+          </a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
@@ -49,14 +66,22 @@
         completion time by using AI only where it earns its keep.
       </p>
       <p style="font-size:1.0625rem; margin-bottom:2rem; color:var(--text-2);">
-        Concretely, that's a DAG workflow: ops are plain Go structs, wires are typed values, and
+        Concretely, that's a DAG workflow: ops are plain objects or structs, wires are typed values, and
         the engine handles dependency resolution, parallelism, and skip-propagation. You
         write the logic — this page is the how.
       </p>
       <div class="hero-actions">
         <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          github.com/akennis/sparsi-go
+          Go SDK
+        </a>
+        <a href="https://github.com/akennis/sparsi-py" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          Python SDK
+        </a>
+        <a href="https://github.com/akennis/sparsi-ts" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          TS SDK
         </a>
         <a href="#quick-start" class="btn btn-secondary">Quick Start ↓</a>
         <a href="#skills" class="btn btn-secondary">Skills ↓</a>
@@ -158,11 +183,24 @@ cp -r sparsi-codegen ~/.claude/skills/</code></pre>
     </div>
 
     <div class="code-block" style="max-width:720px; margin:0 auto 1.5rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">terminal</span>
+      <div class="lang-tabs">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="cm"># 1 — clone the repo</span>
+
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <pre style="margin:0;"><code><span class="cm"># 1 — clone the repo</span>
 git clone https://github.com/akennis/sparsi-go
 cd sparsi-go
 
@@ -172,12 +210,44 @@ go build ./...
 <span class="cm"># 3 — run an example (a model call needs your Claude API key)</span>
 export CLAUDE_API_KEY=&lt;your key&gt;
 go run ./examples/ticket-triager</code></pre>
+      </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <pre style="margin:0;"><code><span class="cm"># 1 — clone the repo</span>
+git clone https://github.com/npolarski1/sparsi-py
+cd sparsi-py
+
+<span class="cm"># 2 — set up virtual environment and install</span>
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+
+<span class="cm"># 3 — run an example</span>
+export CLAUDE_API_KEY=&lt;your key&gt;
+python examples/ticket_triager/main.py</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <pre style="margin:0;"><code><span class="cm"># 1 — clone the repo</span>
+git clone https://github.com/akennis/sparsi-ts
+cd sparsi-ts
+
+<span class="cm"># 2 — install dependencies</span>
+npm install
+npm run build
+
+<span class="cm"># 3 — run an example</span>
+export CLAUDE_API_KEY=&lt;your key&gt;
+npx tsx examples/ticket-triager/index.ts</code></pre>
+      </div>
     </div>
 
     <div style="max-width:720px; margin:0 auto; background:var(--bg-3); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.25rem 1.5rem; display:flex; gap:0.875rem; align-items:flex-start;">
       <span style="color:var(--blue-light); font-size:1.25rem; flex-shrink:0; line-height:1.4;">✅</span>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
-        <strong>Prerequisites:</strong> a recent <strong>Go</strong> toolchain (the minimum
+        <strong>Prerequisites:</strong> a recent <strong>Go</strong>, <strong>Python</strong>, or <strong>Node.js</strong> toolchain (the minimum
         version is pinned in the repo's <code>go.mod</code>), <strong>git</strong>, and a
         <strong>Claude API key</strong> from
         <a href="https://console.anthropic.com" target="_blank" rel="noopener" style="color:var(--blue-light);">console.anthropic.com</a>,
@@ -232,11 +302,11 @@ go run ./examples/ticket-triager</code></pre>
           <span style="font-size:1.75rem; font-weight:900; color:var(--purple); font-family:monospace; opacity:0.7; line-height:1;">2</span>
           <h3 style="margin:0;"><code style="color:var(--purple-light); font-size:1.0625rem;">/sparsi-codegen</code></h3>
         </div>
-        <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Pass the approved design and an output directory. The skill generates <code>main.go</code> + <code>go.mod</code>, runs <code>go mod tidy</code>, then <code>go build</code> — fixing any compile errors automatically until the binary is clean.</p>
+        <p style="margin-bottom:0.875rem; font-size:0.9375rem;">Pass the approved design and an output directory. The skill generates the project files, resolves dependencies, and verifies the code — fixing any errors automatically until the project is clean.</p>
         <ul class="feat-list">
           <li>Implements the design exactly — no improvisation</li>
           <li>Handles custom ops, predicates, and coalesce patterns</li>
-          <li>Outputs a runnable binary; just add <code>CLAUDE_API_KEY</code></li>
+          <li>Outputs a runnable program; just add <code>CLAUDE_API_KEY</code></li>
         </ul>
       </div>
     </div>
@@ -343,16 +413,33 @@ cp -r sparsi-codegen .gemini/skills/</code></pre>
       <span class="badge badge-orange">Manual Authoring</span>
       <h2>Or build a workflow by hand</h2>
       <p>The skills are the fast path. When you want full control — or you're folding a
-         workflow into an existing Go service — author the graph directly with the builder
+         workflow into an existing Go, Python, or TypeScript service — author the graph directly with the builder
          API. Skill-generated and hand-written workflows compile to the same DAG.</p>
     </div>
 
-    <div class="code-block" style="max-width:760px; margin:0 auto;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">main.go</span>
+        <div class="code-block" style="max-width:760px; margin:0 auto; padding-top: 0;">
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="kw">import</span> (
+
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">import</span> (
     _ <span class="st">"github.com/akennis/sparsi-go/library"</span>
     <span class="st">"github.com/akennis/dagor/graph"</span>
     <span class="st">"github.com/akennis/dagor/operator"</span>
@@ -377,6 +464,52 @@ g, _ := graph.NewBuilder(<span class="st">"my-workflow"</span>).
 
 ctx := context.WithValue(context.Background(), inputKey{}, input)
 result, _ := engine.Run(ctx, g)</code></pre>
+      </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.py</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">from</span> sparsi <span class="kw">import</span> Builder, engine
+
+b = Builder(<span class="st">"my-workflow"</span>)
+
+b.vertex(<span class="st">"input_const"</span>).op(<span class="st">"ContextValOp"</span>) \
+    .params({<span class="st">"key"</span>: <span class="st">"text"</span>}) \
+    .output(<span class="st">"result"</span>, <span class="st">"text"</span>)
+
+b.vertex(<span class="st">"transform"</span>).op(<span class="st">"AIComputeStringToStringOp"</span>) \
+    .params({<span class="st">"operation"</span>: <span class="st">"summarize"</span>}) \
+    .input(<span class="st">"input"</span>, <span class="st">"text"</span>) \
+    .output(<span class="st">"result"</span>, <span class="st">"summary"</span>)
+
+g = b.build()
+
+ctx = {<span class="st">"text"</span>: input_text}
+result = engine.run(ctx, g)</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">index.ts</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">import</span> { Workflow } <span class="kw">from</span> <span class="st">"@akennis/sparsi-ts"</span>;
+
+<span class="kw">const</span> wf = <span class="kw">new</span> Workflow(<span class="st">"my-workflow"</span>);
+<span class="kw">const</span> text = wf.input&lt;<span class="ty">string</span>&gt;(<span class="st">"text"</span>);
+
+<span class="kw">const</span> summary = wf.ai.compute(text, {
+    operation: <span class="st">"summarize"</span>,
+    output: <span class="st">"string"</span>,
+    name: <span class="st">"transform"</span>
+});
+
+<span class="kw">const</span> result = <span class="kw">await</span> wf.run({ text: inputText });</code></pre>
+      </div>
     </div>
 
     <p style="max-width:760px; margin:1rem auto 0; font-size:0.9rem; color:var(--text-3);">
@@ -400,7 +533,7 @@ result, _ := engine.Run(ctx, g)</code></pre>
           <span class="tag tag-det">det</span>
           <h3 style="margin:0;">Deterministic Ops</h3>
         </div>
-        <p style="margin-bottom:1rem;">A Go struct with <code>dag:"input"</code> and <code>dag:"output"</code> field tags and
+        <p style="margin-bottom:1rem;">A struct or class with <code>dag:"input"</code> and <code>dag:"output"</code> field tags and
            a <code>Run(ctx)</code> method. Outputs depend only on inputs — no side effects, no randomness.</p>
         <ul class="feat-list">
           <li>Pure function semantics</li>
@@ -584,17 +717,34 @@ result, _ := engine.Run(ctx, g)</code></pre>
 
     <!-- Annotated code -->
     <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:1rem;">
-      Simplified from <code>examples/ticket-triager/main.go</code> — annotations inline:
+      Simplified from the <code>ticket-triager</code> example — annotations inline:
     </p>
-    <div class="code-block" style="margin-bottom:2rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">examples/ticket-triager/main.go — buildGraph()</span>
+        <div class="code-block" style="margin-bottom:2rem; padding-top: 0;">
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="cm">// Registered in init():</span>
+
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">examples/ticket-triager/main.go — buildGraph()</span>
+        </div>
+        <pre style="margin:0;"><code><span class="cm">// Registered in init():</span>
 <span class="cm">// operator.RegisterOpFactory("body_const", builtin.ContextValFactory[string](ticketBodyKey{}))</span>
 
-<span class="kw">func</span> <span class="fn">buildGraph</span>() (*graph.Graph, <span class="ty">error</span>) {
+<span class="kw">func</span> <span class="fn">buildGraph</span>() (*graph.<span class="ty">Graph</span>, <span class="ty">error</span>) {
     <span class="kw">return</span> graph.<span class="fn">NewBuilder</span>(<span class="st">"ticket_triage"</span>).
 
         <span class="cm">// 1. Read ticket body from context — injected at run time via context.WithValue</span>
@@ -642,6 +792,113 @@ result, _ := engine.Run(ctx, g)</code></pre>
             Output(<span class="st">"Result"</span>, <span class="st">"final_brief"</span>).
         <span class="fn">Build</span>()
 }</code></pre>
+      </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">examples/ticket-triager/main.py — build_graph()</span>
+        </div>
+        <pre style="margin:0;"><code><span class="cm"># Registered at startup:</span>
+<span class="cm"># operator.register_op_factory("body_const", builtin.context_val_factory("ticketBodyKey"))</span>
+
+<span class="kw">def</span> <span class="fn">build_graph</span>():
+    b = Builder(<span class="st">"ticket_triage"</span>)
+
+    <span class="cm"># 1. Read ticket body from context — injected at run time</span>
+    b.vertex(<span class="st">"body_const"</span>).op(<span class="st">"body_const"</span>) \
+        .output(<span class="st">"result"</span>, <span class="st">"ticket_body"</span>)
+
+    <span class="cm"># 2. Single AI call to classify: billing / bug / feature / other</span>
+    <span class="cm">#    Only ONE AI op fires regardless of ticket content.</span>
+    b.vertex(<span class="st">"classify"</span>).op(<span class="st">"ModeSelectOp"</span>) \
+        .params({<span class="st">"categories"</span>: <span class="st">"billing,bug,feature,other"</span>}) \
+        .input(<span class="st">"input"</span>, <span class="st">"ticket_body"</span>) \
+        .output(<span class="st">"result"</span>, <span class="st">"ticket_category"</span>)
+
+    <span class="cm"># 3. Billing lane — gate vertex prunes subtree when predicate is false.</span>
+    <span class="cm">#    condition_input passes the wire to the predicate;</span>
+    <span class="cm">#    the gate op itself does not see it.</span>
+    b.vertex(<span class="st">"gate_billing"</span>).op(<span class="st">"LaneGateOp"</span>) \
+        .condition(<span class="st">"lane_is_billing"</span>) \
+        .condition_input(<span class="st">"ticket_category"</span>) \
+        .input(<span class="st">"body"</span>, <span class="st">"ticket_body"</span>) \
+        .output(<span class="st">"body_out"</span>, <span class="st">"billing_body"</span>)
+
+    <span class="cm"># 4. Two AI ops in the billing lane — run in parallel (no dependency</span>
+    <span class="cm">#    between them), both skipped automatically if gate was pruned.</span>
+    b.vertex(<span class="st">"billing_extract"</span>).op(<span class="st">"AIExtractMapOp"</span>) \
+        .params({<span class="st">"operation"</span>: <span class="st">"extract: name, email, account_id, total_amount"</span>}) \
+        .input(<span class="st">"input"</span>, <span class="st">"billing_body"</span>) \
+        .output(<span class="st">"result"</span>, <span class="st">"billing_map"</span>)
+
+    b.vertex(<span class="st">"billing_refund"</span>).op(<span class="st">"AIParseNumberOp"</span>) \
+        .params({<span class="st">"operation"</span>: <span class="st">"refund amount requested (USD)"</span>}) \
+        .input(<span class="st">"input"</span>, <span class="st">"billing_body"</span>) \
+        .output(<span class="st">"result"</span>, <span class="st">"billing_refund_amount"</span>)
+
+    <span class="cm"># ... bug / feature / other lanes follow the same gate → AI ops pattern ...</span>
+
+    <span class="cm"># 5. Coalesce: exactly one lane produced output; take the first non-nil.</span>
+    b.vertex(<span class="st">"final"</span>).op(<span class="st">"CoalesceNStringOp"</span>) \
+        .params({<span class="st">"n"</span>: <span class="nu">4</span>}) \
+        .merge(<span class="st">"coalesce"</span>) \
+        .input(<span class="st">"input0"</span>, <span class="st">"billing_json"</span>) \
+        .input(<span class="st">"input1"</span>, <span class="st">"bug_json"</span>) \
+        .input(<span class="st">"input2"</span>, <span class="st">"feature_json"</span>) \
+        .input(<span class="st">"input3"</span>, <span class="st">"other_json"</span>) \
+        .output(<span class="st">"result"</span>, <span class="st">"final_brief"</span>)
+        
+    <span class="kw">return</span> b.build()</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">examples/ticket-triager/index.ts — build()</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">function</span> <span class="fn">build</span>() {
+  <span class="kw">const</span> wf = <span class="kw">new</span> Workflow(<span class="st">"ticket_triage"</span>);
+  
+  <span class="cm">// 1. Read ticket body from context</span>
+  <span class="kw">const</span> ticketBody = wf.input&lt;<span class="ty">string</span>&gt;(<span class="st">"ticket_body"</span>);
+
+  <span class="cm">// 2. Single AI call to classify: billing / bug / feature / other</span>
+  <span class="cm">//    Only ONE AI op fires regardless of ticket content.</span>
+  <span class="kw">const</span> ticketCategory = wf.ai.<span class="fn">modeSelect</span>(ticketBody, {
+    categories: [<span class="st">"billing"</span>, <span class="st">"bug"</span>, <span class="st">"feature"</span>, <span class="st">"other"</span>],
+    name: <span class="st">"classify"</span>
+  });
+
+  <span class="cm">// 3. Billing lane — gate prunes execution if the category is not "billing".</span>
+  <span class="kw">const</span> billingBody = wf.<span class="fn">gate</span>(ticketCategory, cat =&gt; cat === <span class="st">"billing"</span>, ticketBody, {
+    name: <span class="st">"gate_billing"</span>
+  });
+
+  <span class="cm">// 4. Two AI ops in the billing lane — run in parallel (no dependency</span>
+  <span class="cm">//    between them), both skipped automatically if gate was pruned.</span>
+  <span class="kw">const</span> billingMap = wf.ai.<span class="fn">extractMap</span>(billingBody, {
+    operation: <span class="st">"extract: name, email, account_id, total_amount"</span>,
+    name: <span class="st">"billing_extract"</span>
+  });
+
+  <span class="kw">const</span> billingRefundAmount = wf.ai.<span class="fn">parseNumber</span>(billingBody, {
+    operation: <span class="st">"refund amount requested (USD)"</span>,
+    name: <span class="st">"billing_refund"</span>
+  });
+
+  <span class="cm">// ... bug / feature / other lanes follow the same gate → AI ops pattern ...</span>
+  <span class="kw">const</span> billingJson = wf.<span class="fn">op</span>({ billingMap, billingRefundAmount }, (vars) =&gt; JSON.<span class="fn">stringify</span>(vars));
+  <span class="kw">const</span> bugJson = wf.<span class="fn">op</span>(<span class="cm">/* ... */</span>);
+  <span class="kw">const</span> featureJson = wf.<span class="fn">op</span>(<span class="cm">/* ... */</span>);
+  <span class="kw">const</span> otherJson = wf.<span class="fn">op</span>(<span class="cm">/* ... */</span>);
+
+  <span class="cm">// 5. Coalesce: exactly one lane produced output; take the first non-nil.</span>
+  <span class="kw">const</span> finalBrief = wf.<span class="fn">coalesce</span>(billingJson, bugJson, featureJson, otherJson);
+}</code></pre>
+      </div>
     </div>
 
     <!-- Output -->
@@ -724,14 +981,31 @@ result, _ := engine.Run(ctx, g)</code></pre>
         Use <code>SkipIf</code> to try a deterministic lookup first and only call AI on a miss.
         As the lookup table grows, AI calls shrink automatically.
       </p>
-      <div class="code-block">
-        <div class="code-header">
+          <div class="code-block" style="padding-top: 0;">
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
+      </div>
+
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-filename">library op wiring</span>
         </div>
-        <pre><code><span class="cm">// Check the lookup map first (no API call).</span>
+        <pre style="margin:0;"><code><span class="cm">// Check the lookup map first (no API call).</span>
 Vertex(<span class="st">"lookup"</span>).Op(<span class="st">"StringLookupOp"</span>).
-    Params(map[string]string{<span class="st">"map"</span>: `{<span class="st">"hamburger"</span>:<span class="st">"ketchup"</span>,<span class="st">"hotdog"</span>:<span class="st">"mustard"</span>}`}).
+    Params(map[string]string{<span class="st">"map"</span>: `<span class="st">{"hamburger":"ketchup","hotdog":"mustard"}</span>`}).
     Input(<span class="st">"Key"</span>, <span class="st">"food"</span>).
     Output(<span class="st">"Result"</span>, <span class="st">"known_condiment"</span>). <span class="cm">// empty string on miss</span>
 
@@ -742,6 +1016,48 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
     Input(<span class="st">"SkipIf"</span>, <span class="st">"known_condiment"</span>). <span class="cm">// bypassed when non-empty</span>
     Output(<span class="st">"Result"</span>, <span class="st">"condiment"</span>).</code></pre>
       </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">library op wiring</span>
+        </div>
+        <pre style="margin:0;"><code><span class="cm"># Check the lookup map first (no API call).</span>
+b.vertex(<span class="st">"lookup"</span>).op(<span class="st">"StringLookupOp"</span>) \
+    .params({<span class="st">"map"</span>: <span class="st">'{"hamburger":"ketchup","hotdog":"mustard"}'</span>}) \
+    .input(<span class="st">"key"</span>, <span class="st">"food"</span>) \
+    .output(<span class="st">"result"</span>, <span class="st">"known_condiment"</span>)  <span class="cm"># empty string on miss</span>
+
+<span class="cm"># AI fires only when the lookup missed (known_condiment is empty).</span>
+b.vertex(<span class="st">"ai_suggest"</span>).op(<span class="st">"AIComputeStringToStringOp"</span>) \
+    .params({<span class="st">"operation"</span>: <span class="st">"suggest a condiment for this food"</span>}) \
+    .input(<span class="st">"input"</span>, <span class="st">"food"</span>) \
+    .input(<span class="st">"skipIf"</span>, <span class="st">"known_condiment"</span>) \
+    .output(<span class="st">"result"</span>, <span class="st">"condiment"</span>)</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">library op wiring</span>
+        </div>
+        <pre style="margin:0;"><code><span class="cm">// Check the lookup map first (no API call).</span>
+<span class="kw">const</span> knownCondiment = wf.<span class="fn">op</span>({ food }, ({ food }) =&gt; {
+  <span class="kw">const</span> map: <span class="ty">Record</span>&lt;<span class="ty">string</span>, <span class="ty">string</span>&gt; = { <span class="st">"hamburger"</span>: <span class="st">"ketchup"</span>, <span class="st">"hotdog"</span>: <span class="st">"mustard"</span> };
+  <span class="kw">return</span> map[food] || <span class="st">""</span>; <span class="cm">// empty string on miss</span>
+}, { name: <span class="st">"lookup"</span> });
+
+<span class="cm">// AI fires only when the lookup missed (knownCondiment is empty).</span>
+<span class="kw">const</span> condiment = wf.ai.<span class="fn">compute</span>(food, {
+  operation: <span class="st">"suggest a condiment for this food"</span>,
+  output: <span class="st">"string"</span>,
+  skipIf: knownCondiment, <span class="cm">// bypassed when truthy (non-empty)</span>
+  name: <span class="st">"ai_suggest"</span>
+});</code></pre>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -939,50 +1255,23 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
     <div class="section-header">
       <span class="badge badge-orange">Custom Operators</span>
       <h2>Build Your Own Operators</h2>
-      <p>Any Go struct that implements <code>operator.IOperator</code> can be registered and wired into a graph — no framework internals required.</p>
+      <p>Any class or struct that implements <code>operator.IOperator</code> can be registered and wired into a graph — no framework internals required.</p>
     </div>
 
-    <!-- Interface -->
-    <h3 style="margin-bottom:1rem;">The <code>IOperator</code> interface</h3>
+        <!-- Interface -->
+    <h3 style="margin-bottom:1rem;">Implementing your logic</h3>
     <p style="margin-bottom:1.25rem; font-size:0.9375rem;">
-      Every operator must implement seven methods. For most operators, five of them are pure boilerplate —
-      only <code>Run</code> and <code>SetInputField</code> require real logic.
+      Depending on your language, an operator might be a struct, a class, or a function. The only requirement is an execution block (like <code>run()</code>) that reads incoming wires and writes outputs.
     </p>
-
-    <div class="grid-2" style="margin-bottom:2.5rem;">
-      <div class="card">
-        <h4 style="margin-bottom:0.75rem; color:var(--orange-light);">Business logic</h4>
-        <ul class="feat-list">
-          <li><code>Setup(params *config.Params) error</code> — parse vertex params; called once before first <code>Run</code></li>
-          <li><code>Run(ctx context.Context) error</code> — read inputs, write outputs; the heart of your operator</li>
-          <li><code>SetInputField(field string, value any) error</code> — type-assert and store an incoming wire value</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4 style="margin-bottom:0.75rem; color:var(--text-2);">Boilerplate (usually one-liners)</h4>
-        <ul class="feat-list">
-          <li><code>Reset() error</code> — clear any state after <code>Run</code>; return nil if stateless</li>
-          <li><code>InputFields() map[string]any</code> — expose input field pointers for the engine &amp; logger</li>
-          <li><code>OutputFields() map[string]any</code> — expose output field pointers for downstream wiring</li>
-          <li><code>ResetFields()</code> — zero all fields so the pooled instance is clean for reuse</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Field conventions callout -->
-    <div class="quote-block" style="margin-bottom:1.5rem;">
-      <p><strong>Field convention:</strong> inputs are typically <em>pointers</em> (<code>*string</code>, <code>*int</code> …) so the engine can distinguish a missing wire (nil) from a zero value. Outputs are plain values (<code>string</code>, <code>int</code> …). Check for nil at the top of <code>Run</code> to return a clear error on missing required wires.</p>
-    </div>
 
     <!-- API / AI callout -->
     <div class="card" style="border-color:rgba(139,92,246,0.35); background:rgba(45,27,105,0.18); margin-bottom:2.5rem;">
       <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.75rem;">
         <span class="tag tag-ai">AI</span>
-        <h4 style="margin:0;">Run() is just Go — including API calls</h4>
+        <h4 style="margin:0;">Run() is just normal code — including API calls</h4>
       </div>
       <p style="margin-bottom:0.5rem;">
-        There is no restriction on what <code>Run</code> can do. It receives a <code>context.Context</code>,
-        so any network call that respects context cancellation works out of the box:
+        There is no restriction on what your logic can do.
       </p>
       <ul class="feat-list" style="margin-bottom:0.75rem;">
         <li>Call any LLM API (Anthropic, OpenAI, Gemini …) and write the parsed response to an output field</li>
@@ -990,10 +1279,10 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
         <li>Fan out to multiple downstream APIs and aggregate the results before returning</li>
       </ul>
       <p style="font-size:0.875rem; color:var(--text-3); margin:0;">
-        This is how the built-in AI ops are implemented — <code>AIComputeOp</code>, <code>AIScore</code>, and friends are all
-        plain <code>IOperator</code> structs whose <code>Run</code> methods call the Claude API.
+        This is exactly how the built-in AI ops are implemented — <code>AIComputeOp</code>, <code>AIScore</code>, and friends are all
+        plain native classes whose <code>run</code> methods call the Claude API.
         If you need a model, prompt format, or response schema that the library does not cover,
-        write a custom AI op that does exactly what you need and wire it alongside the built-ins.
+        write a custom AI op that does exactly what you need.
       </p>
     </div>
 
@@ -1002,23 +1291,29 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
     <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:1rem;">
       Receives a <code>Name</code> wire and writes <code>"Hello {name}"</code> to a <code>Greeting</code> wire.
     </p>
-    <div class="code-block" style="margin-bottom:2rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">myops/say_hello_op.go</span>
+    <div class="code-block" style="margin-bottom:2rem; padding-top:0;">
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="kw">package</span> myops
 
-<span class="kw">import</span> (
-    <span class="st">"context"</span>
-    <span class="st">"fmt"</span>
-    <span class="st">"log"</span>
-
-    <span class="st">"github.com/akennis/dagor/config"</span>
-    <span class="st">"github.com/akennis/dagor/operator"</span>
-)
-
-<span class="kw">type</span> <span class="ty">SayHelloOp</span> <span class="kw">struct</span> {
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">say_hello_op.go</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">type</span> <span class="ty">SayHelloOp</span> <span class="kw">struct</span> {
     Name     *<span class="ty">string</span> <span class="cm">`dag:"input"`</span>
     Greeting  <span class="ty">string</span> <span class="cm">`dag:"output"`</span>
 }
@@ -1033,71 +1328,83 @@ Vertex(<span class="st">"ai_suggest"</span>).Op(<span class="st">"AIComputeStrin
     <span class="kw">return</span> <span class="kw">nil</span>
 }
 
-<span class="kw">func</span> (op *<span class="ty">SayHelloOp</span>) <span class="fn">Reset</span>() <span class="ty">error</span> { <span class="kw">return</span> <span class="kw">nil</span> }
-
-<span class="cm">// InputFields and OutputFields expose field pointers to the engine for</span>
-<span class="cm">// wire binding and structured logging. The key must match the wire name</span>
-<span class="cm">// used in Input()/Output() calls on the graph builder.</span>
-<span class="kw">func</span> (op *<span class="ty">SayHelloOp</span>) <span class="fn">InputFields</span>() map[<span class="ty">string</span>]<span class="ty">any</span> {
-    <span class="kw">return</span> map[<span class="ty">string</span>]<span class="ty">any</span>{<span class="st">"Name"</span>: &amp;op.Name}
-}
-
-<span class="kw">func</span> (op *<span class="ty">SayHelloOp</span>) <span class="fn">OutputFields</span>() map[<span class="ty">string</span>]<span class="ty">any</span> {
-    <span class="kw">return</span> map[<span class="ty">string</span>]<span class="ty">any</span>{<span class="st">"Greeting"</span>: &amp;op.Greeting}
-}
-
-<span class="kw">func</span> (op *<span class="ty">SayHelloOp</span>) <span class="fn">SetInputField</span>(field <span class="ty">string</span>, value <span class="ty">any</span>) <span class="ty">error</span> {
-    <span class="kw">if</span> field == <span class="st">"Name"</span> {
-        v, ok := value.(*<span class="ty">string</span>)
-        <span class="kw">if</span> !ok {
-            <span class="kw">return</span> fmt.<span class="fn">Errorf</span>(<span class="st">"SayHelloOp: expected *string for Name, got %T"</span>, value)
-        }
-        op.Name = v
-    }
-    <span class="kw">return</span> <span class="kw">nil</span>
-}
-
-<span class="kw">func</span> (op *<span class="ty">SayHelloOp</span>) <span class="fn">ResetFields</span>() {
-    op.Name = <span class="kw">nil</span>
-    op.Greeting = <span class="st">""</span>
-}
-
-<span class="cm">// init registers the operator under the name "SayHelloOp".</span>
-<span class="cm">// Import this package with a blank identifier to activate it:</span>
-<span class="cm">// _ "yourmodule/myops"</span>
+<span class="cm">// Boilerplate (InputFields, OutputFields, ResetFields) omitted for brevity</span>
+<span class="cm">// They can be auto-generated with the daggen CLI tool.</span>
 <span class="kw">func</span> <span class="fn">init</span>() {
-    <span class="kw">if</span> err := operator.<span class="fn">RegisterOp</span>[<span class="ty">SayHelloOp</span>](); err != <span class="kw">nil</span> {
-        log.<span class="fn">Fatalf</span>(<span class="st">"RegisterOp[SayHelloOp] error: %v"</span>, err)
-    }
+    operator.<span class="fn">RegisterOp</span>[<span class="ty">SayHelloOp</span>]()
 }</code></pre>
+      </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">say_hello_op.py</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">from</span> sparsi <span class="kw">import</span> operator
+
+<span class="kw">class</span> <span class="ty">SayHelloOp</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        self.name = <span class="kw">None</span>
+        self.greeting = <span class="kw">None</span>
+
+    <span class="kw">def</span> <span class="fn">run</span>(self):
+        <span class="kw">if</span> self.name <span class="kw">is None</span>:
+            <span class="kw">raise</span> <span class="ty">ValueError</span>(<span class="st">"SayHelloOp: name is nil"</span>)
+        self.greeting = <span class="st">"Hello "</span> + self.name
+
+operator.<span class="fn">register_op_class</span>(SayHelloOp)</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">say_hello_op.ts</span>
+        </div>
+        <pre style="margin:0;"><code><span class="cm">// In TypeScript, simple custom operations can be written inline:</span>
+<span class="kw">const</span> greeting = wf.<span class="fn">op</span>(
+  { name },
+  ({ name }) =&gt; <span class="st">"Hello "</span> + name,
+  { name: <span class="st">"SayHelloOp"</span> }
+);
+
+<span class="cm">// Or you can define a reusable class:</span>
+<span class="kw">export class</span> <span class="ty">SayHelloOp</span> {
+  <span class="fn">run</span>(inputs: { name: <span class="ty">string</span> }): { greeting: <span class="ty">string</span> } {
+    <span class="kw">if</span> (!inputs.name) <span class="kw">throw new</span> <span class="ty">Error</span>(<span class="st">"Name is required"</span>);
+    <span class="kw">return</span> { greeting: <span class="st">"Hello "</span> + inputs.name };
+  }
+}</code></pre>
+      </div>
     </div>
 
     <!-- Wiring -->
     <h3 style="margin-bottom:1rem;">Wire it into a graph</h3>
-    <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:1rem;">
-      Blank-import the package so <code>init()</code> runs, then reference the operator by name in the builder:
-    </p>
     <div class="code-block">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">main.go</span>
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="kw">import</span> (
-    _ <span class="st">"yourmodule/myops"</span> <span class="cm">// registers SayHelloOp via init()</span>
-    <span class="st">"github.com/akennis/dagor/graph"</span>
-    <span class="st">"github.com/akennis/dagor/operator/builtin"</span>
-    <span class="st">"github.com/akennis/dagor/operator"</span>
-)
 
-<span class="kw">type</span> <span class="ty">nameKey</span> <span class="kw">struct</span>{}
-
-<span class="kw">func</span> <span class="fn">init</span>() {
-    operator.<span class="fn">RegisterOpFactory</span>(<span class="st">"name_const"</span>,
-        builtin.<span class="fn">ContextValFactory</span>[<span class="ty">string</span>](nameKey{}))
-}
-
-g, _ := graph.<span class="fn">NewBuilder</span>(<span class="st">"hello-world"</span>).
-    Vertex(<span class="st">"name_const"</span>).Op(<span class="st">"name_const"</span>).
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.go</span>
+        </div>
+        <pre style="margin:0;"><code>g, _ := graph.<span class="fn">NewBuilder</span>(<span class="st">"hello-world"</span>).
+    Vertex(<span class="st">"name_const"</span>).Op(<span class="st">"ContextValOp"</span>).
         Output(<span class="st">"Result"</span>, <span class="st">"user_name"</span>).
     Vertex(<span class="st">"hello"</span>).Op(<span class="st">"SayHelloOp"</span>).
         Input(<span class="st">"Name"</span>, <span class="st">"user_name"</span>).
@@ -1107,10 +1414,47 @@ g, _ := graph.<span class="fn">NewBuilder</span>(<span class="st">"hello-world"<
 ctx := context.<span class="fn">WithValue</span>(context.Background(), nameKey{}, <span class="st">"World"</span>)
 result, _ := engine.<span class="fn">Run</span>(ctx, g)
 <span class="cm">// result["hello_msg"] → "Hello World"</span></code></pre>
-    </div>
+      </div>
 
-    <div class="quote-block" style="margin-top:2rem;">
-      <p>For operators with many fields, the <code>daggen</code> tool auto-generates <code>InputFields</code>, <code>OutputFields</code>, <code>SetInputField</code>, and <code>ResetFields</code> from <code>dag:"input"</code> / <code>dag:"output"</code> struct tags — run <code>go run cmd/daggen/main.go -type=SayHelloOp</code> to get started.</p>
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.py</span>
+        </div>
+        <pre style="margin:0;"><code>b = Builder(<span class="st">"hello-world"</span>)
+
+b.vertex(<span class="st">"name_const"</span>).op(<span class="st">"ContextValOp"</span>) \
+    .params({<span class="st">"key"</span>: <span class="st">"user_name"</span>}) \
+    .output(<span class="st">"result"</span>, <span class="st">"user_name"</span>)
+
+b.vertex(<span class="st">"hello"</span>).op(<span class="st">"SayHelloOp"</span>) \
+    .input(<span class="st">"name"</span>, <span class="st">"user_name"</span>) \
+    .output(<span class="st">"greeting"</span>, <span class="st">"hello_msg"</span>)
+
+g = b.build()
+
+ctx = {<span class="st">"user_name"</span>: <span class="st">"World"</span>}
+result = engine.run(ctx, g)
+<span class="cm"># result["hello_msg"] -&gt; "Hello World"</span></code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">index.ts</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">const</span> wf = <span class="kw">new</span> Workflow(<span class="st">"hello-world"</span>);
+
+<span class="kw">const</span> name = wf.input&lt;<span class="ty">string</span>&gt;(<span class="st">"user_name"</span>);
+
+<span class="cm">// Wire the reusable class into the graph</span>
+<span class="kw">const</span> hello_msg = wf.<span class="fn">op</span>(<span class="kw">new</span> SayHelloOp(), { name }, { name: <span class="st">"hello"</span> });
+
+<span class="kw">const</span> result = <span class="kw">await</span> wf.<span class="fn">run</span>({ user_name: <span class="st">"World"</span> });
+<span class="cm">// result.hello_msg -&gt; "Hello World"</span></code></pre>
+      </div>
     </div>
   </div>
 </section>
@@ -1121,7 +1465,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
     <div class="section-header">
       <span class="badge badge-purple">Onboarding shortcut</span>
       <h2>Run keyless with <code>--sampling</code></h2>
-      <p>Every <code>-mcp</code> binary the codegen skill produces accepts a
+      <p>Every MCP server the codegen skill produces accepts a
          <code>--sampling</code> flag. When the flag is set, the AI ops in the
          workflow stop reading <code>CLAUDE_API_KEY</code> / <code>GEMINI_API_KEY</code>
          and instead ask the connected MCP client to run each completion on the
@@ -1135,7 +1479,7 @@ result, _ := engine.<span class="fn">Run</span>(ctx, g)
         <h3 style="margin-top:0;">When to use it</h3>
         <ul class="feat-list">
           <li>First-run / demo of a freshly generated workflow before you provision an API key.</li>
-          <li>Sharing a single binary with a colleague — they register it in their own Claude Code and try it without any setup.</li>
+          <li>Sharing a project with a colleague — they register it in their own Claude Code and try it without any setup.</li>
           <li>Internal evaluation workflows where the AI ops are model-agnostic (classification, summarization) and the host model is fine.</li>
         </ul>
       </div>
@@ -1188,30 +1532,75 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
         match the workflow's intent.</li>
     </ol>
 
-    <h3 style="margin-bottom:0.75rem;">Locking it off in production builds</h3>
+        <h3 style="margin-bottom:0.75rem;">Locking it off in production builds</h3>
     <p style="font-size:0.9375rem; margin-bottom:1rem;">
       For regulated environments or hosted services that must guarantee no
-      operator can swap the model out via <code>--sampling</code>, add a single
-      <code>init()</code> to a build-tagged file in the generated module:
+      operator can swap the model out via <code>--sampling</code>, you can permanently
+      lock out the override feature at process startup:
     </p>
-    <div class="code-block" style="margin-bottom:1.5rem;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <span class="code-filename">production.go</span>
+    
+    <div class="code-block" style="margin-bottom:1.5rem; padding-top: 0;">
+      <div class="lang-tabs" style="border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <button class="lang-tab active" data-lang="go">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg>
+          Go
+        </button>
+        <button class="lang-tab" data-lang="py">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+          Python
+        </button>
+        <button class="lang-tab" data-lang="ts">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+          TypeScript
+        </button>
       </div>
-      <pre><code><span class="kw">//go:build production</span>
+
+      <!-- Go Content -->
+      <div class="tab-content active" data-lang="go">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">production.go</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">//go:build production</span>
 
 <span class="kw">package</span> main
 
 <span class="kw">import</span> <span class="st">"github.com/akennis/sparsi-go/library"</span>
 
-<span class="kw">func</span> init() { library.DisallowSamplingOverride() }</code></pre>
+<span class="kw">func</span> <span class="fn">init</span>() { library.<span class="fn">DisallowSamplingOverride</span>() }</code></pre>
+      </div>
+
+      <!-- Python Content -->
+      <div class="tab-content" data-lang="py">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">main.py</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">import</span> os
+<span class="kw">import</span> sparsi
+
+<span class="kw">if</span> os.environ.get(<span class="st">"ENV"</span>) == <span class="st">"production"</span>:
+    sparsi.<span class="fn">disallow_sampling_override</span>()</code></pre>
+      </div>
+
+      <!-- TypeScript Content -->
+      <div class="tab-content" data-lang="ts">
+        <div class="code-header" style="border-bottom: none; background: transparent;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">index.ts</span>
+        </div>
+        <pre style="margin:0;"><code><span class="kw">import</span> { Workflow } <span class="kw">from</span> <span class="st">"@akennis/sparsi-ts"</span>;
+
+<span class="kw">if</span> (process.env.NODE_ENV === <span class="st">"production"</span>) {
+  Workflow.<span class="fn">disallowSamplingOverride</span>();
+}</code></pre>
+      </div>
     </div>
+    
     <p style="font-size:0.9375rem;">
       After that, <code>--sampling</code> is rejected at server startup. The
-      check is one-way — there is no Re-allow — so a build that includes the
-      <code>production</code> tag can never be coaxed back into sampling mode
-      by another <code>init()</code> or runtime path.
+      check is one-way — there is no Re-allow — so a server process that enters
+      production mode can never be coaxed back into sampling mode.
     </p>
   </div>
 </section>
@@ -1268,14 +1657,14 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
   </div>
 </section>
 
-<!-- ── Why Go ───────────────────────────────────────────────── -->
+<!-- ── Why Native Code ───────────────────────────────────────────────── -->
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="badge badge-blue">Why Go</span>
-      <h2>Go power and reliability<br>in your micro-services landscape</h2>
+      <span class="badge badge-blue">Why Native Code</span>
+      <h2>Native power and reliability<br>in your micro-services landscape</h2>
       <p>A Sparsi DAG workflow lives inside your service mesh, not beside it. Every deterministic
-         node is plain Go reaching out over the wire — so the workflow connects to any
+         node is plain code reaching out over the wire — so the workflow connects to any
          modern endpoint you already run, with the type safety and concurrency that keep
          it dependable under load.</p>
     </div>
@@ -1283,9 +1672,9 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
       <div class="card">
         <div class="card-icon icon-orange">🔌</div>
         <h3>Speaks every protocol in your stack</h3>
-        <p>A deterministic op is just Go calling a service: REST and JSON over HTTP/2,
+        <p>A deterministic op is just standard code calling a service: REST and JSON over HTTP/2,
            gRPC and Protobuf, GraphQL, Kafka or NATS, S3, SQL and Redis — anything with a
-           Go client or a wire format you can wrap. <code>IOHTTPGetOp</code> and
+           native client or a wire format you can wrap. <code>IOHTTPGetOp</code> and
            <code>MCPCallOp</code> ship in the box; a custom op for an internal endpoint is
            a few dozen lines. No sidecar, no translation tier — the workflow dials your
            micro-services directly.</p>
@@ -1304,7 +1693,7 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
         <h3>Reliable codegen, reliable runtime</h3>
         <p>Static typing catches generated workflow code at compile time, before a single
            request runs. Garbage collection removes a whole class of memory bugs.
-           Goroutines make the workflow's parallel fan-out across services cheap and safe —
+           Native concurrency (like goroutines or async/await) makes the workflow's parallel fan-out across services cheap and safe —
            concurrency you can trust without hand-managed threads, on a single static
            binary that drops cleanly into any container or VM.</p>
       </div>
@@ -1315,7 +1704,7 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
       <p style="font-size:0.9375rem; margin:0; color:var(--text-1);">
         <strong>The point:</strong> Sparsi doesn't ask your architecture to change around
         it. It fits into the micro-services landscape you already operate — same
-        protocols, same auth, same deployment unit — and Go is what makes that fit
+        protocols, same auth, same deployment unit — and native code is what makes that fit
         reliable instead of fragile.
       </p>
     </div>
@@ -1329,7 +1718,9 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
       <h2>Start building your first DAG workflow</h2>
       <p>All examples are runnable with a single <code>CLAUDE_API_KEY</code> env var.</p>
       <div class="cta-actions">
-        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">Browse the Repo →</a>
+        <a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener" class="btn btn-primary">Browse Go Repo →</a>
+        <a href="https://github.com/akennis/sparsi-py" target="_blank" rel="noopener" class="btn btn-primary">Browse Py Repo →</a>
+        <a href="https://github.com/akennis/sparsi-ts" target="_blank" rel="noopener" class="btn btn-primary">Browse TS Repo →</a>
         <a href="leaders.html" class="btn btn-secondary">Pitch to leadership</a>
       </div>
     </div>
@@ -1353,11 +1744,40 @@ claude mcp add my-workflow -- ./my-workflow -mcp --sampling</code></pre>
       <li><a href="operations.html">DevOps</a></li>
       <li><a href="leaders.html">For Leaders</a></li>
       <li><a href="releases.html">Releases</a></li>
-      <li><a href="https://github.com/akennis/sparsi-go" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://github.com/akennis" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
-    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026 · Built with Go &amp; dagor</p>
+    <p class="footer-copy">BSD 3-Clause License · Copyright <a href="mailto:a_kennis@yahoo.com">Albert Kennis</a>, <a href="mailto:npolarski@gmail.com">Nathan Polarski</a> 2026</p>
   </div>
 </footer>
+<script>
+  function switchTab(lang) {
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      if (tab.dataset.lang === lang) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+    document.querySelectorAll('.tab-content').forEach(content => {
+      if (content.dataset.lang === lang) {
+        content.classList.add('active');
+      } else {
+        content.classList.remove('active');
+      }
+    });
+    localStorage.setItem('sparsi-lang', lang);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.lang));
+    });
+    const saved = localStorage.getItem('sparsi-lang');
+    if (saved) {
+      switchTab(saved);
+    }
+  });
+</script>
 <!-- FOOTER:END -->
 
 </body>

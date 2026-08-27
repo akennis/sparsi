@@ -129,7 +129,7 @@
     </div>
 
     <h3 style="margin-top:2.5rem;margin-bottom:1rem;">Complete Runnable Example</h3>
-    <p style="color:var(--text-2);margin-bottom:1rem;">Reranks a list of Go articles by relevance to a performance query, returning a permutation of indices best-first.</p>
+    <p style="color:var(--text-2);margin-bottom:1rem;">Reranks a list of software articles by relevance to a performance query, returning a permutation of indices best-first.</p>
     <div class="code-block">
       <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><span class="code-filename">main.go</span></div>
       <pre><code>package main
@@ -150,13 +150,13 @@ import (
 )
 
 func main() {
-	query := "How do I improve Go application performance?"
+	query := "How do I improve application performance?"
 	articles := []string{
-		"Introduction to Go modules and dependency management",
-		"Profiling and optimizing Go programs for speed",
-		"Building REST APIs with Go and the net/http package",
-		"Go garbage collection tuning and memory optimization",
-		"Unit testing best practices in Go",
+		"Introduction to modules and dependency management",
+		"Profiling and optimizing programs for speed",
+		"Building REST APIs with modern frameworks",
+		"Garbage collection tuning and memory optimization",
+		"Unit testing best practices",
 	}
 
 	library.RegisterConst("query_val", query)
